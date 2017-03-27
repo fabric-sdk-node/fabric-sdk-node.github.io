@@ -11,7 +11,7 @@
 	<![endif]-->
 	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
 
-	<link type="text/css" rel="stylesheet" href="styles/site.spacelab.css">
+	<link type="text/css" rel="stylesheet" href="styles/site.cosmo.css">
 
 </head>
 
@@ -40,14 +40,14 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Chain.html">Chain</a></li><li><a href="ChainCodeCBE.html">ChainCodeCBE</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="KeyValueStore.html">KeyValueStore</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="Peer.html">Peer</a></li><li><a href="Remote.html">Remote</a></li><li><a href="User.html">User</a></li>
+					<li><a href="Chain.html">Chain</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="Remote.html">Remote</a></li><li><a href="User.html">User</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-developer-env-setup.html">app-developer-env-setup</a></li><li><a href="tutorial-app-overview.html">Application Developer's Overview</a></li><li><a href="tutorial-index_.html">index</a></li><li><a href="tutorial-node-sdk-guide.html">node-sdk-guide</a></li><li><a href="tutorial-node-sdk-indepth.html">node-sdk-indepth</a></li><li><a href="tutorial-sample-standalone-app.html">sample-standalone-app</a></li><li><a href="tutorial-sample-web-app.html">sample-web-app</a></li>
+					<li><a href="tutorial-app-developer-env-setup.html">app-developer-env-setup</a></li><li><a href="tutorial-index_.html">index</a></li><li><a href="tutorial-node-sdk-guide.html">node-sdk-guide</a></li><li><a href="tutorial-node-sdk-indepth.html">node-sdk-indepth</a></li><li><a href="tutorial-sample-standalone-app.html">sample-standalone-app</a></li><li><a href="tutorial-sample-web-app.html">sample-web-app</a></li>
 				</ul>
 			</li>
 			
@@ -240,7 +240,7 @@ such as submitting User etc.</td>
 	<dt class="tag-tutorial method-doc-label method-doc-details-label">Tutorials:</dt>
 	<dd class="tag-tutorial">
 		<ul>
-			<li><a href="tutorial-app-overview.html">Application Developer's Overview</a></li>
+			<li><em class="disabled">Tutorial: app-overview</em></li>
 			</ul>
 	</dd>
 	
@@ -341,7 +341,7 @@ All APIs concerning the orderer will broadcast to all orderers simultaneously.
             <td class="type">
             
                 
-<span class="param-type">Orderer</span>
+<span class="param-type"><a href="Orderer.html">Orderer</a></span>
 
 
 
@@ -920,6 +920,168 @@ Gets the user context.
     <dd>
         
 <span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="compareProposalResponseResults"><span class="type-signature"></span>compareProposalResponseResults(The)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Utility method to examine a set of proposals to check they contain
+the same endorsement result write sets.
+This will validate that the endorsing peers all agree on the result
+of the chaincode execution.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;ProposalResponse></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">proposal responses from all endorsing peers</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li>/protos/peer/proposal_reponse.proto</li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    True when all proposals compare equally, false otherwise.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
 
 
 
@@ -3631,7 +3793,7 @@ This query will be made to the primary peer.
             <td class="type">
             
                 
-<span class="param-type">Orderer</span>
+<span class="param-type"><a href="Orderer.html">Orderer</a></span>
 
 
 
@@ -5220,6 +5382,175 @@ certificate information upon certificate renewals.
     
 </dd>
 
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="verifyProposalResponse"><span class="type-signature"></span>verifyProposalResponse(The)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Utility method to verify a single proposal response.
+Requires that the initialize method of this channel has been
+executed to load this channel's MSPs. The MSPs will have the
+trusted root certificates for this channel.
+The verifications performed are
+  - validate that the proposal endorsement's signer is trusted
+  - verify that the endorsement signature matches the signer's
+    claimed identity
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ProposalResponse</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">endorsement response from the peer,
+        includes the endorser certificate and signature over the
+        proposal, endorsement result and endorser certificate.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li>/protos/peer/proposal_reponse.proto</li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    a boolean value of true when both the identity and
+         the signature are valid, false otherwise.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
         </dl>
     
 
@@ -5270,7 +5601,7 @@ certificate information upon certificate renewals.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-03-17T14:14:29-04:00
+		on 2017-03-27T18:10:50+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

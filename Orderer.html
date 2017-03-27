@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Remote</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Orderer</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,16 +86,17 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Remote</h1>
+	<h1 class="page-title">Class: Orderer</h1>
 <section>
 
 <header>
     
         <h2>
-        Remote
+        Orderer
         </h2>
         
-            <div class="class-description">The Remote class represents a the base class for all remote nodes, Peer, Orderer , and MemberServicespeer.</div>
+            <div class="class-description">The Orderer class represents a peer in the target blockchain network to which
+HFC sends a block of transactions of endorsed proposals requiring ordering.</div>
         
     
 </header>
@@ -107,7 +108,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Remote"><span class="type-signature"></span>new Remote(url, opts)</h4>
+    <h4 class="name" id="Orderer"><span class="type-signature"></span>new Orderer(url, opts)</h4>
     
     
 </dt>
@@ -115,7 +116,7 @@
 
     
     <div class="description">
-        Constructs an object with the endpoint configuration settings.
+        Constructs an Orderer given its endpoint configuration settings.
     </div>
     
 
@@ -167,7 +168,7 @@
 
             
 
-            <td class="description last">The orderer URL with format of 'grpc(s)://host:port'.</td>
+            <td class="description last">The orderer URL with format of 'grpcs://host:port'.</td>
         </tr>
 
     
@@ -180,7 +181,7 @@
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">Object</span>
 
 
 
@@ -191,15 +192,7 @@
 
             
 
-            <td class="description last">An Object that may contain options to pass to grpcs calls
-<br>- pem {string} The certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol.
-<br>- ssl-target-name-override {string} Used in test environment only, when the server certificate's
-   hostname (in the 'CN' field) does not match the actual host endpoint that the server process runs
-   at, the application can work around the client TLS verify failure by setting this property to the
-   value of the server certificate's hostname
-<br>- any other standard grpc call options will be passed to the grpc service calls directly</td>
+            <td class="description last">The options for the connection to the orderer.</td>
         </tr>
 
     
@@ -285,7 +278,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
+    <h4 class="name" id="sendBroadcast"><span class="type-signature"></span>sendBroadcast(envelope)</h4>
     
     
 </dt>
@@ -293,7 +286,7 @@
 
     
     <div class="description">
-        Get the URL of the orderer.
+        Send a Broadcast message to the orderer service.
     </div>
     
 
@@ -302,6 +295,56 @@
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>envelope</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">byte</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Byte data to be included in the Broadcast</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -339,6 +382,15 @@
 	
 
 	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li>the ./proto/orderer/ab.proto</li>
+			
+			<li>the ./proto/orderer/ab.proto</li>
+			</ul>
+	</dd>
+	
 
 	
 </dl>
@@ -359,7 +411,7 @@
     
             
 <div class="param-desc">
-    Get the URL associated with the Orderer.
+    A Promise for a BroadcastResponse
 </div>
 
 
@@ -370,7 +422,168 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="sendDeliver"><span class="type-signature"></span>sendDeliver(envelope)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Send a Deliver message to the orderer service.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>envelope</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">byte</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Byte data to be included in the Deliver</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li>the ./proto/orderer/ab.proto</li>
+			
+			<li>the ./proto/orderer/common.proto</li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for a Block
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
 
 
 

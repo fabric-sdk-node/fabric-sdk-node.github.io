@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Remote</title>
+	<title>Hyperledger Fabric SDK for node.js Class: CryptoSuite_PKCS11</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,16 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Remote</h1>
+	<h1 class="page-title">Class: CryptoSuite_PKCS11</h1>
 <section>
 
 <header>
     
         <h2>
-        Remote
+        CryptoSuite_PKCS11
         </h2>
         
-            <div class="class-description">The Remote class represents a the base class for all remote nodes, Peer, Orderer , and MemberServicespeer.</div>
+            <div class="class-description">PKCS#11-compliant implementation to support Hardware Security Modules.</div>
         
     
 </header>
@@ -107,16 +107,12 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Remote"><span class="type-signature"></span>new Remote(url, opts)</h4>
+    <h4 class="name" id="CryptoSuite_PKCS11"><span class="type-signature"></span>new CryptoSuite_PKCS11(keySize, opts)</h4>
     
     
 </dt>
 <dd>
 
-    
-    <div class="description">
-        Constructs an object with the endpoint configuration settings.
-    </div>
     
 
     
@@ -150,13 +146,13 @@
 
         <tr>
             
-                <td class="name"><code>url</code></td>
+                <td class="name"><code>keySize</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
 
@@ -167,7 +163,7 @@
 
             
 
-            <td class="description last">The orderer URL with format of 'grpc(s)://host:port'.</td>
+            <td class="description last">Length of key (in bytes), a.k.a "security level"</td>
         </tr>
 
     
@@ -191,15 +187,19 @@
 
             
 
-            <td class="description last">An Object that may contain options to pass to grpcs calls
-<br>- pem {string} The certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol.
-<br>- ssl-target-name-override {string} Used in test environment only, when the server certificate's
-   hostname (in the 'CN' field) does not match the actual host endpoint that the server process runs
-   at, the application can work around the client TLS verify failure by setting this property to the
-   value of the server certificate's hostname
-<br>- any other standard grpc call options will be passed to the grpc service calls directly</td>
+            <td class="description last">Option is the form { lib: string, slot: number, pin: string }
+
+If lib is not specified or null, its value will be taken from the
+CRYPTO_PKCS11_LIB env var, and if the env var is not set, its value will
+be taken from the crypto-pkcs11-lib key in the configuration file.
+
+If slot is not specified or null, its value will be taken from the
+CRYPTO_PKCS11_SLOT env var, and if the env var is not set, its value will
+be taken from the crypto-pkcs11-slot key in the configuration file.
+
+If pin is not specified or null, its value will be taken from the
+CRYPTO_PKCS11_PIN env var, and if the env var is not set, its value will
+be taken from the crypto-pkcs11-pin key in the configuration file.</td>
         </tr>
 
     
@@ -285,7 +285,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
+    <h4 class="name" id="decrypt"><span class="type-signature"></span>decrypt()</h4>
     
     
 </dt>
@@ -293,7 +293,249 @@
 
     
     <div class="description">
-        Get the URL of the orderer.
+        This is an implementation of <a href="module-api.CryptoSuite.html#decrypt">module:api.CryptoSuite#decrypt</a>
+Decrypts cipherText using key.
+The opts argument should be appropriate for the algorithm used.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="deriveKey"><span class="type-signature"></span>deriveKey()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This is an implementation of <a href="module-api.CryptoSuite.html#deriveKey">module:api.CryptoSuite#deriveKey</a>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="encrypt"><span class="type-signature"></span>encrypt()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This is an implementation of <a href="module-api.CryptoSuite.html#encrypt">module:api.CryptoSuite#encrypt</a>
+Encrypts plainText using key.
+The opts argument should be appropriate for the algorithm used.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="generateKey"><span class="type-signature"></span>generateKey()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This is an implementation of <a href="module-api.CryptoSuite.html#generateKey">module:api.CryptoSuite#generateKey</a>
+Returns an instance of module.api.Key representing the private key,
+which also encapsulates the public key. By default the generated key (keypar)
+is (are) ephemeral unless opts.ephemeral is set to false, in which case the
+key (keypair) will be saved across PKCS11 sessions by the HSM hardware.
     </div>
     
 
@@ -359,7 +601,8 @@
     
             
 <div class="param-desc">
-    Get the URL associated with the Orderer.
+    Promise of an instance of module:PKCS11_ECDSA_KEY
+containing the private key and the public key.
 </div>
 
 
@@ -370,7 +613,7 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">Key</span>
 
 
 
@@ -387,7 +630,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
+    <h4 class="name" id="getKey"><span class="type-signature"></span>getKey()</h4>
     
     
 </dt>
@@ -395,7 +638,246 @@
 
     
     <div class="description">
-        return a printable representation of this object
+        This is an implementation of <a href="module-api.CryptoSuite.html#getKey">module:api.CryptoSuite#getKey</a>
+Returns the key this CSP associates to the Subject Key Identifier ski.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="importKey"><span class="type-signature"></span>importKey()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This is an implementation of <a href="module-api.CryptoSuite.html#importKey">module:api.CryptoSuite#importKey</a>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="sign"><span class="type-signature"></span>sign()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This is an implementation of <a href="module-api.CryptoSuite.html#sign">module:api.CryptoSuite#sign</a>
+Signs digest using key k.
+
+The opts argument is not needed.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="verify"><span class="type-signature"></span>verify()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This is an implementation of <a href="module-api.CryptoSuite.html#verify">module:api.CryptoSuite#verify</a>
+Verifies signature against key k and digest
     </div>
     
 

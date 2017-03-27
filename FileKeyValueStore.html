@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Remote</title>
+	<title>Hyperledger Fabric SDK for node.js Class: FileKeyValueStore</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,16 +86,17 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Remote</h1>
+	<h1 class="page-title">Class: FileKeyValueStore</h1>
 <section>
 
 <header>
     
         <h2>
-        Remote
+        FileKeyValueStore
         </h2>
         
-            <div class="class-description">The Remote class represents a the base class for all remote nodes, Peer, Orderer , and MemberServicespeer.</div>
+            <div class="class-description">This is a default implementation of the <a href="module-api.KeyValueStore.html">KeyValueStore</a> API.
+It uses files to store the key values.</div>
         
     
 </header>
@@ -107,7 +108,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Remote"><span class="type-signature"></span>new Remote(url, opts)</h4>
+    <h4 class="name" id="FileKeyValueStore"><span class="type-signature"></span>new FileKeyValueStore(options)</h4>
     
     
 </dt>
@@ -115,7 +116,7 @@
 
     
     <div class="description">
-        Constructs an object with the endpoint configuration settings.
+        constructor
     </div>
     
 
@@ -150,13 +151,13 @@
 
         <tr>
             
-                <td class="name"><code>url</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Object</span>
 
 
 
@@ -167,39 +168,8 @@
 
             
 
-            <td class="description last">The orderer URL with format of 'grpc(s)://host:port'.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">An Object that may contain options to pass to grpcs calls
-<br>- pem {string} The certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol.
-<br>- ssl-target-name-override {string} Used in test environment only, when the server certificate's
-   hostname (in the 'CN' field) does not match the actual host endpoint that the server process runs
-   at, the application can work around the client TLS verify failure by setting this property to the
-   value of the server certificate's hostname
-<br>- any other standard grpc call options will be passed to the grpc service calls directly</td>
+            <td class="description last">contains a single property 'path' which points to the top-level directory
+for the store</td>
         </tr>
 
     
@@ -278,190 +248,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the URL of the orderer.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Get the URL associated with the Orderer.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        return a printable representation of this object
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        </dl>
     
 
     
