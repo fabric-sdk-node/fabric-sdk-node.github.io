@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Tutorial: sample-standalone-app</title>
+	<title>Hyperledger Fabric SDK for node.js Class: EndorsementPolicy</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -81,56 +81,298 @@
 <div class="row">
 
 	
-	<div class="col-md-12">
+	<div class="col-md-8">
 	
 		<div id="main">
-			<section class="tutorial-section">
+			
+
+	<h1 class="page-title">Class: EndorsementPolicy</h1>
+<section>
 
 <header>
     
-
-    <h2>sample-standalone-app</h2>
+        <h2>
+        EndorsementPolicy
+        </h2>
+        
+            <div class="class-description">Governs the constructions of endorsement policies to be passed into the calls to instantiate chaincodes</div>
+        
+    
 </header>
 
+
 <article>
-    <h1>Node.js Standalone Application in Vagrant</h1><p>This section describes how to run a sample standalone Node.js application which interacts with a Hyperledger fabric blockchain.</p>
-<ul>
-<li><p>If you haven't already done so, see <a href="app-developer-env-setup.md">Setting Up The Application Development Environment</a> to get your environment set up.  The remaining steps assume that you are running <strong>inside the vagrant environment</strong>.</p>
-</li>
-<li><p>Issue the following commands to build the Node.js Client SDK:</p>
-</li>
-</ul>
-<pre class="prettyprint source"><code>   cd /opt/gopath/src/github.com/hyperledger/fabric
-   &lt;TBD make node-sdk></code></pre><ul>
-<li>Start the membership services and peer processes.  We run the peer in dev mode for simplicity.</li>
-</ul>
-<pre class="prettyprint source"><code>   cd /opt/gopath/src/github.com/hyperledger/fabric/build/bin
-   membersrvc > membersrvc.log 2>&1&
-   peer node start --peer-chaincodedev > peer.log 2>&1&</code></pre><ul>
-<li>Build and run chaincode example 2:</li>
-</ul>
-<pre class="prettyprint source"><code>   cd /opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02
-   go build
-   CORE_CHAINCODE_ID_NAME=mycc CORE_PEER_ADDRESS=0.0.0.0:7051 ./chaincode_example02 > log 2>&1&</code></pre><ul>
-<li><p>Put the following sample app in a file named <strong>app.js</strong> in the <em>/tmp</em> directory.  Take a moment (now or later) to read the comments and code to begin to learn the Node.js Client SDK APIs.</p>
-<p> You may retrieve the <a href="https://raw.githubusercontent.com/hyperledger/fabric/master/examples/sdk/node/app.js">sample application</a> file:</p>
-<pre class="prettyprint source"><code>  cd /tmp
-  curl -o app.js https://raw.githubusercontent.com/hyperledger/fabric/master/examples/sdk/node/app.js</code></pre></li>
-<li><p>Run <strong>npm</strong> to install Hyperledger Fabric Node.js SDK in the <code>/tmp</code> directory</p>
-<pre class="prettyprint source"><code>   npm install /opt/gopath/src/github.com/hyperledger/fabric-sdk-node</code></pre></li>
-<li><p>To run the application :</p>
-</li>
-</ul>
-<pre class="prettyprint source"><code>     CORE_CHAINCODE_ID_NAME=mycc CORE_PEER_ADDRESS=0.0.0.0:7051 MEMBERSRVC_ADDRESS=0.0.0.0:7054 DEPLOY_MODE=dev node app</code></pre><p>Congratulations!  You've successfully run your first Hyperledger fabric application.</p>
+    <div class="container-overview">
+    
+        
+<hr>
+<dt>
+    <h4 class="name" id="EndorsementPolicy"><span class="type-signature"></span>new EndorsementPolicy()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id=".buildPolicy"><span class="type-signature">&lt;static> </span>buildPolicy(msps, policy)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Constructs an endorsement policy envelope. If the optional "policy" object is not present, a default
+policy of "a signature by any member from any of the organizations corresponding to the array of member
+service providers" is returned.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>msps</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="MSP.html">MSP</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Array of Member Service Provider objects representing the participants of the
+endorsement policy to be constructed</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>policy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Policy">Policy</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The policy specification. It has two high-level properties: identities and policy.
+see the type definition of <a href="global.html#Policy">Policy</a> for details.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
 </article>
 
 </section>
+
+
+
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
 	
 
 </div>
