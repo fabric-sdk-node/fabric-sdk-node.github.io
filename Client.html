@@ -1128,6 +1128,271 @@ string interpolation methods like <a href="https://nodejs.org/api/util.html#util
             
 <hr>
 <dt>
+    <h4 class="name" id="addMSP"><span class="type-signature"></span>addMSP()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Add an MSP definition to this client to be available when referenced by the provided id.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="buildChannelConfigUpdate"><span class="type-signature"></span>buildChannelConfigUpdate(The, A)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Build an configuration envelope that is the channel configuration definition from the
+provide MSPManager and Channel definition input paramaters. The result of the build
+may be used to create a channel.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">MSPManager</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">MSP Manager that is managing all the MSPs referrenced in the
+                    channel configuration definition.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>A</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">JSON object that has the following attributes...TODO fill out</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li>/protos/common/configtx.proto</li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A byte buffer object that is the byte array representation of the
+                 Protobuf common.ConfigUpdate
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="createChannel"><span class="type-signature"></span>createChannel(request)</h4>
     
     
@@ -1195,7 +1460,10 @@ instances only need to call Chain joinChannel() to participate on the channel.
      <br>`name` : required - The name of the new channel
      <br>`orderer` : required - Orderer Object to create the channel
 		<br>`envelope` : required - byte[] of the envelope object containing
-                         all required settings to initialize this channel</td>
+                      all required settings to initialize this channel
+     <br>`signatures` : {ConfigSignature[]} the list of collected signatures
+                         required by the channel create policy
+     <br>`config_update` : {byte[]} Protobuf ConfigUpdate object</td>
         </tr>
 
     
@@ -3796,6 +4064,158 @@ method will attempt to save the user object to the state store.</td>
     
 </dd>
 
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="signChannelConfigUpdate"><span class="type-signature"></span>signChannelConfigUpdate(config_update)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sign a configuration update
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>config_update</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Configuration Update in byte form</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    - The signature of the current on the config_update
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">ConfigSignature</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
         </dl>
     
 
@@ -3846,7 +4266,7 @@ method will attempt to save the user object to the state store.</td>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-04-19T03:01:56+00:00
+		on 2017-04-22T22:32:44+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
