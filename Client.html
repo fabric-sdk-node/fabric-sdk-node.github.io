@@ -1139,7 +1139,7 @@ string interpolation methods like <a href="https://nodejs.org/api/util.html#util
         Build an configuration that is the channel configuration definition from the
 provide MSPs added to this client, the Channel definition input parameters, and
 system information from the provided Orderer.
-The result of the build may be used to create a channel.
+The result of the build must be signed and then may be used to create a channel.
     </div>
     
 
@@ -1616,17 +1616,18 @@ instances only need to call Chain joinChannel() to participate on the channel.
 
             
 
-            <td class="description last">An object containing the following field:
-     <br>`name` : required - The name of the new channel
-     <br>`orderer` : required - Orderer Object to create the channel
-		<br>`envelope` : optional - byte[] of the envelope object containing
-                      all required settings to initialize this channel.
+            <td class="description last">An object containing the following fields:
+     <br>`name` : required - {string} The name of the new channel
+     <br>`orderer` : required - {Orderer} object instance representing the
+                     Orderer to send the create request
+     <br>`envelope` : optional - byte[] of the envelope object containing all
+                      required settings and signatures to initialize this channel.
                       This envelope would have been created by the command
                       line tool "configtx".
-     <br>`config` : optional {byte[]} Protobuf ConfigUpdate object built by the
+     <br>`config` : optional - {byte[]} Protobuf ConfigUpdate object built by the
                     buildChannelConfig() method of this class.
-     <br>`signatures` : {ConfigSignature[]} the list of collected signatures
-                         required by the channel create policy</td>
+     <br>`signatures` : optional - {ConfigSignature[]} the list of collected signatures
+                        required by the channel create policy when using the `config` parameter.</td>
         </tr>
 
     
@@ -1853,6 +1854,162 @@ based on the MSP config directory structure:
     
 
     
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="extractChannelConfig"><span class="type-signature"></span>extractChannelConfig(The)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Extracts the protobuf 'ConfigUpdate' object out of the 'ConfigEnvelope'
+that is produced by the ConfigTX tool. The returned object may then be
+signed using the signChannelConfig() method of this class. Once the all
+signatures have been collected this object and the signatures may be used
+on the updateChannel or createChannel requests.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">bytes of the ConfigEnvelope protopuf</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The bytes of the ConfigUpdate protobuf
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -4457,7 +4614,7 @@ method will attempt to save the user object to the state store.</td>
     
             
 <div class="param-desc">
-    - The signature of the current on the config
+    - The signature of the current user on the config bytes
 </div>
 
 
@@ -4546,13 +4703,19 @@ Only one of the application instances needs to call this method.
 
             
 
-            <td class="description last">An object containing the following field:
-     <br>`name` : required - The name of the new channel
-     <br>`orderer` : required - Orderer Object to create the channel
-     <br>`signatures` : {ConfigSignature[]} the list of collected signatures
-                         required by the channel create policy
-     <br>`config` : {byte[]} Protobuf ConfigUpdate object built by the
-                    buildChannelConfigUpdate() method of this class.</td>
+            <td class="description last">An object containing the following fields:
+     <br>`name` : required - {string} The name of the new channel
+     <br>`orderer` : required - {Orderer} object instance representing the
+                     Orderer to send the update request
+     <br>`envelope` : optional - byte[] of the envelope object containing all
+                      required settings and signatures to initialize this channel.
+                      This envelope would have been created by the command
+                      line tool "configtx".
+     <br>`config` : optional - {byte[]} Protobuf ConfigUpdate object built by the
+                    buildChannelConfig() method of this class.
+     <br>`signatures` : optional - {ConfigSignature[]} the list of collected signatures
+                        required by the channel create policy when using the `config` parameter.
+                        see signChannelConfig() method of this class</td>
         </tr>
 
     
@@ -4690,7 +4853,7 @@ Only one of the application instances needs to call this method.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-05-09T07:50:53+00:00
+		on 2017-05-10T03:38:49+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
