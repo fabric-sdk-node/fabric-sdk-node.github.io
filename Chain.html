@@ -782,6 +782,382 @@ TLC certificate, and enrollment certificate.</td>
             
 <hr>
 <dt>
+    <h4 class="name" id="buildChannelConfig"><span class="type-signature"></span>buildChannelConfig(A, A)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Build a configuration envelope that is the channel configuration definition
+from the provide MSP's, the Channel definition input parameters, and the current
+configuration as read from the system channel.
+The result of the build will need to be signed and then may be used to create a new
+channel.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>A</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">JSON object that represents the configuration settings to be changed.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>A</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="MSP.html">MSP</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">list of MSPs that may represent new or updates to existing MSPs</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li>/protos/common/configtx.proto</li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for a byte buffer object that is the byte array representation
+                 of the Protobuf common.ConfigUpdate
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="buildChannelConfigUpdate"><span class="type-signature"></span>buildChannelConfigUpdate(A, A)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Build a configuration update envelope that is the channel configuration definition
+from the provide MSP's, the Channel definition input parameters, and the current
+configuration as read from this channel.
+The result of the build will need to be signed and then may be used to update this
+channel.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>A</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">JSON object that represents the configuration settings to be changed.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>A</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="MSP.html">MSP</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">list of MSPs that may represent new or updates to existing MSPs</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li>/protos/common/configtx.proto</li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for a byte buffer object that is the byte array representation
+                 of the Protobuf common.ConfigUpdate
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="compareProposalResponseResults"><span class="type-signature"></span>compareProposalResponseResults(The)</h4>
     
     
@@ -2822,7 +3198,10 @@ these results
 		<br>targets : An array or single Endorsing <a href="Peer.html">Peer</a> objects as the targets of the request
 		<br>chaincodeId : The id of the chaincode to perform the query
 		<br>`args` : an array of arguments specific to the chaincode 'innvoke'
-            that represent a query invocation on that chaincode</td>
+            that represent a query invocation on that chaincode
+  	<br>`transientMap` : optional - <string, byte[]> map that can be used by
+			the chaincode but not saved in the ledger, such as cryptographic information
+			for encryption</td>
         </tr>
 
     
@@ -3601,6 +3980,9 @@ This query will be made to the primary peer.
 		<br>`chaincodeVersion` : required - String of the version of the chaincode
 		<br>`chainId` : required - String of the name of the chain
 		<br>`txId` : required - String of the transaction id
+  	<br>`transientMap` : optional - <string, byte[]> map that can be used by
+			the chaincode but not saved in the ledger, such as cryptographic information
+			for encryption
 		<br>`nonce` : required - Integer of the once time number
 		<br>`fcn` : optional - String of the function to be called on
                  the chaincode once instantiated (default 'init')
@@ -3999,6 +4381,9 @@ with the original proposal request sent to the endorser.
 		<br>`chainId` : required - String of the name of the chain
 		<br>`txId` : required - String of the transaction id
 		<br>`nonce` : required - Integer of the once time number
+  	<br>`transientMap` : optional - <string, byte[]> map that can be used by
+			the chaincode but not saved in the ledger, such as cryptographic information
+			for encryption
 		<br>`args` : an array of arguments specific to the chaincode 'invoke'</td>
         </tr>
 
@@ -4162,6 +4547,9 @@ with the original proposal request sent to the endorser.
 		<br>`chaincodeVersion` : required - String of the version of the chaincode
 		<br>`chainId` : required - String of the name of the chain
 		<br>`txId` : required - String of the transaction id
+  	<br>`transientMap` : optional - <string, byte[]> map that can be used by
+			the chaincode but not saved in the ledger, such as cryptographic information
+			for encryption
 		<br>`nonce` : required - Integer of the once time number
 		<br>`fcn` : optional - String of the function to be called on
                  the chaincode once instantiated (default 'init')
@@ -5094,7 +5482,7 @@ The verifications performed are
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-05-11T17:32:41+00:00
+		on 2017-05-11T23:22:13+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
