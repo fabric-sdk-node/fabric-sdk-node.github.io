@@ -1128,6 +1128,431 @@ string interpolation methods like <a href="https://nodejs.org/api/util.html#util
             
 <hr>
 <dt>
+    <h4 class="name" id="buildChannelConfig"><span class="type-signature"></span>buildChannelConfig(A, An, An)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Build an configuration that is the channel configuration definition from the
+provide MSPs added to this client, the Channel definition input parameters, and
+system information from the provided Orderer.
+The result of the build must be signed and then may be used to create a channel.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>A</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">JSON object that has the following attributes...TODO fill out</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>An</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Orderer.html">Orderer</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Orderer that will be used to create this channel. This Orderer will be
+                 used to retrieve required system chain settings used in the building of this
+                 channel definition.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>An</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="MSP.html">MSP</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array of MSPs that will be referenced by the configuration definition</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li>/protos/common/configtx.proto</li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for a byte buffer object that is the byte array representation of the
+                 Protobuf common.ConfigUpdate
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="buildChannelConfigUpdate"><span class="type-signature"></span>buildChannelConfigUpdate(A, The, An)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Build an configuration update envelope for the provided channel based on
+configuration definition provided and from the MSP's added to this client.
+The result of the build must be signed and then may be used to update
+the channel.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>A</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">JSON object that has the following attributes...TODO fill out</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Chain.html">Chain</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Chain instance that represents the channel. An Orderer must assigned
+               to this chain to retrieve the current concurrent configuration.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>An</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="MSP.html">MSP</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array of MSPs that will be referenced by the configuration definition</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li>/protos/common/configtx.proto</li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for a byte buffer object that is the byte array representation of the
+                 Protobuf common.ConfigUpdate
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="createChannel"><span class="type-signature"></span>createChannel(request)</h4>
     
     
@@ -1199,9 +1624,8 @@ instances only need to call Chain joinChannel() to participate on the channel.
                       required settings and signatures to initialize this channel.
                       This envelope would have been created by the command
                       line tool "configtx".
-     <br>`config` : optional - {byte[]} Protobuf ConfigUpdate object extracted from
-                    a ConfigEnvelope created by the ConfigTX tool.
-                    see extractChannelConfig()
+     <br>`config` : optional - {byte[]} Protobuf ConfigUpdate object built by the
+                    buildChannelConfig() method of this class.
      <br>`signatures` : optional - {ConfigSignature[]} the list of collected signatures
                         required by the channel create policy when using the `config` parameter.</td>
         </tr>
@@ -4614,7 +5038,7 @@ Only one of the application instances needs to call this method.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-05-15T13:58:38+00:00
+		on 2017-05-17T16:37:59+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
