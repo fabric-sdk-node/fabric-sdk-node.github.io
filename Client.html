@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="Chain.html">Chain</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="Remote.html">Remote</a></li><li><a href="User.html">User</a></li>
+					<li><a href="Block.html">Block</a></li><li><a href="Chain.html">Chain</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="Remote.html">Remote</a></li><li><a href="User.html">User</a></li>
 				</ul>
 			</li>
 			
@@ -2606,7 +2606,7 @@ a list of participating endorsers and orderer peers must be configured first on 
             
 <hr>
 <dt>
-    <h4 class="name" id="newCryptoKeyStore"><span class="type-signature"></span>newCryptoKeyStore(KVSImplClass, opts)</h4>
+    <h4 class="name" id="newCryptoSuite"><span class="type-signature"></span>newCryptoSuite(setting, KVSImplClass, opts)</h4>
     
     
 </dt>
@@ -2614,179 +2614,7 @@ a list of participating endorsers and orderer peers must be configured first on 
 
     
     <div class="description">
-        Returns a new instance of the CryptoKeyStore.
-
-When the application needs to use a key store other than the default,
-it should create a new CryptoKeyStore and set it on the CryptoSuite.
-
-cryptosuite.setCryptoKeyStore(client.newCryptoKeyStore(KVSImplClass, opts))
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>KVSImplClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. The built-in key store saves private keys. The key store may be backed by different
-KeyValueStore implementations. If specified, the value of the argument must point to a module implementing the
-KeyValueStore interface.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Implementation-specific option object used in the constructor
-returns a new instance of the CryptoKeystore</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="newCryptoSuite"><span class="type-signature"></span>newCryptoSuite(setting)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Returns a new instance of the CryptoSuite API implementation.
-
-Creating a new CryptoSuite is optional and should be used if options other than defaults are needed.
-This instance should be set on the User and the Fabric CA Client.
-
-If not specified, an instance of CryptoSuite will be constructed based on the current configuration settings:
-crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
-crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
- is supported and the valid key sizes are 256 and 384
-crypto-hash-algo: hashing algorithm
-key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
- is provided for this purpose, which can be used on top of any implementation of the KeyValueStore interface,
- such as a file-based store or a database-based one. The specific implementation is determined by the value of this configuration setting.
+        Returns a new instance of the CryptoSuite API implementation
     </div>
     
 
@@ -2844,7 +2672,57 @@ key-value-store: some CryptoSuite implementation requires a key store to persist
    in the setting 'crypto-suite-software'
 - keysize {number}: The key size to use for the crypto suite instance. default is value of the setting 'crypto-keysize'
 - algorithm {string}: Digital signature algorithm, currently supporting ECDSA only with value "EC"
-- hash {string}: 'SHA2' or 'SHA3'
+- hash {string}: 'SHA2' or 'SHA3'</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>KVSImplClass</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. The built-in key store saves private keys. The key store may be backed by different
+KeyValueStore implementations. If specified, the value of the argument must point to a module implementing the
+KeyValueStore interface.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Implementation-specific option object used in the constructor
 returns a new instance of the CryptoSuite API implementation</td>
         </tr>
 
@@ -4736,7 +4614,7 @@ Only one of the application instances needs to call this method.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-05-18T21:32:54+00:00
+		on 2017-05-19T00:02:25+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
