@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-index_.html">Hyperledger Fabric SDK for Node.js Overview</a></li>
+					<li><a href="tutorial-app-developer-env-setup.html">app-developer-env-setup</a></li><li><a href="tutorial-index_.html">index</a></li><li><a href="tutorial-node-sdk-guide.html">node-sdk-guide</a></li><li><a href="tutorial-node-sdk-indepth.html">node-sdk-indepth</a></li><li><a href="tutorial-sample-standalone-app.html">sample-standalone-app</a></li><li><a href="tutorial-sample-web-app.html">sample-web-app</a></li>
 				</ul>
 			</li>
 			
@@ -242,11 +242,11 @@
 
             <td class="description last">The optional cryptoSuite instance to be used if options other than defaults are needed.
 If not specified, an instance of CryptoSuite will be constructed based on the current configuration settings:
-crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
-crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
+<br> - crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
+<br> - crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
  is supported and the valid key sizes are 256 and 384
-crypto-hash-algo: hashing algorithm
-key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
+<br> - crypto-hash-algo: hashing algorithm
+<br> - key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
  is provided for this purpose, which can be used on top of any implementation of the KeyValueStore interface,
  such as a file-based store or a database-based one. The specific implementation is determined by the value of this configuration setting.</td>
         </tr>
@@ -334,7 +334,7 @@ key-value-store: some CryptoSuite implementation requires a key store to persist
             
 <hr>
 <dt>
-    <h4 class="name" id=".newCryptoSuite"><span class="type-signature">&lt;static> </span>newCryptoSuite(setting, KVSImplClass, opts)</h4>
+    <h4 class="name" id=".newCryptoKeyStore"><span class="type-signature">&lt;static> </span>newCryptoKeyStore(KVSImplClass, opts)</h4>
     
     
 </dt>
@@ -342,7 +342,12 @@ key-value-store: some CryptoSuite implementation requires a key store to persist
 
     
     <div class="description">
-        Returns a new instance of the CryptoSuite API implementation
+        Returns a new instance of the CryptoKeyStore.
+
+When the application needs to use a key store other than the default,
+it should create a new CryptoKeyStore and set it on the CryptoSuite.
+
+<br><br><code>cryptosuite.setCryptoKeyStore(CAClient.newCryptoKeyStore(KVSImplClass, opts))</code>
     </div>
     
 
@@ -373,36 +378,6 @@ key-value-store: some CryptoSuite implementation requires a key store to persist
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>setting</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">This optional parameter is an object with the following optional properties:
-- software {boolean}: Whether to load a software-based implementation (true) or HSM implementation (false)
-   default is true (for software based implementation), specific implementation module is specified
-   in the setting 'crypto-suite-software'
-- keysize {number}: The key size to use for the crypto suite instance. default is value of the setting 'crypto-keysize'
-- algorithm {string}: Digital signature algorithm, currently supporting ECDSA only with value "EC"
-- hash {string}: 'SHA2' or 'SHA3'</td>
-        </tr>
-
     
 
         <tr>
@@ -450,8 +425,7 @@ KeyValueStore interface.</td>
 
             
 
-            <td class="description last">Implementation-specific option object used in the constructor
-returns a new instance of the CryptoSuite API implementation</td>
+            <td class="description last">Implementation-specific option object used in the constructor</td>
         </tr>
 
     
@@ -511,6 +485,221 @@ returns a new instance of the CryptoSuite API implementation</td>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    a new instance of the CryptoKeystore
+</div>
+
+
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".newCryptoSuite"><span class="type-signature">&lt;static> </span>newCryptoSuite(setting, KVSImplClass, opts)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns a new instance of the CryptoSuite API implementation
+
+If not specified, an instance of CryptoSuite will be constructed based on the current configuration settings:
+<br> - crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
+<br> - crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
+ is supported and the valid key sizes are 256 and 384
+<br> - crypto-hash-algo: hashing algorithm
+<br> - key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
+ is provided for this purpose, which can be used on top of any implementation of the KeyValueStore interface,
+ such as a file-based store or a database-based one. The specific implementation is determined by the value of this configuration setting.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>setting</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">This optional parameter is an object with the following optional properties:
+<br> - software {boolean}: Whether to load a software-based implementation (true) or HSM implementation (false)
+   default is true (for software based implementation), specific implementation module is specified
+   in the setting 'crypto-suite-software'
+<br> - keysize {number}: The key size to use for the crypto suite instance. default is value of the setting 'crypto-keysize'
+<br> - algorithm {string}: Digital signature algorithm, currently supporting ECDSA only with value "EC"
+<br> - hash {string}: 'SHA2' or 'SHA3'</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>KVSImplClass</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. The built-in key store saves private keys. The key store may be backed by different
+KeyValueStore implementations. If specified, the value of the argument must point to a module implementing the
+KeyValueStore interface.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Implementation-specific option object used in the constructor</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    a new instance of the CryptoSuite API implementation
+</div>
+
+
+
+
+        
 
     
 </dd>
@@ -1437,7 +1626,7 @@ then all future requests to enroll this id will be rejected.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-05-19T14:18:26+00:00
+		on 2017-05-19T17:42:51+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

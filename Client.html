@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-index_.html">Hyperledger Fabric SDK for Node.js Overview</a></li>
+					<li><a href="tutorial-app-developer-env-setup.html">app-developer-env-setup</a></li><li><a href="tutorial-index_.html">index</a></li><li><a href="tutorial-node-sdk-guide.html">node-sdk-guide</a></li><li><a href="tutorial-node-sdk-indepth.html">node-sdk-indepth</a></li><li><a href="tutorial-sample-standalone-app.html">sample-standalone-app</a></li><li><a href="tutorial-sample-web-app.html">sample-web-app</a></li>
 				</ul>
 			</li>
 			
@@ -2619,7 +2619,7 @@ a list of participating endorsers and orderer peers must be configured first on 
 When the application needs to use a key store other than the default,
 it should create a new CryptoKeyStore and set it on the CryptoSuite.
 
-cryptosuite.setCryptoKeyStore(client.newCryptoKeyStore(KVSImplClass, opts))
+<br><br><code>cryptosuite.setCryptoKeyStore(client.newCryptoKeyStore(KVSImplClass, opts))</code>
     </div>
     
 
@@ -2697,8 +2697,7 @@ KeyValueStore interface.</td>
 
             
 
-            <td class="description last">Implementation-specific option object used in the constructor
-returns a new instance of the CryptoKeystore</td>
+            <td class="description last">Implementation-specific option object used in the constructor</td>
         </tr>
 
     
@@ -2758,6 +2757,17 @@ returns a new instance of the CryptoKeystore</td>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    a new instance of the CryptoKeystore
+</div>
+
+
+
+
+        
 
     
 </dd>
@@ -2777,14 +2787,13 @@ returns a new instance of the CryptoKeystore</td>
         Returns a new instance of the CryptoSuite API implementation.
 
 Creating a new CryptoSuite is optional and should be used if options other than defaults are needed.
-This instance should be set on the User and the Fabric CA Client.
 
 If not specified, an instance of CryptoSuite will be constructed based on the current configuration settings:
-crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
-crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
+<br> - crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
+<br> - crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
  is supported and the valid key sizes are 256 and 384
-crypto-hash-algo: hashing algorithm
-key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
+<br> - crypto-hash-algo: hashing algorithm
+<br> - key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
  is provided for this purpose, which can be used on top of any implementation of the KeyValueStore interface,
  such as a file-based store or a database-based one. The specific implementation is determined by the value of this configuration setting.
     </div>
@@ -2839,13 +2848,12 @@ key-value-store: some CryptoSuite implementation requires a key store to persist
             
 
             <td class="description last">This optional parameter is an object with the following optional properties:
-- software {boolean}: Whether to load a software-based implementation (true) or HSM implementation (false)
+<br> - software {boolean}: Whether to load a software-based implementation (true) or HSM implementation (false)
    default is true (for software based implementation), specific implementation module is specified
    in the setting 'crypto-suite-software'
-- keysize {number}: The key size to use for the crypto suite instance. default is value of the setting 'crypto-keysize'
-- algorithm {string}: Digital signature algorithm, currently supporting ECDSA only with value "EC"
-- hash {string}: 'SHA2' or 'SHA3'
-returns a new instance of the CryptoSuite API implementation</td>
+<br> - keysize {number}: The key size to use for the crypto suite instance. default is value of the setting 'crypto-keysize'
+<br> - algorithm {string}: Digital signature algorithm, currently supporting ECDSA only with value "EC"
+<br> - hash {string}: 'SHA2' or 'SHA3'</td>
         </tr>
 
     
@@ -2905,6 +2913,17 @@ returns a new instance of the CryptoSuite API implementation</td>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    a new instance of the CryptoSuite API implementation
+</div>
+
+
+
+
+        
 
     
 </dd>
@@ -2921,7 +2940,7 @@ returns a new instance of the CryptoSuite API implementation</td>
 
     
     <div class="description">
-        build an new MSP with the definition.
+        Build a new MSP with the definition.
     </div>
     
 
@@ -4736,7 +4755,7 @@ Only one of the application instances needs to call this method.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-05-19T14:18:26+00:00
+		on 2017-05-19T17:42:51+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
