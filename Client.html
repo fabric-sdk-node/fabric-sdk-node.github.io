@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-developer-env-setup.html">app-developer-env-setup</a></li><li><a href="tutorial-index_.html">index</a></li><li><a href="tutorial-node-sdk-guide.html">node-sdk-guide</a></li><li><a href="tutorial-node-sdk-indepth.html">node-sdk-indepth</a></li><li><a href="tutorial-sample-standalone-app.html">sample-standalone-app</a></li><li><a href="tutorial-sample-web-app.html">sample-web-app</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-index_.html">Hyperledger Fabric SDK for Node.js Overview</a></li>
 				</ul>
 			</li>
 			
@@ -341,183 +341,6 @@ hierarchy search order:
     
 
     
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".buildTransactionID"><span class="type-signature">&lt;static> </span>buildTransactionID(nonce, userContext)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Utility method to build an unique transaction id
-based on a nonce and the user context.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>nonce</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">a one time use number</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>userContext</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the user context</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    An unique string
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
@@ -2130,21 +1953,19 @@ state store has not been set.
             
 
             <td class="description last">An object containing the following fields:
-		<br>`chaincodePath` : required - String of the path to location of
-                           the source code of the chaincode
-		<br>`chaincodeId` : required - String of the name of the chaincode
-		<br>`chaincodeVersion` : required - String of the version of the chaincode
-		<br>`chaincodePackage` : optional - Byte array of the archive content for
-                              the chaincode source. The archive must have a 'src'
-                              folder containing subfolders corresponding to the
-                              'chaincodePath' field. For instance, if the chaincodePath
-                              is 'mycompany/myproject', then the archive must contain a
-                              folder at the path 'src/mycompany/myproject', where the
-                              GO source code resides.
-		<br>`chaincodeType` : optional - Type of chaincode ['golang', 'car', 'java']
-                  (default 'golang')
-		<br>`txId` : required - String of the transaction id
-		<br>`nonce` : required - Integer of the once time number</td>
+  <br>`chaincodePath` : required - String of the path to location of
+                        the source code of the chaincode
+  <br>`chaincodeId` : required - String of the name of the chaincode
+  <br>`chaincodeVersion` : required - String of the version of the chaincode
+  <br>`chaincodePackage` : optional - Byte array of the archive content for
+                           the chaincode source. The archive must have a 'src'
+                           folder containing subfolders corresponding to the
+                           'chaincodePath' field. For instance, if the chaincodePath
+                           is 'mycompany/myproject', then the archive must contain a
+                           folder at the path 'src/mycompany/myproject', where the
+                           GO source code resides.
+  <br>`chaincodeType` : optional - Type of chaincode ['golang', 'car', 'java']
+                        (default 'golang')</td>
         </tr>
 
     
@@ -2940,7 +2761,7 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
 
     
     <div class="description">
-        Build a new MSP with the definition.
+        Create a new MSP with the definition.
     </div>
     
 
@@ -3399,6 +3220,99 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
 
     </dd>
 </dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="newTransactionID"><span class="type-signature"></span>newTransactionID()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Create a new transaction id object with an unique transaction id
+based on included nonce and the user context.
+Requires this client instance to have an assigned user context.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    TransactionID An object that contains a transaction id
+          based on the user context and also contains
+          the generated nonce value.
+</div>
+
+
 
 
         
@@ -4217,7 +4131,7 @@ the consuming app.</td>
 
     
     <div class="description">
-        Sets an instance of the User class as the security context of self client instance. This user’s
+        Sets an instance of the User class as the security context of this client instance. This user’s
 credentials (ECert), or special transaction certificates that are derived from the user's ECert,
 will be used to conduct transactions and queries with the blockchain network.
 Upon setting the user context, the SDK saves the object in a persistence cache if the “state store”
@@ -4755,7 +4669,7 @@ Only one of the application instances needs to call this method.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-05-19T17:42:51+00:00
+		on 2017-05-21T04:45:03+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

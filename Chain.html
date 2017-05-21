@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-developer-env-setup.html">app-developer-env-setup</a></li><li><a href="tutorial-index_.html">index</a></li><li><a href="tutorial-node-sdk-guide.html">node-sdk-guide</a></li><li><a href="tutorial-node-sdk-indepth.html">node-sdk-indepth</a></li><li><a href="tutorial-sample-standalone-app.html">sample-standalone-app</a></li><li><a href="tutorial-sample-web-app.html">sample-web-app</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-index_.html">Hyperledger Fabric SDK for Node.js Overview</a></li>
 				</ul>
 			</li>
 			
@@ -285,183 +285,6 @@ such as submitting User etc.</td>
         <h3 class="subsection-title">Methods</h3>
 
         <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id=".buildTransactionID"><span class="type-signature">&lt;static> </span>buildTransactionID(nonce, userContext)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Utility method to build an unique transaction id
-based on a nonce and this chain's user.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>nonce</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">a one time use number</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>userContext</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the user context</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    An unique string
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
             
 <hr>
 <dt>
@@ -1118,8 +941,7 @@ used in a join request
             
 
             <td class="description last">An object containing the following fields:
-		<br>`txId` : required - String of the transaction id
-		<br>`nonce` : required - Integer of the once time number</td>
+   <br>`txId` : required -  TransactionID object with the transaction id and nonce</td>
         </tr>
 
     
@@ -2118,8 +1940,7 @@ in the proposal.
                   this channel
   <br>`block` : the genesis block of the channel
                 see getGenesisBlock() method
-  <br>`txId` : required - String of the transaction id
-  <br>`nonce` : required - Integer of the once time number</td>
+  <br>`txId` : required -  TransactionID object with the transaction id and nonce</td>
         </tr>
 
     
@@ -2893,7 +2714,7 @@ This query will be made to the primary peer.
             
 <hr>
 <dt>
-    <h4 class="name" id="queryTransaction"><span class="type-signature"></span>queryTransaction(transactionID)</h4>
+    <h4 class="name" id="queryTransaction"><span class="type-signature"></span>queryTransaction(tx_id)</h4>
     
     
 </dt>
@@ -2937,16 +2758,10 @@ This query will be made to the primary peer.
 
         <tr>
             
-                <td class="name"><code>transactionID</code></td>
+                <td class="name"><code>tx_id</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
             
             </td>
 
@@ -2954,7 +2769,7 @@ This query will be made to the primary peer.
 
             
 
-            <td class="description last"></td>
+            <td class="description last">The id of the transaction</td>
         </tr>
 
     
@@ -3372,11 +3187,10 @@ This query will be made to the primary peer.
                            the source code of the chaincode
 		<br>`chaincodeId` : required - String of the name of the chaincode
 		<br>`chaincodeVersion` : required - String of the version of the chaincode
-		<br>`txId` : required - String of the transaction id
+		<br>`txId` : required -  TransactionID object with the transaction id and nonce
   	<br>`transientMap` : optional - <string, byte[]> map that can be used by
 			the chaincode but not saved in the ledger, such as cryptographic information
 			for encryption
-		<br>`nonce` : required - Integer of the once time number
 		<br>`fcn` : optional - String of the function to be called on
                  the chaincode once instantiated (default 'init')
 		<br>`args` : optional - String Array arguments specific to
@@ -3768,11 +3582,9 @@ with the original proposal request sent to the endorser.
             
 
             <td class="description last"><br>`targets` : optional -- The peers that will receive this request,
-		              when not provided the peers assigned to this channel will
-		              be used.
+				when not provided the peers assigned to this channel will be used.
 		<br>`chaincodeId` : The id of the chaincode to perform the transaction proposal
-		<br>`txId` : required - String of the transaction id
-		<br>`nonce` : required - Integer of the once time number
+		<br>`txId` : required -  TransactionID object with the transaction id and nonce
   	<br>`transientMap` : optional - <string, byte[]> map that can be used by
 			the chaincode but not saved in the ledger, such as cryptographic information
 			for encryption
@@ -3937,11 +3749,10 @@ with the original proposal request sent to the endorser.
                            the source code of the chaincode
 		<br>`chaincodeId` : required - String of the name of the chaincode
 		<br>`chaincodeVersion` : required - String of the version of the chaincode
-		<br>`txId` : required - String of the transaction id
+		<br>`txId` : required -  TransactionID object with the transaction id and nonce
   	<br>`transientMap` : optional - <string, byte[]> map that can be used by
 			the chaincode but not saved in the ledger, such as cryptographic information
 			for encryption
-		<br>`nonce` : required - Integer of the once time number
 		<br>`fcn` : optional - String of the function to be called on
                  the chaincode once instantiated (default 'init')
 		<br>`args` : optional - String Array arguments specific to
@@ -4613,7 +4424,7 @@ The verifications performed are
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-05-19T17:42:51+00:00
+		on 2017-05-21T04:45:03+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
