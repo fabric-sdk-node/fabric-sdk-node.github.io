@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="Chain.html">Chain</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="Remote.html">Remote</a></li><li><a href="User.html">User</a></li>
+					<li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="Channel.html">Channel</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="Remote.html">Remote</a></li><li><a href="User.html">User</a></li>
 				</ul>
 			</li>
 			
@@ -105,7 +105,7 @@ and a list of peer certificates and IP addresses that it can access. This must b
 as part of bootstrapping the application environment. It is also the responsibility of the application
 to maintain the configuration of a client as the SDK does not persist this object.
 
-Each Client instance can maintain several <a href="Chain.html">Chain</a> instances representing channels and the associated
+Each Client instance can maintain several <a href="Channel.html">Channel</a> instances representing channels and the associated
 private ledgers.</div>
         
     
@@ -961,8 +961,8 @@ string interpolation methods like <a href="https://nodejs.org/api/util.html#util
     <div class="description">
         Calls the orderer to start building the new channel.
 Only one of the application instances needs to call this method.
-Once the chain is successfully created, this and other application
-instances only need to call Chain joinChannel() to participate on the channel.
+Once the channel is successfully created, this and other application
+instances only need to call Channel joinChannel() to participate on the channel.
     </div>
     
 
@@ -1417,7 +1417,7 @@ on the updateChannel or createChannel requests.
             
 <hr>
 <dt>
-    <h4 class="name" id="getChain"><span class="type-signature"></span>getChain(name)</h4>
+    <h4 class="name" id="getChannel"><span class="type-signature"></span>getChannel(name)</h4>
     
     
 </dt>
@@ -1425,10 +1425,10 @@ on the updateChannel or createChannel requests.
 
     
     <div class="description">
-        Get a <a href="Chain.html">Chain</a> instance from the state storage. This allows existing chain instances to be saved
+        Get a <a href="Channel.html">Channel</a> instance from the state storage. This allows existing channel instances to be saved
 for retrieval later and to be shared among instances of the application. Note that it’s the
-application/SDK’s responsibility to record the chain information. If an application is not able
-to look up the chain information from storage, it may call another API that queries one or more
+application/SDK’s responsibility to record the channel information. If an application is not able
+to look up the channel information from storage, it may call another API that queries one or more
 Peers for that information.
     </div>
     
@@ -1481,7 +1481,7 @@ Peers for that information.
 
             
 
-            <td class="description last">The name of the chain.</td>
+            <td class="description last">The name of the channel.</td>
         </tr>
 
     
@@ -1546,7 +1546,7 @@ Peers for that information.
 <dl>
     <dt>
         <div class="param-desc">
-        if the state store has not been set or a chain does not exist under that name.
+        if the state store has not been set or a channel does not exist under that name.
         </div>
     </dt>
     <dt>
@@ -1573,7 +1573,7 @@ Peers for that information.
     
             
 <div class="param-desc">
-    The chain instance
+    The channel instance
 </div>
 
 
@@ -1584,7 +1584,7 @@ Peers for that information.
     </dt>
     <dd>
         
-<span class="param-type"><a href="Chain.html">Chain</a></span>
+<span class="param-type"><a href="Channel.html">Channel</a></span>
 
 
 
@@ -2245,7 +2245,7 @@ does not exist in the state store, returns null without rejecting the promise
             
 <hr>
 <dt>
-    <h4 class="name" id="newChain"><span class="type-signature"></span>newChain(name)</h4>
+    <h4 class="name" id="newChannel"><span class="type-signature"></span>newChannel(name)</h4>
     
     
 </dt>
@@ -2253,8 +2253,8 @@ does not exist in the state store, returns null without rejecting the promise
 
     
     <div class="description">
-        Returns a chain instance with the given name. This represents a channel and its associated ledger
-(as explained above), and this call returns an empty object. To initialize the chain in the blockchain network,
+        Returns a channel instance with the given name. This represents a channel and its associated ledger
+(as explained above), and this call returns an empty object. To initialize the channel in the blockchain network,
 a list of participating endorsers and orderer peers must be configured first on the returned object.
     </div>
     
@@ -2307,7 +2307,7 @@ a list of participating endorsers and orderer peers must be configured first on 
 
             
 
-            <td class="description last">The name of the chain.  Recommend using namespaces to avoid collision.</td>
+            <td class="description last">The name of the channel.  Recommend using namespaces to avoid collision.</td>
         </tr>
 
     
@@ -2372,7 +2372,7 @@ a list of participating endorsers and orderer peers must be configured first on 
 <dl>
     <dt>
         <div class="param-desc">
-        if the chain by that name already exists in the application's state store
+        if the channel by that name already exists in the application's state store
         </div>
     </dt>
     <dt>
@@ -2399,7 +2399,7 @@ a list of participating endorsers and orderer peers must be configured first on 
     
             
 <div class="param-desc">
-    The uninitialized chain instance.
+    The uninitialized channel instance.
 </div>
 
 
@@ -2410,7 +2410,7 @@ a list of participating endorsers and orderer peers must be configured first on 
     </dt>
     <dd>
         
-<span class="param-type"><a href="Chain.html">Chain</a></span>
+<span class="param-type"><a href="Channel.html">Channel</a></span>
 
 
 
@@ -3313,184 +3313,6 @@ Requires this client instance to have an assigned user context.
 </div>
 
 
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="queryChainInfo"><span class="type-signature"></span>queryChainInfo(name, peers)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This is a network call to the designated Peer(s) to discover the chain information.
-The target Peer(s) must be part of the chain to be able to return the requested information.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of the chain.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>peers</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;<a href="Peer.html">Peer</a>></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Array of target Peers to query.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The chain instance for the name or error if the target Peer(s) does not know
-anything about the chain.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Chain.html">Chain</a></span>
-
-
-
-    </dd>
-</dl>
 
 
         
@@ -4669,7 +4491,7 @@ Only one of the application instances needs to call this method.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-05-23T19:17:49+00:00
+		on 2017-05-24T19:34:05+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
