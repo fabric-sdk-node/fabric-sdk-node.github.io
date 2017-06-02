@@ -1523,6 +1523,111 @@ used in a join request
             
 <hr>
 <dt>
+    <h4 class="name" id="getPrimaryPeer"><span class="type-signature"></span>getPrimaryPeer()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the primary peer
+The peer to use for doing queries.
+Default: When no primary peer has been set the first peer
+on the list will be used.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    peer An instance of the Peer class.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="initialize"><span class="type-signature"></span>initialize(config_update-)</h4>
     
     
@@ -1934,7 +2039,7 @@ in the proposal.
             
 <hr>
 <dt>
-    <h4 class="name" id="queryBlock"><span class="type-signature"></span>queryBlock(blockNumber, target)</h4>
+    <h4 class="name" id="queryBlock"><span class="type-signature"></span>queryBlock(blockNumber)</h4>
     
     
 </dt>
@@ -1996,31 +2101,6 @@ This query will be made to the primary peer.
             
 
             <td class="description last">The number which is the ID of the Block.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>target</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Peer.html">Peer</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional.  The peer that is the target for this query.  If no target
-is passed, the query will use the first peer that was added to the channel.</td>
         </tr>
 
     
@@ -2112,7 +2192,7 @@ is passed, the query will use the first peer that was added to the channel.</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="queryBlockByHash"><span class="type-signature"></span>queryBlockByHash(block, target)</h4>
+    <h4 class="name" id="queryBlockByHash"><span class="type-signature"></span>queryBlockByHash(block)</h4>
     
     
 </dt>
@@ -2174,31 +2254,6 @@ This query will be made to the primary peer.
             
 
             <td class="description last">hash of the Block.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>target</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Peer.html">Peer</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional.  The peer that is the target for this query.  If no target
-is passed, the query will use the first peer that was added to the channel.</td>
         </tr>
 
     
@@ -2453,7 +2508,7 @@ these results
             
 <hr>
 <dt>
-    <h4 class="name" id="queryInfo"><span class="type-signature"></span>queryInfo(target)</h4>
+    <h4 class="name" id="queryInfo"><span class="type-signature"></span>queryInfo()</h4>
     
     
 </dt>
@@ -2463,6 +2518,7 @@ these results
     <div class="description">
         Queries for various useful information on the state of the Channel
 (height, known peers).
+This query will be made to the primary peer.
     </div>
     
 
@@ -2471,57 +2527,6 @@ these results
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>target</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Peer.html">Peer</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional.  The peer that is the target for this query.  If no target
-is passed, the query will use the first peer that was added to the channel.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -2607,7 +2612,7 @@ is passed, the query will use the first peer that was added to the channel.</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="queryInstantiatedChaincodes"><span class="type-signature"></span>queryInstantiatedChaincodes(target)</h4>
+    <h4 class="name" id="queryInstantiatedChaincodes"><span class="type-signature"></span>queryInstantiatedChaincodes()</h4>
     
     
 </dt>
@@ -2624,57 +2629,6 @@ is passed, the query will use the first peer that was added to the channel.</td>
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>target</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Peer.html">Peer</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional.  The peer that is the target for this query.  If no target
-is passed, the query will use the first peer that was added to the channel.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -2760,7 +2714,7 @@ is passed, the query will use the first peer that was added to the channel.</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="queryTransaction"><span class="type-signature"></span>queryTransaction(tx_id, target)</h4>
+    <h4 class="name" id="queryTransaction"><span class="type-signature"></span>queryTransaction(tx_id)</h4>
     
     
 </dt>
@@ -2816,31 +2770,6 @@ This query will be made to the primary peer.
             
 
             <td class="description last">The id of the transaction</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>target</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Peer.html">Peer</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional.  The peer that is the target for this query.  If no target
-is passed, the query will use the first peer that was added to the channel.</td>
         </tr>
 
     
@@ -4058,6 +3987,150 @@ the MSP's found.
             
 <hr>
 <dt>
+    <h4 class="name" id="setPrimaryPeer"><span class="type-signature"></span>setPrimaryPeer(peer)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Set the primary peer
+The peer to use for doing queries.
+Peer must be a peer on this channel's peer list.
+Default: When no primary peer has been set the first peer
+on the list will be used.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>peer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An instance of the Peer class.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Throws:</h5>
+    
+            
+
+    <div class="param-desc">
+    
+        Error when peer is not on the existing peer list
+    
+    </div>
+
+
+        
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
     
     
@@ -4351,7 +4424,7 @@ The verifications performed are
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-05-31T18:54:45+00:00
+		on 2017-06-02T01:26:14+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

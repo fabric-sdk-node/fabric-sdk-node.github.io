@@ -96,46 +96,7 @@
         </h2>
         
             <div class="class-description">The EventHub class is used to distribute events from an
-event source(peer).
-<br><br>Sample usage:
-<br><pre>
-var eh = client.newEventHub();
-eh.setPeerAddr(
-	'grpcs://localhost:9999',
-	{
-		pem: Buffer.from(certdata).toString(),
-		'ssl-target-name-override': 'peer1']
-	}
-);
-eh.connect();
-  eh.registerTxEvent(
-  	transactionId,
-	(tx, code) => {
-		eh.unregisterTxEvent(transactionId);
-		console.log('Transaction ' + transactionId +
-		'has completed');
-	},
-	(err) => {
-		eh.unregisterTxEvent(transactionId);
-		console.log('Transaction listener has been closed on ' +
-		eh.getPeerAddr());
-	}
-);
-</pre><br>
-Use the "newEventHub" method on <a href="Client.html">Client</a> to get a new EventHub instance.
-Use the "setPeerAddr" method on EventHub to indicate to the EventHub
-instance the Peer's event hub address.
-Use the "connect" method on EventHub to connect to the Peer's event
-hub. This operation will be asynchronous and as such the call will not
-fail if there is an issue with the connection.
-Use the "registerTxEvent", "registerChaincodeEvent", or "registerBlockEvent"
-calls to register your callback listeners to be notified when this EventHub
-receives an event. Notice in the example there is both a callback for processing
-the event and one to process error issues. The primary error to watch for is
-a network issue that will cause the connection to close. Registering
-an error callback will guarantee that you get notified of network issues,
-otherwise there is no path available for this EventHub to notify the
-listeners.</div>
+event source(peer)</div>
         
     
 </header>
@@ -302,11 +263,7 @@ which has already been initialzed with a userContext.</td>
 
     
     <div class="description">
-        Establishes a connection with the peer event source
-The peer address must be set using the "setPeerAddr"
-method before calling this method.
-
-The connection will be established asynchronously.
+        Establishes connection with peer event source
     </div>
     
 
@@ -387,84 +344,6 @@ The connection will be established asynchronously.
         Disconnects the connection to the peer event source.
 Will close all event listeners and send an `Error` to
 all listeners that provided an "onError" callback.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getPeerAddr"><span class="type-signature"></span>getPeerAddr()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the peer url for this event source
     </div>
     
 
@@ -635,12 +514,6 @@ all listeners that provided an "onError" callback.
 This EventHub instance must be connected to a remote
 peer's event hub before registering for events by calling
 the "connect()" method.
-An error may be thrown by this call if no "onError" callback
-is provided and this EventHub has noticed that the connection has not been
-established. However since the connection establishment is running
-asynchronously, a register call could be made before this EventHub has been
-notified of the network issue. The best practice would be to provide an
-"onError" callback to be notified when this EventHub has an issue.
     </div>
     
 
@@ -831,12 +704,6 @@ used to unregister (see unregisterBlockEvent)
 This EventHub instance must be connected to a remote
 peer's event hub before registering for events by calling
 the "connect()" method.
-An error may be thrown by this call if no "onError" callback
-is provided and this EventHub has noticed that the connection has not been
-established. However since the connection establishment is running
-asynchronously, a register call could be made before this EventHub has been
-notified of the network issue. The best practice would be to provide an
-"onError" callback to be notified when this EventHub has an issue.
     </div>
     
 
@@ -963,8 +830,7 @@ of type "message ChaincodeEvent" from lib/proto/chaincode_event.proto</td>
             
 
             <td class="description last">optional callback function to be notified when this
-event hub is shutdown. The shutdown may be caused by a network error or by
-a call to the "disconnect()" method.</td>
+event hub is shutdown.</td>
         </tr>
 
     
@@ -1069,12 +935,6 @@ handle used to unregister (see unregisterChaincodeEvent)
 This EventHub instance must be connected to a remote
 peer's event hub before registering for events by calling
 the "connect()" method.
-An error may be thrown by this call if no "onError" callback
-is provided and this EventHub has noticed that the connection has not been
-established. However since the connection establishment is running
-asynchronously, a register call could be made before this EventHub has been
-notified of the network issue. The best practice would be to provide an
-"onError" callback to be notified when this EventHub has an issue.
     </div>
     
 
@@ -1255,6 +1115,9 @@ event hub is shutdown.</td>
     
     <div class="description">
         Set peer url for event source<p>
+Note: Only use this if creating your own EventHub. The Channel
+class creates a default eventHub that most Node clients can
+use (see eventHubConnect, eventHubDisconnect and getEventHub).
     </div>
     
 
@@ -1833,7 +1696,7 @@ registerChaincodeEvent.</td>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-05-31T18:54:45+00:00
+		on 2017-06-02T01:26:15+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
