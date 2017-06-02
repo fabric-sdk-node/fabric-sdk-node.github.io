@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: KeyValueStore</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Identity</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,24 +86,21 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: KeyValueStore</h1>
+	<h1 class="page-title">Class: Identity</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-api.html">api</a>.</span>
-        
-        KeyValueStore
+        Identity
         </h2>
         
-            <div class="class-description">Abstract class for a Key-Value store. The Channel class uses this store
-to save sensitive information such as authenticated user's private keys,
-certificates, etc.
-
-The SDK provides a default implementation based on files. An alternative
-implementation can be specified using the "KEY_VALUE_STORE" environment
-variable pointing to a full path to the require() package for the module.</div>
+            <div class="class-description">This interface is shared within the peer and client API of the membership service provider.
+Identity interface defines operations associated to a "certificate".
+That is, the public part of the identity could be thought to be a certificate,
+and offers solely signature verification capabilities. This is to be used
+at the client side when validating certificates that endorsements are signed
+with, and verifying signatures that correspond to these certificates.</div>
         
     
 </header>
@@ -115,7 +112,7 @@ variable pointing to a full path to the require() package for the module.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="KeyValueStore"><span class="type-signature"></span>new KeyValueStore()</h4>
+    <h4 class="name" id="Identity"><span class="type-signature"></span>new Identity(certificate, publicKey, mspId, cryptoSuite)</h4>
     
     
 </dt>
@@ -128,6 +125,129 @@ variable pointing to a full path to the require() package for the module.</div>
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>certificate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">HEX string for the PEM encoded certificate</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>publicKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Key</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The public key represented by the certificate</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mspId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The associated MSP's mspId that manages this identity</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cryptoSuite</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">CryptoSuite</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The underlying CryptoSuite implementation for the digital
+signature algorithm</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -207,7 +327,7 @@ variable pointing to a full path to the require() package for the module.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue(name)</h4>
+    <h4 class="name" id="getMSPId"><span class="type-signature"></span>getMSPId()</h4>
     
     
 </dt>
@@ -215,7 +335,9 @@ variable pointing to a full path to the require() package for the module.</div>
 
     
     <div class="description">
-        Get the value associated with name.
+        Returns the identifier of the Membser Service Provider that manages
+this identity in terms of being able to understand the key algorithms
+and have access to the trusted roots needed to validate it
     </div>
     
 
@@ -224,56 +346,6 @@ variable pointing to a full path to the require() package for the module.</div>
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">of the key</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -330,12 +402,20 @@ variable pointing to a full path to the require() package for the module.</div>
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    Promise for the value corresponding to the key. If the value does not exist in the
-store, returns null without rejecting the promise
-</div>
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
 
 
         
@@ -347,7 +427,7 @@ store, returns null without rejecting the promise
             
 <hr>
 <dt>
-    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue(name, value)</h4>
+    <h4 class="name" id="getOrganizationUnits"><span class="type-signature"></span>getOrganizationUnits()</h4>
     
     
 </dt>
@@ -355,7 +435,318 @@ store, returns null without rejecting the promise
 
     
     <div class="description">
-        Set the value associated with name.
+        Returns the organization units this identity is related to
+as long as this is public information. In certain implementations
+this could be implemented by certain attributes that are publicly
+associated to that identity, or the identifier of the root certificate
+authority that has provided signatures on this certificate.
+Examples:
+ - OrganizationUnit of a fabric-tcert that was signed by TCA under name
+   "Organization 1", would be "Organization 1".
+ - OrganizationUnit of an alternative implementation of tcert signed by a public
+   CA used by organization "Organization 1", could be provided in the clear
+   as part of that tcert structure that this call would be able to return.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="isValid"><span class="type-signature"></span>isValid()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This uses the rules that govern this identity to validate it.
+E.g., if it is a fabric TCert implemented as identity, validate
+will check the TCert signature against the assumed root certificate
+authority.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="serialize"><span class="type-signature"></span>serialize()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Converts this identity to bytes
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    protobuf-based serialization with two fields: "mspid" and "certificate PEM bytes"
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Buffer</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="verify"><span class="type-signature"></span>verify(msg, signature, opts)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Verify a signature over some message using this identity as reference
     </div>
     
 
@@ -390,13 +781,13 @@ store, returns null without rejecting the promise
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>msg</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Array.&lt;byte></span>
 
 
 
@@ -407,20 +798,20 @@ store, returns null without rejecting the promise
 
             
 
-            <td class="description last">of the key to save</td>
+            <td class="description last">The message to be verified</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>value</code></td>
+                <td class="name"><code>signature</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Array.&lt;byte></span>
 
 
 
@@ -431,7 +822,31 @@ store, returns null without rejecting the promise
 
             
 
-            <td class="description last">to save</td>
+            <td class="description last">The signature generated against the message "msg"</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Options include 'policy' and 'label'</td>
         </tr>
 
     
@@ -491,30 +906,85 @@ store, returns null without rejecting the promise
     
 
     
-    <h5>Returns:</h5>
+
     
-            
-<div class="param-desc">
-    Promise for the 'value' object upon successful write operation
-</div>
+</dd>
 
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
         
-<span class="param-type">Promise</span>
+            
+<hr>
+<dt>
+    <h4 class="name" id="verifyAttributes"><span class="type-signature"></span>verifyAttributes()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Verify attributes against the given attribute spec
+TODO: when this method's design is finalized
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
 
 
 
-    </dd>
+	
+
+	
+
+	
+
+	
 </dl>
 
 
-        
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
 </dd>

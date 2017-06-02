@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: KeyValueStore</title>
+	<title>Hyperledger Fabric SDK for node.js Class: ChannelConfig</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,24 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: KeyValueStore</h1>
+	<h1 class="page-title">Class: ChannelConfig</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-api.html">api</a>.</span>
-        
-        KeyValueStore
+        ChannelConfig
         </h2>
         
-            <div class="class-description">Abstract class for a Key-Value store. The Channel class uses this store
-to save sensitive information such as authenticated user's private keys,
-certificates, etc.
-
-The SDK provides a default implementation based on files. An alternative
-implementation can be specified using the "KEY_VALUE_STORE" environment
-variable pointing to a full path to the require() package for the module.</div>
+            <div class="class-description">Builds a Protobuf Channel Config which may be used to create hyperledger/fabric channel</div>
         
     
 </header>
@@ -115,19 +107,76 @@ variable pointing to a full path to the require() package for the module.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="KeyValueStore"><span class="type-signature"></span>new KeyValueStore()</h4>
+    <h4 class="name" id="ChannelConfig"><span class="type-signature"></span>new ChannelConfig(msps)</h4>
     
     
 </dt>
 <dd>
 
     
-
+    <div class="description">
+        Construct an utility object that builds a fabric channel configuration.
+This will allow the building of a protobuf ConfigUpdate object
+that will be based on the MSPs loaded here using the simplified JSON
+definition of a channel.
+    </div>
     
 
     
 
     
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>msps</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Map of Member Service Provider objects</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -207,7 +256,7 @@ variable pointing to a full path to the require() package for the module.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue(name)</h4>
+    <h4 class="name" id="build"><span class="type-signature"></span>build(config)</h4>
     
     
 </dt>
@@ -215,7 +264,11 @@ variable pointing to a full path to the require() package for the module.</div>
 
     
     <div class="description">
-        Get the value associated with name.
+        Build a Protobuf ChannelConfigEnvelope based on the input configuration object. Will use the MSPs that
+are stored in the 'this' object for building the MSP's of the network endpoints and the policies.
+This will allow the sharing of the MSP information for the 'MSP' config values and within policies.
+The input configuration JSON will only reference the MSP information and not include it within the
+configuration settings.
     </div>
     
 
@@ -250,13 +303,13 @@ variable pointing to a full path to the require() package for the module.</div>
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>config</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Object</span>
 
 
 
@@ -267,7 +320,8 @@ variable pointing to a full path to the require() package for the module.</div>
 
             
 
-            <td class="description last">of the key</td>
+            <td class="description last">JSON  The configuration specification.
+see the /protos/common/configtx.proto</td>
         </tr>
 
     
@@ -327,194 +381,6 @@ variable pointing to a full path to the require() package for the module.</div>
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for the value corresponding to the key. If the value does not exist in the
-store, returns null without rejecting the promise
-</div>
-
-
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue(name, value)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the value associated with name.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">of the key to save</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">to save</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for the 'value' object upon successful write operation
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
@@ -569,7 +435,7 @@ store, returns null without rejecting the promise
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-06-02T15:31:16+00:00
+		on 2017-06-02T15:31:15+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
