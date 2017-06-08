@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: KeyValueStore</title>
+	<title>Hyperledger Fabric SDK for node.js Class: TransactionID</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,24 +86,18 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: KeyValueStore</h1>
+	<h1 class="page-title">Class: TransactionID</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-api.html">api</a>.</span>
-        
-        KeyValueStore
+        TransactionID
         </h2>
         
-            <div class="class-description">Abstract class for a Key-Value store. The Channel class uses this store
-to save sensitive information such as authenticated user's private keys,
-certificates, etc.
-
-The SDK provides a default implementation based on files. An alternative
-implementation can be specified using the "KEY_VALUE_STORE" environment
-variable pointing to a full path to the require() package for the module.</div>
+            <div class="class-description">The class representing the transaction identifier. Provides for
+automatically creating the `nonce` value when an instance of this
+object is created.</div>
         
     
 </header>
@@ -115,19 +109,75 @@ variable pointing to a full path to the require() package for the module.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="KeyValueStore"><span class="type-signature"></span>new KeyValueStore()</h4>
+    <h4 class="name" id="TransactionID"><span class="type-signature"></span>new TransactionID(clientContext)</h4>
     
     
 </dt>
 <dd>
 
     
-
+    <div class="description">
+        Builds a new tranaction Id based on a user's certificate and an automatically
+generated nonce value.
+    </div>
     
 
     
 
     
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>clientContext</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Client.html">Client</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An instance of <a href="Client.html">Client</a> that provides an unique
+                base for this transaction id.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -207,7 +257,7 @@ variable pointing to a full path to the require() package for the module.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue(name)</h4>
+    <h4 class="name" id="getNonce"><span class="type-signature"></span>getNonce()</h4>
     
     
 </dt>
@@ -215,7 +265,7 @@ variable pointing to a full path to the require() package for the module.</div>
 
     
     <div class="description">
-        Get the value associated with name.
+        The nonce value
     </div>
     
 
@@ -224,56 +274,6 @@ variable pointing to a full path to the require() package for the module.</div>
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">of the key</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -327,18 +327,6 @@ variable pointing to a full path to the require() package for the module.</div>
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for the value corresponding to the key. If the value does not exist in the
-store, returns null without rejecting the promise
-</div>
-
-
-
-
-        
 
     
 </dd>
@@ -347,7 +335,7 @@ store, returns null without rejecting the promise
             
 <hr>
 <dt>
-    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue(name, value)</h4>
+    <h4 class="name" id="getTransactionID"><span class="type-signature"></span>getTransactionID()</h4>
     
     
 </dt>
@@ -355,7 +343,7 @@ store, returns null without rejecting the promise
 
     
     <div class="description">
-        Set the value associated with name.
+        The transaction ID
     </div>
     
 
@@ -364,80 +352,6 @@ store, returns null without rejecting the promise
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">of the key to save</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">to save</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -491,30 +405,6 @@ store, returns null without rejecting the promise
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for the 'value' object upon successful write operation
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>

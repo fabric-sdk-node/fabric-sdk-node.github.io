@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: KeyValueStore</title>
+	<title>Hyperledger Fabric SDK for node.js Class: MSPManager</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,24 +86,18 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: KeyValueStore</h1>
+	<h1 class="page-title">Class: MSPManager</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-api.html">api</a>.</span>
-        
-        KeyValueStore
+        MSPManager
         </h2>
         
-            <div class="class-description">Abstract class for a Key-Value store. The Channel class uses this store
-to save sensitive information such as authenticated user's private keys,
-certificates, etc.
-
-The SDK provides a default implementation based on files. An alternative
-implementation can be specified using the "KEY_VALUE_STORE" environment
-variable pointing to a full path to the require() package for the module.</div>
+            <div class="class-description">MSPManager is an interface defining a manager of one or more MSPs. This essentially acts
+as a mediator to MSP calls and routes MSP related calls to the appropriate MSP. This object
+is immutable, it is initialized once and never changed.</div>
         
     
 </header>
@@ -115,7 +109,7 @@ variable pointing to a full path to the require() package for the module.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="KeyValueStore"><span class="type-signature"></span>new KeyValueStore()</h4>
+    <h4 class="name" id="MSPManager"><span class="type-signature"></span>new MSPManager()</h4>
     
     
 </dt>
@@ -207,7 +201,7 @@ variable pointing to a full path to the require() package for the module.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue(name)</h4>
+    <h4 class="name" id="addMSP"><span class="type-signature"></span>addMSP(config)</h4>
     
     
 </dt>
@@ -215,7 +209,7 @@ variable pointing to a full path to the require() package for the module.</div>
 
     
     <div class="description">
-        Get the value associated with name.
+        Create and add MSP instance to this manager according to configuration information
     </div>
     
 
@@ -250,13 +244,13 @@ variable pointing to a full path to the require() package for the module.</div>
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>config</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Object</span>
 
 
 
@@ -267,7 +261,17 @@ variable pointing to a full path to the require() package for the module.</div>
 
             
 
-            <td class="description last">of the key</td>
+            <td class="description last">A configuration object specific to the implementation. For this
+implementation it uses the following fields:
+		<br>`rootCerts`: array of <a href="global.html#Identity">Identity</a> representing trust anchors for validating
+          signing certificates. Required for MSPs used in verifying signatures
+		<br>`intermediateCerts`: array of <a href="global.html#Identity">Identity</a> representing trust anchors for validating
+          signing certificates. optional for MSPs used in verifying signatures
+		<br>`admins`: array of <a href="global.html#Identity">Identity</a> representing admin privileges
+		<br>`signer`: <a href="SigningIdentity.html">SigningIdentity</a> signing identity. Required for MSPs used in signing
+		<br>`id`: {string} value for the identifier of this instance
+		<br>`orgs`: {string} array of organizational unit identifiers
+		<br>`cryptoSuite': the underlying <a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a> for crypto primitive operations</td>
         </tr>
 
     
@@ -331,11 +335,23 @@ variable pointing to a full path to the require() package for the module.</div>
     
             
 <div class="param-desc">
-    Promise for the value corresponding to the key. If the value does not exist in the
-store, returns null without rejecting the promise
+    The newly created MSP instance
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="MSP.html">MSP</a></span>
+
+
+
+    </dd>
+</dl>
 
 
         
@@ -347,7 +363,7 @@ store, returns null without rejecting the promise
             
 <hr>
 <dt>
-    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue(name, value)</h4>
+    <h4 class="name" id="deserializeIdentity"><span class="type-signature"></span>deserializeIdentity(serializedIdentity)</h4>
     
     
 </dt>
@@ -355,7 +371,7 @@ store, returns null without rejecting the promise
 
     
     <div class="description">
-        Set the value associated with name.
+        DeserializeIdentity deserializes an identity
     </div>
     
 
@@ -390,13 +406,13 @@ store, returns null without rejecting the promise
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>serializedIdentity</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Array.&lt;byte></span>
 
 
 
@@ -407,31 +423,8 @@ store, returns null without rejecting the promise
 
             
 
-            <td class="description last">of the key to save</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">to save</td>
+            <td class="description last">A protobuf-based serialization of an object with
+two fields: mspid and idBytes for certificate PEM bytes</td>
         </tr>
 
     
@@ -495,7 +488,7 @@ store, returns null without rejecting the promise
     
             
 <div class="param-desc">
-    Promise for the 'value' object upon successful write operation
+    Promise for an <a href="global.html#Identity">Identity</a> instance
 </div>
 
 
@@ -515,6 +508,294 @@ store, returns null without rejecting the promise
 
 
         
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getMSP"><span class="type-signature"></span>getMSP()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns a validating MSP
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getMSPs"><span class="type-signature"></span>getMSPs()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the validating MSPs. Note that this does NOT return the local MSP
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="loadMSPs"><span class="type-signature"></span>loadMSPs(mspConfigs)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Instantiates MSPs for validating identities (like the endorsor in the ProposalResponse). The
+MSPs loaded via this method require the CA certificate representing the Certificate
+Authority that signed the identities to be validated. They also optionally contain the
+certificates for the administrators of the organization that the CA certs represent.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>mspConfigs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">protos/msp/mspconfig.proto</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An array of MSPConfig objects as defined by the
+  protobuf protos/msp/mspconfig.proto</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
 </dd>

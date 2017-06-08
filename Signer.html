@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: KeyValueStore</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Signer</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,24 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: KeyValueStore</h1>
+	<h1 class="page-title">Class: Signer</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-api.html">api</a>.</span>
-        
-        KeyValueStore
+        Signer
         </h2>
         
-            <div class="class-description">Abstract class for a Key-Value store. The Channel class uses this store
-to save sensitive information such as authenticated user's private keys,
-certificates, etc.
-
-The SDK provides a default implementation based on files. An alternative
-implementation can be specified using the "KEY_VALUE_STORE" environment
-variable pointing to a full path to the require() package for the module.</div>
+            <div class="class-description">Signer is an interface for an opaque private key that can be used for signing operations</div>
         
     
 </header>
@@ -115,7 +107,7 @@ variable pointing to a full path to the require() package for the module.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="KeyValueStore"><span class="type-signature"></span>new KeyValueStore()</h4>
+    <h4 class="name" id="Signer"><span class="type-signature"></span>new Signer(cryptoSuite, key)</h4>
     
     
 </dt>
@@ -128,6 +120,81 @@ variable pointing to a full path to the require() package for the module.</div>
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cryptoSuite</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">CryptoSuite</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The underlying CryptoSuite implementation for the digital
+signature algorithm</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Key</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The private key</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -207,7 +274,7 @@ variable pointing to a full path to the require() package for the module.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue(name)</h4>
+    <h4 class="name" id="getPublicKey"><span class="type-signature"></span>getPublicKey()</h4>
     
     
 </dt>
@@ -215,7 +282,7 @@ variable pointing to a full path to the require() package for the module.</div>
 
     
     <div class="description">
-        Get the value associated with name.
+        Returns the public key corresponding to the opaque, private key
     </div>
     
 
@@ -224,56 +291,6 @@ variable pointing to a full path to the require() package for the module.</div>
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">of the key</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -331,11 +348,23 @@ variable pointing to a full path to the require() package for the module.</div>
     
             
 <div class="param-desc">
-    Promise for the value corresponding to the key. If the value does not exist in the
-store, returns null without rejecting the promise
+    The public key corresponding to the private key
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Key</span>
+
+
+
+    </dd>
+</dl>
 
 
         
@@ -347,7 +376,7 @@ store, returns null without rejecting the promise
             
 <hr>
 <dt>
-    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue(name, value)</h4>
+    <h4 class="name" id="sign"><span class="type-signature"></span>sign(digest, opts)</h4>
     
     
 </dt>
@@ -355,7 +384,16 @@ store, returns null without rejecting the promise
 
     
     <div class="description">
-        Set the value associated with name.
+        Signs digest with the private key.
+
+Hash implements the SignerOpts interface and, in most cases, one can
+simply pass in the hash function used as opts. Sign may also attempt
+to type assert opts to other types in order to obtain algorithm
+specific values.
+
+Note that when a signature of a hash of a larger message is needed,
+the caller is responsible for hashing the larger message and passing
+the hash (as digest) and the hash function (as opts) to Sign.
     </div>
     
 
@@ -390,13 +428,13 @@ store, returns null without rejecting the promise
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>digest</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Array.&lt;byte></span>
 
 
 
@@ -407,20 +445,20 @@ store, returns null without rejecting the promise
 
             
 
-            <td class="description last">of the key to save</td>
+            <td class="description last">The message to sign</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>value</code></td>
+                <td class="name"><code>opts</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Object</span>
 
 
 
@@ -431,7 +469,7 @@ store, returns null without rejecting the promise
 
             
 
-            <td class="description last">to save</td>
+            <td class="description last">hashingFunction: the function to use to hash</td>
         </tr>
 
     
@@ -491,30 +529,6 @@ store, returns null without rejecting the promise
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for the 'value' object upon successful write operation
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
