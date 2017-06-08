@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="BaseClient.html">BaseClient</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="Channel.html">Channel</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="module.exports.html">module.exports</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li>
+					<li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="Chain.html">Chain</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="Remote.html">Remote</a></li><li><a href="User.html">User</a></li>
 				</ul>
 			</li>
 			
@@ -54,7 +54,7 @@
 			<li class="dropdown">
 				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="global.html#package">package</a></li>
+					<li><a href="global.html">Global</a></li>
 				</ul>
 			</li>
 			
@@ -119,26 +119,26 @@
 <li>query the <a href="http://hyperledger-fabric.readthedocs.io/en/latest/fabric_model.html#ledger-features">ledger</a> for transactions or blocks</li>
 </ul>
 <h3>How Different Components of the Fabric Work Together</h3><p>The <a href="http://hyperledger-fabric.readthedocs.io/en/latest/txflow.html">Transaction Flow</a> document provides an excellent description of the application/SDK, peers, and orderers working together to process transactions and producing blocks.</p>
-<p>Security on the Fabric is enforced with digital signatures. All requests made to the fabric must be signed by users with appropriate enrollment certificates. For a user's enrollment certificate to be considered valid on the Fabric, it must be signed by a trusted Certificate Authority (CA). Fabric supports any standard CAs. In addition, Fabric provides a CA server. See this <a href="http://hyperledger-fabric-ca.readthedocs.io/en/latest/users-guide.html#overview">overview</a>.</p>
+<p>Security on the Fabric is enforced with digital signatures. All requests made to the fabric must be signed by users with appropriate enrollment certificates. For a user's enrollment certificate to be considered valid on the Fabric, it must be signed by a trusted Certificate Authority (CA). Fabric supports any standard CAs. In addition, Fabric provides a CA server. See this <a href="http://hyperledger-fabric.readthedocs.io/en/latest/Setup/ca-setup.html#overview">overview</a>.</p>
 <h3>Features of the SDK for Node.js</h3><p>The Hyperledger Fabric SDK for Node.js is designed in an Object-Oriented programming style. Its modular construction enables application developers to plug in alternative implementations of key functions such as crypto suites, the state persistence store, and logging utility.</p>
 <p>The SDK's list of features include:</p>
 <ul>
 <li><p><strong>fabric-client</strong>:</p>
 <ul>
 <li><a href="Client.html#createChannel">create a new channel</a></li>
-<li><a href="Channel.html#joinChannel">send channel information to a peer to join</a></li>
+<li><a href="Chain.html#joinChannel">send channel information to a peer to join</a></li>
 <li><a href="Client.html#installChaincode">install chaincode on a peer</a></li>
-<li>instantiate chaincode in a channel, which involves two steps: <a href="Channel.html#sendInstantiateProposal">propose</a> and <a href="Channel.html#sendTransaction">transact</a></li>
-<li>submitting a transaction, which also involves two steps: <a href="Channel.html#sendTransactionProposal">propose</a> and <a href="Channel.html#sendTransaction">transact</a></li>
-<li><a href="Channel.html#queryByChaincode">query a chaincode for the latest application state</a></li>
+<li>instantiate chaincode in a channel, which involves two steps: <a href="Chain.html#sendInstantiateProposal">propose</a> and <a href="Chain.html#sendTransaction">transact</a></li>
+<li>submitting a transaction, which also involves two steps: <a href="Chain.html#sendTransactionProposal">propose</a> and <a href="Chain.html#sendTransaction">transact</a></li>
+<li><a href="Chain.html#queryByChaincode">query a chaincode for the latest application state</a></li>
 <li>various query capabilities:<ul>
-<li><a href="Channel.html#queryInfo">channel height</a></li>
-<li><a href="Channel.html#queryBlock">block-by-number</a>, <a href="Channel.html#queryBlockByHash">block-by-hash</a></li>
+<li><a href="Chain.html#queryInfo">chain height</a></li>
+<li><a href="Chain.html#queryBlock">block-by-number</a>, <a href="Chain.html#queryBlockByHash">block-by-hash</a></li>
 <li><a href="Client.html#queryChannels">all channels that a peer is part of</a></li>
 <li><a href="Client.html#queryInstalledChaincodes">all installed chaincodes in a peer</a></li>
-<li><a href="Channel.html#queryInstantiatedChaincodes">all instantiated chaincodes in a channel</a></li>
-<li><a href="Channel.html#queryTransaction">transaction-by-id</a></li>
-<li><a href="Channel.html#getChannelConfig">channel configuration data</a></li>
+<li><a href="Chain.html#queryInstantiatedChaincodes">all instantiated chaincodes in a channel</a></li>
+<li><a href="Chain.html#queryTransaction">transaction-by-id</a></li>
+<li><a href="Chain.html#getChannelConfig">channel configuration data</a></li>
 </ul>
 </li>
 <li>monitoring events:<ul>
@@ -149,8 +149,8 @@
 </ul>
 </li>
 <li>serializable <a href="User.html">User</a> object with signing capabilities</li>
-<li>hierarchical configuration settings with multiple layers of overrides: files, environment variable, program arguments, in-memory settings</li>
-<li>logging utility with a built-in logger (winston) and can be overriden with a number of popular loggers including log4js and bunyan</li>
+<li><a href="Client.html#.getConfigSetting">hierarchical configuration</a> settings with multiple layers of overrides: files, environment variable, program arguments, in-memory settings</li>
+<li><a href="Client.html#.setLogger">logging utility</a> with a built-in logger (winston) and can be overriden with a number of popular loggers including log4js and bunyan</li>
 <li>pluggable CryptoSuite interface describe the cryptographic operations required for successful interactions with the Fabric. Two implementations are provided out of box:<ul>
 <li><a href="CryptoSuite_ECDSA_AES.html">Software-based ECDSA</a></li>
 <li><a href="CryptoSuite_PKCS11.html">PKCS#11-compliant ECDSA</a></li>
@@ -178,9 +178,7 @@
 <ul>
 <li><strong>api</strong>: pluggable APIs for application developers to supply alternative implementations of key interfaces used by the SDK. For each interface there are built-in default implementations.</li>
 <li><strong>fabric-client</strong>: this module provides APIs to interact with the core components of a Hypreledger Fabric-based blockchain network, namely the peers, orderers and event streams.</li>
-<li><strong>fabric-ca-client</strong>: this module provides APIs to interact with the optional component, fabric-ca, that contains services for membership management.
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
-s</li>
+<li><strong>fabric-ca-client</strong>: this module provides APIs to interact with the optional component, fabric-ca, that contains services for membership management.</li>
 </ul></article>
     </section>
 
@@ -227,7 +225,7 @@ s</li>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-06-08T17:23:43+00:00
+		on 2017-06-08T17:36:15+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
