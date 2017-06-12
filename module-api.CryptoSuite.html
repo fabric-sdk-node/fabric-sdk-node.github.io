@@ -33,14 +33,14 @@
 			<li class="dropdown">
 				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-api.html">api</a></li>
+					<li><a href="module-api.html">api</a></li><li><a href="module-fabric-ca-client.html">fabric-ca-client</a></li><li><a href="module-fabric-client.html">fabric-client</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="BaseClient.html">BaseClient</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="Channel.html">Channel</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="module.html#.exports">module.exports</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li>
+					<li><a href="BaseClient.html">BaseClient</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="Channel.html">Channel</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="module.exports.html">module.exports</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li>
 				</ul>
 			</li>
 			
@@ -97,14 +97,14 @@
         CryptoSuite
         </h2>
         
-            <div class="class-description">Abstract class for a suite of crypto algorithms used by the SDK to perform digital signing,
-encryption/decryption and secure hashing. A complete suite includes support for asymmetric
+            <div class="class-description">Abstract class for a suite of crypto algorithms used by the SDK to perform encryption,
+decryption and secure hashing. A complete suite includes libraries for asymmetric
 keys (such as ECDSA or RSA), symmetric keys (such as AES) and secure hash (such as
 SHA2/3).
 
-The SDK provides a default implementation based on ECDSA + SHA2/3. An alternative
-implementation can be specified using the "crypto-suite-software" configuration setting, pointing
-to a full require() path to the package for the module.</div>
+The SDK provides a default implementation based on ECDSA + AES + SHA2/3. An alternative
+implementation can be specified using the "CRYPTO_SUITE" environment variable, pointing
+to a full path to the require() package for the module.</div>
         
     
 </header>
@@ -216,7 +216,7 @@ to a full require() path to the package for the module.</div>
 
     
     <div class="description">
-        Decrypts ciphertext using key.
+        Decrypts ciphertext using key k.
 The opts argument should be appropriate for the algorithm used.
     </div>
     
@@ -258,7 +258,7 @@ The opts argument should be appropriate for the algorithm used.
             <td class="type">
             
                 
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+<span class="param-type">Key</span>
 
 
 
@@ -409,7 +409,7 @@ The opts argument should be appropriate for the algorithm used.
             
 <hr>
 <dt>
-    <h4 class="name" id="deriveKey"><span class="type-signature"></span>deriveKey(key)</h4>
+    <h4 class="name" id="deriveKey"><span class="type-signature"></span>deriveKey(key, opts)</h4>
     
     
 </dt>
@@ -417,8 +417,7 @@ The opts argument should be appropriate for the algorithm used.
 
     
     <div class="description">
-        Derives the new private key from the source public key using the parameters passed in the <code>opts</code>.
-This operation is needed for deriving private keys corresponding to the Transaction Certificates.
+        Derives a key from k using opts.
     </div>
     
 
@@ -459,7 +458,7 @@ This operation is needed for deriving private keys corresponding to the Transact
             <td class="type">
             
                 
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+<span class="param-type">Key</span>
 
 
 
@@ -470,7 +469,32 @@ This operation is needed for deriving private keys corresponding to the Transact
 
             
 
-            <td class="description last">The source key</td>
+            <td class="description last">the source key</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">algorithm: an identifier for the algorithm to be used
+     ephemeral: true if the key to generate has to be ephemeral</td>
         </tr>
 
     
@@ -534,7 +558,7 @@ This operation is needed for deriving private keys corresponding to the Transact
     
             
 <div class="param-desc">
-    Derived key
+    derived key
 </div>
 
 
@@ -545,7 +569,7 @@ This operation is needed for deriving private keys corresponding to the Transact
     </dt>
     <dd>
         
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+<span class="param-type">Key</span>
 
 
 
@@ -570,7 +594,7 @@ This operation is needed for deriving private keys corresponding to the Transact
 
     
     <div class="description">
-        Encrypts plaintext using key.
+        Encrypts plaintext using key k.
 The opts argument should be appropriate for the algorithm used.
     </div>
     
@@ -612,7 +636,7 @@ The opts argument should be appropriate for the algorithm used.
             <td class="type">
             
                 
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+<span class="param-type">Key</span>
 
 
 
@@ -771,10 +795,7 @@ The opts argument should be appropriate for the algorithm used.
 
     
     <div class="description">
-        Generate a key using the options in <code>opts</code>. If the <code>opts.ephemeral</code>
-parameter is false, the method, in addition to returning the imported Key
-instance, also persists the generated key in the key store as PEM files that can be
-retrieved using the <code>getKey()</code> method
+        Generate a key using the opts
     </div>
     
 
@@ -815,7 +836,7 @@ retrieved using the <code>getKey()</code> method
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#KeyOpts">KeyOpts</a></span>
+<span class="param-type">Object</span>
 
 
 
@@ -826,7 +847,8 @@ retrieved using the <code>getKey()</code> method
 
             
 
-            <td class="description last">Optional</td>
+            <td class="description last">algorithm: an identifier for the algorithm to be used, such as "ECDSA"
+     ephemeral: true if the key to generate has to be ephemeral</td>
         </tr>
 
     
@@ -890,7 +912,7 @@ retrieved using the <code>getKey()</code> method
     
             
 <div class="param-desc">
-    Promise for an instance of the Key class
+    Promise of an instance of the Key class
 </div>
 
 
@@ -901,7 +923,7 @@ retrieved using the <code>getKey()</code> method
     </dt>
     <dd>
         
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+<span class="param-type">Key</span>
 
 
 
@@ -926,7 +948,7 @@ retrieved using the <code>getKey()</code> method
 
     
     <div class="description">
-        Returns the Key this implementation associates to the Subject Key Identifier ski.
+        Returns the key this CSP associates to the Subject Key Identifier ski.
     </div>
     
 
@@ -967,7 +989,7 @@ retrieved using the <code>getKey()</code> method
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Array.&lt;byte></span>
 
 
 
@@ -978,8 +1000,7 @@ retrieved using the <code>getKey()</code> method
 
             
 
-            <td class="description last">Subject Key Identifier specific to a Crypto Suite implementation, as the
-   unique index to represent the key</td>
+            <td class="description last">Subject Key Identifier specific to a Crypto Suite implementation</td>
         </tr>
 
     
@@ -1054,7 +1075,7 @@ retrieved using the <code>getKey()</code> method
     </dt>
     <dd>
         
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+<span class="param-type">Key</span>
 
 
 
@@ -1079,7 +1100,7 @@ retrieved using the <code>getKey()</code> method
 
     
     <div class="description">
-        Produce a hash of the message <code>msg</code> using options <code>opts</code>
+        Hashes messages msg using options opts.
     </div>
     
 
@@ -1120,7 +1141,7 @@ retrieved using the <code>getKey()</code> method
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Array.&lt;byte></span>
 
 
 
@@ -1247,7 +1268,7 @@ retrieved using the <code>getKey()</code> method
             
 <hr>
 <dt>
-    <h4 class="name" id="importKey"><span class="type-signature"></span>importKey(pem, opts)</h4>
+    <h4 class="name" id="importKey"><span class="type-signature"></span>importKey(raw, opts)</h4>
     
     
 </dt>
@@ -1255,7 +1276,7 @@ retrieved using the <code>getKey()</code> method
 
     
     <div class="description">
-        Imports a Key from its raw representation using <code>opts</code>. If the <code>opts.ephemeral</code>
+        Imports a key from its raw representation using opts. If the `opts.ephemeral`
 parameter is false, the method, in addition to returning the imported Key
 instance, also saves the imported key in the key store as PEM files that can be
 retrieved using the 'getKey()' method
@@ -1293,13 +1314,13 @@ retrieved using the 'getKey()' method
 
         <tr>
             
-                <td class="name"><code>pem</code></td>
+                <td class="name"><code>raw</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Array.&lt;byte></span>
 
 
 
@@ -1310,7 +1331,7 @@ retrieved using the 'getKey()' method
 
             
 
-            <td class="description last">PEM string of the key to import</td>
+            <td class="description last">Raw bytes of the key to import</td>
         </tr>
 
     
@@ -1323,7 +1344,7 @@ retrieved using the 'getKey()' method
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#KeyOpts">KeyOpts</a></span>
+<span class="param-type">Object</span>
 
 
 
@@ -1334,7 +1355,11 @@ retrieved using the 'getKey()' method
 
             
 
-            <td class="description last">Optional</td>
+            <td class="description last"><br>`type`: type of information that 'raw' represents: x509 certificate,
+     <br>`algorithm`: an identifier for the algorithm to be used
+     <br>`ephemeral`: {boolean} Optional.  If true, the key to import will not be persisted
+			and the key will be returned without a Promise.  If not set or false, defaults to
+			saving the key in persistent key store.</td>
         </tr>
 
     
@@ -1398,9 +1423,9 @@ retrieved using the 'getKey()' method
     
             
 <div class="param-desc">
-    If "opts.ephemeral" is true, returns the Key class synchronously.
-         If "opts.ephemeral" not set or false, returns a Promise of an instance of the
-         Key class.
+    or {Promise} If `ephemeral` is true, the Key class wrapping the raw bytes.
+         If `ephemeral' not set or false, a Promise of an instance of the
+         Key class wrapping the raw key bytes.
 </div>
 
 
@@ -1412,9 +1437,6 @@ retrieved using the 'getKey()' method
     <dd>
         
 <span class="param-type">Key</span>
-|
-
-<span class="param-type">Promise</span>
 
 
 
@@ -1431,7 +1453,7 @@ retrieved using the 'getKey()' method
             
 <hr>
 <dt>
-    <h4 class="name" id="sign"><span class="type-signature"></span>sign(key, digest)</h4>
+    <h4 class="name" id="sign"><span class="type-signature"></span>sign(key, digest, opts)</h4>
     
     
 </dt>
@@ -1439,7 +1461,8 @@ retrieved using the 'getKey()' method
 
     
     <div class="description">
-        Signs digest using key. The opts argument should be appropriate for the algorithm used.
+        Signs digest using key k.
+The opts argument should be appropriate for the algorithm used.
     </div>
     
 
@@ -1480,7 +1503,7 @@ retrieved using the 'getKey()' method
             <td class="type">
             
                 
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+<span class="param-type">Key</span>
 
 
 
@@ -1516,8 +1539,33 @@ retrieved using the 'getKey()' method
             
 
             <td class="description last">The message digest to be signed. Note that when a
-signature of a larger message is needed, the caller is responsible
-for hashing the larger message and passing the hash (as digest) to sign.</td>
+signature of a hash of a larger message is needed, the caller is responsible
+for hashing the larger message and passing the hash (as digest) and the hash
+function (as opts) to sign.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">hashingFunction: the function to use to hash</td>
         </tr>
 
     
@@ -1617,7 +1665,8 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
 
     
     <div class="description">
-        Verifies signature against key and digest
+        Verifies signature against key k and digest
+The opts argument should be appropriate for the algorithm used.
     </div>
     
 
@@ -1658,7 +1707,7 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
             <td class="type">
             
                 
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+<span class="param-type">Key</span>
 
 
 
@@ -1855,7 +1904,7 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-06-09T17:46:00+00:00
+		on 2017-06-12T13:41:41+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
