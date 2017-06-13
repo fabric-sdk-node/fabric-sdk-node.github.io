@@ -33,14 +33,14 @@
 			<li class="dropdown">
 				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-api.html">api</a></li><li><a href="module-fabric-ca-client.html">fabric-ca-client</a></li><li><a href="module-fabric-client.html">fabric-client</a></li>
+					<li><a href="module-api.html">api</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="BaseClient.html">BaseClient</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="Channel.html">Channel</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="module.exports.html">module.exports</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li>
+					<li><a href="BaseClient.html">BaseClient</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="Channel.html">Channel</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="module.html#.exports">module.exports</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li>
 				</ul>
 			</li>
 			
@@ -806,9 +806,9 @@ a configuration update.
                   version -- {int}
                   mod_policy -- {string}
                   value
-                     maxMessageCount -- {int}
-                     absoluteMaxBytes -- {int}
-                     preferredMaxBytes -- {int}
+                     max_message_count -- {int}
+                     absolute_max_bytes -- {int}
+                     preferred_max_bytes -- {int}
                BatchTimeout
                   version -- {int}
                   mod_policy -- {string}
@@ -1231,6 +1231,344 @@ a configuration update.
 			<li>protos/common/configtx.proto</li>
 			</ul>
 	</dd>
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="CouchDBOpts">
+    <h4 id="CouchDBOpts">CouchDBOpts</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">stirng</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The CouchDB instance url, in the form of http(s)://<user>:<password>@host:port</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. Identifies the name of the database to use. Default: <code>member_db</code>.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="CryptoSetting">
+    <h4 id="CryptoSetting">CryptoSetting</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>software</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Whether to load a software-based implementation (true) or HSM implementation (false)
+   default is true (for software based implementation), specific implementation module is specified
+   in the setting 'crypto-suite-software'</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>keysize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The key size to use for the crypto suite instance. default is value of the setting 'crypto-keysize'</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>algorithm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Digital signature algorithm, currently supporting ECDSA only with value 'EC'</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hash</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">'SHA2' or 'SHA3'</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
 	
 
 	
@@ -1880,6 +2218,130 @@ policy
 			<li>protos/common/policies</li>
 			</ul>
 	</dd>
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="KeyOpts">
+    <h4 id="KeyOpts">KeyOpts</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Options for a key operation
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ephemeral</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Whether the key should be persisted. "true" to persist.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
 	
 
 	
@@ -3052,7 +3514,7 @@ actions
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-06-12T21:46:44+00:00
+		on 2017-06-13T16:34:53+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

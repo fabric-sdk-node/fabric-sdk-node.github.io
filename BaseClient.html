@@ -33,14 +33,14 @@
 			<li class="dropdown">
 				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-api.html">api</a></li><li><a href="module-fabric-ca-client.html">fabric-ca-client</a></li><li><a href="module-fabric-client.html">fabric-client</a></li>
+					<li><a href="module-api.html">api</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="BaseClient.html">BaseClient</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="Channel.html">Channel</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="module.exports.html">module.exports</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li>
+					<li><a href="BaseClient.html">BaseClient</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="Channel.html">Channel</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="module.html#.exports">module.exports</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li>
 				</ul>
 			</li>
 			
@@ -214,13 +214,8 @@ part of the hierarchical configuration.
 These files will override the default settings and be overriden by environment,
 command line arguments, and settings programmatically set into configuration settings.
 
-hierarchy search order:
- 1. memory - all settings added with sdkUtils.setConfigSetting(name,value)
- 2. Command-line arguments
- 3. Environment variables (names will be change from AAA-BBB to aaa-bbb)
- 4. Custom Files - all files added with the addConfigFile(path)
-    will be ordered by when added, were last one added will override previously added files
- 5. The file located at 'config/default.json' with default settings
+<br><p>
+The hierarchical configuration settings search order: see <a href="BaseClient.html#.getConfigSetting">BaseClient.getConfigSetting</a>
     </div>
     
 
@@ -351,13 +346,15 @@ hierarchy search order:
         Retrieves a setting from the hierarchical configuration and if not found
 will return the provided default value.
 
-hierarchy search order:
- 1. memory - settings added with sdkUtils.setConfigSetting(name,value)
- 2. Command-line arguments
- 3. Environment variables (names will be change from AAA-BBB to aaa-bbb)
- 4. Custom Files - all files added with the addConfigFile(path)
-    will be ordered by when added, were last one added will override previously added files
- 5. The file located at 'config/default.json' with default settings
+<br><br>
+The hierarchical configuration settings search order for a setting <code>aa-bb</code>:
+<ol>
+<li> memory: if the setting has been added with <pre>Client.setConfigSetting('aa-bb', 'value')</pre>
+<li> Command-line arguments: like <pre>node app.js --aa-bb value</pre>
+<li> Environment variables: <pre>AA_BB=value node app.js</pre>
+<li> Custom Files: all files added with <code>addConfigFile(path)</code>
+    will be ordered by when added, where same settings in the files added later will override those added earlier
+<li> The file located at <code>lib/config/default.json</code> with default settings
     </div>
     
 
@@ -509,7 +506,7 @@ hierarchy search order:
 
     
     <div class="description">
-        Returns a new instance of the CryptoKeyStore.
+        This is a factory method. It returns a new instance of the <a href="CryptoKeyStore.html">CryptoKeyStore</a>.
 
 When the application needs to use a key store other than the default,
 it should create a new CryptoKeyStore and set it on the CryptoSuite.
@@ -581,7 +578,7 @@ KeyValueStore interface.</td>
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">Object</span>
 
 
 
@@ -661,6 +658,19 @@ KeyValueStore interface.</td>
 
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="CryptoKeyStore.html">CryptoKeyStore</a></span>
+
+
+
+    </dd>
+</dl>
+
 
         
 
@@ -679,7 +689,8 @@ KeyValueStore interface.</td>
 
     
     <div class="description">
-        Returns a new instance of the CryptoSuite API implementation.
+        This is a factory method. It returns a new instance of the CryptoSuite API implementation, based on the "setting"
+that is passed in, or if skipped, based on default values of the <a href="global.html#CryptoSetting">CryptoSetting</a> properties.
     </div>
     
 
@@ -720,7 +731,7 @@ KeyValueStore interface.</td>
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type"><a href="global.html#CryptoSetting">CryptoSetting</a></span>
 
 
 
@@ -731,13 +742,7 @@ KeyValueStore interface.</td>
 
             
 
-            <td class="description last">This optional parameter is an object with the following optional properties:
-<br> - software {boolean}: Whether to load a software-based implementation (true) or HSM implementation (false)
-   default is true (for software based implementation), specific implementation module is specified
-   in the setting 'crypto-suite-software'
-<br> - keysize {number}: The key size to use for the crypto suite instance. default is value of the setting 'crypto-keysize'
-<br> - algorithm {string}: Digital signature algorithm, currently supporting ECDSA only with value "EC"
-<br> - hash {string}: 'SHA2' or 'SHA3'</td>
+            <td class="description last">Optional</td>
         </tr>
 
     
@@ -806,6 +811,19 @@ KeyValueStore interface.</td>
 
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
+
+
+
+    </dd>
+</dl>
+
 
         
 
@@ -826,7 +844,7 @@ KeyValueStore interface.</td>
     <div class="description">
         Obtains an instance of the <a href="module-api.KeyValueStore.html">KeyValueStore</a> class. By default
 it returns the built-in implementation, which is based on files (FileKeyValueStore).
-This can be overriden with an environment variable KEY_VALUE_STORE, the value of which is the
+This can be overriden with a configuration setting <code>key-value-store</code>, the value of which is the
 full path of a CommonJS module for the alternative implementation.
     </div>
     
@@ -879,8 +897,8 @@ full path of a CommonJS module for the alternative implementation.
 
             
 
-            <td class="description last">is whatever the implementation requires for initializing the instance. For the built-in
-file-based implementation, this requires a single property "path" to the top-level folder for the store</td>
+            <td class="description last">Specific to the implementation, for initializing the instance. For the built-in
+file-based implementation, this requires a single property <code>path</code> to the top-level folder for the store</td>
         </tr>
 
     
@@ -944,10 +962,23 @@ file-based implementation, this requires a single property "path" to the top-lev
     
             
 <div class="param-desc">
-    <a href="module-api.KeyValueStore.html">KeyValueStore</a> an instance of the KeyValueStore implementation
+    An instance of the KeyValueStore implementation
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-api.KeyValueStore.html">module:api.KeyValueStore</a></span>
+
+
+
+    </dd>
+</dl>
 
 
         
@@ -970,13 +1001,8 @@ file-based implementation, this requires a single property "path" to the top-lev
         Adds a setting to override all settings that are
 part of the hierarchical configuration.
 
-hierarchy search order:
- 1. memory - settings added with this call
- 2. Command-line arguments
- 3. Environment variables (names will be change from AAA-BBB to aaa-bbb)
- 4. Custom Files - all files added with the addConfigFile(path)
-    will be ordered by when added, were last one added will override previously added files
- 5. The file located at 'config/default.json' with default settings
+<br><p>
+The hierarchical configuration settings search order: see <a href="BaseClient.html#.getConfigSetting">BaseClient.getConfigSetting</a>
     </div>
     
 
@@ -1128,15 +1154,19 @@ hierarchy search order:
 
     
     <div class="description">
-        Configures a logger for the entire HFC SDK to use and override the default logger. Unless this method is called,
-HFC uses a default logger (based on winston). When using the built-in "winston" based logger, use the environment
-variable HFC_LOGGING to pass in configurations in the following format:
-
+        Configures a logger for the entire SDK to use and override the default logger. Unless this method is called,
+the SDK uses a default logger based on <a href="https://www.npmjs.com/package/winston">winston</a>.
+When using the built-in winston based logger, use the configuration setting <code>hfc-logging</code> to pass
+in configurations in the following format:
+<br><br>
+<pre>
 {
-  'error': 'error.log',				// 'error' logs are printed to file 'error.log' relative of the current working dir for node.js
+  'error': 'error.log',			// 'error' logs are printed to file 'error.log' relative of the current working dir for node.js
   'debug': '/tmp/myapp/debug.log',	// 'debug' and anything more critical ('info', 'warn', 'error') can also be an absolute path
-  'info': 'console'					// 'console' is a keyword for logging to console
+  'info': 'console'			// 'console' is a keyword for logging to console
 }
+</pre>
+<br>
     </div>
     
 
@@ -1338,7 +1368,7 @@ string interpolation methods like <a href="https://nodejs.org/api/util.html#util
     </dt>
     <dd>
         
-<span class="param-type">CryptoSuite</span>
+<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
 
 
 
@@ -1367,11 +1397,11 @@ string interpolation methods like <a href="https://nodejs.org/api/util.html#util
 
 Creating and setting a CryptoSuite is optional because the client will construct
 an instance based on default configuration settings:
-<br> - crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
-<br> - crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
+<li> crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
+<li> crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
  is supported and the valid key sizes are 256 and 384
-<br> - crypto-hash-algo: hashing algorithm
-<br> - key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
+<li> crypto-hash-algo: hashing algorithm
+<li> key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
  is provided for this purpose, which can be used on top of any implementation of the KeyValueStore interface,
  such as a file-based store or a database-based one. The specific implementation is determined by the value of this configuration setting.
     </div>
@@ -1414,7 +1444,7 @@ an instance based on default configuration settings:
             <td class="type">
             
                 
-<span class="param-type">CryptoSuite</span>
+<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
 
 
 
@@ -1539,7 +1569,7 @@ an instance based on default configuration settings:
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-06-12T21:46:44+00:00
+		on 2017-06-13T16:34:53+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
