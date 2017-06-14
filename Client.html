@@ -95,18 +95,27 @@
         Client
         </h2>
         
-            <div class="class-description">Main interaction handler with end user. A client instance provides a handler to interact
-with a network of peers, orderers and optionally member services. An application using the
-SDK may need to interact with multiple networks, each through a separate instance of the Client.
-
-Each client when initially created should be initialized with configuration data from the
-consensus service, which includes a list of trusted roots, orderer certificates and IP addresses,
-and a list of peer certificates and IP addresses that it can access. This must be done out of band
-as part of bootstrapping the application environment. It is also the responsibility of the application
-to maintain the configuration of a client as the SDK does not persist this object.
-
-Each Client instance can maintain several <a href="Channel.html">Channel</a> instances representing channels and the associated
-private ledgers.</div>
+            <div class="class-description">A client instance provides the main API surface to interact with a network of
+peers and orderers. An application using the SDK may need to interact with
+multiple networks, each through a separate instance of the Client.
+<br><br>
+An important aspect of the current design of the Client class is that it is <b>stateful</b>.
+An instance must be configured with a <code>userContext</code> before it can be used to talk to the fabric
+backend. A userContext is an instance of the <a href="User.html">User</a> class, which encapsulates the ability to sign
+requests. If the SDK is used in a multi-user environment, there are two recommended techniques to manage
+the authenticated users and instances of clients.
+<li>Use a dedicated client instance per authenticated user. Create a new instance for each authenticated user.
+    You can enroll each authenticated user separately so that each user gets its own signing identity.
+<li>Use a shared client instance and a common signing identity among authenticated users.
+<br><br>
+It is important to understand that switching userContexts with the same client instance is considered an
+anti-pattern. This is the direct result of the stateful design. A JIRA work item has been opened to discuss
+adding support for stateless usage of the SDK: <a href="https://jira.hyperledger.org/browse/FAB-4563">FAB-4563</a>
+<br><br>
+The client also supports persistence via a <code>stateStore</code>. A state store is a simple storage plugin
+that implements the <a href="module-api.KeyValueStore.html">module:api.KeyValueStore</a> interface, which helps the SDK save critical information
+to be used across server restarts/crashes. Out of the box, the SDK saves the signing identities (instances of
+the <a href="User.html">User</a> class) in the state store.</div>
         
     
 </header>
@@ -230,9 +239,15 @@ private ledgers.</div>
     
     <div class="description">
         Calls the orderer to start building the new channel.
-Only one of the application instances needs to call this method.
-Once the channel is successfully created, this and other application
-instances only need to call Channel joinChannel() to participate on the channel.
+
+A channel typically has more than one participating organizations. To create
+a new channel, one of the participating organizations should call this method
+to submit the creation request to the orderer service.
+<br><br>
+Once the channel is successfully created by the orderer, the next step is to
+have each organization's peer nodes join the channel, by sending the channel
+configuration to each of the peer nodes. The step is accomplished by calling the
+<a href="Channel.html#joinChannel">joinChannel()</a> method.
     </div>
     
 
@@ -273,7 +288,7 @@ instances only need to call Channel joinChannel() to participate on the channel.
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ChannelRequest">ChannelRequest</a></span>
 
 
 
@@ -284,19 +299,7 @@ instances only need to call Channel joinChannel() to participate on the channel.
 
             
 
-            <td class="description last">An object containing the following fields:
-     <br>`name` : required - {string} The name of the new channel
-     <br>`orderer` : required - {Orderer} object instance representing the
-                     Orderer to send the create request
-     <br>`envelope` : optional - byte[] of the envelope object containing all
-                      required settings and signatures to initialize this channel.
-                      This envelope would have been created by the command
-                      line tool "configtx".
-     <br>`config` : optional - {byte[]} Protobuf ConfigUpdate object extracted from
-                    a ConfigEnvelope created by the ConfigTX tool.
-                    see extractChannelConfig()
-     <br>`signatures` : optional - {ConfigSignature[]} the list of collected signatures
-                        required by the channel create policy when using the `config` parameter.</td>
+            <td class="description last">The request object.</td>
         </tr>
 
     
@@ -360,7 +363,10 @@ instances only need to call Channel joinChannel() to participate on the channel.
     
             
 <div class="param-desc">
-    Result Object with status on the create process.
+    Promise for a result object with status on the acceptance of the create request
+                   by the orderer. Note that this is not the confirmation of successful creation
+                   of the channel. The client application must poll the orderer to discover whether
+                   the channel has been created completely or not.
 </div>
 
 
@@ -371,7 +377,7 @@ instances only need to call Channel joinChannel() to participate on the channel.
     </dt>
     <dd>
         
-<span class="param-type">Result</span>
+<span class="param-type">Promise</span>
 
 
 
@@ -396,14 +402,14 @@ instances only need to call Channel joinChannel() to participate on the channel.
 
     
     <div class="description">
-        Returns an authorized user loaded using the
-private key and pre-enrolled certificate from files
-based on the MSP config directory structure:
-<br>root
-<br>&nbsp;&nbsp;&nbsp;\_ keystore
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\_ admin.pem  <<== this is the private key saved in PEM file
-<br>&nbsp;&nbsp;&nbsp;\_ signcerts
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\_ admin.pem  <<== this is the signed certificate saved in PEM file
+        Returns a <a href="User.html">User</a> object with signing identities based on the
+private key and the corresponding x509 certificate. This allows applications
+to use pre-existing crypto materials (private keys and certificates) to
+construct user objects with signing capabilities, as an alternative to
+dynamically enrolling users with <a href="http://hyperledger-fabric-ca.readthedocs.io/en/latest/">fabric-ca</a>
+<br><br>
+Note that upon successful creation of the new user object, it is set to
+the client instance as the current <code>userContext</code>.
     </div>
     
 
@@ -444,7 +450,7 @@ based on the MSP config directory structure:
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#UserOpts">UserOpts</a></span>
 
 
 
@@ -455,147 +461,7 @@ based on the MSP config directory structure:
 
             
 
-            <td class="description last"><br>- username {string} - the user name used for enrollment
-<br>- mspid {string} - the MSP id
-<br>
-<br>- cryptoContent {Object}
-<br>---- privateKey {string} - the PEM file name including the root path - required when using the file system
-<br>---- signedCert {string} - the PEM file name including the root path - required when using the file system
-<br>---- or
-<br>---- privateKeyPEM {string} - the PEM string - required when no file system is available
-<br>---- signedCertPEM {string} - the PEM string - required when no file system is available</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="extractChannelConfig"><span class="type-signature"></span>extractChannelConfig(The)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Extracts the protobuf 'ConfigUpdate' object out of the 'ConfigEnvelope'
-that is produced by the ConfigTX tool. The returned object may then be
-signed using the signChannelConfig() method of this class. Once the all
-signatures have been collected this object and the signatures may be used
-on the updateChannel or createChannel requests.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>The</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">bytes of the ConfigEnvelope protopuf</td>
+            <td class="description last">Essential information about the user</td>
         </tr>
 
     
@@ -659,7 +525,163 @@ on the updateChannel or createChannel requests.
     
             
 <div class="param-desc">
-    The bytes of the ConfigUpdate protobuf
+    Promise for the user object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="extractChannelConfig"><span class="type-signature"></span>extractChannelConfig(config_envelope)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Extracts the protobuf 'ConfigUpdate' object out of the 'ConfigEnvelope' object
+that is produced by the <a href="http://hyperledger-fabric.readthedocs.io/en/latest/configtxgen.html">configtxgen tool</a>.
+The returned object may then be signed using the signChannelConfig() method of this class. Once the all
+signatures have been collected, the 'ConfigUpdate' object and the signatures may be used
+on the <a href="Client.html#createChannel">createChannel()</a> or <a href="Client.html#updateChannel">updateChannel()</a> calls.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>config_envelope</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The encoded bytes of the ConfigEnvelope protobuf</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The encoded bytes of the ConfigUpdate protobuf, ready to be signed
 </div>
 
 
@@ -695,11 +717,7 @@ on the updateChannel or createChannel requests.
 
     
     <div class="description">
-        Get a <a href="Channel.html">Channel</a> instance from the state storage. This allows existing channel instances to be saved
-for retrieval later and to be shared among instances of the application. Note that it’s the
-application/SDK’s responsibility to record the channel information. If an application is not able
-to look up the channel information from storage, it may call another API that queries one or more
-Peers for that information.
+        Get a <a href="Channel.html">Channel</a> instance from the client instance. This is a memory-only lookup.
     </div>
     
 
@@ -809,34 +827,6 @@ Peers for that information.
     
 
     
-    <h5>Throws:</h5>
-    
-            
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        if the state store has not been set or a channel does not exist under that name.
-        </div>
-    </dt>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">Error</span>
-
-
-
-            </dd>
-        </dl>
-    </dt>
-</dl>
-
-
-        
 
     
     <h5>Returns:</h5>
@@ -986,7 +976,7 @@ Peers for that information.
 
     
     <div class="description">
-        A convenience method for obtaining the state store object in use for this client.
+        A convenience method for obtaining the state store object in use by this client.
     </div>
     
 
@@ -1052,7 +1042,7 @@ Peers for that information.
     
             
 <div class="param-desc">
-    The KeyValueStore implementation object set within this Client, or null if it does not exist.
+    The KeyValueStore implementation object set on this Client, or null if one has not been set.
 </div>
 
 
@@ -1088,7 +1078,7 @@ Peers for that information.
 
     
     <div class="description">
-        Returns the user with the signing identity. This can be a synchronous call or asynchronous call, depending
+        Returns the user by the given name. This can be a synchronous call or asynchronous call, depending
 on whether "checkPersistent" is truthy or not. If truthy, the method is asynchronous and returns a Promise,
 otherwise it's synchronous.
 
@@ -1148,9 +1138,9 @@ enrollment certificate signed by a trusted CA (such as the CA server).
 
             
 
-            <td class="description last">Optional. If not specified, will only return the in-memory user context object, or null
-if not found in memory. If "name" is specified, will also attempt to load it from the state store if search
-in memory failed.</td>
+            <td class="description last">Optional. If not specified, will only return the current in-memory user context object, or null
+                       if none has been set. If "name" is specified, will also attempt to load it from the state store
+                       if search in memory failed.</td>
         </tr>
 
     
@@ -1175,8 +1165,8 @@ in memory failed.</td>
             
 
             <td class="description last">Optional. If specified and truthy, the method returns a Promise and will
-attempt to check the state store for the requested user by the "name". If not specified or falsey, the method
-is synchronous and returns the requested user from memory</td>
+                                    attempt to check the state store for the requested user by the "name". If not
+                                    specified or falsey, the method is synchronous and returns the requested user from memory</td>
         </tr>
 
     
@@ -1240,8 +1230,9 @@ is synchronous and returns the requested user from memory</td>
     
             
 <div class="param-desc">
-    The user object corresponding to the name, or null if the user does not exist or if the
-state store has not been set.
+    Promise for the user object corresponding to the name, or null if the user does not exist or if the
+                          state store has not been set. If "checkPersistence" is not specified or falsey, then the user object
+                          is returned synchronously.
 </div>
 
 
@@ -1253,6 +1244,9 @@ state store has not been set.
     <dd>
         
 <span class="param-type">Promise</span>
+|
+
+<span class="param-type"><a href="User.html">User</a></span>
 
 
 
@@ -1277,7 +1271,13 @@ state store has not been set.
 
     
     <div class="description">
-        Sends an install proposal to one or more endorsing peers.
+        In fabric v1.0, a chaincode must be installed and instantiated before it
+can be called to process transactions.
+<br><br>
+Chaincode installation is simply uploading the chaincode source and
+dependencies to the peers. This operation is "channel-agnostic" and is
+performed on a peer-by-peer basis. Only the peer organization's ADMIN
+identities are allowed to perform this operation.
     </div>
     
 
@@ -1318,7 +1318,7 @@ state store has not been set.
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ChaincodeInstallRequest">ChaincodeInstallRequest</a></span>
 
 
 
@@ -1329,20 +1329,7 @@ state store has not been set.
 
             
 
-            <td class="description last">An object containing the following fields:
-  <br>`chaincodePath` : required - String of the path to location of
-                        the source code of the chaincode
-  <br>`chaincodeId` : required - String of the name of the chaincode
-  <br>`chaincodeVersion` : required - String of the version of the chaincode
-  <br>`chaincodePackage` : optional - Byte array of the archive content for
-                           the chaincode source. The archive must have a 'src'
-                           folder containing subfolders corresponding to the
-                           'chaincodePath' field. For instance, if the chaincodePath
-                           is 'mycompany/myproject', then the archive must contain a
-                           folder at the path 'src/mycompany/myproject', where the
-                           GO source code resides.
-  <br>`chaincodeType` : optional - Type of chaincode ['golang', 'car', 'java']
-                        (default 'golang')</td>
+            <td class="description last">The request object</td>
         </tr>
 
     
@@ -1386,13 +1373,6 @@ state store has not been set.
 	
 
 	
-	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
-	<dd class="tag-see">
-		<ul>
-			<li>/protos/peer/proposal_response.proto</li>
-			</ul>
-	</dd>
-	
 
 	
 </dl>
@@ -1413,7 +1393,7 @@ state store has not been set.
     
             
 <div class="param-desc">
-    A Promise for a `ProposalResponse`
+    A Promise for a ProposalResponseObject
 </div>
 
 
@@ -1449,7 +1429,16 @@ state store has not been set.
 
     
     <div class="description">
-        Determine if dev mode is enabled.
+        Determine if the fabric backend is started in
+<a href="http://hyperledger-fabric.readthedocs.io/en/latest/Setup/Chaincode-setup.html?highlight=development%2520mode">development mode</a>.
+In development mode, the endorsing peers will not attempt to spin up a docker instance to run
+the target chaincode requested by a transaction proposal, but instead redirect the invocation
+requests to the chaincode process that has registered itself with the endorsing peer. This makes
+it easier to test changes to the chaincode during chaincode development.
+<br><br>
+The client instance can be set to dev mode to reflect the backend's development mode. This will
+cause the SDK to make adjustments in certain behaviors such as not sending the chaincode package
+to the peers during chanicode install.
     </div>
     
 
@@ -1519,7 +1508,7 @@ state store has not been set.
             
 <hr>
 <dt>
-    <h4 class="name" id="loadUserFromStateStore"><span class="type-signature"></span>loadUserFromStateStore()</h4>
+    <h4 class="name" id="loadUserFromStateStore"><span class="type-signature"></span>loadUserFromStateStore(name)</h4>
     
     
 </dt>
@@ -1527,7 +1516,7 @@ state store has not been set.
 
     
     <div class="description">
-        Restore the state of this member from the key value store (if found).  If not found, do nothing.
+        Restore the state of the <a href="User.html">User</a> by the given name from the key value store (if found).  If not found, return null.
     </div>
     
 
@@ -1536,6 +1525,56 @@ state store has not been set.
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Name of the user</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -1594,7 +1633,7 @@ state store has not been set.
             
 <div class="param-desc">
     A Promise for a {User} object upon successful restore, or if the user by the name
-does not exist in the state store, returns null without rejecting the promise
+                   does not exist in the state store, returns null without rejecting the promise
 </div>
 
 
@@ -1630,9 +1669,7 @@ does not exist in the state store, returns null without rejecting the promise
 
     
     <div class="description">
-        Returns a channel instance with the given name. This represents a channel and its associated ledger
-(as explained above), and this call returns an empty object. To initialize the channel in the blockchain network,
-a list of participating endorsers and orderer peers must be configured first on the returned object.
+        Returns a <a href="Channel.html">Channel</a> instance with the given name. This represents a channel and its associated ledger.
     </div>
     
 
@@ -1742,34 +1779,6 @@ a list of participating endorsers and orderer peers must be configured first on 
     
 
     
-    <h5>Throws:</h5>
-    
-            
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        if the channel by that name already exists in the application's state store
-        </div>
-    </dt>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">Error</span>
-
-
-
-            </dd>
-        </dl>
-    </dt>
-</dl>
-
-
-        
 
     
     <h5>Returns:</h5>
@@ -1812,9 +1821,9 @@ a list of participating endorsers and orderer peers must be configured first on 
 
     
     <div class="description">
-        Return a EventHub instance associated with this client instance.
-The EventHub instance must be assigned an end point address and
-connection parameters using the "setPeerAddr" method.
+        Returns an <a href="EventHub.html">EventHub</a> object. An event hub object encapsulates the
+properties of an event stream on a peer node, through which the peer publishes
+notifications of blocks being committed in the channel's ledger.
     </div>
     
 
@@ -1859,13 +1868,6 @@ connection parameters using the "setPeerAddr" method.
 
 	
 
-	
-	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
-	<dd class="tag-see">
-		<ul>
-			<li><a href="EventHub.html">EventHub</a></li>
-			</ul>
-	</dd>
 	
 
 	
@@ -1923,7 +1925,11 @@ connection parameters using the "setPeerAddr" method.
 
     
     <div class="description">
-        Returns an order instance with the given url.
+        Returns an <a href="Orderer.html">Orderer</a> object with the given url and opts. An orderer object
+encapsulates the properties of an orderer node and the interactions with it via
+the grpc stream API. Orderer objects are used by the <a href="Client.html">Client</a> objects to broadcast
+requests for creating and updating channels. They are used by the <a href="Channel.html">Channel</a>
+objects to broadcast requests for ordering transactions.
     </div>
     
 
@@ -1975,7 +1981,7 @@ connection parameters using the "setPeerAddr" method.
 
             
 
-            <td class="description last">The URL with format of "grpcs://host:port".</td>
+            <td class="description last">The URL with format of "grpc(s)://host:port".</td>
         </tr>
 
     
@@ -1988,7 +1994,7 @@ connection parameters using the "setPeerAddr" method.
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ConnectionOpts">ConnectionOpts</a></span>
 
 
 
@@ -1999,19 +2005,7 @@ connection parameters using the "setPeerAddr" method.
 
             
 
-            <td class="description last">The options for the connection to the peer.
-<br>- request-timeout {string} A integer value in milliseconds to
-      be used as node.js based timeout. This will break the request
-      operation if the grpc request has not responded within this
-      timeout period.
-<br>- pem {string} The certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol.
-<br>- ssl-target-name-override {string} Used in test environment only, when the server certificate's
-   hostname (in the 'CN' field) does not match the actual host endpoint that the server process runs
-   at, the application can work around the client TLS verify failure by setting this property to the
-   value of the server certificate's hostname
-<br>- any other standard grpc call options will be passed to the grpc service calls directly</td>
+            <td class="description last">The options for the connection to the orderer.</td>
         </tr>
 
     
@@ -2075,7 +2069,7 @@ connection parameters using the "setPeerAddr" method.
     
             
 <div class="param-desc">
-    The orderer instance.
+    The Orderer instance.
 </div>
 
 
@@ -2111,7 +2105,13 @@ connection parameters using the "setPeerAddr" method.
 
     
     <div class="description">
-        Returns a peer instance with the given url.
+        Returns a <a href="Peer.html">Peer</a> object with the given url and opts. A peer object
+encapsulates the properties of an endorsing peer and the interactions with it
+via the grpc service API. Peer objects are used by the <a href="Client.html">Client</a> objects to
+send channel-agnostic requests such as installing chaincode, querying peers for
+installed chaincodes, etc. They are also used by the <a href="Channel.html">Channel</a> objects to
+send channel-aware requests such as instantiating chaincodes, and invoking
+transactions.
     </div>
     
 
@@ -2163,7 +2163,7 @@ connection parameters using the "setPeerAddr" method.
 
             
 
-            <td class="description last">The URL with format of "grpcs://host:port".</td>
+            <td class="description last">The URL with format of "grpc(s)://host:port".</td>
         </tr>
 
     
@@ -2176,7 +2176,7 @@ connection parameters using the "setPeerAddr" method.
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ConnectionOpts">ConnectionOpts</a></span>
 
 
 
@@ -2187,19 +2187,7 @@ connection parameters using the "setPeerAddr" method.
 
             
 
-            <td class="description last">The options for the connection to the peer.
-<br>- request-timeout {string} A integer value in milliseconds to
-      be used as node.js based timeout. This will break the request
-      operation if the grpc request has not responded within this
-      timeout period.
-<br>- pem {string} The certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol.
-<br>- ssl-target-name-override {string} Used in test environment only, when the server certificate's
-   hostname (in the 'CN' field) does not match the actual host endpoint that the server process runs
-   at, the application can work around the client TLS verify failure by setting this property to the
-   value of the server certificate's hostname
-<br>- any other standard grpc call options will be passed to the grpc service calls directly</td>
+            <td class="description last">The options for the connection to the peer.</td>
         </tr>
 
     
@@ -2299,9 +2287,12 @@ connection parameters using the "setPeerAddr" method.
 
     
     <div class="description">
-        Create a new transaction id object with an unique transaction id
-based on included nonce and the user context.
-Requires this client instance to have an assigned user context.
+        Returns a new <a href="TransactionID.html">TransactionID</a> object. Fabric transaction ids are constructed
+as a hash of a nonce concatenated with the signing identity's serialized bytes. The
+TransactionID object keeps the nonce and the resulting id string bundled together
+as a coherent pair.
+<br><br>
+This method requires the client instance to have been assigned a userContext.
     </div>
     
 
@@ -2367,12 +2358,24 @@ Requires this client instance to have an assigned user context.
     
             
 <div class="param-desc">
-    <a href="TransactionID.html">TransactionID</a> An object that contains a transaction id
-          based on the user context and also contains
-          the generated nonce value.
+    An object that contains a transaction id based on the
+          client's userContext and a randomly generated nonce value.
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="TransactionID.html">TransactionID</a></span>
+
+
+
+    </dd>
+</dl>
 
 
         
@@ -2392,7 +2395,7 @@ Requires this client instance to have an assigned user context.
 
     
     <div class="description">
-        Queries the names of all the channels that a
+        Queries the target peer for the names of all the channels that a
 peer has joined.
     </div>
     
@@ -2445,7 +2448,7 @@ peer has joined.
 
             
 
-            <td class="description last"></td>
+            <td class="description last">The target peer to send the query to</td>
         </tr>
 
     
@@ -2509,7 +2512,7 @@ peer has joined.
     
             
 <div class="param-desc">
-    A promise to return a ChannelQueryResponse proto Object
+    A promise to return a <a href="global.html#ChannelQueryResponse">ChannelQueryResponse</a>
 </div>
 
 
@@ -2545,9 +2548,7 @@ peer has joined.
 
     
     <div class="description">
-        Queries the installed chaincodes on a peer
-returning the details of all chaincodes
-installed on a peer.
+        Queries the installed chaincodes on a peer.
     </div>
     
 
@@ -2599,7 +2600,7 @@ installed on a peer.
 
             
 
-            <td class="description last"></td>
+            <td class="description last">The target peer</td>
         </tr>
 
     
@@ -2663,7 +2664,7 @@ installed on a peer.
     
             
 <div class="param-desc">
-    ChaincodeQueryResponse proto
+    Promise for a <a href="global.html#ChaincodeQueryResponse">ChaincodeQueryResponse</a> object
 </div>
 
 
@@ -2674,7 +2675,7 @@ installed on a peer.
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type">Promise</span>
 
 
 
@@ -2699,7 +2700,7 @@ installed on a peer.
 
     
     <div class="description">
-        Save the state of this member to the key value store.
+        Persist the current <code>userContext</code> to the key value store.
     </div>
     
 
@@ -2765,7 +2766,7 @@ installed on a peer.
     
             
 <div class="param-desc">
-    A Promise for the user context object upon successful save
+    A Promise for the userContext object upon successful persistence
 </div>
 
 
@@ -2948,7 +2949,7 @@ an instance based on default configuration settings:
 
     
     <div class="description">
-        Set dev mode to true or false.
+        Set dev mode to true or false to reflect the mode of the fabric backend. See <a href="Client.html#isDevMode">Client#isDevMode</a> for details.
     </div>
     
 
@@ -3026,12 +3027,13 @@ an instance based on default configuration settings:
 
     
     <div class="description">
-        The enrollment materials for Users that have appeared in the instances of the application.
-
-The SDK should have a built-in key value store file-based implementation to allow easy setup during
-development. Production systems would use a store backed by database for more robust storage and
-clustering, so that multiple app instances can share app state via the database.
-This API makes this pluggable so that different store implementations can be selected by the application.
+        Set an optional state store to persist application states. The state store must implement the
+<a href="module-api.KeyValueStore.html">module:api.KeyValueStore</a> interface.
+<br><br>
+The SDK supports persisting the <a href="User.html">User</a> objects so that the heavy-weight objects such as
+the certificate and private keys do not have to be passed in repeatedly. Out of the box the SDK
+provides a file-based implementation, and a CouchDB-based implementation, which also supports Cloudant.
+Applications can provide alternative implementations.
     </div>
     
 
@@ -3083,8 +3085,7 @@ This API makes this pluggable so that different store implementations can be sel
 
             
 
-            <td class="description last">Instance of an alternative KeyValueStore implementation provided by
-the consuming app.</td>
+            <td class="description last">Instance of a KeyValueStore implementation</td>
         </tr>
 
     
@@ -3160,9 +3161,10 @@ the consuming app.</td>
 
     
     <div class="description">
-        Sets an instance of the User class as the security context of this client instance. This user’s
-credentials (ECert), or special transaction certificates that are derived from the user's ECert,
-will be used to conduct transactions and queries with the blockchain network.
+        Sets an instance of the <a href="User.html">User</a> class as the security context of this client instance. This user’s
+signing identity (the private key and its corresponding certificate), will be used to sign all requests
+with the fabric backend.
+<br><br>
 Upon setting the user context, the SDK saves the object in a persistence cache if the “state store”
 has been set on the Client instance. If no state store has been set, this cache will not be established
 and the application is responsible for setting the user context again if the application crashes and is recovered.
@@ -3218,7 +3220,7 @@ and the application is responsible for setting the user context again if the app
             
 
             <td class="description last">An instance of the User class encapsulating the authenticated user’s signing materials
-(private key and enrollment certificate)</td>
+                     (private key and enrollment certificate)</td>
         </tr>
 
     
@@ -3243,7 +3245,7 @@ and the application is responsible for setting the user context again if the app
             
 
             <td class="description last">Whether to skip saving the user object into persistence. Default is false and the
-method will attempt to save the user object to the state store.</td>
+                                   method will attempt to save the user object to the state store.</td>
         </tr>
 
     
@@ -3343,7 +3345,16 @@ method will attempt to save the user object to the state store.</td>
 
     
     <div class="description">
-        Sign a configuration
+        Channel configuration updates can be sent to the orderers to be processed. The
+orderer enforces the Channel creation or update policies such that the updates
+will be made only when enough signatures from participating organizations are
+discovered in the request. Typically channel creation or update requests must
+be signed by participating organizations' ADMIN principals, although this policy
+can be customized when the consortium is defined.
+<br><br>
+This method uses the client instance's current signing identity to sign over the
+configuration bytes passed in, and returns the signature that is ready to be
+included in the configuration update protobuf message to send to the orderer.
     </div>
     
 
@@ -3470,7 +3481,7 @@ method will attempt to save the user object to the state store.</td>
     </dt>
     <dd>
         
-<span class="param-type">ConfigSignature</span>
+<span class="param-type"><a href="global.html#ConfigSignature">ConfigSignature</a></span>
 
 
 
@@ -3496,7 +3507,10 @@ method will attempt to save the user object to the state store.</td>
     
     <div class="description">
         Calls the orderer to update an existing channel.
-Only one of the application instances needs to call this method.
+
+After the channel updates are successfully processed by the orderer, the orderer cuts a new
+block containing the new channel configuration and delivers it to all the participating peers
+in the channel.
     </div>
     
 
@@ -3537,7 +3551,7 @@ Only one of the application instances needs to call this method.
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ChannelRequest">ChannelRequest</a></span>
 
 
 
@@ -3548,19 +3562,7 @@ Only one of the application instances needs to call this method.
 
             
 
-            <td class="description last">An object containing the following fields:
-     <br>`name` : required - {string} The name of the new channel
-     <br>`orderer` : required - {Orderer} object instance representing the
-                     Orderer to send the update request
-     <br>`envelope` : optional - byte[] of the envelope object containing all
-                      required settings and signatures to initialize this channel.
-                      This envelope would have been created by the command
-                      line tool "configtx".
-     <br>`config` : optional - {byte[]} Protobuf ConfigUpdate object built by the
-                    buildChannelConfig() method of this class.
-     <br>`signatures` : optional - {ConfigSignature[]} the list of collected signatures
-                        required by the channel create policy when using the `config` parameter.
-                        see signChannelConfig() method of this class</td>
+            <td class="description last">The request object.</td>
         </tr>
 
     
@@ -3624,7 +3626,11 @@ Only one of the application instances needs to call this method.
     
             
 <div class="param-desc">
-    Result Object with status on the update process.
+    Promise for a result object with status on the acceptance of the update request
+                   by the orderer. A channel update is finally completed when the new channel configuration
+                   block created by the orderer has been committed to the channel's peers. To be notified
+                   of the successful update of the channel, an application should use the <a href="EventHub.html">EventHub</a>
+                   to connect to the peers and register a block listener.
 </div>
 
 
@@ -3635,7 +3641,7 @@ Only one of the application instances needs to call this method.
     </dt>
     <dd>
         
-<span class="param-type">Result</span>
+<span class="param-type">Promise</span>
 
 
 
@@ -3698,7 +3704,7 @@ Only one of the application instances needs to call this method.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-06-14T05:01:21+00:00
+		on 2017-06-14T18:08:56+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
