@@ -397,7 +397,7 @@ data
 		signature -- {byte[]}
 		payload
 			header -- {<a href="global.html#Header">Header</a>}
-			data -- {<a href="global.html#Config">Config</a> | <a href="global.html#Transaction">Transaction</a>}
+			data -- {<a href="global.html#ConfigEnvelope">ConfigEnvelope</a> | <a href="global.html#Transaction">Transaction</a>}
 metadata
 	metadata -- {array} #each array item has it's own layout
 		[0] #SIGNATURES
@@ -468,14 +468,188 @@ metadata
     
         <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">Get the block number:
-var block_num = block.header.number;</pre>
+        <p class="code-caption">Get the block number:</p>
+    
+    <pre class="sunlight-highlight-javascript">var block_num = block.header.number;</pre>
 
-    <pre class="sunlight-highlight-javascript">Get the number of transactions, including the invalid transactions:
-var block_num = block.data.data.legnth;</pre>
+        <p class="code-caption">Get the number of transactions, including the invalid transactions:</p>
+    
+    <pre class="sunlight-highlight-javascript">var block_num = block.data.data.legnth;</pre>
 
-    <pre class="sunlight-highlight-javascript">Get the Id of the first transaction in the block:
-var tx_id = block.data.data[0].payload.header.channel_header.tx_id;</pre>
+        <p class="code-caption">Get the Id of the first transaction in the block:</p>
+    
+    <pre class="sunlight-highlight-javascript">var tx_id = block.data.data[0].payload.header.channel_header.tx_id;</pre>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="BlockchainInfo">
+    <h4 id="BlockchainInfo">BlockchainInfo</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">How many blocks exist on the channel's ledger</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>currentBlockHash</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A block hash is calculated by hashing over the concatenated
+                                      ASN.1 encoded bytes of: the block number, previous block hash,
+                                      and current block data hash. It's the chain of the block
+                                      hashs that guarantees the immutability of the ledger</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>previousBlockHash</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The block hash of the previous block.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
 
 
     
@@ -901,7 +1075,602 @@ var tx_id = block.data.data[0].payload.header.channel_header.tx_id;</pre>
             
 
             <td class="description last">Optional. Type of chaincode. One of 'golang', 'car' or 'java'.
-                                   Default is 'golang'.</td>
+                                   Default is 'golang'. Note that 'java' is not supported as of v1.0.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="ChaincodeInstantiateUpgradeRequest">
+    <h4 id="ChaincodeInstantiateUpgradeRequest">ChaincodeInstantiateUpgradeRequest</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>targets</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="Peer.html">Peer</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. An array of endorsing <a href="Peer.html">Peer</a> objects as the targets of the
+                             request. The list of endorsing peers in the channel object will be used
+                             if this parameter is omitted.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodeType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. Type of chaincode. One of 'golang', 'car' or 'java'.
+                                   Default is 'golang'. Note that 'java' is not supported as of v1.0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodeId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The name of the chaincode</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodeVersion</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. Version string of the chaincode, such as 'v1'</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>txId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="TransactionID.html">TransactionID</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. Object with the transaction id and nonce</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>transientMap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">map</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. <string, byte[]> map that can be used by the chaincode during
+			                      intialization, but not saved in the ledger. Data such as cryptographic information
+			                      for encryption can be passed to the chaincode using this technique</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fcn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. The function name to be returned when calling <code>stub.GetFunctionAndParameters()</code>
+                         in the target chaincode. Default is 'init'</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. Array of string arguments to pass to the function identified by the <code>fcn</code> value</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endorsement-policy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. EndorsementPolicy object for this chaincode (see examples below). If not specified,
+				                           a default policy of "a signature by any member from any of the organizations
+				                           corresponding to the array of member service providers" is used</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Examples</h5>
+        
+        <p class="code-caption">Endorsement policy: "Signed by any member from one of the organizations"</p>
+    
+    <pre class="sunlight-highlight-javascript">{
+  identities: [
+    { role: { name: &quot;member&quot;, mspId: &quot;org1&quot; }},
+    { role: { name: &quot;member&quot;, mspId: &quot;org2&quot; }}
+  ],
+  policy: {
+    &quot;1-of&quot;: [{ &quot;signed-by&quot;: 0 }, { &quot;signed-by&quot;: 1 }]
+  }
+}</pre>
+
+        <p class="code-caption">Endorsement policy: "Signed by admin of the ordererOrg and any member from one of the peer organizations"</p>
+    
+    <pre class="sunlight-highlight-javascript">{
+  identities: [
+    { role: { name: &quot;member&quot;, mspId: &quot;peerOrg1&quot; }},
+    { role: { name: &quot;member&quot;, mspId: &quot;peerOrg2&quot; }},
+    { role: { name: &quot;admin&quot;, mspId: &quot;ordererOrg&quot; }}
+  ],
+  policy: {
+    &quot;2-of&quot;: [
+      { &quot;signed-by&quot;: 2},
+      { &quot;1-of&quot;: [{ &quot;signed-by&quot;: 0 }, { &quot;signed-by&quot;: 1 }]}
+    ]
+  }
+}</pre>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="ChaincodeInvokeRequest">
+    <h4 id="ChaincodeInvokeRequest">ChaincodeInvokeRequest</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>targets</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="Peer.html">Peer</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. The peers that will receive this request,
+				                when not provided the list of peers added to this channel object will be used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodeId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The id of the chaincode to process the transaction proposal</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>txId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="TransactionID.html">TransactionID</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. TransactionID object with the transaction id and nonce</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>transientMap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">map</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. <string, byte[]> map that can be used by the chaincode but not
+			                      saved in the ledger, such as cryptographic information for encryption</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fcn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. The function name to be returned when calling <code>stub.GetFunctionAndParameters()</code>
+                         in the target chaincode. Default is 'invoke'</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An array of string arguments specific to the chaincode's 'Invoke' method</td>
         </tr>
 
     
@@ -1073,8 +1842,8 @@ var tx_id = block.data.data[0].payload.header.channel_header.tx_id;</pre>
             
                 
 <hr>
-<dt class="name" id="ChannelConfig">
-    <h4 id="ChannelConfig">ChannelConfig</h4>
+<dt class="name" id="ChannelConfigGroup">
+    <h4 id="ChannelConfigGroup">ChannelConfigGroup</h4>
 
     
 </dt>
@@ -1096,7 +1865,7 @@ groups
 	Orderer
 		version -- {int}
 		groups
-			&ltorderer_org_name&gt -- {<a href="global.html#OrganizationConfig">OrganizationConfig</a>}
+			&ltorderer_org_name&gt -- {<a href="global.html#OrganizationConfigGroup">OrganizationConfigGroup</a>}
 		values
 			ConsensusType
 				version -- {int}
@@ -1140,7 +1909,7 @@ groups
 	Application
 		version -- {int}
 		groups
-			&ltpeer_org_name&gt -- {<a href="global.html#OrganizationConfig">OrganizationConfig</a>}
+			&ltpeer_org_name&gt -- {<a href="global.html#OrganizationConfigGroup">OrganizationConfigGroup</a>}
 		values
 		policies
 			Admins
@@ -1230,7 +1999,7 @@ values
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#OrganizationConfig">OrganizationConfig</a></span>
+<span class="param-type"><a href="global.html#OrganizationConfigGroup">OrganizationConfigGroup</a></span>
 
 
 
@@ -1241,7 +2010,8 @@ values
 
             
 
-            <td class="description last">These are the orderer organizatoin names defined on the network</td>
+            <td class="description last">These are the
+                                             orderer organizatoin names defined on the network</td>
         </tr>
 
     
@@ -1254,7 +2024,7 @@ values
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#OrganizationConfig">OrganizationConfig</a></span>
+<span class="param-type"><a href="global.html#OrganizationConfigGroup">OrganizationConfigGroup</a></span>
 
 
 
@@ -1265,7 +2035,8 @@ values
 
             
 
-            <td class="description last">These are the peer organization names defined on the network</td>
+            <td class="description last">These are the
+                                             peer organization names defined on the network</td>
         </tr>
 
     
@@ -1289,7 +2060,8 @@ values
 
             
 
-            <td class="description last">These policies point to other policies and specify a threshold as in "ANY", "MAJORITY" or "ALL"</td>
+            <td class="description last">These policies point to other policies and specify a
+                                             threshold as in "ANY", "MAJORITY" or "ALL"</td>
         </tr>
 
     
@@ -1805,17 +2577,20 @@ values
             
                 
 <hr>
-<dt class="name" id="Config">
-    <h4 id="Config">Config</h4>
+<dt class="name" id="ConfigEnvelope">
+    <h4 id="ConfigEnvelope">ConfigEnvelope</h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        An object that contains channel configurations.
+        A ConfigEnvelope contains the channel configurations data and is the
+main content of a configuration block. Another type of blocks are those
+that contain endorser transactions, where the main content is an array
+of <a href="global.html#Transaction">Transaction</a>.
 <br><br>
-A "Config" will have the following object structure.
+A "ConfigEnvelope" will have the following object structure.
 <br><pre>
 config
 	sequence -- {int}
@@ -1824,7 +2599,7 @@ last_update
 	signature -- {byte[]}
 	payload
 		header -- {<a href="global.html#Header">Header</a>}
-		data -- {<a href="global.html#ConfigUpdate">ConfigUpdate</a>}
+		data -- {<a href="global.html#ConfigUpdateEnvelope">ConfigUpdateEnvelope</a>}
 </pre>
     </div>
     
@@ -2033,22 +2808,22 @@ last_update
             
                 
 <hr>
-<dt class="name" id="ConfigUpdate">
-    <h4 id="ConfigUpdate">ConfigUpdate</h4>
+<dt class="name" id="ConfigUpdateEnvelope">
+    <h4 id="ConfigUpdateEnvelope">ConfigUpdateEnvelope</h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        An object of a protobuf message "ConfigUpdate".
+        An object of a protobuf message "ConfigUpdateEnvelope".
 <br><br>
-A "ConfigUpdate" will have the following object structure.
+A "ConfigUpdateEnvelope" will have the following object structure.
 <br><pre>
 config_update
 	channel_id -- {string}
-	read_set -- {<a href="global.html#ChannelConfig">ChannelConfig</a>}
-	write_set -- {<a href="global.html#ChannelConfig">ChannelConfig</a>}
+	read_set -- {<a href="global.html#ChannelConfigGroup">ChannelConfigGroup</a>}
+	write_set -- {<a href="global.html#ChannelConfigGroup">ChannelConfigGroup</a>}
 signatures -- {array}
 	signature_header -- {<a href="global.html#SignatureHeader">SignatureHeader</a>}
 	signature -- {byte[]}
@@ -2105,7 +2880,7 @@ signatures -- {array}
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#ChannelConfig">ChannelConfig</a></span>
+<span class="param-type"><a href="global.html#ChannelConfigGroup">ChannelConfigGroup</a></span>
 
 
 
@@ -2130,7 +2905,7 @@ signatures -- {array}
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#ChannelConfig">ChannelConfig</a></span>
+<span class="param-type"><a href="global.html#ChannelConfigGroup">ChannelConfigGroup</a></span>
 
 
 
@@ -2688,6 +3463,89 @@ signatures -- {array}
 </table>
 </dl>
 
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="Endorsement">
+    <h4 id="Endorsement">Endorsement</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        An endorsement is a signature of an endorser over a proposal response.  By
+producing an endorsement message, an endorser implicitly "approves" that
+proposal response and the actions contained therein. When enough
+endorsements have been collected, a transaction can be generated out of a
+set of proposal responses
+<br><br>
+An endorsement message has the following structure:
+<br><pre>
+endorser
+	Mspid -- {string]
+	IdBytes -- {byte[]}
+signature -- {byte[]}
+</pre>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
     
 
 	
@@ -3664,6 +4522,176 @@ policy
             
                 
 <hr>
+<dt class="name" id="JoinChannelRequest">
+    <h4 id="JoinChannelRequest">JoinChannelRequest</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>targets</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="Peer.html">Peer</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. An array of Peer objects that will
+                             be asked to join this channel</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>block</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The encoded bytes of the channel's genesis block.
+                           See <a href="Channel.html#getGenesisBlock">getGenesisBlock()</a> method</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>txId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="TransactionID.html">TransactionID</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. TransactionID object with the transaction id and nonce</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
 <dt class="name" id="KeyOpts">
     <h4 id="KeyOpts">KeyOpts</h4>
 
@@ -4008,8 +5036,128 @@ signature -- {byte[]}
             
                 
 <hr>
-<dt class="name" id="OrganizationConfig">
-    <h4 id="OrganizationConfig">OrganizationConfig</h4>
+<dt class="name" id="OrdererRequest">
+    <h4 id="OrdererRequest">OrdererRequest</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>txId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">TransactionId</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="OrganizationConfigGroup">
+    <h4 id="OrganizationConfigGroup">OrganizationConfigGroup</h4>
 
     
 </dt>
@@ -4388,12 +5536,395 @@ array of identities specified in the policy. If the type property is "n-of", the
             
                 
 <hr>
-<dt class="name" id="ProposalReponseObject">
-    <h4 id="ProposalReponseObject">ProposalReponseObject</h4>
+<dt class="name" id="ProcessedTransaction">
+    <h4 id="ProcessedTransaction">ProcessedTransaction</h4>
 
     
 </dt>
 <dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>validationCode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">See <a href="https://github.com/hyperledger/fabric/blob/v1.0.0-beta/protos/peer/transaction.proto#L125">this list</a>
+                                    for all the defined validation codes</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>transactionEnvelope</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Encapsulates the transaction and the signature over it.
+                                         It has the following structure:
+<br><pre>
+signature -- {byte[]}
+payload -- {}
+	header -- {<a href="global.html#Header">Header</a>}
+	data -- {<a href="global.html#Transaction">Transaction</a>}
+</pre></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="ProposalResponse">
+    <h4 id="ProposalResponse">ProposalResponse</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A protobuf message that gets returned by endorsing peers on proposal requests.
+The peer node runs the target chaincode, as designated by the proposal, and
+decides on whether to endorse the proposal or not, and sends back the endorsement
+result along with the <a href="http://hyperledger-fabric.readthedocs.io/en/latest/arch-deep-dive.html?highlight=readset#the-endorsing-peer-simulates-a-transaction-and-produces-an-endorsement-signature">read and write sets</a>
+inside the proposal response message.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>version</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>timestamp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Timestamp</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Time the proposal was created by the submitter</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Response">Response</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>payload</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The payload of the response. It is the encoded bytes of
+                             the "ProposalResponsePayload" protobuf message</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endorsement</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Endorsement">Endorsement</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The endorsement of the proposal, basically the
+                                      endorser's signature over the payload</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="ProposalResponseObject">
+    <h4 id="ProposalResponseObject">ProposalResponseObject</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        All calls to the endorsing peers for proposal endorsement return this standard
+array of objects.
+    </div>
     
 
     
@@ -4480,7 +6011,180 @@ array of identities specified in the policy. If the type property is "n-of", the
 
             
 
-            <td class="description last">The original Proposal object</td>
+            <td class="description last">The original Proposal object needed when sending the transaction
+                             request to the orderer</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="Response">
+    <h4 id="Response">Response</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A response message indicating whether the endorsement of the proposal was successful
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>status</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Status code. Follows <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">HTTP status code definitions</a></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A message associated with the response status code</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>payload</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A payload that can be used to include metadata with this response</td>
         </tr>
 
     
@@ -5081,11 +6785,7 @@ actions {array}
 						status -- {int}
 						message -- {string}
 						payload -- {byte[]}
-			endorsements -- {array}
-				endorser
-					Mspid -- {string]
-					IdBytes -- {byte[]}
-				signature -- {byte[]}
+			endorsements -- {<a href="global.html#Endorsement">Endorsement</a>[]}
 </pre>
     </div>
     
@@ -5105,6 +6805,153 @@ actions {array}
 
     
 <dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="TransactionRequest">
+    <h4 id="TransactionRequest">TransactionRequest</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>proposalResponses</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An array or a single <a href="global.html#ProposalResponse">ProposalResponse</a> objects
+                                      containing the response from the
+                                      <a href="Channel.html#sendTransactionProposal">endorsement</a> call</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodeProposal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Proposal object containing the original
+                                       request for endorsement(s)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
     
 
 	
@@ -5365,7 +7212,7 @@ actions {array}
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-06-14T18:08:55+00:00
+		on 2017-06-15T20:22:20+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
