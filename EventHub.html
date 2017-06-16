@@ -95,47 +95,49 @@
         EventHub
         </h2>
         
-            <div class="class-description">The EventHub class is used to distribute events from an
-event source(peer).
-<br><br>Sample usage:
-<br><pre>
-var eh = client.newEventHub();
-eh.setPeerAddr(
-	'grpcs://localhost:9999',
-	{
-		pem: Buffer.from(certdata).toString(),
-		'ssl-target-name-override': 'peer1']
-	}
-);
-eh.connect();
-  eh.registerTxEvent(
-  	transactionId,
-	(tx, code) => {
-		eh.unregisterTxEvent(transactionId);
-		console.log('Transaction ' + transactionId +
-		'has completed');
-	},
-	(err) => {
-		eh.unregisterTxEvent(transactionId);
-		console.log('Transaction listener has been closed on ' +
-		eh.getPeerAddr());
-	}
-);
-</pre><br>
-Use the "newEventHub" method on <a href="Client.html">Client</a> to get a new EventHub instance.
-Use the "setPeerAddr" method on EventHub to indicate to the EventHub
-instance the Peer's event hub address.
-Use the "connect" method on EventHub to connect to the Peer's event
-hub. This operation will be asynchronous and as such the call will not
-fail if there is an issue with the connection.
-Use the "registerTxEvent", "registerChaincodeEvent", or "registerBlockEvent"
-calls to register your callback listeners to be notified when this EventHub
-receives an event. Notice in the example there is both a callback for processing
-the event and one to process error issues. The primary error to watch for is
-a network issue that will cause the connection to close. Registering
-an error callback will guarantee that you get notified of network issues,
-otherwise there is no path available for this EventHub to notify the
-listeners.</div>
+            <div class="class-description">Transaction processing in fabric v1.0 is a long operation spanning multiple
+components (application, endorsing peer, orderer, committing peer) and takes
+a relatively lengthy period of time (think seconds instead of milliseconds)
+to complete. As a result the applications must design their handling of the
+transaction lifecyle in an asynchrous fashion. After the transaction proposal
+has been successfully <a href="Channel.html#sendTransactionProposal">endorsed</a>, and before
+the transaction message has been successfully <a href="Channel.html#sendTransaction">broadcast</a>
+to the orderer, the application should register a listener to be nofified of
+the event when the transaction achieves finality, which is when the block
+containing the transaction gets added to the peer's ledger/blockchain.
+<br><br>
+Fabric committing peers provides an event stream to publish events to registered
+listeners. As of v1.0, the only events that get published are Block events. A
+Block event gets published whenever the committing peer adds a validated block
+to the ledger. There are three ways to register a listener to get notified:
+<li>register a "block listener" to get called for every block event on all channels. The listener
+    will be passed a fully decoded <a href="global.html#Block">Block</a> object. See <a href="EventHub.html#registerBlockEvent">registerBlockEvent</a>
+<li>register a "transaction listener" to get called when the specific transaction
+    by id is committed (discovered inside a block event). The listener will be
+    passed the transaction id and the <a href="https://github.com/hyperledger/fabric/blob/v1.0.0-beta/protos/peer/transaction.proto#L125">validation code</a>.
+    See <a href="EventHub.html#registerTxEvent">registerTxEvent</a>
+<li>register a "chaincode event listener" to get called when a specific
+    <a href="https://github.com/hyperledger/fabric/blob/v1.0.0-beta/examples/chaincode/go/eventsender/eventsender.go">chaincode event</a>
+    has arrived. The listener will be passed the <a href="global.html#ChaincodeEvent">ChaincodeEvent</a>. See
+    <a href="EventHub.html#registerChaincodeEvent">registerChaincodeEvent</a>
+<br><br>
+The events are ephemeral, such that if a registered listener
+crashed when the event is published, the listener will miss the event.
+There are several techniques to compensate for missed events due to client crashes:
+<li>register block event listeners and record the block numbers received, such that
+    when the next block arrives and its number is not the next in sequence, then
+    the application knows exactly which block events have been missed. It can then use
+    <a href="Channel.html#queryBlock">queryBlock</a> to get those missed blocks from the target peer.
+<li>use a message queue to catch all the block events. With many robust message queue
+    implementations available today, you will be guaranteed to not miss an event. A
+    fabric event listener can be written in any programming language. The following
+    implementations can be used as reference to write the necessary glue code between
+    the fabric event stream and a message queue:
+<ul>
+    <li>Node.js: this class. Source code can be found <a href="https://github.com/hyperledger/fabric-sdk-node/blob/v1.0.0-beta/fabric-client/lib/EventHub.js">here</a>
+    <li>Java: part of the Java SDK for Hyperledger Fabric. Source code can be found <a href="https://github.com/hyperledger/fabric-sdk-java/blob/v1.0.0-beta/src/main/java/org/hyperledger/fabric/sdk/EventHub.java">here</a>
+    <li>Golang: an example event listener client can be found <a href="https://github.com/hyperledger/fabric/blob/v1.0.0-beta/examples/events/block-listener/block-listener.go">here</a>
+</ul></div>
         
     
 </header>
@@ -155,7 +157,7 @@ listeners.</div>
 
     
     <div class="description">
-        Constructs an unconnected EventHub
+        Constructs an EventHub object
     </div>
     
 
@@ -270,6 +272,37 @@ which has already been initialzed with a userContext.</td>
     
 
     
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">var eh = client.newEventHub();
+eh.setPeerAddr(
+	 &#x27;grpcs://localhost:7053&#x27;,
+	 {
+	   pem: Buffer.from(certdata).toString(),
+	   &#x27;ssl-target-name-override&#x27;: &#x27;peer1&#x27;]
+	 }
+);
+
+// register the listeners before calling &quot;connect()&quot; so that we can
+// have the error callback ready to process an error in case the
+// connect() call fails
+eh.registerTxEvent(
+  transactionId,
+	 (tx, code) =&gt; {
+	   eh.unregisterTxEvent(transactionId);
+	   console.log(util.format(&#x27;Transaction %s has completed&#x27;, transactionId);
+	 },
+	 (err) =&gt; {
+	   eh.unregisterTxEvent(transactionId);
+	   console.log(util.format(&#x27;Error %s! Transaction listener for %s has been &#x27; +
+                &#x27;deregistered with %s&#x27;, transactionId, err, eh.getPeerAddr()));
+	 }
+);
+
+eh.connect();</pre>
+
+
+    
 </dd>
 
     
@@ -302,11 +335,18 @@ which has already been initialzed with a userContext.</td>
 
     
     <div class="description">
-        Establishes a connection with the peer event source
-The peer address must be set using the "setPeerAddr"
+        Establishes a connection with the peer event source.
+The peer address must be set by calling the <a href="EventHub.html#setPeerAddr">setPeerAddr()</a>
 method before calling this method.
 
-The connection will be established asynchronously.
+The connection will be established asynchronously. If the connection fails to
+get established, the application will be notified via the error callbacks
+from the registerXXXEvent() methods. It is recommended that an application always
+registers at least one event listener with an error callback, by calling any one of the
+<a href="EventHub.html#registerBlockEvent">registerBlockEvent</a>,
+<a href="EventHub.html#registerTxEvent">registerTxEvent</a> or
+<a href="EventHub.html#registerChaincodeEvent">registerChaincodeEvent</a>
+methods, before calling connect().
     </div>
     
 
@@ -384,8 +424,9 @@ The connection will be established asynchronously.
 
     
     <div class="description">
-        Disconnects the connection to the peer event source.
-Will close all event listeners and send an `Error` to
+        Disconnects the event hub from the peer event source.
+Will close all event listeners and send an Error object
+with the message "EventHub has been shutdown" to
 all listeners that provided an "onError" callback.
     </div>
     
@@ -464,7 +505,7 @@ all listeners that provided an "onError" callback.
 
     
     <div class="description">
-        Get the peer url for this event source
+        Return the peer url of this event hub object
     </div>
     
 
@@ -542,7 +583,7 @@ all listeners that provided an "onError" callback.
 
     
     <div class="description">
-        Get connected state of eventhub
+        Is the event hub connected to the event source?
     </div>
     
 
@@ -608,10 +649,23 @@ all listeners that provided an "onError" callback.
     
             
 <div class="param-desc">
-    true if connected to event source, false otherwise
+    True if connected to the event source, false otherwise
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
 
 
         
@@ -631,10 +685,13 @@ all listeners that provided an "onError" callback.
 
     
     <div class="description">
-        Register a callback function to receive block events.
-This EventHub instance must be connected to a remote
-peer's event hub before registering for events by calling
-the "connect()" method.
+        Register a listener to receive all block events <b>from all the channels</b> that
+the target peer is part of. The listener's "onEvent" callback gets called
+on the arrival of every block. If the target peer is expected to participate
+in more than one channel, then care must be taken in the listener's implementation
+to differentiate blocks from different channels. See the example below on
+how to accomplish that.
+<br><br>
 An error may be thrown by this call if no "onError" callback
 is provided and this EventHub has noticed that the connection has not been
 established. However since the connection establishment is running
@@ -692,9 +749,8 @@ notified of the network issue. The best practice would be to provide an
 
             
 
-            <td class="description last">Function that takes a single parameter
-which is a JSON object representation of type GRPC message "Block"
-from lib/proto/common/common.proto.</td>
+            <td class="description last">Callback function that takes a single parameter
+                            of a <a href="global.html#Block">Block</a> object</td>
         </tr>
 
     
@@ -718,8 +774,9 @@ from lib/proto/common/common.proto.</td>
 
             
 
-            <td class="description last">optional callback function to be notified when this
-event hub is shutdown.</td>
+            <td class="description last">Optional callback function to be notified when this event hub
+                            is shutdown. The shutdown may be caused by a network error or by
+                            a call to the "disconnect()" method or a connection error.</td>
         </tr>
 
     
@@ -763,13 +820,6 @@ event hub is shutdown.</td>
 	
 
 	
-	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
-	<dd class="tag-see">
-		<ul>
-			<li><a href="global.html#Block">Block</a></li>
-			</ul>
-	</dd>
-	
 
 	
 </dl>
@@ -791,7 +841,7 @@ event hub is shutdown.</td>
             
 <div class="param-desc">
     This is the block registration number that must be
-used to unregister (see unregisterBlockEvent)
+               sed to unregister (see unregisterBlockEvent)
 </div>
 
 
@@ -813,6 +863,26 @@ used to unregister (see unregisterBlockEvent)
         
 
     
+        <h5>Example</h5>
+        
+        <p class="code-caption">Find out the channel Id of the arriving block</p>
+    
+    <pre class="sunlight-highlight-javascript">eh.registerBlockEvent(
+  (block) =&gt; {
+    var first_tx = block.data.data[0]; // get the first transaction
+    var header = first_tx.payload.header; // the &quot;header&quot; object contains metadata of the transaction
+    var channel_id = header.channel_header.channel_id;
+    if (&quot;mychannel&quot; !== channel_id) return;
+
+    // do useful processing of the block
+  },
+  (err) =&gt; {
+    console.log(&#x27;Oh snap!&#x27;);
+  }
+);</pre>
+
+
+    
 </dd>
 
         
@@ -827,10 +897,8 @@ used to unregister (see unregisterBlockEvent)
 
     
     <div class="description">
-        Register a callback function to receive chaincode events.
-This EventHub instance must be connected to a remote
-peer's event hub before registering for events by calling
-the "connect()" method.
+        Register a listener to receive chaincode events.
+<br><br>
 An error may be thrown by this call if no "onError" callback
 is provided and this EventHub has noticed that the connection has not been
 established. However since the connection establishment is running
@@ -888,7 +956,7 @@ notified of the network issue. The best practice would be to provide an
 
             
 
-            <td class="description last">string chaincode id</td>
+            <td class="description last">Id of the chaincode of interest</td>
         </tr>
 
     
@@ -912,7 +980,11 @@ notified of the network issue. The best practice would be to provide an
 
             
 
-            <td class="description last">string The regex string used to filter events</td>
+            <td class="description last">The exact name of the chaincode event (must match
+                            the name given to the target chaincode's call to
+                            <code>stub.SetEvent(name, payload)</code>), or a
+                            regex string to match more than one event by this
+                            chaincode</td>
         </tr>
 
     
@@ -936,9 +1008,8 @@ notified of the network issue. The best practice would be to provide an
 
             
 
-            <td class="description last">callback function for filter matches
-that takes a single parameter which is a json object representation
-of type "message ChaincodeEvent" from lib/proto/chaincode_event.proto</td>
+            <td class="description last">callback function for matched events. It gets passed
+                            a single parameter which is a <a href="global.html#ChaincodeEvent">ChaincodeEvent</a> object</td>
         </tr>
 
     
@@ -962,9 +1033,9 @@ of type "message ChaincodeEvent" from lib/proto/chaincode_event.proto</td>
 
             
 
-            <td class="description last">optional callback function to be notified when this
-event hub is shutdown. The shutdown may be caused by a network error or by
-a call to the "disconnect()" method.</td>
+            <td class="description last">Optional callback function to be notified when this event hub
+                            is shutdown. The shutdown may be caused by a network error or by
+                            a call to the "disconnect()" method or a connection error.</td>
         </tr>
 
     
@@ -1028,8 +1099,8 @@ a call to the "disconnect()" method.</td>
     
             
 <div class="param-desc">
-    ChainCodeCBE object that should be treated as an opaque
-handle used to unregister (see unregisterChaincodeEvent)
+    An object that should be treated as an opaque handle used
+                  to unregister (see unregisterChaincodeEvent)
 </div>
 
 
@@ -1065,10 +1136,9 @@ handle used to unregister (see unregisterChaincodeEvent)
 
     
     <div class="description">
-        Register a callback function to receive transactional events.
-This EventHub instance must be connected to a remote
-peer's event hub before registering for events by calling
-the "connect()" method.
+        Register a callback function to receive a notification when the transaction
+by the given id has been committed into a block.
+<br><br>
 An error may be thrown by this call if no "onError" callback
 is provided and this EventHub has noticed that the connection has not been
 established. However since the connection establishment is running
@@ -1126,7 +1196,7 @@ notified of the network issue. The best practice would be to provide an
 
             
 
-            <td class="description last">string transaction id</td>
+            <td class="description last">Transaction id string</td>
         </tr>
 
     
@@ -1150,10 +1220,10 @@ notified of the network issue. The best practice would be to provide an
 
             
 
-            <td class="description last">Function that takes a parameter which
-is a json object representation of type "message Transaction"
-from lib/proto/fabric.proto and a parameter which is a boolean
-that indicates if the transaction is invalid (true=invalid)</td>
+            <td class="description last">Callback function that takes a parameter of type
+                            <a href="global.html#Transaction">Transaction</a>, and a string parameter which
+                            indicates if the transaction is valid (code = 'VALID'),
+                            or not (code string indicating the reason for invalid transaction)</td>
         </tr>
 
     
@@ -1177,8 +1247,9 @@ that indicates if the transaction is invalid (true=invalid)</td>
 
             
 
-            <td class="description last">optional callback function to be notified when this
-event hub is shutdown.</td>
+            <td class="description last">Optional callback function to be notified when this event hub
+                            is shutdown. The shutdown may be caused by a network error or by
+                            a call to the "disconnect()" method or a connection error.</td>
         </tr>
 
     
@@ -1254,7 +1325,7 @@ event hub is shutdown.</td>
 
     
     <div class="description">
-        Set peer url for event source<p>
+        Set peer event source url.
     </div>
     
 
@@ -1306,7 +1377,7 @@ event hub is shutdown.</td>
 
             
 
-            <td class="description last">peer url</td>
+            <td class="description last">grpc or grpcs URL for the target peer's event source</td>
         </tr>
 
     
@@ -1319,7 +1390,7 @@ event hub is shutdown.</td>
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ConnectionOpts">ConnectionOpts</a></span>
 
 
 
@@ -1330,15 +1401,7 @@ event hub is shutdown.</td>
 
             
 
-            <td class="description last">An Object that may contain options to pass to grpcs calls
-<br>- pem {string} The certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol.
-<br>- ssl-target-name-override {string} Used in test environment only, when the server certificate's
-   hostname (in the 'CN' field) does not match the actual host endpoint that the server process runs
-   at, the application can work around the client TLS verify failure by setting this property to the
-   value of the server certificate's hostname
-<br>- any other standard grpc stream options will be passed to the grpc service calls directly</td>
+            <td class="description last">The options for the connection to the peer.</td>
         </tr>
 
     
@@ -1414,8 +1477,9 @@ event hub is shutdown.</td>
 
     
     <div class="description">
-        Unregister the block event listener with the block
-registration number.
+        Unregister the block event listener using the block
+registration number that is returned by the call to
+the registerBlockEvent() method.
     </div>
     
 
@@ -1468,7 +1532,7 @@ registration number.
             
 
             <td class="description last">block registration number that was returned
-during registration.</td>
+             during registration.</td>
         </tr>
 
     
@@ -1536,7 +1600,7 @@ during registration.</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="unregisterChaincodeEvent"><span class="type-signature"></span>unregisterChaincodeEvent(cbe)</h4>
+    <h4 class="name" id="unregisterChaincodeEvent"><span class="type-signature"></span>unregisterChaincodeEvent(listener_handle)</h4>
     
     
 </dt>
@@ -1544,7 +1608,9 @@ during registration.</td>
 
     
     <div class="description">
-        Unregister chaincode event registration
+        Unregister the chaincode event listener represented by
+the <code>listener_handle</code> object returned by
+the registerChaincodeEvent() method
     </div>
     
 
@@ -1579,7 +1645,7 @@ during registration.</td>
 
         <tr>
             
-                <td class="name"><code>cbe</code></td>
+                <td class="name"><code>listener_handle</code></td>
             
 
             <td class="type">
@@ -1596,8 +1662,8 @@ during registration.</td>
 
             
 
-            <td class="description last">ChainCodeCBE handle return from call to
-registerChaincodeEvent.</td>
+            <td class="description last">The handle object returned from the call to
+                                  registerChaincodeEvent.</td>
         </tr>
 
     
@@ -1673,7 +1739,7 @@ registerChaincodeEvent.</td>
 
     
     <div class="description">
-        Unregister transactional event registration.
+        Unregister transaction event listener for the transaction id.
     </div>
     
 
@@ -1713,13 +1779,19 @@ registerChaincodeEvent.</td>
 
             <td class="type">
             
+                
+<span class="param-type">string</span>
+
+
+
+            
             </td>
 
             
 
             
 
-            <td class="description last">string transaction id</td>
+            <td class="description last">The transaction id</td>
         </tr>
 
     
@@ -1833,7 +1905,7 @@ registerChaincodeEvent.</td>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-06-15T20:22:21+00:00
+		on 2017-06-16T15:18:46+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
