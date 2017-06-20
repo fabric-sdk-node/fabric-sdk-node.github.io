@@ -95,9 +95,19 @@
         Peer
         </h2>
         
-            <div class="class-description">The Peer class represents an endorsing peer in the target blockchain network.
-The application can send endorsement proposals, and query requests through this
-class.</div>
+            <div class="class-description">The Peer class represents a peer in the target blockchain network to which
+HFC sends endorsement proposals, transaction ordering or query requests.
+
+The Peer class represents the remote Peer node and its network membership materials,
+aka the ECert used to verify signatures. Peer membership represents organizations,
+unlike User membership which represents individuals.
+
+When constructed, a Peer instance can be designated as an event source, in which case
+a “eventSourceUrl” attribute should be configured. This allows the SDK to automatically
+attach transaction event listeners to the event stream.
+
+It should be noted that Peer event streams function at the Peer level and not at the
+channel and chaincode levels.</div>
         
     
 </header>
@@ -117,13 +127,7 @@ class.</div>
 
     
     <div class="description">
-        Construct a Peer object with the given url and opts. A peer object
-encapsulates the properties of an endorsing peer and the interactions with it
-via the grpc service API. Peer objects are used by the <a href="Client.html">Client</a> objects to
-send channel-agnostic requests such as installing chaincode, querying peers for
-installed chaincodes, etc. They are also used by the <a href="Channel.html">Channel</a> objects to
-send channel-aware requests such as instantiating chaincodes, and invoking
-transactions.
+        Constructs a Peer given its endpoint configuration settings.
     </div>
     
 
@@ -175,7 +179,7 @@ transactions.
 
             
 
-            <td class="description last">The URL with format of "grpc(s)://host:port".</td>
+            <td class="description last">The URL with format of "grpcs://host:port".</td>
         </tr>
 
     
@@ -188,7 +192,7 @@ transactions.
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#ConnectionOpts">ConnectionOpts</a></span>
+<span class="param-type">Object</span>
 
 
 
@@ -199,7 +203,12 @@ transactions.
 
             
 
-            <td class="description last">The options for the connection to the peer.</td>
+            <td class="description last">The options for the connection to the peer.
+<br>- request-timeout {string} A integer value in milliseconds to
+      be used as node.js based timeout. This will break the request
+      operation if the grpc request has not responded within this
+      timeout period.
+  note: other options will be passed to the grpc connection</td>
         </tr>
 
     
@@ -304,8 +313,7 @@ transactions.
 
     
     <div class="description">
-        Get the Peer name. This is a client-side only identifier for this
-Peer object.
+        Get the Peer name. Required property for the instance objects.
     </div>
     
 
@@ -371,7 +379,7 @@ Peer object.
     
             
 <div class="param-desc">
-    The name of the Peer object
+    The name of the Peer
 </div>
 
 
@@ -518,9 +526,7 @@ Peer object.
 
     
     <div class="description">
-        Send an endorsement proposal to an endorser. This is used to call an
-endorsing peer to execute a chaincode to process a transaction proposal,
-or runs queries.
+        Send an endorsement proposal to an endorser.
     </div>
     
 
@@ -572,8 +578,153 @@ or runs queries.
 
             
 
-            <td class="description last">A protobuf encoded byte array of type
-                             <a href="https://github.com/hyperledger/fabric/blob/v1.0.0-beta/protos/peer/proposal.proto#L134">Proposal</a></td>
+            <td class="description last">A proposal of type Proposal</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li>/protos/peer/fabric_proposal.proto</li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Promise for a ProposalResponse
+</div>
+
+
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setEnrollmentCertificate"><span class="type-signature"></span>setEnrollmentCertificate(enrollment)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Set the Peer’s enrollment certificate.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollment</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Certificate in PEM format signed by the trusted CA</td>
         </tr>
 
     
@@ -633,30 +784,6 @@ or runs queries.
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    A Promise for a <a href="global.html#ProposalResponse">ProposalResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
@@ -673,7 +800,7 @@ or runs queries.
 
     
     <div class="description">
-        Set the Peer name as a client-side only identifier of this Peer object.
+        Set the Peer name / id.
     </div>
     
 
@@ -922,7 +1049,7 @@ or runs queries.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-06-20T15:56:02+00:00
+		on 2017-06-20T16:25:39+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
