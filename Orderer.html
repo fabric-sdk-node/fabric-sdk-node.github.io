@@ -95,8 +95,13 @@
         Orderer
         </h2>
         
-            <div class="class-description">The Orderer class represents a peer in the target blockchain network to which
-HFC sends a block of transactions of endorsed proposals requiring ordering.</div>
+            <div class="class-description">The Orderer class encapsulates the client capabilities to interact with
+an Orderer node in the target blockchain network. The orderer node exposes
+two APIs: broadcast() and deliver(). Both are streaming APIs so there's
+a persistent grpc streaming connection between the client and the orderer
+where messages are exchanged in both directions. The broadcast() API is
+for sending transactions to the orderer for processing. The deliver() API
+is for asking the orderer for information such as channel configurations.</div>
         
     
 </header>
@@ -116,7 +121,11 @@ HFC sends a block of transactions of endorsed proposals requiring ordering.</div
 
     
     <div class="description">
-        Constructs an Orderer given its endpoint configuration settings.
+        Constructs an Orderer object with the given url and opts. An orderer object
+encapsulates the properties of an orderer node and the interactions with it via
+the grpc stream API. Orderer objects are used by the <a href="Client.html">Client</a> objects to broadcast
+requests for creating and updating channels. They are also used by the <a href="Channel.html">Channel</a>
+objects to broadcast requests for ordering transactions.
     </div>
     
 
@@ -168,7 +177,7 @@ HFC sends a block of transactions of endorsed proposals requiring ordering.</div
 
             
 
-            <td class="description last">The orderer URL with format of 'grpcs://host:port'.</td>
+            <td class="description last">The URL with format of "grpc(s)://host:port".</td>
         </tr>
 
     
@@ -181,7 +190,7 @@ HFC sends a block of transactions of endorsed proposals requiring ordering.</div
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ConnectionOpts">ConnectionOpts</a></span>
 
 
 
@@ -192,12 +201,7 @@ HFC sends a block of transactions of endorsed proposals requiring ordering.</div
 
             
 
-            <td class="description last">The options for the connection to the orderer.
-<br>- request-timeout {string} A integer value in milliseconds to
-      be used as node.js based timeout. This will break the request
-      operation if the grpc request has not responded within this
-      timeout period.
-  note: other options will be passed to the grpc connection</td>
+            <td class="description last">The options for the connection to the orderer.</td>
         </tr>
 
     
@@ -332,7 +336,7 @@ HFC sends a block of transactions of endorsed proposals requiring ordering.</div
             <td class="type">
             
                 
-<span class="param-type">byte</span>
+<span class="param-type">Array.&lt;byte></span>
 
 
 
@@ -343,7 +347,12 @@ HFC sends a block of transactions of endorsed proposals requiring ordering.</div
 
             
 
-            <td class="description last">Byte data to be included in the Broadcast</td>
+            <td class="description last">Byte data to be included in the broadcast. This must
+                           be a protobuf encoded byte array of the
+                           <a href="https://github.com/hyperledger/fabric/blob/v1.0.0-beta/protos/common/common.proto#L132">common.Envelope</a>
+                           that contains either a <a href="https://github.com/hyperledger/fabric/blob/v1.0.0-beta/protos/common/configtx.proto#L70">ConfigUpdateEnvelope</a>
+                           or a <a href="https://github.com/hyperledger/fabric/blob/v1.0.0-beta/protos/peer/transaction.proto#L70">Transaction</a>
+                           in the <code>payload.data</code> property of the envelope.</td>
         </tr>
 
     
@@ -387,15 +396,6 @@ HFC sends a block of transactions of endorsed proposals requiring ordering.</div
 	
 
 	
-	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
-	<dd class="tag-see">
-		<ul>
-			<li>the ./proto/orderer/ab.proto</li>
-			
-			<li>the ./proto/orderer/ab.proto</li>
-			</ul>
-	</dd>
-	
 
 	
 </dl>
@@ -416,7 +416,7 @@ HFC sends a block of transactions of endorsed proposals requiring ordering.</div
     
             
 <div class="param-desc">
-    A Promise for a BroadcastResponse
+    A Promise for a <a href="global.html#BroadcastResponse">BroadcastResponse</a> object
 </div>
 
 
@@ -493,7 +493,7 @@ HFC sends a block of transactions of endorsed proposals requiring ordering.</div
             <td class="type">
             
                 
-<span class="param-type">byte</span>
+<span class="param-type">Array.&lt;byte></span>
 
 
 
@@ -504,7 +504,13 @@ HFC sends a block of transactions of endorsed proposals requiring ordering.</div
 
             
 
-            <td class="description last">Byte data to be included in the Deliver</td>
+            <td class="description last">Byte data to be included in the broadcast. This must
+                           be a protobuf encoded byte array of the
+                           <a href="https://github.com/hyperledger/fabric/blob/v1.0.0-beta/protos/common/common.proto#L132">common.Envelope</a>
+                           that contains a <a href="https://github.com/hyperledger/fabric/blob/v1.0.0-beta/protos/orderer/ab.proto#L54">SeekInfo</a>
+                           in the <code>payload.data</code> property of the envelope.
+                           The <code>header.channelHeader.type</code> must be set to
+                           <a href="https://github.com/hyperledger/fabric/blob/v1.0.0-beta/protos/common/common.proto#L44">common.HeaderType.DELIVER_SEEK_INFO</a></td>
         </tr>
 
     
@@ -548,15 +554,6 @@ HFC sends a block of transactions of endorsed proposals requiring ordering.</div
 	
 
 	
-	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
-	<dd class="tag-see">
-		<ul>
-			<li>the ./proto/orderer/ab.proto</li>
-			
-			<li>the ./proto/orderer/common.proto</li>
-			</ul>
-	</dd>
-	
 
 	
 </dl>
@@ -577,7 +574,14 @@ HFC sends a block of transactions of endorsed proposals requiring ordering.</div
     
             
 <div class="param-desc">
-    A Promise for a Block
+    A Promise for a protobuf object of type common.Block. Note that this
+                   is <b>NOT</b> the same type of object as the <a href="global.html#Block">Block</a> returned by the
+                   BlockDecoder.decode() method and various
+                   other methods. A <a href="global.html#Block">Block</a> is a pure javascript object, whereas
+                   the object returned by this method is a protobuf object that contains
+                   accessor methods, getters and setters, and toBuffer() for each property
+                   to be used for further manipulating the object and convert to and from
+                   byte arrays.
 </div>
 
 
@@ -729,7 +733,7 @@ HFC sends a block of transactions of endorsed proposals requiring ordering.</div
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-06-20T16:25:39+00:00
+		on 2017-06-21T17:15:29+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
