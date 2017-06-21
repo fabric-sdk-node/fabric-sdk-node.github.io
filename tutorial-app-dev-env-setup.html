@@ -93,124 +93,70 @@
 </header>
 
 <article>
-    <p>This tutorial describes how to prepare a development environment in order to
-build a business application to use a blockchain network based on Hyperledger
-Fabric. At a high level, a business application running on a Hyperledger Fabric
-network is made up of two parts: chaincode that runs in the servers
-(<a href="http://hyperledger-fabric.readthedocs.io/en/latest/arch-deep-dive.html#peer">endorser</a>
-nodes), and client code that runs in the Node.js application.</p>
-<p>For chaincode development, please visit the Hyperledger Fabric
-<a href="http://hyperledger-fabric.readthedocs.io/en/latest/chaincode.html">chaincode tutorials</a>.</p>
-<p>For complete information on starting a Hyperledger Fabric network, please see the <a href="http://hyperledger-fabric.readthedocs.io/en/latest/build_network.html">Build your first network tutorial</a>.</p>
-<p>The following tutorial assumes a chaincode has been developed and
-the focus is developing the client application.</p>
-<h2>What makes up a Hyperledger Fabric application development environment?</h2><p>Below you'll find a high level summary of the Hyperledger Fabric design aimed
-at an introductory level of understanding, so that you can be on your way to
-setting up the development environment. For a comprehensive description of
-the concepts, the architecture, please visit the official
-<a href="http://hyperledger-fabric.readthedocs.io/en/latest">Hyperledger Fabric documentation</a>.</p>
-<p>First of all, you will need an
-<a href="http://hyperledger-fabric.readthedocs.io/en/latest/orderingservice.html">orderer</a>.
-But isn't an orderer responsible for the consensus?
-Why start here? It's true that the main responsibility of the ordering service
-of a Hyperledger Fabric blockchain network is to provide consensus on a
-transaction among the maintainers of the ledger, a.k.a the committer nodes.
-However, the ordering service also maintains critical data about the overall
-network: what organizations are participating, what channels have been created,
-which organizations are part of a given channel, and last but not least what
-policies are in place for any kind of change to the network. In essence, the
-ordering service holds the network together.</p>
-<p>Ok we've got to have an orderer node so we can add participating organizations
-to it and get a network started. Next you would need peers for each
-participating organization in order to participate in transaction
-endorsing and maintaining the ledger.</p>
-<p>The peer nodes play two roles: endorser and committer. A peer's endorser
-role may be enabled or disabled based on the bootstrap configuration.
-Note that all peers are always committers. For high availability you would
-want more than one peer for each organization in a real deployment.
-For the development environment, one peer per organization is sufficient
-under most circumstances. This peer will be both an endorser and a committer.
-It will be sent transaction proposals to endorse and queries to discover
-information from the ledger.</p>
-<p>Another important role that peer nodes play is broadcasting events to
-interested parties. Whenever a block is added to the ledger, an event
-is sent by the peer through a dedicated streaming port. Any application
-within the organization can register themselves to listen on that port
-to get notified.</p>
-<p>The final piece of the puzzle is identities. Every operation in a Hyperledger
-Fabric network must be digitially signed for the purposes of access control,
-or provenance/auditing (who did what), or both. As of v1.0, identities are
-based on the Public Key Infrastructure (PKI)) standards. Every orderer node,
-every peer node and every user/transactor must have a key pair with the
-public key wrapped in a x.509 certificate signed by a
-Certificate Authority (CA). Since x.509 is an open standard, Hyperledger Fabric
-would work with any existing certificate authority. This is typically a painful
-process with lots of potential red tape to get real certificates, so for the
-development purposes it is a popular practice to use self-signed certificates
-locally generated. As you will see in the later section, the Hyperledger Fabric
-provides tools to make this less painful.</p>
-<p>Also related to identities, you should make a decision on whether
-<a href="http://hyperledger-fabric-ca.readthedocs.io/en/latest/users-guide.html">Fabric-CA</a>
-should be part of your solution. This is a server with REST APIs that supports
-dynamic identity management with registration, enrollment (getting certificates),
-revocation and re-enrollment. So it is very useful in providing user identities
-on the fly. Note that user identities provisioned this way are only of the
-<code>MEMBER</code> role, which means it won't be able to perform certain operations reserved
-for the <code>ADMIN</code> role:</p>
+    <p>This tutorial describes how to prepare a development environment in order to build a business application to use a blockchain network based on Hyperledger Fabric. At a high level, a business application against a Hyperledger Fabric network is made up of two parts: chaincode that runs in the servers (<a href="http://hyperledger-fabric.readthedocs.io/en/latest/arch-deep-dive.html#peer">endorser</a> nodes), and client code that runs in the client application.</p>
+<p>For chaincode development, please visit the tutorial <a href="http://hyperledger-fabric.readthedocs.io/en/latest/FAQ/chaincode_FAQ.html#chaincode-smart-contracts-and-digital-assets">here</a>.</p>
+<p>The following tutorial assumes a chaincode has been developed and the focus is developing the client application.</p>
+<h2>What makes up a Hyperledger Fabric application development environment?</h2><p>Below you'll find a high level summary of the Hyperledger Fabric design aimed at an introductory level of understanding, so that you can be on your way to setting up the development environment. For a comprehensive description of the concepts, the architecture, please visit the official <a href="http://hyperledger-fabric.readthedocs.io/en/latest/overview.html">Hyperledger Fabric documentation</a>.</p>
+<p>First of all, you will need an <a href="http://hyperledger-fabric.readthedocs.io/en/latest/orderingservice.html">orderer</a>. But isn't an orderer responsible for the consensus? Why start here? It's true that the main responsibility of the ordering service of a Hyperledger Fabric blockchain network is to provide consensus on a transaction among the maintainers of the ledger, a.k.a the committer nodes. However, the ordering service also maintains critical data about the overall network: what organizations are participating, what channels have been created, which organizations are part of a given channel, and last but not least what policies are in place for any kind of changes to the network. In essence, the ordering service holds the network together.</p>
+<p>Ok we've got to have an orderer node so we can add participating organizations to it and get a network started. Next you would need peers for each participating organization in order to participate in transaction endorsing and maintaining the ledger.</p>
+<p>The peer nodes play two roles: endorser and committer. A peer's endorser role may be enabled or disabled based on bootstrap configuration. But all peers are always committers. For high availability you would want more than one peer for each organization in a real deployment. But for the development environment, one peer per organization is sufficient under most circumstances. This peer will be both an endorse and a committer. It will be sent transaction proposals to endorse, and queries to discover information from the ledger.</p>
+<p>Another important role that peer nodes play is broadcasting events to interested parties. Whenever a block is added to the ledger, an event is sent by the peer through a dedicated streaming port. Any applications within the organization can register themselves to listen on that port to get notified.</p>
+<p>The final piece of the puzzle is identities. Every operation in a Hyperledger Fabric network must be digitially signed for the purposes of access control, or provenance/auditing (who did what), or both. As of v1.0, identities are based on the Public Key Infrastructure (PKI)) standards. Every orderer node, peer node and every user/transactor must have a key pair with the public key wrapped in a x.509 certificate signed by a Certificate Authority (CA). Since x.509 is an open standard, Hyperledger Fabric would work with any existing certificate authorities. But it's typically a painful process with lots of potential red taping to get real certificates, so for development purposes it is a popular practice to use self-signed certificates locally generated. As you will see in the later section, the fabric provides tools to make this less painful.</p>
+<p>Also related to identities, you should make a decision on whether <a href="http://hyperledger-fabric.readthedocs.io/en/latest/Setup/ca-setup.html">Fabric-CA</a> should be part of your solution. This is a server with REST APIs that supports dynamic identity management with registration, enrollment (getting certificates), revocation and re-enrollment. So it is very useful in providing user identities on the fly. But note that user identities provisioned this way are only of the <code>MEMBER</code> role in the fabric, which means it won't be able to perform certain operations reserved for the <code>ADMIN</code> role:</p>
 <ul>
 <li>create/update channel</li>
 <li>install/instantiate chaincode</li>
 <li>query installed/instantiated chaincodes</li>
 </ul>
-<p>For these privileged operations, the client must use an ADMIN user to submit
-the request.</p>
-<p>If you choose to not use Fabric-CA, everything will still work, but the application
-is responsible for managing the user certificates.</p>
+<p>For these privileged operations, the client must use an ADMIN user to submit the request. This will be discussed in more details in the <a href="">User identities</a> tutorial.</p>
+<p>If you choose to not use Fabric-CA, everything will still work but the application is responsible for managing the user certificates. This will be discussed in more details in the <a href="">User identities</a> tutorial.</p>
 <h2>Prerequisites</h2><p>You will need the following software:</p>
 <ul>
-<li><a href="http://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html#docker-and-docker-compose">Docker and Docker Compose</a> - see Hyperledger Fabric for details</li>
-<li><a href="https://nodejs.org/en/download/">Nodejs</a>
-v6.2.0 - 6.10.0 ( <strong>Node v7+ is not supported</strong> )</li>
+<li><a href="https://www.docker.com/products/overview">Docker</a> - v1.12 or higher</li>
+<li><a href="https://docs.docker.com/compose/overview/">Docker Compose</a> - v1.8 or higher</li>
+<li><a href="https://nodejs.org/en/download/">Nodejs</a> v6.2.0 - 6.10.0 ( <strong>Node v7+ is not supported</strong> )</li>
 </ul>
-<h2>Prepare crypto materials</h2><p>As discussed above, identities are established with x.509 certificates.
-If you think about it, we will need a whole bunch of certificates because
-there are many identities involved:</p>
+<h2>Prepare crypto materials</h2><p>As discussed above, identities are established with x.509 certificates. If you think about it, we will need a whole bunch of certificates because there are many identities involved:</p>
 <ul>
 <li>peers need identities to sign endorsements</li>
-<li>orderers need identities to sign proposed blocks for the committers
-to validate and append to the ledger</li>
+<li>orderers need identities to sign proposed blocks for the committers to validate and append to the ledger</li>
 <li>applications need identities to sign transaction requests</li>
-<li>the Fabric CA themselves also need identities, so their signatures
-in the certificates can be validated</li>
+<li>even the Fabric CA themselves also need identities so their signatures in the certificates can be validated</li>
 </ul>
-<p>Luckily there is a tool for that. Follow
-<a href="http://hyperledger-fabric.readthedocs.io/en/latest/build_network.html#crypto-generator">this guide</a>
-to use the cryptogen tool to generate all the required keys and
-certificates in one swoop.</p>
-<p>Note that the cryptogen tool will automatically generate identities for
-the Fabric CA nodes for each orderer and peer organization,
-which can be used to start the Fabric-CA servers (if you choose to use
-it as part of the solution as discussed above). In addition, it also
-generates one admin user of the <code>ADMIN</code> role with the privileges to perform
-admin-level operations listed above. Finally, it also generates regular
-users (<code>MEMBER</code> role) for submitting transactions.</p>
+<p>Luckily there is a tool for that. Follow <a href="http://hyperledger-fabric.readthedocs.io/en/latest/getting_started.html#using-the-cryptogen-tool">this guide</a> to use the cryptogen tool to generate all the required keys and certificates in one swoop. Recommend the following configuration:</p>
+<table>
+<thead>
+<tr>
+<th>Organization</th>
+<th style="text-align:center"># of nodes</th>
+<th style="text-align:center"># of users</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>orderer org</td>
+<td style="text-align:center">1 orderer</td>
+<td style="text-align:center">1 admin</td>
+</tr>
+<tr>
+<td>peer org1</td>
+<td style="text-align:center">2 peers</td>
+<td style="text-align:center">1 admin, 1 member</td>
+</tr>
+<tr>
+<td>peer org2</td>
+<td style="text-align:center">2 peers</td>
+<td style="text-align:center">1 admin, 1 member</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the cryptogen tool will automatically generate identities for the Fabric CA nodes for each orderer and peer organization, which can be used to start the Fabric-CA servers (if you choose to use it as part of the solution as discussed above). In addition, it also generates one admin user of the <code>ADMIN</code> role with the privileges to perform admin-level operations listed above. Finally, it also generates regular users (<code>MEMBER</code> role) for submitting transactions.</p>
 <p>This would get us all the crypto materials needed to start things up.</p>
-<h2>Getting things rolling for real - the genesis block</h2><p>As discussed above, the orderer should be the first step to bootstrap (launch)
-a network. The orderer will need the initial configurations wrapped inside
-a <code>genesis block</code>. Follow the
-<a href="http://hyperledger-fabric.readthedocs.io/en/latest/build_network.html#configuration-transaction-generator">instructions here</a>
-to use the <code>congigtxgen</code> tool to generate a <code>genesis.block</code>.
-The output, a genesis block file for the orderer, will be used in
-the next step to launch the orderer node.</p>
-<h2>Start the network</h2><p>Now we are ready to put it all together. The easiest way to launch the
-development environment is to use docker-compose. Follow the
-<a href="http://hyperledger-fabric.readthedocs.io/en/latest/build_network.html#start-the-network">instructions here</a>
-to start the network. To minimize the chances of a mistake,
-you may wish to run the network without TLS.
-<br><br><br>
-The above steps give you a development environment. Now before you can ask
-it to process any transactions, you must first create a channel.</p>
-<p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+<h2>Getting things rolling for real - the genesis block</h2><p>As discussed above, the orderer should be the first step to bootstrap to launch a network. It will need the initial configurations wrapped inside a <code>genesis block</code>. Follow the <a href="http://hyperledger-fabric.readthedocs.io/en/latest/getting_started.html#using-the-configtxgen-tool">instructions here</a> to use the <code>congigtxgen</code> tool to generate that. The output, the genesis block for the orderer, will be used in the next step to launch the orderer node.</p>
+<h2>Start the network (no TLS)</h2><p>Now we are ready to put it all together. The easiest way to launch the development environment is to use docker-compose. Follow the <a href="http://hyperledger-fabric.readthedocs.io/en/latest/getting_started.html#start-the-network-no-tls">instructions here</a> to start the network. To minimize the chance to make mistakes, we will run the network without TLS.</p>
+<p>The above steps give you a development environment. Now before you can ask it to process any transactions, you must first create a channel. Next, we will create a channel in <a href="">this tutorial</a>.</p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+s</p>
 </article>
 
 </section>
@@ -248,7 +194,7 @@ it to process any transactions, you must first create a channel.</p>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-06-21T17:15:30+00:00
+		on 2017-06-21T17:24:17+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
