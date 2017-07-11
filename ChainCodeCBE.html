@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: exports</title>
+	<title>Hyperledger Fabric SDK for node.js Class: ChainCodeCBE</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="BaseClient.html">BaseClient</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="Channel.html">Channel</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="module.html#.exports">module.exports</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li>
+					<li><a href="BaseClient.html">BaseClient</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="ChainCodeCBE.html">ChainCodeCBE</a></li><li><a href="Channel.html">Channel</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="module.exports_module.exports.html">module.exports#module.exports</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li>
 				</ul>
 			</li>
 			
@@ -54,7 +54,7 @@
 			<li class="dropdown">
 				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="global.html#package">package</a></li>
+					<li><a href="global.html#__func">__func</a></li><li><a href="global.html#buildChannelHeader">buildChannelHeader</a></li><li><a href="global.html#buildCurrentTimestamp">buildCurrentTimestamp</a></li><li><a href="global.html#buildHeader">buildHeader</a></li><li><a href="global.html#buildProposal">buildProposal</a></li><li><a href="global.html#CryptoKeyStoreMixin">CryptoKeyStoreMixin</a></li><li><a href="global.html#loadConfigGroup">loadConfigGroup</a></li><li><a href="global.html#loadConfigPolicy">loadConfigPolicy</a></li><li><a href="global.html#loadConfigValue">loadConfigValue</a></li><li><a href="global.html#package">package</a></li><li><a href="global.html#pemToDER">pemToDER</a></li><li><a href="global.html#sendPeersProposal">sendPeersProposal</a></li><li><a href="global.html#signProposal">signProposal</a></li>
 				</ul>
 			</li>
 			
@@ -86,14 +86,18 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: exports</h1>
+	<h1 class="page-title">Class: ChainCodeCBE</h1>
 <section>
 
 <header>
     
         <h2>
-        exports
+        ChainCodeCBE
         </h2>
+        
+            <div class="class-description">/*
+The ChainCodeCBE is used internal to the EventHub to hold chaincode
+event registration callbacks.</div>
         
     
 </header>
@@ -105,7 +109,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id=".exports"><span class="type-signature"></span>new exports(key)</h4>
+    <h4 class="name" id="ChainCodeCBE"><span class="type-signature"></span>new ChainCodeCBE(ccid, eventNameFilter, onEvent, onError)</h4>
     
     
 </dt>
@@ -113,7 +117,8 @@
 
     
     <div class="description">
-        this class represents the private or public key of an ECDSA key pair.
+        /*
+Constructs a chaincode callback entry
     </div>
     
 
@@ -148,13 +153,13 @@
 
         <tr>
             
-                <td class="name"><code>key</code></td>
+                <td class="name"><code>ccid</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">string</span>
 
 
 
@@ -165,7 +170,79 @@
 
             
 
-            <td class="description last">This must be the "privKeyObj" or "pubKeyObj" part of the object generated by jsrsasign.KEYUTIL.generateKeypair()</td>
+            <td class="description last">chaincode id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>eventNameFilter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The regex used to filter events</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onEvent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback for filter matches</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onError</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback for connection errors</td>
         </tr>
 
     
@@ -244,282 +321,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="generateCSR"><span class="type-signature"></span>generateCSR(subjectDN)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Generates a CSR/PKCS#10 certificate signing request for this key
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>subjectDN</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The X500Name for the certificate request in LDAP(RFC 2253) format</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Throws:</h5>
-    <ul>
-            <li>
-
-    <div class="param-desc">
-    
-        Will throw an error if this is not a private key
-    
-    </div>
-
-</li>
-        
-            <li>
-
-    <div class="param-desc">
-    
-        Will throw an error if CSR generation fails for any other reason
-    
-    </div>
-
-</li>
-        </ul>
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    PEM-encoded PKCS#10 certificate signing request
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getSKI"><span class="type-signature"></span>getSKI()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    a string representation of the hash from a sequence based on the private key bytes
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        </dl>
     
 
     
@@ -567,9 +368,9 @@
 
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.1</a>
 	
-		on 2017-06-27T11:09:27+00:00
+		on 2017-07-11T17:05:04+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
