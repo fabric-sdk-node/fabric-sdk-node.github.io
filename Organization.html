@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: KeyValueStore</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Organization</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,24 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: KeyValueStore</h1>
+	<h1 class="page-title">Class: Organization</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-api.html">api</a>.</span>
-        
-        KeyValueStore
+        Organization
         </h2>
         
-            <div class="class-description">Abstract class for a Key-Value store. The Channel class uses this store
-to save sensitive information such as authenticated user's private keys,
-certificates, etc.
-
-The SDK provides a default implementation based on files. An alternative
-implementation can be specified using the "key-value-store" configuration
-setting, pointing to a full require() path to package for the module.</div>
+            <div class="class-description">The Organization class represents an organization in the target blockchain network.</div>
         
     
 </header>
@@ -115,19 +107,97 @@ setting, pointing to a full require() path to package for the module.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="KeyValueStore"><span class="type-signature"></span>new KeyValueStore()</h4>
+    <h4 class="name" id="Organization"><span class="type-signature"></span>new Organization(name, mspid)</h4>
     
     
 </dt>
 <dd>
 
     
-
+    <div class="description">
+        Construct a Organization object
+    </div>
     
 
     
 
     
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of this organization</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mspid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The mspid of this organization</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -207,7 +277,7 @@ setting, pointing to a full require() path to package for the module.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue(name)</h4>
+    <h4 class="name" id="addCertificateAuthority"><span class="type-signature"></span>addCertificateAuthority(certificateAuthority)</h4>
     
     
 </dt>
@@ -215,7 +285,7 @@ setting, pointing to a full require() path to package for the module.</div>
 
     
     <div class="description">
-        Get the value associated with <code>name</code>.
+        Add a <a href="CertificateAuthority.html">CertificateAuthority</a> to this organization
     </div>
     
 
@@ -250,13 +320,13 @@ setting, pointing to a full require() path to package for the module.</div>
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>certificateAuthority</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="CertificateAuthority.html">CertificateAuthority</a></span>
 
 
 
@@ -267,7 +337,8 @@ setting, pointing to a full require() path to package for the module.</div>
 
             
 
-            <td class="description last">Name of the key</td>
+            <td class="description last">The CertificateAuthority
+         instance to add to this organizations list of CertificateAuthorities</td>
         </tr>
 
     
@@ -327,12 +398,373 @@ setting, pointing to a full require() path to package for the module.</div>
     
 
     
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="addPeer"><span class="type-signature"></span>addPeer(peer)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Add a <a href="Peer.html">Peer</a> to this organization
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>peer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The peer instance to add to this organizations list of peers</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getAdminCert"><span class="type-signature"></span>getAdminCert()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the admin signing certificate in PEM format for this organization.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getAdminPrivateKey"><span class="type-signature"></span>getAdminPrivateKey()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the admin private key in PEM format for this organization.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getCertificateAuthorities"><span class="type-signature"></span>getCertificateAuthorities()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the list of this CertificateAuthorities <a href="CertificateAuthority.html">CertificateAuthority</a>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
     <h5>Returns:</h5>
     
             
 <div class="param-desc">
-    Promise for the value corresponding to the key. If the value does not exist in the
-store, returns null without rejecting the promise
+    [] An array of <a href="CertificateAuthority.html">CertificateAuthority</a> objects
 </div>
 
 
@@ -343,7 +775,7 @@ store, returns null without rejecting the promise
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type"><a href="CertificateAuthority.html">CertificateAuthority</a></span>
 
 
 
@@ -360,7 +792,7 @@ store, returns null without rejecting the promise
             
 <hr>
 <dt>
-    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue(name, value)</h4>
+    <h4 class="name" id="getMspid"><span class="type-signature"></span>getMspid()</h4>
     
     
 </dt>
@@ -368,7 +800,7 @@ store, returns null without rejecting the promise
 
     
     <div class="description">
-        Set the value associated with <code>name</code>.
+        Gets the MSPID of this organization
     </div>
     
 
@@ -377,80 +809,6 @@ store, returns null without rejecting the promise
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Name of the key to save</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Value to save</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -508,7 +866,7 @@ store, returns null without rejecting the promise
     
             
 <div class="param-desc">
-    Promise for the 'value' object upon successful write operation
+    The mspid of this organization
 </div>
 
 
@@ -519,7 +877,7 @@ store, returns null without rejecting the promise
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">string</span>
 
 
 
@@ -528,6 +886,444 @@ store, returns null without rejecting the promise
 
 
         
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the name of this organization
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The name of this organization
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getPeers"><span class="type-signature"></span>getPeers()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the list of this organizations <a href="Peer.html">Peer</a>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    [] An array of <a href="Peer.html">Peer</a> objects
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setAdminCert"><span class="type-signature"></span>setAdminCert()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the admin signing certificate in PEM format for this organization.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setAdminPrivateKey"><span class="type-signature"></span>setAdminPrivateKey()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the admin private key in PEM format for this organization.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        return a printable representation of this object
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
 </dd>

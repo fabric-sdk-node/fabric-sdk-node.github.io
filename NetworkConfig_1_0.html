@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: KeyValueStore</title>
+	<title>Hyperledger Fabric SDK for node.js Class: NetworkConfig_1_0</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,24 +86,17 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: KeyValueStore</h1>
+	<h1 class="page-title">Class: NetworkConfig_1_0</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-api.html">api</a>.</span>
-        
-        KeyValueStore
+        NetworkConfig_1_0
         </h2>
         
-            <div class="class-description">Abstract class for a Key-Value store. The Channel class uses this store
-to save sensitive information such as authenticated user's private keys,
-certificates, etc.
-
-The SDK provides a default implementation based on files. An alternative
-implementation can be specified using the "key-value-store" configuration
-setting, pointing to a full require() path to package for the module.</div>
+            <div class="class-description">This is an implementation of the NetworkConfig API.
+It will be used to work with the v1.0.1 version of a JSON based network configuration.</div>
         
     
 </header>
@@ -115,99 +108,7 @@ setting, pointing to a full require() path to package for the module.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="KeyValueStore"><span class="type-signature"></span>new KeyValueStore()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue(name)</h4>
+    <h4 class="name" id="NetworkConfig_1_0"><span class="type-signature"></span>new NetworkConfig_1_0(network_config)</h4>
     
     
 </dt>
@@ -215,7 +116,7 @@ setting, pointing to a full require() path to package for the module.</div>
 
     
     <div class="description">
-        Get the value associated with <code>name</code>.
+        constructor
     </div>
     
 
@@ -250,13 +151,13 @@ setting, pointing to a full require() path to package for the module.</div>
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>network_config</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Object</span>
 
 
 
@@ -267,7 +168,7 @@ setting, pointing to a full require() path to package for the module.</div>
 
             
 
-            <td class="description last">Name of the key</td>
+            <td class="description last">Network Configuration as represented in a JSON object</td>
         </tr>
 
     
@@ -327,170 +228,22 @@ setting, pointing to a full require() path to package for the module.</div>
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for the value corresponding to the key. If the value does not exist in the
-store, returns null without rejecting the promise
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
 
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue(name, value)</h4>
     
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the value associated with <code>name</code>.
     </div>
-    
 
     
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
+        <h3 class="subsection-title">Extends</h3>
 
         
 
-        
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Name of the key to save</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Value to save</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
+    <ul>
+        <li>module:api.NetworkConfig</li>
+    </ul>
 
 
     
@@ -504,35 +257,7 @@ store, returns null without rejecting the promise
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for the 'value' object upon successful write operation
-</div>
 
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        </dl>
     
 
     

@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="BaseClient.html">BaseClient</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="Channel.html">Channel</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="module.exports_module.exports.html">module.exports#module.exports</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li>
+					<li><a href="BaseClient.html">BaseClient</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="CertificateAuthority.html">CertificateAuthority</a></li><li><a href="Channel.html">Channel</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="module.exports_module.exports.html">module.exports#module.exports</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="NetworkConfig_1_0.html">NetworkConfig_1_0</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Organization.html">Organization</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li>
 				</ul>
 			</li>
 			
@@ -227,6 +227,161 @@ the <a href="User.html">User</a> class) in the state store.</div>
         <h3 class="subsection-title">Methods</h3>
 
         <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id=".loadFromConfig"><span class="type-signature">&lt;static> </span>loadFromConfig(config)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Load a network configuration object or load a JSON file and return a Client object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+|
+
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">This may be the config object or a path to the configuration file</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    An instance of this class initialized with the network end points.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Client.html">Client</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
             
 <hr>
 <dt>
@@ -709,7 +864,7 @@ on the <a href="Client.html#createChannel">createChannel()</a> or <a href="Clien
             
 <hr>
 <dt>
-    <h4 class="name" id="getChannel"><span class="type-signature"></span>getChannel(name)</h4>
+    <h4 class="name" id="getChannel"><span class="type-signature"></span>getChannel(name, throwError)</h4>
     
     
 </dt>
@@ -718,6 +873,9 @@ on the <a href="Client.html#createChannel">createChannel()</a> or <a href="Clien
     
     <div class="description">
         Get a <a href="Channel.html">Channel</a> instance from the client instance. This is a memory-only lookup.
+If the loaded network configuration has a channel by the 'name', a new channel instance
+will be created and populated with <a href="Orderer.html">Orderer</a> objects and <a href="Peer.html">Peer</a> objects
+as defined in the network configuration.
     </div>
     
 
@@ -770,6 +928,31 @@ on the <a href="Client.html#createChannel">createChannel()</a> or <a href="Clien
             
 
             <td class="description last">The name of the channel.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>throwError</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Indicates if this method will throw an error if the channel
+                 is not found. Default is true.</td>
         </tr>
 
     
@@ -1263,6 +1446,111 @@ enrollment certificate signed by a trusted CA (such as the CA server).
             
 <hr>
 <dt>
+    <h4 class="name" id="initCredentialStores"><span class="type-signature"></span>initCredentialStores()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the state and crypto stores for use by this client.
+This requires that a network config has been loaded. Will use the settings
+from the network configuration along with the system configuration to build
+instances of the stores and assign them to this client.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    - A promise to build a key value store and crypto store.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="installChaincode"><span class="type-signature"></span>installChaincode(request, timeout)</h4>
     
     
@@ -1474,6 +1762,138 @@ to the peers during chanicode install.
     
 
     
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="loadFromConfig"><span class="type-signature"></span>loadFromConfig(config)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Load a network configuration object or load a JSON file and update this client with
+any values in the config.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+|
+
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">This may be the config object or a path to the configuration file</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -2306,7 +2726,7 @@ transactions.
             
 <hr>
 <dt>
-    <h4 class="name" id="newTransactionID"><span class="type-signature"></span>newTransactionID()</h4>
+    <h4 class="name" id="newTransactionID"><span class="type-signature"></span>newTransactionID(If)</h4>
     
     
 </dt>
@@ -2328,6 +2748,57 @@ This method requires the client instance to have been assigned a userContext.
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>If</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">this transactionID should be built based on the admin credentials
+                 Default is a non admin TransactionID</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -2414,7 +2885,7 @@ This method requires the client instance to have been assigned a userContext.
             
 <hr>
 <dt>
-    <h4 class="name" id="queryChannels"><span class="type-signature"></span>queryChannels(peer)</h4>
+    <h4 class="name" id="queryChannels"><span class="type-signature"></span>queryChannels(peer, useAdmin)</h4>
     
     
 </dt>
@@ -2475,7 +2946,32 @@ peer has joined.
 
             
 
-            <td class="description last">The target peer to send the query to</td>
+            <td class="description last">The target peer to send the query</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>useAdmin</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. Indicates that the admin credentials
+       should be used in making this call to the peer.</td>
         </tr>
 
     
@@ -2567,7 +3063,7 @@ peer has joined.
             
 <hr>
 <dt>
-    <h4 class="name" id="queryInstalledChaincodes"><span class="type-signature"></span>queryInstalledChaincodes(peer)</h4>
+    <h4 class="name" id="queryInstalledChaincodes"><span class="type-signature"></span>queryInstalledChaincodes(peer, useAdmin)</h4>
     
     
 </dt>
@@ -2628,6 +3124,31 @@ peer has joined.
             
 
             <td class="description last">The target peer</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>useAdmin</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. Indicates that the admin credentials
+       should be used in making this call to the peer.</td>
         </tr>
 
     
@@ -2813,6 +3334,184 @@ peer has joined.
 
 
         
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setAdminSigningIdentity"><span class="type-signature"></span>setAdminSigningIdentity(private_key, certificate, mpsid)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Set the admin signing identity object. This method will only assign a
+signing identity for use by this client instance and will not persist
+the identity.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>private_key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the private key PEM string</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>certificate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the PEM-encoded string of certificate</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mpsid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Member Service Provider id for the local signing identity</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
 </dd>
@@ -3364,6 +4063,187 @@ and the application is responsible for setting the user context again if the app
             
 <hr>
 <dt>
+    <h4 class="name" id="setUserFromConfig"><span class="type-signature"></span>setUserFromConfig(username, password, clear_existing_user)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the user context based on the passed in username and password
+and the organization in the client section of the network configuration
+settings.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">username of the user</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">password of the user</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clear_existing_user</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">to clear out any current
+                 user context of this client. The default will
+                 be to use the current user if they have the same
+                 username.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="signChannelConfig"><span class="type-signature"></span>signChannelConfig(config)</h4>
     
     
@@ -3731,7 +4611,7 @@ in the channel.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.4</a>
 	
-		on 2017-09-06T11:20:41+00:00
+		on 2017-09-06T20:00:38+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
