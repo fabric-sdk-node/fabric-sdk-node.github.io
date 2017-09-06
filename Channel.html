@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="BaseClient.html">BaseClient</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="CertificateAuthority.html">CertificateAuthority</a></li><li><a href="Channel.html">Channel</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="module.exports_module.exports.html">module.exports#module.exports</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="NetworkConfig_1_0.html">NetworkConfig_1_0</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Organization.html">Organization</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li>
+					<li><a href="BaseClient.html">BaseClient</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="Channel.html">Channel</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="module.exports_module.exports.html">module.exports#module.exports</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li>
 				</ul>
 			</li>
 			
@@ -831,8 +831,9 @@ the channel configuration, and only returns the decoded <a href="global.html#Con
     <div class="description">
         A channel's first block is called the "genesis block". This block captures the
 initial channel configuration. For a peer node to join the channel, it must be
-provided the genesis block. This method must be called before calling
-<a href="Channel.html#joinChannel">joinChannel()</a>.
+provided the genesis block. The method <a href="Channel.html#joinChannel">joinChannel()</a>
+calls this method under the covers to automate the acquisition of the genesis block
+and sending it to the target peer to join.
     </div>
     
 
@@ -884,7 +885,7 @@ provided the genesis block. This method must be called before calling
 
             
 
-            <td class="description last">Optional - A transaction ID object</td>
+            <td class="description last">A transaction ID object</td>
         </tr>
 
     
@@ -1654,7 +1655,9 @@ to the orderer.
     <div class="description">
         For a peer node to become part of a channel, it must be sent the genesis
 block, as explained <a href="Channel.html#getGenesisBlock">here</a>. This method
-sends a join channel proposal to one or more endorsing peers.
+sends a join channel proposal to one or more endorsing peers. It automatically
+acquires the channel's genesis block from the channel object's orderer and
+includes the block in the proposal request.
     </div>
     
 
@@ -1825,7 +1828,7 @@ sends a join channel proposal to one or more endorsing peers.
             
 <hr>
 <dt>
-    <h4 class="name" id="queryBlock"><span class="type-signature"></span>queryBlock(blockNumber, target, useAdmin)</h4>
+    <h4 class="name" id="queryBlock"><span class="type-signature"></span>queryBlock(blockNumber, target)</h4>
     
     
 </dt>
@@ -1911,31 +1914,6 @@ sends a join channel proposal to one or more endorsing peers.
 
             <td class="description last">Optional. The peer to send this query to. If no target is passed,
                        the query is sent to the first peer that was added to the channel object.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>useAdmin</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. Indicates that the admin credentials should be used in making
-                 this call to the peer.</td>
         </tr>
 
     
@@ -2027,7 +2005,7 @@ sends a join channel proposal to one or more endorsing peers.
             
 <hr>
 <dt>
-    <h4 class="name" id="queryBlockByHash"><span class="type-signature"></span>queryBlockByHash(block, target, useAdmin)</h4>
+    <h4 class="name" id="queryBlockByHash"><span class="type-signature"></span>queryBlockByHash(block, target)</h4>
     
     
 </dt>
@@ -2113,31 +2091,6 @@ sends a join channel proposal to one or more endorsing peers.
 
             <td class="description last">Optional. The peer to send the query to. If no target is passed,
                        the query is sent to the first peer that was added to the channel object.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>useAdmin</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. Indicates that the admin credentials should be used in making
-                 this call to the peer.</td>
         </tr>
 
     
@@ -2401,7 +2354,7 @@ these results.
             
 <hr>
 <dt>
-    <h4 class="name" id="queryInfo"><span class="type-signature"></span>queryInfo(target, useAdmin)</h4>
+    <h4 class="name" id="queryInfo"><span class="type-signature"></span>queryInfo(target)</h4>
     
     
 </dt>
@@ -2464,31 +2417,6 @@ these results.
 
             <td class="description last">Optional. The peer that is the target for this query.  If no target is passed,
                        the query will use the first peer that was added to the channel object.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>useAdmin</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. Indicates that the admin credentials should be used in making
-                 this call to the peer.</td>
         </tr>
 
     
@@ -2581,7 +2509,7 @@ these results.
             
 <hr>
 <dt>
-    <h4 class="name" id="queryInstantiatedChaincodes"><span class="type-signature"></span>queryInstantiatedChaincodes(target, useAdmin)</h4>
+    <h4 class="name" id="queryInstantiatedChaincodes"><span class="type-signature"></span>queryInstantiatedChaincodes(target)</h4>
     
     
 </dt>
@@ -2643,31 +2571,6 @@ these results.
 
             <td class="description last">Optional. The peer to send this query to. If no target is passed,
                        the query is sent to the first peer that was added to the channel object.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>useAdmin</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. Indicates that the admin credentials should be used in making
-                 this call to the peer.</td>
         </tr>
 
     
@@ -2759,7 +2662,7 @@ these results.
             
 <hr>
 <dt>
-    <h4 class="name" id="queryTransaction"><span class="type-signature"></span>queryTransaction(tx_id, target, useAdmin)</h4>
+    <h4 class="name" id="queryTransaction"><span class="type-signature"></span>queryTransaction(tx_id, target)</h4>
     
     
 </dt>
@@ -2845,31 +2748,6 @@ these results.
 
             <td class="description last">Optional. The peer to send this query to. If no target is passed,
                        the query is sent to the first peer that was added to the channel object.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>useAdmin</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. Indicates that the admin credentials should be used in making
-                 this call to the peer.</td>
         </tr>
 
     
@@ -4371,7 +4249,7 @@ trusted root certificates for this channel.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.4</a>
 	
-		on 2017-08-30T15:17:57+00:00
+		on 2017-09-06T11:20:41+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
