@@ -449,7 +449,7 @@
 
         <tr>
             
-                <td class="name"><code>required</code></td>
+                <td class="name"><code>optional</code></td>
             
 
             <td class="type">
@@ -1427,8 +1427,11 @@ metadata
 
             
 
-            <td class="description last">Required. An array of Peer objects that the chaincode will
-                             be installed on</td>
+            <td class="description last">Optional. An array of Peer objects where the
+          chaincode will be installed. When excluded, the peers assigned
+          to this client's organization will be used as defined in the
+          network configuration. If the 'channels' property is included,
+          the target peers will be based the peers defined in the channels.</td>
         </tr>
 
     
@@ -1452,10 +1455,10 @@ metadata
 
             
 
-            <td class="description last">Required. The path to the location of the source code
-                                   of the chaincode. If the chaincode type is golang, then
-                                   this path is the fully qualified package name, such as
-                                   'mycompany.com/myproject/mypackage/mychaincode'</td>
+            <td class="description last">Required. The path to the location of
+          the source code of the chaincode. If the chaincode type is golang,
+          then this path is the fully qualified package name, such as
+          'mycompany.com/myproject/mypackage/mychaincode'</td>
         </tr>
 
     
@@ -1503,7 +1506,8 @@ metadata
 
             
 
-            <td class="description last">Required. Version string of the chaincode, such as 'v1'</td>
+            <td class="description last">Required. Version string of the
+          chaincode, such as 'v1'</td>
         </tr>
 
     
@@ -1527,12 +1531,14 @@ metadata
 
             
 
-            <td class="description last">Optional. Byte array of the archive content for the chaincode
-                           source. The archive must have a 'src' folder containing subfolders corresponding
-                           to the 'chaincodePath' field. For instance, if the chaincodePath is
-                           'mycompany.com/myproject/mypackage/mychaincode', then the archive must contain a
-                           folder 'src/mycompany.com/myproject/mypackage/mychaincode', where the
-                           GO source code resides.</td>
+            <td class="description last">Optional. Byte array of the archive
+          content for the chaincode source. The archive must have a 'src'
+          folder containing subfolders corresponding to the 'chaincodePath'
+          field. For instance, if the chaincodePath is
+          'mycompany.com/myproject/mypackage/mychaincode',
+          then the archive must contain a
+          folder 'src/mycompany.com/myproject/mypackage/mychaincode',
+          where the chaincode source code resides.</td>
         </tr>
 
     
@@ -1556,8 +1562,41 @@ metadata
 
             
 
-            <td class="description last">Optional. Type of chaincode. One of 'golang', 'car', 'node' or 'java'.
-                                   Default is 'golang'. Note that 'java' is not supported as of v1.0.</td>
+            <td class="description last">Optional. Type of chaincode. One of
+          'golang', 'car', 'node' or 'java'.
+          Default is 'golang'. Note that 'java' is not supported as of v1.0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>channelNames</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+|
+
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. When no targets are
+          provided. The loaded network configuration will be searched for
+          suitable target peers. Peers that are defined in the channels named
+          by this property and in this client's organization and that are
+          in the endorsing or chain code query role on the named channel
+          will be selected.</td>
         </tr>
 
     
@@ -1677,9 +1716,10 @@ metadata
 
             
 
-            <td class="description last">Optional. An array of endorsing <a href="Peer.html">Peer</a> objects as the targets of the
-                             request. The list of endorsing peers in the channel object will be used
-                             if this parameter is omitted.</td>
+            <td class="description last">Optional. An array of endorsing
+          <a href="Peer.html">Peer</a> objects as the targets of the request. When this
+          parameter is omitted the target list will include peers assigned
+          to this channel instance that are in the endorsing role.</td>
         </tr>
 
     
@@ -1703,8 +1743,9 @@ metadata
 
             
 
-            <td class="description last">Optional. Type of chaincode. One of 'golang', 'car' or 'java'.
-                                   Default is 'golang'. Note that 'java' is not supported as of v1.0.</td>
+            <td class="description last">Optional. Type of chaincode. One of
+          'golang', 'car' or 'java'. Default is 'golang'. Note that 'java'
+          is not supported as of v1.0.</td>
         </tr>
 
     
@@ -1752,7 +1793,8 @@ metadata
 
             
 
-            <td class="description last">Required. Version string of the chaincode, such as 'v1'</td>
+            <td class="description last">Required. Version string of the chaincode,
+          such as 'v1'</td>
         </tr>
 
     
@@ -1776,7 +1818,8 @@ metadata
 
             
 
-            <td class="description last">Required. Object with the transaction id and nonce</td>
+            <td class="description last">Required. Object with the transaction id
+          and nonce</td>
         </tr>
 
     
@@ -1800,9 +1843,10 @@ metadata
 
             
 
-            <td class="description last">Optional. <string, byte[]> map that can be used by the chaincode during
-			                      intialization, but not saved in the ledger. Data such as cryptographic information
-			                      for encryption can be passed to the chaincode using this technique</td>
+            <td class="description last">Optional. <string, byte[]> map that can be
+          used by the chaincode during intialization, but not saved in the
+          ledger. Data such as cryptographic information for encryption can
+          be passed to the chaincode using this technique.</td>
         </tr>
 
     
@@ -1826,8 +1870,9 @@ metadata
 
             
 
-            <td class="description last">Optional. The function name to be returned when calling <code>stub.GetFunctionAndParameters()</code>
-                         in the target chaincode. Default is 'init'</td>
+            <td class="description last">Optional. The function name to be returned when
+          calling <code>stub.GetFunctionAndParameters()</code> in the target
+          chaincode. Default is 'init'.</td>
         </tr>
 
     
@@ -1851,14 +1896,15 @@ metadata
 
             
 
-            <td class="description last">Optional. Array of string arguments to pass to the function identified by the <code>fcn</code> value</td>
+            <td class="description last">Optional. Array of string arguments to pass to
+          the function identified by the <code>fcn</code> value.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>endorsement-policy</code></td>
+                <td class="name"><code>endorsement</code></td>
             
 
             <td class="type">
@@ -1875,13 +1921,16 @@ metadata
 
             
 
-            <td class="description last">Optional. EndorsementPolicy object for this chaincode (see examples below). If not specified,
-				                           a default policy of "a signature by any member from any of the organizations
-				                           corresponding to the array of member service providers" is used. <b>WARNING:</b> The
-										   default policy is NOT recommended for production, because this allows an application to
-										   bypass the proposal endorsement and send a manually constructed transaction, with arbitrary
-										   output in the write set, to the orderer directly. An application's own signature would allow
-										   the transaction to be successfully validated and committed to the ledger.</td>
+            <td class="description last">policy - Optional. EndorsementPolicy object
+          for this chaincode (see examples below). If not specified, a default
+          policy of "a signature by any member from any of the organizations
+          corresponding to the array of member service providers" is used.
+          <b>WARNING:</b> The default policy is NOT recommended for production,
+          because this allows an application to bypass the proposal endorsement
+          and send a manually constructed transaction, with arbitrary output
+          in the write set, to the orderer directly. An application's own
+          signature would allow the transaction to be successfully validated
+          and committed to the ledger.</td>
         </tr>
 
     
@@ -8622,7 +8671,7 @@ with a network configuration.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2017-10-26T17:22:43+00:00
+		on 2017-10-27T03:18:23+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
