@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">How to create a Hyperledger Fabric channel</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-network-config.html">How to use a common network configuration file</a></li>
 				</ul>
 			</li>
 			
@@ -1430,7 +1430,7 @@ metadata
             <td class="description last">Optional. An array of Peer objects where the
           chaincode will be installed. When excluded, the peers assigned
           to this client's organization will be used as defined in the
-          network configuration. If the 'channels' property is included,
+          network configuration. If the 'channelNames' property is included,
           the target peers will be based the peers defined in the channels.</td>
         </tr>
 
@@ -7521,6 +7521,198 @@ array of objects.
             
                 
 <hr>
+<dt class="name" id="Restriction">
+    <h4 id="Restriction">Restriction</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>revokedBefore</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Include certificates that were revoked before this UTC timestamp (in RFC3339 format) in the CRL</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>revokedAfter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Include certificates that were revoked after this UTC timestamp (in RFC3339 format) in the CRL</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>expireBefore</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Include revoked certificates that expire before this UTC timestamp (in RFC3339 format) in the CRL</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>expireAfter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Include revoked certificates that expire after this UTC timestamp (in RFC3339 format) in the CRL</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
 <dt class="name" id="Role">
     <h4 id="Role">Role</h4>
 
@@ -8202,9 +8394,9 @@ actions {array}
 
             
 
-            <td class="description last">An array or a single <a href="global.html#ProposalResponse">ProposalResponse</a> objects
-                                      containing the response from the
-                                      <a href="Channel.html#sendTransactionProposal">endorsement</a> call</td>
+            <td class="description last">An array of or a single
+          <a href="global.html#ProposalResponse">ProposalResponse</a> object containing the response from the
+          <a href="Channel.html#sendTransactionProposal">endorsement</a> call</td>
         </tr>
 
     
@@ -8229,7 +8421,35 @@ actions {array}
             
 
             <td class="description last">A Proposal object containing the original
-                                       request for endorsement(s)</td>
+          request for endorsement(s)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>txID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. - Must be the transaction ID object
+          used in the proposal endorsement. The transactionID will
+          only be used to determine if the signing of the request
+          should be done by the admin identity or the user assigned
+          to the client instance.</td>
         </tr>
 
     
@@ -8671,7 +8891,7 @@ with a network configuration.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2017-11-03T23:28:27+00:00
+		on 2017-11-06T16:18:21+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
