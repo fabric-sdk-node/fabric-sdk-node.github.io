@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: EventHub</title>
+	<title>Hyperledger Fabric SDK for node.js Class: ChannelEventHub</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,16 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: EventHub</h1>
+	<h1 class="page-title">Class: ChannelEventHub</h1>
 <section>
 
 <header>
     
         <h2>
-        EventHub
+        ChannelEventHub
         </h2>
         
-            <div class="class-description">Transaction processing in fabric v1.0 is a long operation spanning multiple
+            <div class="class-description">Transaction processing in fabric v1.1 is a long operation spanning multiple
 components (application, endorsing peer, orderer, committing peer) and takes
 a relatively lengthy period of time (think seconds instead of milliseconds)
 to complete. As a result the applications must design their handling of the
@@ -106,20 +106,19 @@ to the orderer, the application should register a listener to be notified of
 the event when the transaction achieves finality, which is when the block
 containing the transaction gets added to the peer's ledger/blockchain.
 <br><br>
-Fabric committing peers provides an event stream to publish events to registered
-listeners. As of v1.0, the only events that get published are Block events. A
-Block event gets published whenever the committing peer adds a validated block
+Fabric committing peers provides an event stream to publish blocks to registered
+listeners.  A Block gets published whenever the committing peer adds a validated block
 to the ledger. There are three ways to register a listener to get notified:
 <li>register a "block listener" to get called for every block event on all channels. The listener
-    will be passed a fully decoded <a href="global.html#Block">Block</a> object. See <a href="EventHub.html#registerBlockEvent">registerBlockEvent</a>
+    will be passed a fully decoded <a href="global.html#Block">Block</a> object.
+    See <a href="ChannelEventHub.html#registerBlockEvent">registerBlockEvent</a>
 <li>register a "transaction listener" to get called when the specific transaction
-    by id is committed (discovered inside a block event). The listener will be
-    passed the transaction id and the <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/peer/transaction.proto#L125">validation code</a>.
-    See <a href="EventHub.html#registerTxEvent">registerTxEvent</a>
+    by id is committed (discovered inside a published block).
+    See <a href="ChannelEventHub.html#registerTxEvent">registerTxEvent</a>
 <li>register a "chaincode event listener" to get called when a specific
     <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/examples/chaincode/go/eventsender/eventsender.go#L65">chaincode event</a>
-    has arrived. The listener will be passed the <a href="global.html#ChaincodeEvent">ChaincodeEvent</a>. See
-    <a href="EventHub.html#registerChaincodeEvent">registerChaincodeEvent</a>
+    has arrived. The listener will be passed the <a href="global.html#ChaincodeEvent">ChaincodeEvent</a>.
+see     <a href="EventHub.html#registerChaincodeEvent">registerChaincodeEvent</a>
 <br><br>
 The events are ephemeral, such that if a registered listener
 crashed when the event is published, the listener will miss the event.
@@ -132,12 +131,7 @@ There are several techniques to compensate for missed events due to client crash
     implementations available today, you will be guaranteed to not miss an event. A
     fabric event listener can be written in any programming language. The following
     implementations can be used as reference to write the necessary glue code between
-    the fabric event stream and a message queue:
-<ul>
-    <li>Node.js: this class. Source code can be found <a href="https://github.com/hyperledger/fabric-sdk-node/blob/v1.0.0/fabric-client/lib/EventHub.js">here</a>
-    <li>Java: part of the Java SDK for Hyperledger Fabric. Source code can be found <a href="https://github.com/hyperledger/fabric-sdk-java/blob/v1.0.0/src/main/java/org/hyperledger/fabric/sdk/EventHub.java">here</a>
-    <li>Golang: an example event listener client can be found <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/examples/events/block-listener/block-listener.go">here</a>
-</ul></div>
+    the fabric event stream and a message queue:</div>
         
     
 </header>
@@ -149,7 +143,7 @@ There are several techniques to compensate for missed events due to client crash
         
 <hr>
 <dt>
-    <h4 class="name" id="EventHub"><span class="type-signature"></span>new EventHub(clientContext)</h4>
+    <h4 class="name" id="ChannelEventHub"><span class="type-signature"></span>new ChannelEventHub(channel)</h4>
     
     
 </dt>
@@ -192,13 +186,13 @@ There are several techniques to compensate for missed events due to client crash
 
         <tr>
             
-                <td class="name"><code>clientContext</code></td>
+                <td class="name"><code>channel</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Client.html">Client</a></span>
+<span class="param-type"><a href="Channel.html">Channel</a></span>
 
 
 
@@ -209,8 +203,8 @@ There are several techniques to compensate for missed events due to client crash
 
             
 
-            <td class="description last">An instance of the Client class
-which has already been initialzed with a userContext.</td>
+            <td class="description last">An instance of the Channel class
+were this event hub will receive blocks from</td>
         </tr>
 
     
@@ -274,17 +268,10 @@ which has already been initialzed with a userContext.</td>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var eh = client.newEventHub();
-eh.setPeerAddr(
-	 &#x27;grpcs://localhost:7053&#x27;,
-	 {
-	   pem: Buffer.from(certdata).toString(),
-	   &#x27;ssl-target-name-override&#x27;: &#x27;peer1&#x27;]
-	 }
-);
+    <pre class="sunlight-highlight-javascript">var eh = channel.newEventHub(peer);
 
-// register the listeners before calling &quot;connect()&quot; so that we can
-// have the error callback ready to process an error in case the
+// register the listeners before calling &quot;connect()&quot; so there
+// is an error callback ready to process an error in case the
 // connect() call fails
 eh.registerTxEvent(
   transactionId,
@@ -677,7 +664,7 @@ all listeners that provided an "onError" callback.
             
 <hr>
 <dt>
-    <h4 class="name" id="registerBlockEvent"><span class="type-signature"></span>registerBlockEvent(onEvent, onError)</h4>
+    <h4 class="name" id="registerBlockEvent"><span class="type-signature"></span>registerBlockEvent(onEvent, onError, start_block)</h4>
     
     
 </dt>
@@ -780,6 +767,36 @@ notified of the network issue. The best practice would be to provide an
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>start_block</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Long</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional - The starting block number for event checking.
+                            When included the event service will be ask to start sending
+                            blocks from this block. This would be how to resume and replay
+                            missed blocks that were added to the ledger. Since replaying
+                            events may confuse other event listeners, only one listener
+                            will be allowed on a ChannelEventHub when resume and replay
+                            is being used.</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -869,9 +886,9 @@ notified of the network issue. The best practice would be to provide an
     
     <pre class="sunlight-highlight-javascript">eh.registerBlockEvent(
   (block) =&gt; {
-    var first_tx = block.data.data[0]; // get the first transaction
-    var header = first_tx.payload.header; // the &quot;header&quot; object contains metadata of the transaction
-    var channel_id = header.channel_header.channel_id;
+    let first_tx = block.data.data[0]; // get the first transaction
+    let header = first_tx.payload.header; // the &quot;header&quot; object contains metadata of the transaction
+    let channel_id = header.channel_header.channel_id;
     if (&quot;mychannel&quot; !== channel_id) return;
 
     // do useful processing of the block
@@ -889,7 +906,7 @@ notified of the network issue. The best practice would be to provide an
             
 <hr>
 <dt>
-    <h4 class="name" id="registerChaincodeEvent"><span class="type-signature"></span>registerChaincodeEvent(ccid, eventname, onEvent, onError)</h4>
+    <h4 class="name" id="registerChaincodeEvent"><span class="type-signature"></span>registerChaincodeEvent(ccid, eventname, onEvent, onError, start_block)</h4>
     
     
 </dt>
@@ -1009,7 +1026,8 @@ notified of the network issue. The best practice would be to provide an
             
 
             <td class="description last">callback function for matched events. It gets passed
-                            a single parameter which is a <a href="global.html#ChaincodeEvent">ChaincodeEvent</a> object</td>
+                            a two parameters, a <a href="global.html#ChaincodeEvent">ChaincodeEvent</a> object and
+                            the block number this transaction was committed to the ledger</td>
         </tr>
 
     
@@ -1036,6 +1054,36 @@ notified of the network issue. The best practice would be to provide an
             <td class="description last">Optional callback function to be notified when this event hub
                             is shutdown. The shutdown may be caused by a network error or by
                             a call to the "disconnect()" method or a connection error.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>start_block</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Long</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional - The starting block number for event checking.
+                            When included the event service will be ask to start sending
+                            blocks from this block. This would be how to resume and replay
+                            missed blocks that were added to the ledger. Since replaying
+                            events may confuse other event listeners, only one listener
+                            will be allowed on a ChannelEventHub when resume and replay
+                            is being used.</td>
         </tr>
 
     
@@ -1128,7 +1176,7 @@ notified of the network issue. The best practice would be to provide an
             
 <hr>
 <dt>
-    <h4 class="name" id="registerTxEvent"><span class="type-signature"></span>registerTxEvent(txid, onEvent, onError)</h4>
+    <h4 class="name" id="registerTxEvent"><span class="type-signature"></span>registerTxEvent(txid, onEvent, onError, start_block)</h4>
     
     
 </dt>
@@ -1220,10 +1268,9 @@ notified of the network issue. The best practice would be to provide an
 
             
 
-            <td class="description last">Callback function that takes a parameter of type
-                            <a href="global.html#Transaction">Transaction</a>, and a string parameter which
-                            indicates if the transaction is valid (code = 'VALID'),
-                            or not (code string indicating the reason for invalid transaction)</td>
+            <td class="description last">Callback function that takes a parameter of transaction ID,
+                            a string parameter indicating the transaction status,
+                            and the block number this transaction was committed to the ledger</td>
         </tr>
 
     
@@ -1253,120 +1300,16 @@ notified of the network issue. The best practice would be to provide an
         </tr>
 
     
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setPeerAddr"><span class="type-signature"></span>setPeerAddr(peeraddr, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set peer event source url.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
 
         <tr>
             
-                <td class="name"><code>peeraddr</code></td>
+                <td class="name"><code>start_block</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Long</span>
 
 
 
@@ -1377,31 +1320,13 @@ notified of the network issue. The best practice would be to provide an
 
             
 
-            <td class="description last">grpc or grpcs URL for the target peer's event source</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#ConnectionOpts">ConnectionOpts</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The options for the connection to the peer.</td>
+            <td class="description last">Optional - The starting block number for event checking.
+                            When included the event service will be ask to start sending
+                            blocks from this block. This would be how to resume and replay
+                            missed blocks that were added to the ledger. Since replaying
+                            events may confuse other event listeners, only one listener
+                            will be allowed on a ChannelEventHub when resume and replay
+                            is being used.</td>
         </tr>
 
     
@@ -1905,7 +1830,7 @@ the registerChaincodeEvent() method
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-01-08T19:08:05+00:00
+		on 2018-01-08T19:08:04+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
