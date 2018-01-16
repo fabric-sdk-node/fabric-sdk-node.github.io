@@ -7609,6 +7609,232 @@ array of objects.
             
                 
 <hr>
+<dt class="name" id="RegistrationOpts">
+    <h4 id="RegistrationOpts">RegistrationOpts</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>startBlock</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional - The starting block number
+          for event checking. When included, the peer's channel event service
+          will be asked to start sending blocks from this block number.
+          This is how to resume or replay missed blocks that were added
+          to the ledger.
+          Default is the latest block on the ledger.
+          Setting a startBlock may confuse other event listeners,
+          therefore only one listener will be allowed on a ChannelEventHub
+          when a startBlock is being used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endBlock</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional - The ending block number
+          for event checking. When included, the peer's channel event service
+          will be asked to stop sending blocks once this block is delivered.
+          This is how to replay missed blocks that were added
+          to the ledger. When a startBlock is not included, the endBlock
+          must be equal to or larger the current channel block height.
+          Setting an endBlock may confuse other event listeners,
+          therefore only one listener will be allowed on a ChannelEventHub
+          when an endBlock is being used.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>unregister</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional - This options setting indicates
+          the registration should be removed (unregister) when the event
+          is seen. When the application is using a timeout to only wait a
+          specified amount of time for the transaction to be seen, the timeout
+          processing should included the manual 'unregister' of the transaction
+          event listener to avoid the event callbacks being called unexpectedly.
+          The default for this setting is different for the different type of
+          event listeners. For block listeners the default is true, however
+          the event listener is assumed to have seen the final event only if
+          the end_block was set as a option and that end_block was seen by the
+          the listener. For transaction listeners the default is true and the
+          listener will be unregistered when a transaction with the id is
+          seen by this listener. For chaincode listeners the default will be
+          false as the match filter might be intended for many transactions
+          rather than a specific transaction or block as in the other listeners.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>disconnect</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional - This option setting Indicates
+          to the ChannelEventHub instance to automatically disconnect itself
+          from the peer's channel event service once the event has been seen.
+          The default is false unless the endBlock has been set, then it
+          it will be true.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
 <dt class="name" id="Response">
     <h4 id="Response">Response</h4>
 
@@ -9151,7 +9377,7 @@ with a network configuration.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-01-12T19:47:35+00:00
+		on 2018-01-16T22:09:55+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

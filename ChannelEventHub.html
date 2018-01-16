@@ -109,16 +109,18 @@ containing the transaction gets added to the peer's ledger/blockchain.
 Fabric committing peers provides an event stream to publish blocks to registered
 listeners.  A Block gets published whenever the committing peer adds a validated block
 to the ledger. There are three ways to register a listener to get notified:
-<li>register a "block listener" to get called for every block event on all channels. The listener
+<li>register a "block listener" to get called for every block event. The listener
     will be passed a fully decoded <a href="global.html#Block">Block</a> object.
     See <a href="ChannelEventHub.html#registerBlockEvent">registerBlockEvent</a>
 <li>register a "transaction listener" to get called when the specific transaction
     by id is committed (discovered inside a published block).
+    The listener will be passed the transaction id, transaction status and block number.
     See <a href="ChannelEventHub.html#registerTxEvent">registerTxEvent</a>
 <li>register a "chaincode event listener" to get called when a specific
-    <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/examples/chaincode/go/eventsender/eventsender.go#L65">chaincode event</a>
-    has arrived. The listener will be passed the <a href="global.html#ChaincodeEvent">ChaincodeEvent</a>.
-see     <a href="EventHub.html#registerChaincodeEvent">registerChaincodeEvent</a>
+    chaincode event has arrived.
+    The listener will be passed the <a href="global.html#ChaincodeEvent">ChaincodeEvent</a>, block number,
+    transaction id, and transaction status.
+    See <a href="ChannelEventHub.html#registerChaincodeEvent">registerChaincodeEvent</a>
 <br><br>
 The events are ephemeral, such that if a registered listener
 crashed when the event is published, the listener will miss the event.
@@ -126,7 +128,9 @@ There are several techniques to compensate for missed events due to client crash
 <li>register block event listeners and record the block numbers received, such that
     when the next block arrives and its number is not the next in sequence, then
     the application knows exactly which block events have been missed. It can then use
-    <a href="Channel.html#queryBlock">queryBlock</a> to get those missed blocks from the target peer.
+    <a href="Channel.html#queryBlock">queryBlock</a> to get those missed blocks from the target peer or
+    register for events using the startBlock option to resume or replay the events. You may
+    also include an endBlock number if you wish to stop listening.
 <li>use a message queue to catch all the block events. With many robust message queue
     implementations available today, you will be guaranteed to not miss an event. A
     fabric event listener can be written in any programming language. The following
@@ -151,7 +155,7 @@ There are several techniques to compensate for missed events due to client crash
 
     
     <div class="description">
-        Constructs an EventHub object
+        Constructs a ChannelEventHub object
     </div>
     
 
@@ -268,7 +272,7 @@ were this event hub will receive blocks from</td>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var eh = channel.newEventHub(peer);
+    <pre class="sunlight-highlight-javascript">var eh = channel.newChannelEventHub(peer);
 
 // register the listeners before calling &quot;connect()&quot; so there
 // is an error callback ready to process an error in case the
@@ -314,6 +318,135 @@ eh.connect();</pre>
             
 <hr>
 <dt>
+    <h4 class="name" id="checkConnection"><span class="type-signature"></span>checkConnection(force_reconnect)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the connection state. and will attempt a restart when forced
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>force_reconnect</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">attempt to reconnect if the state
+       is not in the 'READY' state</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="connect"><span class="type-signature"></span>connect()</h4>
     
     
@@ -323,16 +456,16 @@ eh.connect();</pre>
     
     <div class="description">
         Establishes a connection with the peer event source.
-The peer address must be set by calling the <a href="EventHub.html#setPeerAddr">setPeerAddr()</a>
+The peer address must be set by calling the setPeerAddr()
 method before calling this method.
 
 The connection will be established asynchronously. If the connection fails to
 get established, the application will be notified via the error callbacks
 from the registerXXXEvent() methods. It is recommended that an application always
 registers at least one event listener with an error callback, by calling any one of the
-<a href="EventHub.html#registerBlockEvent">registerBlockEvent</a>,
-<a href="EventHub.html#registerTxEvent">registerTxEvent</a> or
-<a href="EventHub.html#registerChaincodeEvent">registerChaincodeEvent</a>
+<a href="ChannelEventHub.html#registerBlockEvent">registerBlockEvent</a>,
+<a href="ChannelEventHub.html#registerTxEvent">registerTxEvent</a> or
+<a href="ChannelEventHub.html#registerChaincodeEvent">registerChaincodeEvent</a>
 methods, before calling connect().
     </div>
     
@@ -413,7 +546,7 @@ methods, before calling connect().
     <div class="description">
         Disconnects the event hub from the peer event source.
 Will close all event listeners and send an Error object
-with the message "EventHub has been shutdown" to
+with the message "ChannelEventHub has been shutdown" to
 all listeners that provided an "onError" callback.
     </div>
     
@@ -664,7 +797,7 @@ all listeners that provided an "onError" callback.
             
 <hr>
 <dt>
-    <h4 class="name" id="registerBlockEvent"><span class="type-signature"></span>registerBlockEvent(onEvent, onError, start_block)</h4>
+    <h4 class="name" id="registerBlockEvent"><span class="type-signature"></span>registerBlockEvent(onEvent, onError, options)</h4>
     
     
 </dt>
@@ -679,12 +812,9 @@ in more than one channel, then care must be taken in the listener's implementati
 to differentiate blocks from different channels. See the example below on
 how to accomplish that.
 <br><br>
-An error may be thrown by this call if no "onError" callback
-is provided and this EventHub has noticed that the connection has not been
-established. However since the connection establishment is running
-asynchronously, a register call could be made before this EventHub has been
-notified of the network issue. The best practice would be to provide an
-"onError" callback to be notified when this EventHub has an issue.
+An error may occur in the connection establishment which runs
+asynchronously. The best practice would be to provide an
+"onError" callback to be notified when this ChannelEventHub has an issue.
     </div>
     
 
@@ -770,13 +900,13 @@ notified of the network issue. The best practice would be to provide an
 
         <tr>
             
-                <td class="name"><code>start_block</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Long</span>
+<span class="param-type"><a href="global.html#RegistrationOpts">RegistrationOpts</a></span>
 
 
 
@@ -787,13 +917,7 @@ notified of the network issue. The best practice would be to provide an
 
             
 
-            <td class="description last">Optional - The starting block number for event checking.
-                            When included the event service will be ask to start sending
-                            blocks from this block. This would be how to resume and replay
-                            missed blocks that were added to the ledger. Since replaying
-                            events may confuse other event listeners, only one listener
-                            will be allowed on a ChannelEventHub when resume and replay
-                            is being used.</td>
+            <td class="description last">options</td>
         </tr>
 
     
@@ -906,7 +1030,7 @@ notified of the network issue. The best practice would be to provide an
             
 <hr>
 <dt>
-    <h4 class="name" id="registerChaincodeEvent"><span class="type-signature"></span>registerChaincodeEvent(ccid, eventname, onEvent, onError, start_block)</h4>
+    <h4 class="name" id="registerChaincodeEvent"><span class="type-signature"></span>registerChaincodeEvent(ccid, eventname, onEvent, onError, options)</h4>
     
     
 </dt>
@@ -916,12 +1040,9 @@ notified of the network issue. The best practice would be to provide an
     <div class="description">
         Register a listener to receive chaincode events.
 <br><br>
-An error may be thrown by this call if no "onError" callback
-is provided and this EventHub has noticed that the connection has not been
-established. However since the connection establishment is running
-asynchronously, a register call could be made before this EventHub has been
-notified of the network issue. The best practice would be to provide an
-"onError" callback to be notified when this EventHub has an issue.
+An error may occur in the connection establishment which runs
+asynchronously. The best practice would be to provide an
+"onError" callback to be notified when this ChannelEventHub has an issue.
     </div>
     
 
@@ -1000,8 +1121,8 @@ notified of the network issue. The best practice would be to provide an
             <td class="description last">The exact name of the chaincode event (must match
                             the name given to the target chaincode's call to
                             <code>stub.SetEvent(name, payload)</code>), or a
-                            regex string to match more than one event by this
-                            chaincode</td>
+                            regular expression string to match more than one
+                            event by this chaincode.</td>
         </tr>
 
     
@@ -1060,13 +1181,13 @@ notified of the network issue. The best practice would be to provide an
 
         <tr>
             
-                <td class="name"><code>start_block</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Long</span>
+<span class="param-type"><a href="global.html#RegistrationOpts">RegistrationOpts</a></span>
 
 
 
@@ -1077,13 +1198,7 @@ notified of the network issue. The best practice would be to provide an
 
             
 
-            <td class="description last">Optional - The starting block number for event checking.
-                            When included the event service will be ask to start sending
-                            blocks from this block. This would be how to resume and replay
-                            missed blocks that were added to the ledger. Since replaying
-                            events may confuse other event listeners, only one listener
-                            will be allowed on a ChannelEventHub when resume and replay
-                            is being used.</td>
+            <td class="description last">options</td>
         </tr>
 
     
@@ -1176,7 +1291,7 @@ notified of the network issue. The best practice would be to provide an
             
 <hr>
 <dt>
-    <h4 class="name" id="registerTxEvent"><span class="type-signature"></span>registerTxEvent(txid, onEvent, onError, start_block)</h4>
+    <h4 class="name" id="registerTxEvent"><span class="type-signature"></span>registerTxEvent(txid, onEvent, onError, options)</h4>
     
     
 </dt>
@@ -1187,12 +1302,9 @@ notified of the network issue. The best practice would be to provide an
         Register a callback function to receive a notification when the transaction
 by the given id has been committed into a block.
 <br><br>
-An error may be thrown by this call if no "onError" callback
-is provided and this EventHub has noticed that the connection has not been
-established. However since the connection establishment is running
-asynchronously, a register call could be made before this EventHub has been
-notified of the network issue. The best practice would be to provide an
-"onError" callback to be notified when this EventHub has an issue.
+An error may occur in the connection establishment which runs
+asynchronously. The best practice would be to provide an
+"onError" callback to be notified when this ChannelEventHub has an issue.
     </div>
     
 
@@ -1303,13 +1415,13 @@ notified of the network issue. The best practice would be to provide an
 
         <tr>
             
-                <td class="name"><code>start_block</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Long</span>
+<span class="param-type"><a href="global.html#RegistrationOpts">RegistrationOpts</a></span>
 
 
 
@@ -1320,13 +1432,7 @@ notified of the network issue. The best practice would be to provide an
 
             
 
-            <td class="description last">Optional - The starting block number for event checking.
-                            When included the event service will be ask to start sending
-                            blocks from this block. This would be how to resume and replay
-                            missed blocks that were added to the ledger. Since replaying
-                            events may confuse other event listeners, only one listener
-                            will be allowed on a ChannelEventHub when resume and replay
-                            is being used.</td>
+            <td class="description last">options</td>
         </tr>
 
     
@@ -1386,6 +1492,32 @@ notified of the network issue. The best practice would be to provide an
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The transaction ID that was used to register this event listener,
+         will the same as the txid parameter and must be used to unregister
+         this event listener.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1394,7 +1526,7 @@ notified of the network issue. The best practice would be to provide an
             
 <hr>
 <dt>
-    <h4 class="name" id="unregisterBlockEvent"><span class="type-signature"></span>unregisterBlockEvent(The)</h4>
+    <h4 class="name" id="unregisterBlockEvent"><span class="type-signature"></span>unregisterBlockEvent(block_registration_number, throwError)</h4>
     
     
 </dt>
@@ -1439,7 +1571,7 @@ the registerBlockEvent() method.
 
         <tr>
             
-                <td class="name"><code>The</code></td>
+                <td class="name"><code>block_registration_number</code></td>
             
 
             <td class="type">
@@ -1456,8 +1588,33 @@ the registerBlockEvent() method.
 
             
 
-            <td class="description last">block registration number that was returned
-             during registration.</td>
+            <td class="description last">The block registration number
+       that was returned during registration.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>throwError</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional - throw an error if the block
+       registration does not exist, default is to not throw an error</td>
         </tr>
 
     
@@ -1525,7 +1682,7 @@ the registerBlockEvent() method.
             
 <hr>
 <dt>
-    <h4 class="name" id="unregisterChaincodeEvent"><span class="type-signature"></span>unregisterChaincodeEvent(listener_handle)</h4>
+    <h4 class="name" id="unregisterChaincodeEvent"><span class="type-signature"></span>unregisterChaincodeEvent(listener_handle, throwError)</h4>
     
     
 </dt>
@@ -1587,8 +1744,33 @@ the registerChaincodeEvent() method
 
             
 
-            <td class="description last">The handle object returned from the call to
-                                  registerChaincodeEvent.</td>
+            <td class="description last">The handle object returned from the
+       call to registerChaincodeEvent.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>throwError</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional - throw an error if the block
+       registration does not exist, default is to not throw an error</td>
         </tr>
 
     
@@ -1656,7 +1838,7 @@ the registerChaincodeEvent() method
             
 <hr>
 <dt>
-    <h4 class="name" id="unregisterTxEvent"><span class="type-signature"></span>unregisterTxEvent(txid)</h4>
+    <h4 class="name" id="unregisterTxEvent"><span class="type-signature"></span>unregisterTxEvent(txid, throwError)</h4>
     
     
 </dt>
@@ -1717,6 +1899,31 @@ the registerChaincodeEvent() method
             
 
             <td class="description last">The transaction id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>throwError</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional - throw an error if the block
+       registration does not exist, default is to not throw an error</td>
         </tr>
 
     
@@ -1830,7 +2037,7 @@ the registerChaincodeEvent() method
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-01-12T19:47:36+00:00
+		on 2018-01-16T22:09:55+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
