@@ -4286,6 +4286,222 @@ signatures -- {array}
             
                 
 <hr>
+<dt class="name" id="CryptoContent">
+    <h4 id="CryptoContent">CryptoContent</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>privateKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the PEM file path for the private key</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>privateKeyPEM</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the PEM string for the private key (not required if privateKey or privateKeyObj is set)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>privateKeyObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">private key object (not required if privateKey or privateKeyPEM is set)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>signedCert</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the PEM file path for the certificate</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>signedCertPEM</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the PEM string for the certificate (not required if signedCert is set)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
 <dt class="name" id="CryptoSetting">
     <h4 id="CryptoSetting">CryptoSetting</h4>
 
@@ -4943,73 +5159,6 @@ certificate authority</td>
             
                 
 <hr>
-<dt class="name" id="EventRegistrationRequest">
-    <h4 id="EventRegistrationRequest">EventRegistrationRequest</h4>
-
-    
-</dt>
-<dd>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
 <dt class="name" id="Header">
     <h4 id="Header">Header</h4>
 
@@ -5370,294 +5519,6 @@ signature_header -- {<a href="global.html#SignatureHeader">SignatureHeader</a>}
             
 
             <td class="description last">A specific identity</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt class="name" id="IdentityFiles">
-    <h4 id="IdentityFiles">IdentityFiles</h4>
-
-    
-</dt>
-<dd>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>privateKey</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the PEM file path for the private key</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>signedCert</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the PEM file path for the certificate</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt class="name" id="IdentityPEMs">
-    <h4 id="IdentityPEMs">IdentityPEMs</h4>
-
-    
-</dt>
-<dd>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>privateKeyPEM</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the PEM string for the private key</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>signedCertPEM</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the PEM string for the certificate</td>
         </tr>
 
     
@@ -9242,10 +9103,7 @@ with a network configuration.
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#IdentityFiles">IdentityFiles</a></span>
-|
-
-<span class="param-type"><a href="global.html#IdentityPEMs">IdentityPEMs</a></span>
+<span class="param-type"><a href="global.html#CryptoContent">CryptoContent</a></span>
 
 
 
@@ -9377,7 +9235,7 @@ with a network configuration.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-01-23T08:31:12+00:00
+		on 2018-01-24T18:12:06+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
