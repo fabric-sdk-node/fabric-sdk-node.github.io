@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Signer</title>
+	<title>Hyperledger Fabric SDK for node.js Class: NetworkConfig_1_0</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,16 +86,17 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Signer</h1>
+	<h1 class="page-title">Class: NetworkConfig_1_0</h1>
 <section>
 
 <header>
     
         <h2>
-        Signer
+        NetworkConfig_1_0
         </h2>
         
-            <div class="class-description">Signer is an interface for an opaque private key that can be used for signing operations</div>
+            <div class="class-description">This is an implementation of the NetworkConfig API.
+It will be used to work with the v1.0.1 version of a JSON based network configuration.</div>
         
     
 </header>
@@ -107,174 +108,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Signer"><span class="type-signature"></span>new Signer(cryptoSuite, key)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>cryptoSuite</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The underlying CryptoSuite implementation for the digital
-signature algorithm</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The private key</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="getPublicKey"><span class="type-signature"></span>getPublicKey()</h4>
+    <h4 class="name" id="NetworkConfig_1_0"><span class="type-signature"></span>new NetworkConfig_1_0(network_config)</h4>
     
     
 </dt>
@@ -282,118 +116,7 @@ signature algorithm</td>
 
     
     <div class="description">
-        Returns the public key corresponding to the opaque, private key
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The public key corresponding to the private key
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="sign"><span class="type-signature"></span>sign(digest, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Signs digest with the private key.
-
-Hash implements the SignerOpts interface and, in most cases, one can
-simply pass in the hash function used as opts. Sign may also attempt
-to type assert opts to other types in order to obtain algorithm
-specific values.
-
-Note that when a signature of a hash of a larger message is needed,
-the caller is responsible for hashing the larger message and passing
-the hash (as digest) and the hash function (as opts) to Sign.
+        constructor
     </div>
     
 
@@ -428,31 +151,7 @@ the hash (as digest) and the hash function (as opts) to Sign.
 
         <tr>
             
-                <td class="name"><code>digest</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The message to sign</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
+                <td class="name"><code>network_config</code></td>
             
 
             <td class="type">
@@ -469,7 +168,7 @@ the hash (as digest) and the hash function (as opts) to Sign.
 
             
 
-            <td class="description last">hashingFunction: the function to use to hash</td>
+            <td class="description last">Network Configuration as represented in a JSON object</td>
         </tr>
 
     
@@ -533,7 +232,32 @@ the hash (as digest) and the hash function (as opts) to Sign.
     
 </dd>
 
-        </dl>
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>module:api.NetworkConfig</li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     

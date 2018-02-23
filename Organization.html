@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Signer</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Organization</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,16 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Signer</h1>
+	<h1 class="page-title">Class: Organization</h1>
 <section>
 
 <header>
     
         <h2>
-        Signer
+        Organization
         </h2>
         
-            <div class="class-description">Signer is an interface for an opaque private key that can be used for signing operations</div>
+            <div class="class-description">The Organization class represents an organization in the target blockchain network.</div>
         
     
 </header>
@@ -107,12 +107,16 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Signer"><span class="type-signature"></span>new Signer(cryptoSuite, key)</h4>
+    <h4 class="name" id="Organization"><span class="type-signature"></span>new Organization(name, mspid)</h4>
     
     
 </dt>
 <dd>
 
+    
+    <div class="description">
+        Construct a Organization object
+    </div>
     
 
     
@@ -146,13 +150,13 @@
 
         <tr>
             
-                <td class="name"><code>cryptoSuite</code></td>
+                <td class="name"><code>name</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
+<span class="param-type">string</span>
 
 
 
@@ -163,21 +167,20 @@
 
             
 
-            <td class="description last">The underlying CryptoSuite implementation for the digital
-signature algorithm</td>
+            <td class="description last">The name of this organization</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>key</code></td>
+                <td class="name"><code>mspid</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+<span class="param-type">string</span>
 
 
 
@@ -188,7 +191,7 @@ signature algorithm</td>
 
             
 
-            <td class="description last">The private key</td>
+            <td class="description last">The mspid of this organization</td>
         </tr>
 
     
@@ -274,7 +277,7 @@ signature algorithm</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="getPublicKey"><span class="type-signature"></span>getPublicKey()</h4>
+    <h4 class="name" id="addCertificateAuthority"><span class="type-signature"></span>addCertificateAuthority(certificateAuthority)</h4>
     
     
 </dt>
@@ -282,7 +285,549 @@ signature algorithm</td>
 
     
     <div class="description">
-        Returns the public key corresponding to the opaque, private key
+        Add a <a href="CertificateAuthority.html">CertificateAuthority</a> to this organization
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>certificateAuthority</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="CertificateAuthority.html">CertificateAuthority</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The CertificateAuthority
+         instance to add to this organizations list of CertificateAuthorities</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="addEventHub"><span class="type-signature"></span>addEventHub(event_hub)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Add a <a href="EventHub.html">EventHub</a> to this organizations
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event_hub</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="EventHub.html">EventHub</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The event hub instance to add to this
+       organization's list of event hubs</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="addPeer"><span class="type-signature"></span>addPeer(peer)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Add a <a href="Peer.html">Peer</a> to this organization
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>peer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The peer instance to add to this organizations list of peers</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getAdminCert"><span class="type-signature"></span>getAdminCert()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the admin signing certificate in PEM format for this organization.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getAdminPrivateKey"><span class="type-signature"></span>getAdminPrivateKey()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the admin private key in PEM format for this organization.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getCertificateAuthorities"><span class="type-signature"></span>getCertificateAuthorities()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the list of this CertificateAuthorities <a href="CertificateAuthority.html">CertificateAuthority</a>
     </div>
     
 
@@ -348,7 +893,7 @@ signature algorithm</td>
     
             
 <div class="param-desc">
-    The public key corresponding to the private key
+    [] An array of <a href="CertificateAuthority.html">CertificateAuthority</a> objects
 </div>
 
 
@@ -359,7 +904,7 @@ signature algorithm</td>
     </dt>
     <dd>
         
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+<span class="param-type"><a href="CertificateAuthority.html">CertificateAuthority</a></span>
 
 
 
@@ -376,7 +921,7 @@ signature algorithm</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="sign"><span class="type-signature"></span>sign(digest, opts)</h4>
+    <h4 class="name" id="getChannelEventHubs"><span class="type-signature"></span>getChannelEventHubs(channel)</h4>
     
     
 </dt>
@@ -384,16 +929,9 @@ signature algorithm</td>
 
     
     <div class="description">
-        Signs digest with the private key.
-
-Hash implements the SignerOpts interface and, in most cases, one can
-simply pass in the hash function used as opts. Sign may also attempt
-to type assert opts to other types in order to obtain algorithm
-specific values.
-
-Note that when a signature of a hash of a larger message is needed,
-the caller is responsible for hashing the larger message and passing
-the hash (as digest) and the hash function (as opts) to Sign.
+        Gets the list of this organization's <a href="ChannelEventHub.html">ChannelEventHub</a> as undefined
+by the 'endorsingPeer' setting on the peers defined in the channel that
+are in this orgranization.
     </div>
     
 
@@ -428,13 +966,13 @@ the hash (as digest) and the hash function (as opts) to Sign.
 
         <tr>
             
-                <td class="name"><code>digest</code></td>
+                <td class="name"><code>channel</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;byte></span>
+<span class="param-type"><a href="Channel.html">Channel</a></span>
 
 
 
@@ -445,37 +983,680 @@ the hash (as digest) and the hash function (as opts) to Sign.
 
             
 
-            <td class="description last">The message to sign</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">hashingFunction: the function to use to hash</td>
+            <td class="description last">The <a href="Channel.html">Channel</a> the channel instance that
+       the peers that are defined as channel event hubs are associated.</td>
         </tr>
 
     
     </tbody>
 </table>
 
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    [] An array of <a href="ChannelEventHub.html">ChannelEventHub</a> objects
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ChannelEventHub.html">ChannelEventHub</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getEventHubs"><span class="type-signature"></span>getEventHubs()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the list of this organization's <a href="EventHub.html">EventHub</a>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    [] An array of <a href="EventHub.html">EventHub</a> objects
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="EventHub.html">EventHub</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getMspid"><span class="type-signature"></span>getMspid()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the MSPID of this organization
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The mspid of this organization
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the name of this organization
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The name of this organization
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getPeers"><span class="type-signature"></span>getPeers()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the list of this organizations <a href="Peer.html">Peer</a>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    [] An array of <a href="Peer.html">Peer</a> objects
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setAdminCert"><span class="type-signature"></span>setAdminCert()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the admin signing certificate in PEM format for this organization.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setAdminPrivateKey"><span class="type-signature"></span>setAdminPrivateKey()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the admin private key in PEM format for this organization.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        return a printable representation of this object
+    </div>
+    
+
+    
+
+    
+
+    
     
 
     

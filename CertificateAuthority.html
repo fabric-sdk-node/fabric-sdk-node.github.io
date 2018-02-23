@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Signer</title>
+	<title>Hyperledger Fabric SDK for node.js Class: CertificateAuthority</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,16 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Signer</h1>
+	<h1 class="page-title">Class: CertificateAuthority</h1>
 <section>
 
 <header>
     
         <h2>
-        Signer
+        CertificateAuthority
         </h2>
         
-            <div class="class-description">Signer is an interface for an opaque private key that can be used for signing operations</div>
+            <div class="class-description">The CertificateAuthority class represents an Certificate Authority in the target blockchain network.</div>
         
     
 </header>
@@ -107,12 +107,16 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Signer"><span class="type-signature"></span>new Signer(cryptoSuite, key)</h4>
+    <h4 class="name" id="CertificateAuthority"><span class="type-signature"></span>new CertificateAuthority(name)</h4>
     
     
 </dt>
 <dd>
 
+    
+    <div class="description">
+        Construct a CertificateAuthority object
+    </div>
     
 
     
@@ -146,13 +150,13 @@
 
         <tr>
             
-                <td class="name"><code>cryptoSuite</code></td>
+                <td class="name"><code>name</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
+<span class="param-type">string</span>
 
 
 
@@ -163,32 +167,7 @@
 
             
 
-            <td class="description last">The underlying CryptoSuite implementation for the digital
-signature algorithm</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The private key</td>
+            <td class="description last">The name of this Certificate Authority</td>
         </tr>
 
     
@@ -274,7 +253,7 @@ signature algorithm</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="getPublicKey"><span class="type-signature"></span>getPublicKey()</h4>
+    <h4 class="name" id="getCaName"><span class="type-signature"></span>getCaName()</h4>
     
     
 </dt>
@@ -282,7 +261,7 @@ signature algorithm</td>
 
     
     <div class="description">
-        Returns the public key corresponding to the opaque, private key
+        Gets the name of this CertificateAuthority to use in request
     </div>
     
 
@@ -348,7 +327,7 @@ signature algorithm</td>
     
             
 <div class="param-desc">
-    The public key corresponding to the private key
+    The ca name of this CertificateAuthority
 </div>
 
 
@@ -359,7 +338,7 @@ signature algorithm</td>
     </dt>
     <dd>
         
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+<span class="param-type">string</span>
 
 
 
@@ -376,7 +355,7 @@ signature algorithm</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="sign"><span class="type-signature"></span>sign(digest, opts)</h4>
+    <h4 class="name" id="getConnectionOptions"><span class="type-signature"></span>getConnectionOptions()</h4>
     
     
 </dt>
@@ -384,16 +363,7 @@ signature algorithm</td>
 
     
     <div class="description">
-        Signs digest with the private key.
-
-Hash implements the SignerOpts interface and, in most cases, one can
-simply pass in the hash function used as opts. Sign may also attempt
-to type assert opts to other types in order to obtain algorithm
-specific values.
-
-Note that when a signature of a hash of a larger message is needed,
-the caller is responsible for hashing the larger message and passing
-the hash (as digest) and the hash function (as opts) to Sign.
+        Gets the connection options of this CertificateAuthority
     </div>
     
 
@@ -403,79 +373,515 @@ the hash (as digest) and the hash function (as opts) to Sign.
 
     
     
-        <h5>Parameters:</h5>
-        
 
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
+    
+<dl class="details">
     
 
-        <tr>
-            
-                <td class="name"><code>digest</code></td>
-            
+	
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
+	
 
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The message to sign</td>
-        </tr>
+	
 
     
 
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">hashingFunction: the function to use to hash</td>
-        </tr>
+    
 
     
-    </tbody>
-</table>
 
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The connection options of this CertificateAuthority
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the name of this CertificateAuthority
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The name of this CertificateAuthority
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getRegistrar"><span class="type-signature"></span>getRegistrar()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the registrar of this CertificateAuthority
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The registrar of this CertificateAuthority
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getTlsCACerts"><span class="type-signature"></span>getTlsCACerts()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the TLS CA Cert of this CertificateAuthority
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The TLS CA Cert PEM string of this CertificateAuthority
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the url of this CertificateAuthority
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The url of this CertificateAuthority
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        return a printable representation of this object
+    </div>
+    
+
+    
+
+    
+
+    
     
 
     
@@ -583,7 +989,7 @@ the hash (as digest) and the hash function (as opts) to Sign.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-02-23T20:52:59+00:00
+		on 2018-02-23T20:52:58+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
