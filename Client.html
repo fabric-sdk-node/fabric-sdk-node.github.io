@@ -385,6 +385,135 @@ the <a href="User.html">User</a> class) in the state store.</div>
             
 <hr>
 <dt>
+    <h4 class="name" id="addTlsClientCertAndKey"><span class="type-signature"></span>addTlsClientCertAndKey(opts)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Utility method to add the mutual tls client material to a set of options
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The options object holding the connection settings
+       that will be updated with the mutual TLS clientCert and clientKey.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="createChannel"><span class="type-signature"></span>createChannel(request)</h4>
     
     
@@ -864,7 +993,7 @@ on the <a href="Client.html#createChannel">createChannel()</a> or <a href="Clien
             
 <hr>
 <dt>
-    <h4 class="name" id="getCertificateAuthority"><span class="type-signature"></span>getCertificateAuthority()</h4>
+    <h4 class="name" id="getCertificateAuthority"><span class="type-signature"></span>getCertificateAuthority(name)</h4>
     
     
 </dt>
@@ -887,6 +1016,57 @@ suite as defined in the network configuration.
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional - the name of the Certificate Authority
+       defined in the loaded connection profile.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -940,6 +1120,26 @@ suite as defined in the network configuration.
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="CertificateAuthority.html">CertificateAuthority</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -4642,6 +4842,160 @@ Applications can provide alternative implementations.
             
 <hr>
 <dt>
+    <h4 class="name" id="setTlsClientCertAndKey"><span class="type-signature"></span>setTlsClientCertAndKey(clientCert, clientKey)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the mutual TLS client side certificate and key necessary to build
+network endpoints when working with a network configuration (connection profile).
+This must be called before a peer, orderer, or channel eventhub is needed.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>clientCert</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The pem encoded client certificate.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clientKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The client key.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="setUserContext"><span class="type-signature"></span>setUserContext(user, skipPersistence)</h4>
     
     
@@ -5203,7 +5557,7 @@ in the channel.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-02-27T21:03:05+00:00
+		on 2018-02-28T23:19:25+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
