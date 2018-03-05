@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Tutorial: How to use a common network configuration file</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: How to use a common connection profile</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">How to use the channel-based event service</a></li><li><a href="tutorial-network-config.html">How to use a common network configuration file</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">How to use the channel-based event service</a></li><li><a href="tutorial-network-config.html">How to use a common connection profile</a></li>
 				</ul>
 			</li>
 			
@@ -89,11 +89,11 @@
 <header>
     
 
-    <h2>How to use a common network configuration file</h2>
+    <h2>How to use a common connection profile</h2>
 </header>
 
 <article>
-    <p>This tutorial illustrates the use of a connection profile. Connection profiles are a new feature of the Hyperledger Fabric Node.js Client as of 1.1. A connection profile will describe the Hyperledger Fabric network to the Hyperledger Fabric Node.js Client (fabric client).</p>
+    <p>This tutorial illustrates the use of common connection profiles. Connection profiles are a new feature of the Hyperledger Fabric Node.js Client as of 1.1. A connection profile will describe the Hyperledger Fabric network to the Hyperledger Fabric Node.js Client (fabric client).</p>
 <p>For more information on:</p>
 <ul>
 <li>getting started with Hyperledger Fabric see
@@ -113,12 +113,13 @@ process of creating and updating see
 and of Node application development, including the use of the
 Javascript <code>Promise</code>.</p>
 <h3>Overview</h3><p>A connection profile contain entries that describe the Hyperledger Fabric network including entries that describe the fabric client that will access the the network. The application will load a configuration file and then it will be used by fabric client to simplify the steps needed to setup and use the network. The connection profile has specific addresses and settings of network items. Resources like javascript classes to instantiate are stored in the fabric client's configuration system. It will be easier to work with a fabric client loaded with a connection profile configuration because it reduces the setup before calling an action. Parameters for items like targets may be specified by name and object will not have to be created and maintained before the action is called. On many calls if no target peer is specified, the fabric client will look to see if there is a <code>Peer</code> in the role needed for the action.</p>
-<h4>API's to load a connection profile:</h4><ul>
+<h4>API's to load a connection profile</h4><ul>
 <li><code>Client.loadFromConfig()</code> - A static utility method to get a fabric client instance loaded with the connection profile configuration.</li>
 <li><code>client.loadFromConfig()</code> - A fabric client instance method to load a connection profile configuration, overriding any existing connection profile configuration settings that may have been set when this client object was created by the call above.</li>
 </ul>
-<h4>new API's</h4><ul>
+<h4>new API's that use a loaded connetion profile</h4><ul>
 <li><code>client.initCredentialStores()</code> - A fabric client instance method to create a state store and assign it to the fabric client instance based on the current settings in the loaded connection profile configuration. It will also create the crypto suite and assign it to the fabric client instance. A crypto store will be created and assigned to crypto suite if needed. (HSM based crypto suites do not require a crypto store).</li>
+<li><code>client.setTlsClientCertAndKey(clientCert, clientKey)</code> -A fabric client instance method that will set a certificate and the corresponding private key on the client instance. Mutual TLS client settings are not stored within the connection profile. When a peer or orderer instance is created for the user from the endpoints defined in the connection profile, these settings will be used as the client mutual TLS settings. When using mutual TLS and a connection profile, this method must be called before endpoints are required. Calling this method is only required when using mutual TLS and a connection profile.</li>
 <li><code>channel.newChannelEventHub()</code> - A fabric channel instance method to create an channel-based event hub based on the current settings in the loaded connection profile configuration of the named peer.</li>
 <li><code>channel.getChannelEventHubsForOrg()</code> - A fabric channel instance method to return a list of channel-based event hubs that are associated with an organizations. Peers in an organizations that have the <code>eventSource</code> set to true will be returned.</li>
 <li><code>client.getPeersForOrg()</code> - A fabric client instance method to return a list of peer objects that are associated with an organizations.</li>
@@ -241,7 +242,7 @@ client:
       path: &quot;/tmp/hfc-cvs/org1&quot;</code></pre><h3>Setup the stores</h3><p>The next step is to set up the client object with the state and crypto stores. If the client section of the connection profile configuration has these defined then it is a simple matter of running the following. This API is promise based, notice that we will need a <code>.then</code> on the returned promise to have it actually execute. This API does not return anything, however it has created a state store and assigned it to the client, it has created a CryptoSuite and also assigned it to the client, and created a crypto store and assigned that to the crypto suite. Notice the credentialStore and cryptoStore definitions above in the client section of the connection profile configuration. In this case we are using two different locations, it may be easier to have these in the same locations when first starting out.</p>
 <p>The following will create two stores and a CryptoSuite and assign them to the fabric client all based on the loaded configurations.</p>
 <pre class="prettyprint source"><code>client.initCredentialStores()
-.then((nothing) => {</code></pre><h3>Work with user context</h3><p> When there is certificate Authority information on the organization, the fabric client may be used to simplify the enrollment and user context creation. The application will still have to register new users with the certificate authority, however when a connection profile configuration has been loaded there a simpler way to get a certificate authority client.</p>
+.then((nothing) => {</code></pre><h3>Work with user context</h3><p>When there is certificate Authority information on the organization, the fabric client may be used to simplify the enrollment and user context creation. The application will still have to register new users with the certificate authority, however when a connection profile configuration has been loaded there a simpler way to get a certificate authority client.</p>
 <p>So first let's enroll an admin user so that we have the credentials (crypto material) needed to interact with the certificate authority and the fabric network. The following convenience method will first look in the state store (as defined above) to see if the user exist. If the user is not found and there is a connection profile configuration loaded, the fabric client will build a certificate authority client object as defined in the fabric client configuration with the address as defined in the currently loaded connection profile configuration. The fabric client uses the certificate authority client to enroll the admin user with the certificate authority, this requires that a new set of keys be generated on the client side. The fabric client will then use the signed certificate returned by the certificate authority from the enroll to create a user context. The context will then be assign it to fabric client and stored in the state store along with storing the keys in the crypto store. At this point the fabric client is ready to interact with the fabric network and the application may use the returned user object to interact with the certificate authority.</p>
 <p>In the following example we are able to enroll the user because it known by the certificate authority. New users will have to be registered first.</p>
 <pre class="prettyprint source"><code>client.setUserContext({username:'admin', password:'adminpw'})
@@ -250,7 +251,26 @@ client:
 <pre class="prettyprint source"><code>ca.fabric_ca_client({enrollmentID: 'user1', affiliation: 'org1'}, admin)
 .then((secret) => {
     return client.setUserContext({username:'user1', password:secret});
-}).then((user)=> {</code></pre><h3>When an admin is needed</h3><p>Notice in the organizations section of the connection profile configuration that an organization may have a signed cert setting and admin private key setting that are associated with the organization. This is a convenience for your organization such that operations that require a fabric network administrator will be able to get one easily. These credentials will be assigned to the fabric client when the configuration is loaded. If one has not been assigned than the current user context assigned to the fabric client is assumed to be an administrator. There is also a convenience method on the client object that will assign credentials to the client to be used for operations that require an admin.</p>
+}).then((user)=> {</code></pre><h3>Work with mutual TLS</h3><p>When your network configuration includes mutual TLS, the client certificate and private key must be available to the client instance before the endpoints are automatically built. The client instance will be able to pass the required material to the endpoint instance that is needed to establish the connection. The example shown will also retrieve the material. These steps must be performed before any actions on the fabric network.</p>
+<pre class="prettyprint source"><code>// get the CA associated with this client's organization
+let fabric_ca_client = client.getCertificateAuthority();
+
+let request = {
+    enrollmentID: 'user1',
+    enrollmentSecret: secret,
+    profile: 'tls'
+};
+
+// make the request to build the keys and get the certificate
+fabric_ca_client.enroll(request)
+.then((enrollment) => {
+   // Successfully called the Certificate Authority to get the TLS material
+   let key = enrollment.key.toBytes();
+   let cert = enrollment.certificate;
+
+   // set the material on the client to be used when building endpoints for the user
+   client.setTlsClientCertAndKey(cert, key);
+   ...</code></pre><h3>When an admin is needed</h3><p>Notice in the organizations section of the connection profile configuration that an organization may have a signed cert setting and admin private key setting that are associated with the organization. This is a convenience for your organization such that operations that require a fabric network administrator will be able to get one easily. These credentials will be assigned to the fabric client when the configuration is loaded. If one has not been assigned than the current user context assigned to the fabric client is assumed to be an administrator. There is also a convenience method on the client object that will assign credentials to the client to be used for operations that require an admin.</p>
 <pre class="prettyprint source"><code>client.setAdminSigningIdentity('admin privateKey','admin cert');</code></pre><p>Assume that connection profile configurations have been loaded, setting up both an organization with an admin and indicating that the client is in that organization. Then when the call is made to get a transaction id object, the fabric client will check to see if an admin has been assigned to the fabric client and use that to generate the transaction id. The transaction id returned will be tagged that it was generated with the assigned administrative identity. Notice how the request object being built is using just a name for the orderer rather than a <code>Orderer</code> object. The fabric client will look up this name in the loaded connection profile configuration. When the <code>createChannel</code> call is made, the fabric client will know that this action should be signed by the administrative identity because the transaction id was marked as an admin based transaction. Note that the administrative signing identity is not required if the logged in user is an administrative user and has been assigned to the fabric client.  </p>
 <pre class="prettyprint source"><code>let tx_id = client.newTransactionID(true);
 
@@ -359,7 +379,7 @@ channel.sendTransaction(request)
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-03-05T05:55:30+00:00
+		on 2018-03-05T06:14:37+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
