@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Index</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: How to add CouchDB indexes during chaincode installation</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -81,123 +81,93 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
-			
+			<section class="tutorial-section">
 
-	
-	
+<header>
+    
 
+    <h2>How to add CouchDB indexes during chaincode installation</h2>
+</header>
 
-
-
-
-
-
-
-
-
-
-	
-	
-
-
-
-
-
-    <section class="readme-section">
-        <article><p>The Hyperledger Fabric SDK for Node.js provides a powerful API to interact with a Hyperledger Fabric v1.0 blockchain. The SDK is designed to be used in the Node.js JavaScript runtime.</p>
-<h3>Overview</h3><p>Hyperledger Fabric is the operating system of an enterprise-strength permissioned blockchain network. For a high-level overview of the fabric, visit <a href="http://hyperledger-fabric.readthedocs.io/en/latest/">http://hyperledger-fabric.readthedocs.io/en/latest/</a>.</p>
-<p>Applications can be developed to interact with the blockchain network on behalf of the users. APIs are available to:</p>
+<article>
+    <p>This tutorial illustrates the use of adding metadata to your chaincode installation.
+As of v1.1 the only metadata are the indexes that may be added to a CouchDB state
+database of your channel ledger.</p>
+<p>For more information:</p>
 <ul>
-<li>create <a href="http://hyperledger-fabric.readthedocs.io/en/latest/fabric_model.html#privacy-through-channels">channels</a></li>
-<li>ask <a href="http://hyperledger-fabric.readthedocs.io/en/latest/arch-deep-dive.html#peer">peer nodes</a> to join the channel</li>
-<li>install <a href="http://hyperledger-fabric.readthedocs.io/en/latest/fabric_model.html#chaincode">chaincodes</a> in peers</li>
-<li>instantiate chaincodes in a channel</li>
-<li>invoke transactions by calling the chaincode</li>
-<li>query the <a href="http://hyperledger-fabric.readthedocs.io/en/latest/fabric_model.html#ledger-features">ledger</a> for transactions or blocks</li>
+<li><a href="http://hyperledger-fabric.readthedocs.io/en/latest/build_network.html">getting started with Hyperledger Fabric</a></li>
+<li><a href="http://hyperledger-fabric.readthedocs.io/en/latest/couchdb_as_state_database.html">setting up a CouchDB as the state database</a></li>
 </ul>
-<h3>How Different Components of the Fabric Work Together</h3><p>The <a href="http://hyperledger-fabric.readthedocs.io/en/latest/txflow.html">Transaction Flow</a> document provides an excellent description of the application/SDK, peers, and orderers working together to process transactions and producing blocks.</p>
-<p>Security on the Fabric is enforced with digital signatures. All requests made to the fabric must be signed by users with appropriate enrollment certificates. For a user's enrollment certificate to be considered valid on the Fabric, it must be signed by a trusted Certificate Authority (CA). Fabric supports any standard CAs. In addition, Fabric provides a CA server. See this <a href="http://hyperledger-fabric-ca.readthedocs.io/en/latest/users-guide.html#overview">overview</a>.</p>
-<h3>Features of the SDK for Node.js</h3><p>The Hyperledger Fabric SDK for Node.js is designed in an Object-Oriented programming style. Its modular construction enables application developers to plug in alternative implementations of key functions such as crypto suites, the state persistence store, and logging utility.</p>
-<p>The SDK's list of features include:</p>
-<ul>
-<li><p><strong>fabric-client</strong>:</p>
-<ul>
-<li><a href="Client.html#createChannel">create a new channel</a></li>
-<li><a href="Channel.html#joinChannel">send channel information to a peer to join</a></li>
-<li><a href="Client.html#installChaincode">install chaincode on a peer</a></li>
-<li>instantiate chaincode in a channel, which involves two steps: <a href="Channel.html#sendInstantiateProposal">propose</a> and <a href="Channel.html#sendTransaction">transact</a></li>
-<li>submitting a transaction, which also involves two steps: <a href="Channel.html#sendTransactionProposal">propose</a> and <a href="Channel.html#sendTransaction">transact</a></li>
-<li><a href="Channel.html#queryByChaincode">query a chaincode for the latest application state</a></li>
-<li>various query capabilities:<ul>
-<li><a href="Channel.html#queryInfo">channel height</a></li>
-<li><a href="Channel.html#queryBlock">block-by-number</a>, <a href="Channel.html#queryBlockByHash">block-by-hash</a></li>
-<li><a href="Client.html#queryChannels">all channels that a peer is part of</a></li>
-<li><a href="Client.html#queryInstalledChaincodes">all installed chaincodes in a peer</a></li>
-<li><a href="Channel.html#queryInstantiatedChaincodes">all instantiated chaincodes in a channel</a></li>
-<li><a href="Channel.html#queryTransaction">transaction-by-id</a></li>
-<li><a href="Channel.html#getChannelConfig">channel configuration data</a></li>
+<p>The following assumes an understanding of the Hyperledger Fabric network
+(orderers and peers),
+and of Node application development, including the use of the
+Javascript <code>Promise</code>.</p>
+<h3>Overview</h3><p>Fabric 1.1 has introduced the capability of defining indexes in a CouchDB state
+database to help improve performance of your queries made in your chaincode.
+The index definitions need to be in JSON format and in files with a .json extension.
+These definitions will be included in the chaincode installation package that
+is sent to the Fabric peer.</p>
+<h4>Modified API's that allow for metadata</h4><ul>
+<li><code>client.installChaincode()</code> - There is a new attribute ('metadataPath') that
+may be included in the installation request. The value of the <code>metadataPath</code> is
+a string representing the absolute path to the directory structure containing
+the JSON index files.</li>
 </ul>
-</li>
-<li>monitoring events:<ul>
-<li><a href="EventHub.html#connect">connect to a peer's event stream</a></li>
-<li>listen on <a href="EventHub.html#registerBlockEvent">block events</a></li>
-<li>listen on <a href="EventHub.html#registerTxEvent">transactions events</a> and find out if the transaction was successfully committed to the ledger or marked invalid</li>
-<li>listen on <a href="EventHub.html#registerChaincodeEvent">custom events</a> produced by chaincodes</li>
-</ul>
-</li>
-<li>serializable <a href="User.html">User</a> object with signing capabilities</li>
-<li>hierarchical configuration settings with multiple layers of overrides: files, environment variable, program arguments, in-memory settings</li>
-<li>logging utility with a built-in logger (winston) and can be overriden with a number of popular loggers including log4js and bunyan</li>
-<li>pluggable CryptoSuite interface describe the cryptographic operations required for successful interactions with the Fabric. Two implementations are provided out of box:<ul>
-<li><a href="CryptoSuite_ECDSA_AES.html">Software-based ECDSA</a></li>
-<li><a href="CryptoSuite_PKCS11.html">PKCS#11-compliant ECDSA</a></li>
-</ul>
-</li>
-<li>pluggable State Store interface for persisting state caches such as users<ul>
-<li><a href="FileKeyValueStore.html">File-based store</a></li>
-<li><a href="CouchDBKeyValueStore.html">CouchDB-base store</a> which works with both CouchDB database and IBM Cloudant</li>
-</ul>
-</li>
-<li>customizable <a href="CryptoKeyStore.html">Crypto Key Store</a> for any software-based cryptographic suite implementation</li>
-<li>supports both TLS (grpcs://) or non-TLS (grpc://) connections to peers and orderers, see <a href="Remote.html">Remote</a> which is the superclass for <a href="Peer.html">peers</a> and <a href="Orderer.html">orderers</a></li>
-</ul>
-</li>
-<li><p><strong>fabric-ca-client</strong>:</p>
-<ul>
-<li><a href="FabricCAServices.html#register">register</a> a new user</li>
-<li><a href="FabricCAServices.html#enroll">enroll</a> a user to obtain the enrollment certificate signed by the Fabric CA</li>
-<li><a href="FabricCAServices.html#revoke">revoke</a> an existing user by enrollment ID or revoke a specific certificate</li>
-<li><a href="FabricCAServices.html">customizable persistence store</a></li>
-</ul>
-</li>
-</ul>
-<h3>API Reference</h3><p>The SDK is made up of 3 top-level modules that can be accessed through the navigation menu <strong>Modules</strong>:</p>
-<ul>
-<li><strong>api</strong>: pluggable APIs for application developers to supply alternative implementations of key interfaces used by the SDK. For each interface there are built-in default implementations.</li>
-<li><strong>fabric-client</strong>: this module provides APIs to interact with the core components of a Hypreledger Fabric-based blockchain network, namely the peers, orderers and event streams.</li>
-<li><strong>fabric-ca-client</strong>: this module provides APIs to interact with the optional component, fabric-ca, that contains services for membership management.
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</li>
-</ul></article>
-    </section>
+<h3>Installing chaincode</h3><p>The following example will install the chaincode 'my_chaincode' and include
+index files.</p>
+<pre class="prettyprint source"><code>let targets = buildTargets(); //build the list of peers that will require this chaincode
+let chaincode_path = path.resolve(__dirname, '../chaincode/src/node_cc/my_chaincode');
+let metadata_path = path.resolve(__dirname, '../chaincode/my_indexes');
 
+// send proposal to install
+var request = {
+    targets: targets,
+    chaincodePath: chaincode_path,
+    metadataPath: metadata_path, // notice this is the new attribute of the request
+    chaincodeId: 'my_chaincode',
+    chaincodeType: 'node',
+    chaincodeVersion: 'v1'
+};
 
+client.installChaincode(request).then((results) => {
+    var proposalResponses = results[0];
+    // check the results
+}, (err) => {
+    console.log('Failed to send install proposal due to error: ' + err.stack ? err.stack : err);
+    throw new Error('Failed to send install proposal due to error: ' + err.stack ? err.stack : err);
+});</code></pre><p>The following shows the path used as the <code>metadataPath</code> above. This is the
+required directory structure required under the path.
+The <code>indexes</code> directory will hold the files with the index definitions.
+The required directory structure and files with a 'json' extension will be
+included in the chaincode installation package under the 'META_INF' package
+directory. 'META-INF' should not be included in your local directory structure.</p>
+<pre class="prettyprint source"><code> ..
+  &lt;> chaincode
+  │
+  └─── &lt;> my_indexes // here is where the 'metadataPath' will point to
+       │
+       └─── &lt;> statedb //starting here are the required directories
+            │
+            └─── &lt;> couchdb
+                 │
+                 └─── &lt;> indexes // this directory will contain the index files
+                         index-owner.json   // these will be the index files and must
+                         index-address.json // have the file extension of 'json'</code></pre><p>Each index must be defined in its own text file with an extension of <code>*.json</code>
+and contain the index definition formatted in JSON following the
+<a href="http://docs.couchdb.org/en/2.1.1/api/database/find.html#db-index">CouchDB index JSON syntax</a>.</p>
+<pre class="prettyprint source"><code>{&quot;index&quot;:{&quot;fields&quot;:[&quot;docType&quot;,&quot;owner&quot;]},&quot;ddoc&quot;:&quot;indexOwnerDoc&quot;, &quot;name&quot;:&quot;indexOwner&quot;,&quot;type&quot;:&quot;json&quot;}</code></pre><p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+</article>
 
-
-
-
+</section>
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>
@@ -226,7 +196,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-03-07T02:21:41+00:00
+		on 2018-03-07T02:21:42+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
