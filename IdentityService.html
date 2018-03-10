@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: User</title>
+	<title>Hyperledger Fabric SDK for node.js Class: IdentityService</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,30 +86,17 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: User</h1>
+	<h1 class="page-title">Class: IdentityService</h1>
 <section>
 
 <header>
     
         <h2>
-        User
+        IdentityService
         </h2>
         
-            <div class="class-description">The User class represents users that have been enrolled and represented by
-an enrollment certificate (ECert) and a signing key. The ECert must have
-been signed by one of the CAs the blockchain network has been configured to trust.
-An enrolled user (having a signing key and ECert) can conduct chaincode instantiate,
-transactions and queries with the Channel.
-
-User ECerts can be obtained from a CA beforehand as part of installing and instantiating
-the application, or it can be obtained from the optional Fabric CA service via its
-enrollment process.
-
-Sometimes User identities are confused with Peer identities. User identities represent
-signing capability because it has access to the private key, while Peer identities in
-the context of the application/SDK only has the certificate for verifying signatures.
-An application cannot use the Peer identity to sign things because the application doesn’t
-have access to the Peer identity’s private key.</div>
+            <div class="class-description">This is an implementation of the Identity service which communicates with
+the Fabric CA server using the Fabric CA client <a href="FabricCAClient.html">FabricCAClient</a>.</div>
         
     
 </header>
@@ -121,77 +108,19 @@ have access to the Peer identity’s private key.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="User"><span class="type-signature"></span>new User(cfg)</h4>
+    <h4 class="name" id="IdentityService"><span class="type-signature"></span>new IdentityService()</h4>
     
     
 </dt>
 <dd>
 
     
-    <div class="description">
-        Constructor for a member.
-    </div>
-    
 
     
 
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>cfg</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The member name or an object with the following attributes:
-  - enrollmentID {string}: user name
-  - name {string}: user name, if "enrollmentID" is also specified, the "name" is ignored
-  - roles {string[]}: optional. array of roles
-  - affiliation {string}: optional. affiliation with a group or organization</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -271,7 +200,7 @@ have access to the Peer identity’s private key.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="fromString"><span class="type-signature"></span>fromString()</h4>
+    <h4 class="name" id="create"><span class="type-signature"></span>create(req, registrar)</h4>
     
     
 </dt>
@@ -279,823 +208,9 @@ have access to the Peer identity’s private key.</div>
 
     
     <div class="description">
-        Set the current state of this member from a string based JSON object
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise of the unmarshalled Member object represented by the serialized string
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Member</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getAffiliation"><span class="type-signature"></span>getAffiliation()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the affiliation.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The affiliation.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getCryptoSuite"><span class="type-signature"></span>getCryptoSuite()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the <a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a> cryptoSuite object for this User instance.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    the cryptoSuite used to store crypto and key store settings
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getIdentity"><span class="type-signature"></span>getIdentity()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the <a href="global.html#Identity">Identity</a> object for this User instance, used to verify signatures
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    the identity object that encapsulates the user's enrollment certificate
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#Identity">Identity</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the member name.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The member name.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getRoles"><span class="type-signature"></span>getRoles()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the roles.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The roles.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;string></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getSigningIdentity"><span class="type-signature"></span>getSigningIdentity()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the <a href="SigningIdentity.html">SigningIdentity</a> object for this User instance, used to generate signatures
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    the identity object that encapsulates the user's private key for signing
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="SigningIdentity.html">SigningIdentity</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="isEnrolled"><span class="type-signature"></span>isEnrolled()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Determine if this name has been enrolled.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    True if enrolled; otherwise, false.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setAffiliation"><span class="type-signature"></span>setAffiliation(affiliation)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the affiliation.
+        Create a new identity with the Fabric CA server.
+An enrollment secret is returned which can then be used, along with the enrollment ID, to enroll a new identity.
+The caller must have `hf.Registrar` authority.
     </div>
     
 
@@ -1130,13 +245,13 @@ have access to the Peer identity’s private key.</div>
 
         <tr>
             
-                <td class="name"><code>affiliation</code></td>
+                <td class="name"><code>req</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="global.html#IdentityRequest">IdentityRequest</a></span>
 
 
 
@@ -1147,280 +262,20 @@ have access to the Peer identity’s private key.</div>
 
             
 
-            <td class="description last">The affiliation.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setCryptoSuite"><span class="type-signature"></span>setCryptoSuite(cryptoSuite)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the cryptoSuite.
-
-When the application needs to use crypto settings or a key store other than the default,
-it needs to set a cryptoSuite instance that was created with the desired CryptoSuite
-settings and CryptoKeyStore options.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>cryptoSuite</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The cryptoSuite.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setEnrollment"><span class="type-signature"></span>setEnrollment(privateKey, certificate, mspId)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the enrollment object for this User instance
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>privateKey</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the private key object</td>
+            <td class="description last">The <a href="global.html#IdentityRequest">IdentityRequest</a></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>certificate</code></td>
+                <td class="name"><code>registrar</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="User.html">User</a></span>
 
 
 
@@ -1431,31 +286,7 @@ settings and CryptoKeyStore options.
 
             
 
-            <td class="description last">the PEM-encoded string of certificate</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mspId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Member Service Provider id for the local signing identity</td>
+            <td class="description last">The identity of the registrar (i.e. who is performing the registration).</td>
         </tr>
 
     
@@ -1519,7 +350,7 @@ settings and CryptoKeyStore options.
     
             
 <div class="param-desc">
-    Promise for successful completion of creating the user's signing Identity
+    Return the secret of this new identity
 </div>
 
 
@@ -1547,7 +378,7 @@ settings and CryptoKeyStore options.
             
 <hr>
 <dt>
-    <h4 class="name" id="setRoles"><span class="type-signature"></span>setRoles(roles)</h4>
+    <h4 class="name" id="delete"><span class="type-signature"></span>delete(enrollmentID, registrar)</h4>
     
     
 </dt>
@@ -1555,7 +386,7 @@ settings and CryptoKeyStore options.
 
     
     <div class="description">
-        Set the roles.
+        Delete an existing identity. The caller must have `hf.Registrar` authority.
     </div>
     
 
@@ -1590,13 +421,13 @@ settings and CryptoKeyStore options.
 
         <tr>
             
-                <td class="name"><code>roles</code></td>
+                <td class="name"><code>enrollmentID</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;string></span>
+<span class="param-type">string</span>
 
 
 
@@ -1607,7 +438,31 @@ settings and CryptoKeyStore options.
 
             
 
-            <td class="description last">The roles.</td>
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -1667,6 +522,30 @@ settings and CryptoKeyStore options.
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <a href="global.html#ServiceResponse">ServiceResponse</a>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1675,7 +554,7 @@ settings and CryptoKeyStore options.
             
 <hr>
 <dt>
-    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
+    <h4 class="name" id="getAll"><span class="type-signature"></span>getAll(registrar)</h4>
     
     
 </dt>
@@ -1683,7 +562,7 @@ settings and CryptoKeyStore options.
 
     
     <div class="description">
-        Save the current state of this member as a string
+        Get all identities that the registrar is entitled to see.
     </div>
     
 
@@ -1692,6 +571,56 @@ settings and CryptoKeyStore options.
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -1749,7 +678,7 @@ settings and CryptoKeyStore options.
     
             
 <div class="param-desc">
-    The state of this member as a string
+    <a href="global.html#ServiceResponse">ServiceResponse</a>
 </div>
 
 
@@ -1760,7 +689,383 @@ settings and CryptoKeyStore options.
     </dt>
     <dd>
         
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getOne"><span class="type-signature"></span>getOne(enrollmentID, registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get an identity. The caller must have `hf.Registrar` authority.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentID</code></td>
+            
+
+            <td class="type">
+            
+                
 <span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The enrollment ID which uniquely identifies an identity</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <a href="global.html#ServiceResponse">ServiceResponse</a>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="update"><span class="type-signature"></span>update(enrollmentID, req, registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Update an existing identity. The caller must have `hf.Registrar` authority.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IdentityRequest">IdentityRequest</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <a href="global.html#ServiceResponse">ServiceResponse</a>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
 
 
 
@@ -1823,7 +1128,7 @@ settings and CryptoKeyStore options.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-03-10T05:42:14+00:00
+		on 2018-03-10T05:42:13+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

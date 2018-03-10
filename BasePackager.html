@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: FabricCAServices</title>
+	<title>Hyperledger Fabric SDK for node.js Class: BasePackager</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,16 +86,14 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: FabricCAServices</h1>
+	<h1 class="page-title">Class: BasePackager</h1>
 <section>
 
 <header>
     
         <h2>
-        FabricCAServices
+        BasePackager
         </h2>
-        
-            <div class="class-description">This is an implementation of the member service client which communicates with the Fabric CA server.</div>
         
     
 </header>
@@ -107,7 +105,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="FabricCAServices"><span class="type-signature"></span>new FabricCAServices(url, tlsOptions, caName, cryptoSuite)</h4>
+    <h4 class="name" id="BasePackager"><span class="type-signature"></span>new BasePackager( [keep])</h4>
     
     
 </dt>
@@ -115,7 +113,7 @@
 
     
     <div class="description">
-        constructor
+        Constructor
     </div>
     
 
@@ -138,6 +136,8 @@
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -150,16 +150,13 @@
 
         <tr>
             
-                <td class="name"><code>url</code></td>
+                <td class="name"><code>keep</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
-|
-
-<span class="param-type">object</span>
+<span class="param-type">*</span>
 
 
 
@@ -167,92 +164,20 @@
             </td>
 
             
-
-            
-
-            <td class="description last">The endpoint URL for Fabric CA services of the form: "http://host:port" or "https://host:port"
-	 	When this parameter is an object then it must include the parameters listed as key value pairs.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tlsOptions</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type"><a href="global.html#TLSOptions">TLSOptions</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The TLS settings to use when the Fabric CA services endpoint uses "https"</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>caName</code></td>
-            
-
-            <td class="type">
-            
+                    &lt;optional><br>
                 
-<span class="param-type">string</span>
 
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The optional name of the CA. Fabric-ca servers support multiple Certificate Authorities from
- a single server. If omitted or null or an empty string, then the default CA is the target of requests</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>cryptoSuite</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type">CryptoSuite</span>
 
-
-
-            
-            </td>
-
+                
+                </td>
             
 
             
 
-            <td class="description last">The optional cryptoSuite instance to be used if options other than defaults are needed.
-If not specified, an instance of CryptoSuite will be constructed based on the current configuration settings:
-<br> - crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
-<br> - crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
- is supported and the valid key sizes are 256 and 384
-<br> - crypto-hash-algo: hashing algorithm
-<br> - key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
- is provided for this purpose, which can be used on top of any implementation of the KeyValueStore interface,
- such as a file-based store or a database-based one. The specific implementation is determined by the value of this configuration setting.</td>
+            <td class="description last">Array of valid source file extensions</td>
         </tr>
 
     
@@ -318,17 +243,6 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
 
     
     </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="BaseClient.html">BaseClient</a></li>
-    </ul>
-
 
     
 
@@ -349,7 +263,7 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
             
 <hr>
 <dt>
-    <h4 class="name" id="enroll"><span class="type-signature"></span>enroll(req)</h4>
+    <h4 class="name" id="findMetadataDescriptors"><span class="type-signature"></span>findMetadataDescriptors(filePath)</h4>
     
     
 </dt>
@@ -357,7 +271,7 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
 
     
     <div class="description">
-        Enroll the member and return an opaque member object.
+        Find the metadata descriptor files.
     </div>
     
 
@@ -392,7 +306,7 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
 
         <tr>
             
-                <td class="name"><code>req</code></td>
+                <td class="name"><code>filePath</code></td>
             
 
             <td class="type">
@@ -403,7 +317,8 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
 
             
 
-            <td class="description last">the <a href="global.html#EnrollmentRequest">EnrollmentRequest</a></td>
+            <td class="description last">The top-level directory containing the metadata descriptors.
+Only files with a ".json" extension will be included in the results.</td>
         </tr>
 
     
@@ -466,11 +381,20 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    Promise for an object with "key" for private key and "certificate" for the signed certificate
-</div>
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
 
 
         
@@ -482,12 +406,17 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
             
 <hr>
 <dt>
-    <h4 class="name" id="generateCRL"><span class="type-signature"></span>generateCRL(request, registrar)</h4>
+    <h4 class="name" id="findSource"><span class="type-signature"></span>findSource(filepath)</h4>
     
     
 </dt>
 <dd>
 
+    
+    <div class="description">
+        Given an input 'filePath', recursively parse the filesystem for any files
+that fit the criteria for being valid chaincode source (ISREG + keep)
+    </div>
     
 
     
@@ -521,16 +450,132 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
 
         <tr>
             
-                <td class="name"><code>request</code></td>
+                <td class="name"><code>filepath</code></td>
             
 
             <td class="type">
             
-                
-<span class="param-type"><a href="global.html#Restriction">Restriction</a></span>
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
 
 
 
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="generateTarGz"><span class="type-signature"></span>generateTarGz(descriptors, dest)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Creates an .tar.gz stream from the provided descriptor entries
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>descriptors</code></td>
+            
+
+            <td class="type">
             
             </td>
 
@@ -545,16 +590,10 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
 
         <tr>
             
-                <td class="name"><code>registrar</code></td>
+                <td class="name"><code>dest</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
             
             </td>
 
@@ -562,7 +601,7 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
 
             
 
-            <td class="description last">The identity of the registrar (i.e. who is performing the revocation)</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -625,10 +664,6 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    The Certificate Revocation List (CRL)
-</div>
-
 
 
 <dl>
@@ -654,7 +689,7 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
             
 <hr>
 <dt>
-    <h4 class="name" id="getCaName"><span class="type-signature"></span>getCaName()</h4>
+    <h4 class="name" id="isMetadata"><span class="type-signature"></span>isMetadata(filePath)</h4>
     
     
 </dt>
@@ -662,421 +697,9 @@ If not specified, an instance of CryptoSuite will be constructed based on the cu
 
     
     <div class="description">
-        Returns the name of the certificate authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    caName
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getCryptoSuite"><span class="type-signature"></span>getCryptoSuite()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Returns the CryptoSuite object used by this client instance
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="BaseClient.html#getCryptoSuite">BaseClient#getCryptoSuite</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="newAffiliationService"><span class="type-signature"></span>newAffiliationService()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Create a new <a href="AffiliationService.html">AffiliationService</a> object
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    object
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="AffiliationService.html">AffiliationService</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="newIdentityService"><span class="type-signature"></span>newIdentityService()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Creates a new <a href="IdentityService.html">IdentityService</a> object
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    object
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="IdentityService.html">IdentityService</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="reenroll"><span class="type-signature"></span>reenroll(currentUser, Optional)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Re-enroll the member in cases such as the existing enrollment certificate is about to expire, or
-it has been compromised
+        Predicate function for determining whether a given path should be
+considered a valid metadata descriptor based entirely on the
+file extension.
     </div>
     
 
@@ -1111,16 +734,10 @@ it has been compromised
 
         <tr>
             
-                <td class="name"><code>currentUser</code></td>
+                <td class="name"><code>filePath</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
             
             </td>
 
@@ -1128,32 +745,7 @@ it has been compromised
 
             
 
-            <td class="description last">The identity of the current user that holds the existing enrollment certificate</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Optional</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;<a href="global.html#AttributeRequest">AttributeRequest</a>></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">an array of <a href="global.html#AttributeRequest">AttributeRequest</a> that indicate attributes to
-                            be included in the certificate</td>
+            <td class="description last">The top-level directory containing the metadata descriptors.</td>
         </tr>
 
     
@@ -1217,10 +809,23 @@ it has been compromised
     
             
 <div class="param-desc">
-    Promise for an object with "key" for private key and "certificate" for the signed certificate
+    Returns true for valid metadata descriptors.
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
 
 
         
@@ -1232,7 +837,7 @@ it has been compromised
             
 <hr>
 <dt>
-    <h4 class="name" id="register"><span class="type-signature"></span>register(req, registrar)</h4>
+    <h4 class="name" id="isSource"><span class="type-signature"></span>isSource(filePath)</h4>
     
     
 </dt>
@@ -1240,7 +845,10 @@ it has been compromised
 
     
     <div class="description">
-        Register the member and return an enrollment secret.
+        Predicate function for determining whether a given path should be
+considered valid source code, based entirely on the extension.  It is
+assumed that other checks for file type (e.g. ISREG) have already been
+performed.
     </div>
     
 
@@ -1275,16 +883,10 @@ it has been compromised
 
         <tr>
             
-                <td class="name"><code>req</code></td>
+                <td class="name"><code>filePath</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#RegisterRequest">RegisterRequest</a></span>
-
-
-
             
             </td>
 
@@ -1292,31 +894,7 @@ it has been compromised
 
             
 
-            <td class="description last">The <a href="global.html#RegisterRequest">RegisterRequest</a></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">. The identity of the registrar (i.e. who is performing the registration)</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -1379,10 +957,308 @@ it has been compromised
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    The enrollment secret to use when this user enrolls
-</div>
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="package"><span class="type-signature"></span>package(chaincodePath, metadataPath)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        All of the files in the directory of request.chaincodePath will be
+included in an archive file.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodePath</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metadataPath</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="packEntry"><span class="type-signature"></span>packEntry(pack, desc)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Given an {fqp, name} tuple, generate a tar entry complete with sensible
+header and populated contents read from the filesystem.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pack</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>desc</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
 
 
 <dl>
@@ -1400,415 +1276,6 @@ it has been compromised
 
 
         
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="revoke"><span class="type-signature"></span>revoke(request, registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Revoke an existing certificate (enrollment certificate or transaction certificate), or revoke
-all certificates issued to an enrollment id. If revoking a particular certificate, then both
-the Authority Key Identifier and serial number are required. If revoking by enrollment id,
-then all future requests to enroll this id will be rejected.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>request</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Request object with the following fields:
-<br> - enrollmentID {string}. ID to revoke
-<br> - aki {string}. Authority Key Identifier string, hex encoded, for the specific certificate to revoke
-<br> - serial {string}. Serial number string, hex encoded, for the specific certificate to revoke
-<br> - reason {string}. The reason for revocation. See https://godoc.org/golang.org/x/crypto/ocsp
- for valid values. The default value is 0 (ocsp.Unspecified).</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The identity of the registrar (i.e. who is performing the revocation)</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The revocation results
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setCryptoSuite"><span class="type-signature"></span>setCryptoSuite(cryptoSuite)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Sets the client instance to use the CryptoSuite object for signing and hashing
-
-Creating and setting a CryptoSuite is optional because the client will construct
-an instance based on default configuration settings:
-<li> crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
-<li> crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
- is supported and the valid key sizes are 256 and 384
-<li> crypto-hash-algo: hashing algorithm
-<li> key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
- is provided for this purpose, which can be used on top of any implementation of the KeyValueStore interface,
- such as a file-based store or a database-based one. The specific implementation is determined by the value of this configuration setting.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>cryptoSuite</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the CryptoSuite object</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="BaseClient.html#setCryptoSuite">BaseClient#setCryptoSuite</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        return a printable representation of this object
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
 </dd>
