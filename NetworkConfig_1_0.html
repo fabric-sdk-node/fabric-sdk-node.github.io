@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: SigningIdentity</title>
+	<title>Hyperledger Fabric SDK for node.js Class: NetworkConfig_1_0</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,17 +86,17 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: SigningIdentity</h1>
+	<h1 class="page-title">Class: NetworkConfig_1_0</h1>
 <section>
 
 <header>
     
         <h2>
-        SigningIdentity
+        NetworkConfig_1_0
         </h2>
         
-            <div class="class-description">SigningIdentity is an extension of Identity to cover signing capabilities. E.g., signing identity
-should be requested in the case of a client who wishes to sign proposal responses and transactions</div>
+            <div class="class-description">This is an implementation of the NetworkConfig API.
+It will be used to work with the v1.0.1 version of a JSON based network configuration.</div>
         
     
 </header>
@@ -108,247 +108,7 @@ should be requested in the case of a client who wishes to sign proposal response
         
 <hr>
 <dt>
-    <h4 class="name" id="SigningIdentity"><span class="type-signature"></span>new SigningIdentity(certificate, publicKey, mspId, cryptoSuite, signer)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>certificate</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">HEX string for the PEM encoded certificate</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>publicKey</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The public key represented by the certificate</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mspId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The associated MSP's ID that manages this identity</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>cryptoSuite</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The underlying CryptoSuite implementation for the digital
-signature algorithm</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>signer</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Signer.html">Signer</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The signer object encapsulating the opaque private key and the corresponding
-digital signature algorithm to be used for signing operations</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="sign"><span class="type-signature"></span>sign(msg, opts)</h4>
+    <h4 class="name" id="NetworkConfig_1_0"><span class="type-signature"></span>new NetworkConfig_1_0(network_config)</h4>
     
     
 </dt>
@@ -356,7 +116,7 @@ digital signature algorithm to be used for signing operations</td>
 
     
     <div class="description">
-        Signs digest with the private key contained inside the signer.
+        constructor
     </div>
     
 
@@ -391,31 +151,7 @@ digital signature algorithm to be used for signing operations</td>
 
         <tr>
             
-                <td class="name"><code>msg</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The message to sign</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
+                <td class="name"><code>network_config</code></td>
             
 
             <td class="type">
@@ -432,9 +168,7 @@ digital signature algorithm to be used for signing operations</td>
 
             
 
-            <td class="description last">Options object for the signing, contains one field 'hashFunction' that allows
-  different hashing algorithms to be used. If not present, will default to the hash function
-  configured for the identity's own crypto suite object</td>
+            <td class="description last">Network Configuration as represented in a JSON object</td>
         </tr>
 
     
@@ -498,7 +232,32 @@ digital signature algorithm to be used for signing operations</td>
     
 </dd>
 
-        </dl>
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>module:api.NetworkConfig</li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
