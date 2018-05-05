@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Tutorials</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: How to configure mutual TLS</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -81,218 +81,62 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
-			
-
-	<h1 class="page-title">Tutorials</h1>
-<section>
+			<section class="tutorial-section">
 
 <header>
     
-        <h2>
-        
-        </h2>
-        
-    
+
+    <h2>How to configure mutual TLS</h2>
 </header>
 
-
 <article>
-    <div class="container-overview">
-    
-        
+    <p>This tutorial illustrates how to use the node SDK APIs to connect to an
+orderer or peer which has TLS client authentication enabled (aka &quot;mutual TLS&quot;).</p>
+<p>An orderer has TLS client authentication enabled if the 
+<code>ORDERER_GENERAL_TLS_CLIENTAUTHREQUIRED</code> environment variable is set to <code>true</code>.</p>
+<p>A peer has TLS client authentication enabled if the 
+<code>CORE_PEER_TLS_CLIENTAUTHREQUIRED</code> environment variable is set to <code>true</code>.</p>
+<h3>Connecting to an orderer or peer with TLS client authentication enabled</h3><p>When creating an orderer, specify the <code>clientKey</code> and <code>clientCert</code> options with
+a value equal to the PEM-encoded private key and certificate, respectively.</p>
+<p>For example, the following demonstrates how to connect to an orderer which has TLS
+client authentication enabled.  This assumes that the client's PEM-encoded TLS key
+and certificate are at <code>somepath/tls/client.key</code> and <code>somepath/tls/client.crt</code>, respectively.</p>
+<pre class="prettyprint source"><code>let serverCert = fs.readFileSync(path.join(__dirname, 'somepath/msp/tlscacerts/example.com-cert.pem'));
+let clientKey = fs.readFileSync(path.join(__dirname, 'somepath/tls/client.key'));
+let clientCert = fs.readFileSync(path.join(__dirname, 'somepath/tls/client.crt'));
 
-        
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="AffiliationService.html">AffiliationService</a></dt>
-            <dd></dd>
-        
-            <dt><a href="BaseClient.html">BaseClient</a></dt>
-            <dd></dd>
-        
-            <dt><a href="BasePackager.html">BasePackager</a></dt>
-            <dd></dd>
-        
-            <dt><a href="BlockDecoder.html">BlockDecoder</a></dt>
-            <dd></dd>
-        
-            <dt><a href="CertificateAuthority.html">CertificateAuthority</a></dt>
-            <dd></dd>
-        
-            <dt><a href="Channel.html">Channel</a></dt>
-            <dd></dd>
-        
-            <dt><a href="ChannelEventHub.html">ChannelEventHub</a></dt>
-            <dd></dd>
-        
-            <dt><a href="Client.html">Client</a></dt>
-            <dd></dd>
-        
-            <dt><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></dt>
-            <dd></dd>
-        
-            <dt><a href="CryptoKeyStore.html">CryptoKeyStore</a></dt>
-            <dd></dd>
-        
-            <dt><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></dt>
-            <dd></dd>
-        
-            <dt><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></dt>
-            <dd></dd>
-        
-            <dt><a href="ECDSA_KEY.html">ECDSA_KEY</a></dt>
-            <dd></dd>
-        
-            <dt><a href="EndorsementPolicy.html">EndorsementPolicy</a></dt>
-            <dd></dd>
-        
-            <dt><a href="EventHub.html">EventHub</a></dt>
-            <dd></dd>
-        
-            <dt><a href="FabricCAClient.html">FabricCAClient</a></dt>
-            <dd></dd>
-        
-            <dt><a href="FabricCAServices.html">FabricCAServices</a></dt>
-            <dd></dd>
-        
-            <dt><a href="FileKeyValueStore.html">FileKeyValueStore</a></dt>
-            <dd></dd>
-        
-            <dt><a href="global.html#Identity">Identity</a></dt>
-            <dd></dd>
-        
-            <dt><a href="IdentityService.html">IdentityService</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module.exports_module.exports.html">exports</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-api.CryptoSuite.html">CryptoSuite</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-api.Key.html">Key</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-api.KeyValueStore.html">KeyValueStore</a></dt>
-            <dd></dd>
-        
-            <dt><a href="MSP.html">MSP</a></dt>
-            <dd></dd>
-        
-            <dt><a href="MSPManager.html">MSPManager</a></dt>
-            <dd></dd>
-        
-            <dt><a href="NetworkConfig_1_0.html">NetworkConfig_1_0</a></dt>
-            <dd></dd>
-        
-            <dt><a href="Orderer.html">Orderer</a></dt>
-            <dd></dd>
-        
-            <dt><a href="Organization.html">Organization</a></dt>
-            <dd></dd>
-        
-            <dt><a href="Peer.html">Peer</a></dt>
-            <dd></dd>
-        
-            <dt><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></dt>
-            <dd></dd>
-        
-            <dt><a href="Remote.html">Remote</a></dt>
-            <dd></dd>
-        
-            <dt><a href="Signer.html">Signer</a></dt>
-            <dd></dd>
-        
-            <dt><a href="SigningIdentity.html">SigningIdentity</a></dt>
-            <dd></dd>
-        
-            <dt><a href="TransactionID.html">TransactionID</a></dt>
-            <dd></dd>
-        
-            <dt><a href="User.html">User</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+orderer = client.newOrderer(
+              'grpcs://localhost:7050',
+              {
+                'pem': Buffer.from(serverCert).toString(),
+                'clientKey': Buffer.from(clientKey).toString(),
+                'clientCert': Buffer.from(clientCert).toString(),
+              });</code></pre><p>Similarly, the following demonstrates how to connect to a peer which has TLS
+client authentication enabled.  This assumes that the client's PEM-encoded TLS key
+and certificate are at <code>somepath/tls/client.key</code> and <code>somepath/tls/client.crt</code>, respectively.</p>
+<pre class="prettyprint source"><code>let serverCert = fs.readFileSync(path.join(__dirname, 'somepath/msp/tlscacerts/org1.example.com-cert.pem'));
+let clientKey = fs.readFileSync(path.join(__dirname, 'somepath/tls/client.key'));
+let clientCert = fs.readFileSync(path.join(__dirname, 'somepath/tls/client.crt'));
+let peer = client.newPeer(
+        'grpcs://localhost:7051',
+        {
+          'pem': Buffer.from(serverCert).toString(),
+          'clientKey': Buffer.from(clientKey).toString(),
+          'clientCert': Buffer.from(clientCert).toString(),
+        }
+);</code></pre>
 </article>
 
 </section>
-
-
-
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>

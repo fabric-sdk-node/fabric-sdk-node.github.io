@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: CryptoSuite</title>
+	<title>Hyperledger Fabric SDK for node.js Class: BasePackager</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,25 +86,14 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: CryptoSuite</h1>
+	<h1 class="page-title">Class: BasePackager</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-api.html">api</a>.</span>
-        
-        CryptoSuite
+        BasePackager
         </h2>
-        
-            <div class="class-description">Abstract class for a suite of crypto algorithms used by the SDK to perform digital signing,
-encryption/decryption and secure hashing. A complete suite includes support for asymmetric
-keys (such as ECDSA or RSA), symmetric keys (such as AES) and secure hash (such as
-SHA2/3).
-
-The SDK provides a default implementation based on ECDSA + SHA2/3. An alternative
-implementation can be specified using the "crypto-suite-software" configuration setting, pointing
-to a full require() path to the package for the module.</div>
         
     
 </header>
@@ -116,19 +105,85 @@ to a full require() path to the package for the module.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="CryptoSuite"><span class="type-signature"></span>new CryptoSuite()</h4>
+    <h4 class="name" id="BasePackager"><span class="type-signature"></span>new BasePackager( [keep])</h4>
     
     
 </dt>
 <dd>
 
     
-
+    <div class="description">
+        Constructor
+    </div>
     
 
     
 
     
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>keep</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Array of valid source file extensions</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -208,7 +263,7 @@ to a full require() path to the package for the module.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="decrypt"><span class="type-signature"></span>decrypt(key, cipherText, opts)</h4>
+    <h4 class="name" id="findMetadataDescriptors"><span class="type-signature"></span>findMetadataDescriptors(filePath)</h4>
     
     
 </dt>
@@ -216,8 +271,7 @@ to a full require() path to the package for the module.</div>
 
     
     <div class="description">
-        Decrypts ciphertext using key.
-The opts argument should be appropriate for the algorithm used.
+        Find the metadata descriptor files.
     </div>
     
 
@@ -252,16 +306,10 @@ The opts argument should be appropriate for the algorithm used.
 
         <tr>
             
-                <td class="name"><code>key</code></td>
+                <td class="name"><code>filePath</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
             
             </td>
 
@@ -269,55 +317,8 @@ The opts argument should be appropriate for the algorithm used.
 
             
 
-            <td class="description last">Decryption key (private key)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>cipherText</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Cipher text to decrypt</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Decrypt options</td>
+            <td class="description last">The top-level directory containing the metadata descriptors.
+Only files with a ".json" extension will be included in the results.</td>
         </tr>
 
     
@@ -380,10 +381,6 @@ The opts argument should be appropriate for the algorithm used.
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    Plain text after decryption
-</div>
-
 
 
 <dl>
@@ -392,1028 +389,6 @@ The opts argument should be appropriate for the algorithm used.
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="deriveKey"><span class="type-signature"></span>deriveKey(key)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Derives the new private key from the source public key using the parameters passed in the <code>opts</code>.
-This operation is needed for deriving private keys corresponding to the Transaction Certificates.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The source key</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Derived key
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="encrypt"><span class="type-signature"></span>encrypt(key, plainText, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Encrypts plaintext using key.
-The opts argument should be appropriate for the algorithm used.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Encryption key (public key)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>plainText</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Plain text to encrypt</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Encryption options</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Cipher text after encryption
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="generateKey"><span class="type-signature"></span>generateKey(opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Generate a key using the options in <code>opts</code>. If the <code>opts.ephemeral</code>
-parameter is false, the method, in addition to returning the imported Key
-instance, also persists the generated key in the key store as PEM files that can be
-retrieved using the <code>getKey()</code> method
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#KeyOpts">KeyOpts</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for an instance of the Key class
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getKey"><span class="type-signature"></span>getKey(ski)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Returns the Key this implementation associates to the Subject Key Identifier ski.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>ski</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Subject Key Identifier specific to a Crypto Suite implementation, as the
-   unique index to represent the key</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise of an instance of the Key class corresponding to the ski
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="hash"><span class="type-signature"></span>hash(msg, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Produce a hash of the message <code>msg</code> using options <code>opts</code>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>msg</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Source message to be hashed</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">algorithm: an identifier for the algorithm to be used, such as "SHA3"</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The hashed digest in hexidecimal string encoding
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="importKey"><span class="type-signature"></span>importKey(pem, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Imports a Key from its raw representation using <code>opts</code>. If the <code>opts.ephemeral</code>
-parameter is false, the method, in addition to returning the imported Key
-instance, also saves the imported key in the key store as PEM files that can be
-retrieved using the 'getKey()' method
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pem</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">PEM string of the key to import</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#KeyOpts">KeyOpts</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    If "opts.ephemeral" is true, returns the Key class synchronously.
-         If "opts.ephemeral" not set or false, returns a Promise of an instance of the
-         Key class.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Key</span>
-|
-
 <span class="param-type">Promise</span>
 
 
@@ -1431,7 +406,7 @@ retrieved using the 'getKey()' method
             
 <hr>
 <dt>
-    <h4 class="name" id="setCryptoKeyStore"><span class="type-signature">&lt;abstract> </span>setCryptoKeyStore(cryptoKeyStore)</h4>
+    <h4 class="name" id="findSource"><span class="type-signature"></span>findSource(filepath)</h4>
     
     
 </dt>
@@ -1439,11 +414,8 @@ retrieved using the 'getKey()' method
 
     
     <div class="description">
-        Set the cryptoKeyStore.
-
-When the application needs to use a key store other than the default,
-it should use the <a href="Client.html">Client</a> newCryptoKeyStore to create an instance and
-use this function to set the instance on the CryptoSuite.
+        Given an input 'filePath', recursively parse the filesystem for any files
+that fit the criteria for being valid chaincode source (ISREG + keep)
     </div>
     
 
@@ -1478,16 +450,10 @@ use this function to set the instance on the CryptoSuite.
 
         <tr>
             
-                <td class="name"><code>cryptoKeyStore</code></td>
+                <td class="name"><code>filepath</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type"><a href="CryptoKeyStore.html">CryptoKeyStore</a></span>
-
-
-
             
             </td>
 
@@ -1495,7 +461,7 @@ use this function to set the instance on the CryptoSuite.
 
             
 
-            <td class="description last">The cryptoKeyStore.</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -1563,7 +529,7 @@ use this function to set the instance on the CryptoSuite.
             
 <hr>
 <dt>
-    <h4 class="name" id="sign"><span class="type-signature"></span>sign(key, digest)</h4>
+    <h4 class="name" id="generateTarGz"><span class="type-signature"></span>generateTarGz(descriptors, dest)</h4>
     
     
 </dt>
@@ -1571,7 +537,7 @@ use this function to set the instance on the CryptoSuite.
 
     
     <div class="description">
-        Signs digest using key. The opts argument should be appropriate for the algorithm used.
+        Creates an .tar.gz stream from the provided descriptor entries
     </div>
     
 
@@ -1606,16 +572,10 @@ use this function to set the instance on the CryptoSuite.
 
         <tr>
             
-                <td class="name"><code>key</code></td>
+                <td class="name"><code>descriptors</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
             
             </td>
 
@@ -1623,23 +583,17 @@ use this function to set the instance on the CryptoSuite.
 
             
 
-            <td class="description last">Signing key (private key)</td>
+            <td class="description last"></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>digest</code></td>
+                <td class="name"><code>dest</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
             
             </td>
 
@@ -1647,9 +601,7 @@ use this function to set the instance on the CryptoSuite.
 
             
 
-            <td class="description last">The message digest to be signed. Note that when a
-signature of a larger message is needed, the caller is responsible
-for hashing the larger message and passing the hash (as digest) to sign.</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -1712,10 +664,6 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    the resulting signature
-</div>
-
 
 
 <dl>
@@ -1724,7 +672,7 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;byte></span>
+<span class="param-type">Promise</span>
 
 
 
@@ -1741,7 +689,7 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="verify"><span class="type-signature"></span>verify(key, signature, digest)</h4>
+    <h4 class="name" id="isMetadata"><span class="type-signature"></span>isMetadata(filePath)</h4>
     
     
 </dt>
@@ -1749,7 +697,9 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
 
     
     <div class="description">
-        Verifies signature against key and digest
+        Predicate function for determining whether a given path should be
+considered a valid metadata descriptor based entirely on the
+file extension.
     </div>
     
 
@@ -1784,16 +734,10 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
 
         <tr>
             
-                <td class="name"><code>key</code></td>
+                <td class="name"><code>filePath</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
             
             </td>
 
@@ -1801,55 +745,7 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
 
             
 
-            <td class="description last">Signing verification key (public key)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>signature</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The signature to verify</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>digest</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The digest that the signature was created for</td>
+            <td class="description last">The top-level directory containing the metadata descriptors.</td>
         </tr>
 
     
@@ -1913,7 +809,7 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
     
             
 <div class="param-desc">
-    true if the signature verifies successfully
+    Returns true for valid metadata descriptors.
 </div>
 
 
@@ -1925,6 +821,453 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
     <dd>
         
 <span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="isSource"><span class="type-signature"></span>isSource(filePath)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Predicate function for determining whether a given path should be
+considered valid source code, based entirely on the extension.  It is
+assumed that other checks for file type (e.g. ISREG) have already been
+performed.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filePath</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="package"><span class="type-signature"></span>package(chaincodePath, metadataPath)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        All of the files in the directory of request.chaincodePath will be
+included in an archive file.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodePath</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metadataPath</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="packEntry"><span class="type-signature"></span>packEntry(pack, desc)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Given an {fqp, name} tuple, generate a tar entry complete with sensible
+header and populated contents read from the filesystem.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pack</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>desc</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
 
 
 

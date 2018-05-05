@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: CryptoSuite</title>
+	<title>Hyperledger Fabric SDK for node.js Class: AffiliationService</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,25 +86,17 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: CryptoSuite</h1>
+	<h1 class="page-title">Class: AffiliationService</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-api.html">api</a>.</span>
-        
-        CryptoSuite
+        AffiliationService
         </h2>
         
-            <div class="class-description">Abstract class for a suite of crypto algorithms used by the SDK to perform digital signing,
-encryption/decryption and secure hashing. A complete suite includes support for asymmetric
-keys (such as ECDSA or RSA), symmetric keys (such as AES) and secure hash (such as
-SHA2/3).
-
-The SDK provides a default implementation based on ECDSA + SHA2/3. An alternative
-implementation can be specified using the "crypto-suite-software" configuration setting, pointing
-to a full require() path to the package for the module.</div>
+            <div class="class-description">This is an implementation of the Affiliation service which communicates with
+the Fabric CA server using the Fabric CA client <a href="FabricCAClient.html">FabricCAClient</a>.</div>
         
     
 </header>
@@ -116,7 +108,7 @@ to a full require() path to the package for the module.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="CryptoSuite"><span class="type-signature"></span>new CryptoSuite()</h4>
+    <h4 class="name" id="AffiliationService"><span class="type-signature"></span>new AffiliationService()</h4>
     
     
 </dt>
@@ -208,7 +200,7 @@ to a full require() path to the package for the module.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="decrypt"><span class="type-signature"></span>decrypt(key, cipherText, opts)</h4>
+    <h4 class="name" id="create"><span class="type-signature"></span>create(req, registrar)</h4>
     
     
 </dt>
@@ -216,8 +208,8 @@ to a full require() path to the package for the module.</div>
 
     
     <div class="description">
-        Decrypts ciphertext using key.
-The opts argument should be appropriate for the algorithm used.
+        Create a new affiliation.
+The caller must have hf.AffiliationMgr authority.
     </div>
     
 
@@ -252,13 +244,13 @@ The opts argument should be appropriate for the algorithm used.
 
         <tr>
             
-                <td class="name"><code>key</code></td>
+                <td class="name"><code>req</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+<span class="param-type"><a href="global.html#AffiliationRequest">AffiliationRequest</a></span>
 
 
 
@@ -269,20 +261,20 @@ The opts argument should be appropriate for the algorithm used.
 
             
 
-            <td class="description last">Decryption key (private key)</td>
+            <td class="description last">Required. The <a href="global.html#AffiliationRequest">AffiliationRequest</a></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>cipherText</code></td>
+                <td class="name"><code>registrar</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;byte></span>
+<span class="param-type"><a href="User.html">User</a></span>
 
 
 
@@ -293,31 +285,7 @@ The opts argument should be appropriate for the algorithm used.
 
             
 
-            <td class="description last">Cipher text to decrypt</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Decrypt options</td>
+            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
         </tr>
 
     
@@ -381,7 +349,7 @@ The opts argument should be appropriate for the algorithm used.
     
             
 <div class="param-desc">
-    Plain text after decryption
+    <a href="global.html#ServiceResponse">ServiceResponse</a>
 </div>
 
 
@@ -392,1028 +360,6 @@ The opts argument should be appropriate for the algorithm used.
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="deriveKey"><span class="type-signature"></span>deriveKey(key)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Derives the new private key from the source public key using the parameters passed in the <code>opts</code>.
-This operation is needed for deriving private keys corresponding to the Transaction Certificates.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The source key</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Derived key
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="encrypt"><span class="type-signature"></span>encrypt(key, plainText, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Encrypts plaintext using key.
-The opts argument should be appropriate for the algorithm used.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Encryption key (public key)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>plainText</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Plain text to encrypt</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Encryption options</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Cipher text after encryption
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="generateKey"><span class="type-signature"></span>generateKey(opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Generate a key using the options in <code>opts</code>. If the <code>opts.ephemeral</code>
-parameter is false, the method, in addition to returning the imported Key
-instance, also persists the generated key in the key store as PEM files that can be
-retrieved using the <code>getKey()</code> method
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#KeyOpts">KeyOpts</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for an instance of the Key class
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getKey"><span class="type-signature"></span>getKey(ski)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Returns the Key this implementation associates to the Subject Key Identifier ski.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>ski</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Subject Key Identifier specific to a Crypto Suite implementation, as the
-   unique index to represent the key</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise of an instance of the Key class corresponding to the ski
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="hash"><span class="type-signature"></span>hash(msg, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Produce a hash of the message <code>msg</code> using options <code>opts</code>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>msg</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Source message to be hashed</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">algorithm: an identifier for the algorithm to be used, such as "SHA3"</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The hashed digest in hexidecimal string encoding
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="importKey"><span class="type-signature"></span>importKey(pem, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Imports a Key from its raw representation using <code>opts</code>. If the <code>opts.ephemeral</code>
-parameter is false, the method, in addition to returning the imported Key
-instance, also saves the imported key in the key store as PEM files that can be
-retrieved using the 'getKey()' method
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pem</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">PEM string of the key to import</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#KeyOpts">KeyOpts</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    If "opts.ephemeral" is true, returns the Key class synchronously.
-         If "opts.ephemeral" not set or false, returns a Promise of an instance of the
-         Key class.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Key</span>
-|
-
 <span class="param-type">Promise</span>
 
 
@@ -1431,7 +377,7 @@ retrieved using the 'getKey()' method
             
 <hr>
 <dt>
-    <h4 class="name" id="setCryptoKeyStore"><span class="type-signature">&lt;abstract> </span>setCryptoKeyStore(cryptoKeyStore)</h4>
+    <h4 class="name" id="delete"><span class="type-signature"></span>delete(req, registrar)</h4>
     
     
 </dt>
@@ -1439,11 +385,8 @@ retrieved using the 'getKey()' method
 
     
     <div class="description">
-        Set the cryptoKeyStore.
-
-When the application needs to use a key store other than the default,
-it should use the <a href="Client.html">Client</a> newCryptoKeyStore to create an instance and
-use this function to set the instance on the CryptoSuite.
+        Delete an affiliation.
+The caller must have hf.AffiliationMgr authority.
     </div>
     
 
@@ -1478,13 +421,13 @@ use this function to set the instance on the CryptoSuite.
 
         <tr>
             
-                <td class="name"><code>cryptoKeyStore</code></td>
+                <td class="name"><code>req</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="CryptoKeyStore.html">CryptoKeyStore</a></span>
+<span class="param-type"><a href="global.html#AffiliationRequest">AffiliationRequest</a></span>
 
 
 
@@ -1495,148 +438,20 @@ use this function to set the instance on the CryptoSuite.
 
             
 
-            <td class="description last">The cryptoKeyStore.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="sign"><span class="type-signature"></span>sign(key, digest)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Signs digest using key. The opts argument should be appropriate for the algorithm used.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Signing key (private key)</td>
+            <td class="description last">Required. The <a href="global.html#AffiliationRequest">AffiliationRequest</a></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>digest</code></td>
+                <td class="name"><code>registrar</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;byte></span>
+<span class="param-type"><a href="User.html">User</a></span>
 
 
 
@@ -1647,9 +462,7 @@ use this function to set the instance on the CryptoSuite.
 
             
 
-            <td class="description last">The message digest to be signed. Note that when a
-signature of a larger message is needed, the caller is responsible
-for hashing the larger message and passing the hash (as digest) to sign.</td>
+            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
         </tr>
 
     
@@ -1713,7 +526,7 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
     
             
 <div class="param-desc">
-    the resulting signature
+    <a href="global.html#ServiceResponse">ServiceResponse</a>
 </div>
 
 
@@ -1724,7 +537,7 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;byte></span>
+<span class="param-type">Promise</span>
 
 
 
@@ -1741,7 +554,7 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="verify"><span class="type-signature"></span>verify(key, signature, digest)</h4>
+    <h4 class="name" id="getAll"><span class="type-signature"></span>getAll(registrar)</h4>
     
     
 </dt>
@@ -1749,7 +562,8 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
 
     
     <div class="description">
-        Verifies signature against key and digest
+        List all affiliations equal to and below the caller's affiliation.
+The caller must have hf.AffiliationMgr authority.
     </div>
     
 
@@ -1784,13 +598,13 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
 
         <tr>
             
-                <td class="name"><code>key</code></td>
+                <td class="name"><code>registrar</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+<span class="param-type"><a href="User.html">User</a></span>
 
 
 
@@ -1801,55 +615,7 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
 
             
 
-            <td class="description last">Signing verification key (public key)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>signature</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The signature to verify</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>digest</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The digest that the signature was created for</td>
+            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
         </tr>
 
     
@@ -1913,7 +679,7 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
     
             
 <div class="param-desc">
-    true if the signature verifies successfully
+    <a href="global.html#ServiceResponse">ServiceResponse</a>
 </div>
 
 
@@ -1924,7 +690,385 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getOne"><span class="type-signature"></span>getOne(affiliation, registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        List a specific affiliation at or below the caller's affinity.
+The caller must have hf.AffiliationMgr authority.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>affiliation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The affiliation path to be queried.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <a href="global.html#ServiceResponse">ServiceResponse</a>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="update"><span class="type-signature"></span>update(affiliation, req, registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Rename an affiliation.
+The caller must have hf.AffiliationMgr authority.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>affiliation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The affiliation path to be updated</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#AffiliationRequest">AffiliationRequest</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The <a href="global.html#AffiliationRequest">AffiliationRequest</a></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <a href="global.html#ServiceResponse">ServiceResponse</a>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
 
 
 
