@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Orderer</title>
+	<title>Hyperledger Fabric SDK for node.js Class: ChannelPeer</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,22 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Orderer</h1>
+	<h1 class="page-title">Class: ChannelPeer</h1>
 <section>
 
 <header>
     
         <h2>
-        Orderer
+        ChannelPeer
         </h2>
         
-            <div class="class-description">The Orderer class encapsulates the client capabilities to interact with
-an Orderer node in the target blockchain network. The orderer node exposes
-two APIs: broadcast() and deliver(). Both are streaming APIs so there's
-a persistent grpc streaming connection between the client and the orderer
-where messages are exchanged in both directions. The broadcast() API is
-for sending transactions to the orderer for processing. The deliver() API
-is for asking the orderer for information such as channel configurations.</div>
+            <div class="class-description">The ChannelPeer class represents a peer in the target blockchain network on this channel.</div>
         
     
 </header>
@@ -113,7 +107,7 @@ is for asking the orderer for information such as channel configurations.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="Orderer"><span class="type-signature"></span>new Orderer(url, opts)</h4>
+    <h4 class="name" id="ChannelPeer"><span class="type-signature"></span>new ChannelPeer(org_name, channel, peer, roles)</h4>
     
     
 </dt>
@@ -121,11 +115,15 @@ is for asking the orderer for information such as channel configurations.</div>
 
     
     <div class="description">
-        Constructs an Orderer object with the given url and opts. An orderer object
-encapsulates the properties of an orderer node and the interactions with it via
-the grpc stream API. Orderer objects are used by the <a href="Client.html">Client</a> objects to broadcast
-requests for creating and updating channels. They are also used by the <a href="Channel.html">Channel</a>
-objects to broadcast requests for ordering transactions.
+        Construct a ChannelPeer object with the given Peer and opts.
+A channel peer object holds channel based references:
+  Organization name this peer belongs.
+  <a href="Channel.html">Channel</a> object used to know the channel this peer is interacting.
+  <a href="Peer.html">Peer</a> object used for interacting with the Hyperledger fabric network.
+  <a href="ChannelEventHub.html">ChannelEventHub</a> object used for listening to block changes on the channel.
+  List of <a href="global.html#ChannelPeerRoles">ChannelPeerRoles</a> to indicate the roles this peer performs on the channel.
+
+The roles this Peer performs on this channel are indicated with is object.
     </div>
     
 
@@ -160,7 +158,7 @@ objects to broadcast requests for ordering transactions.
 
         <tr>
             
-                <td class="name"><code>url</code></td>
+                <td class="name"><code>org_name</code></td>
             
 
             <td class="type">
@@ -177,20 +175,20 @@ objects to broadcast requests for ordering transactions.
 
             
 
-            <td class="description last">The URL with format of "grpc(s)://host:port".</td>
+            <td class="description last">The organization name this peer belongs.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>opts</code></td>
+                <td class="name"><code>channel</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#ConnectionOpts">ConnectionOpts</a></span>
+<span class="param-type"><a href="Channel.html">Channel</a></span>
 
 
 
@@ -201,7 +199,55 @@ objects to broadcast requests for ordering transactions.
 
             
 
-            <td class="description last">The options for the connection to the orderer.</td>
+            <td class="description last">The Channel instance.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>peer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Peer instance.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>roles</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ChannelPeerRoles">ChannelPeerRoles</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The roles for this peer.</td>
         </tr>
 
     
@@ -295,7 +341,7 @@ objects to broadcast requests for ordering transactions.
 
     
     <div class="description">
-        Close the service connection.
+        Close the associated peer service connections.
     </div>
     
 
@@ -365,7 +411,7 @@ objects to broadcast requests for ordering transactions.
             
 <hr>
 <dt>
-    <h4 class="name" id="sendBroadcast"><span class="type-signature"></span>sendBroadcast(envelope)</h4>
+    <h4 class="name" id="getChannelEventHub"><span class="type-signature"></span>getChannelEventHub()</h4>
     
     
 </dt>
@@ -373,7 +419,10 @@ objects to broadcast requests for ordering transactions.
 
     
     <div class="description">
-        Send a Broadcast message to the orderer service.
+        Get the channel event hub for this channel peer. The ChannelEventHub instance will
+be assigned when using the <a href="Channel.html">Channel</a> newChannelEventHub() method. When using
+a common connection profile, the ChannelEventHub will be automatically assigned
+on the Channel Peers as they are created and added to the channel.
     </div>
     
 
@@ -382,61 +431,6 @@ objects to broadcast requests for ordering transactions.
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>envelope</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Byte data to be included in the broadcast. This must
-                           be a protobuf encoded byte array of the
-                           <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/common/common.proto#L132">common.Envelope</a>
-                           that contains either a <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/common/configtx.proto#L70">ConfigUpdateEnvelope</a>
-                           or a <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/peer/transaction.proto#L70">Transaction</a>
-                           in the <code>payload.data</code> property of the envelope.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -494,7 +488,7 @@ objects to broadcast requests for ordering transactions.
     
             
 <div class="param-desc">
-    A Promise for a <a href="global.html#BroadcastResponse">BroadcastResponse</a> object
+    - The ChannelEventHub instance associated with this <a href="Peer.html">Peer</a> instance.
 </div>
 
 
@@ -505,7 +499,7 @@ objects to broadcast requests for ordering transactions.
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type"><a href="ChannelEventHub.html">ChannelEventHub</a></span>
 
 
 
@@ -522,7 +516,7 @@ objects to broadcast requests for ordering transactions.
             
 <hr>
 <dt>
-    <h4 class="name" id="sendDeliver"><span class="type-signature"></span>sendDeliver(envelope)</h4>
+    <h4 class="name" id="getClientCertHash"><span class="type-signature"></span>getClientCertHash()</h4>
     
     
 </dt>
@@ -530,7 +524,7 @@ objects to broadcast requests for ordering transactions.
 
     
     <div class="description">
-        Send a Deliver message to the orderer service.
+        Get the client certificate hash
     </div>
     
 
@@ -539,62 +533,6 @@ objects to broadcast requests for ordering transactions.
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>envelope</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Byte data to be included in the broadcast. This must
-                           be a protobuf encoded byte array of the
-                           <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/common/common.proto#L132">common.Envelope</a>
-                           that contains a <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/orderer/ab.proto#L54">SeekInfo</a>
-                           in the <code>payload.data</code> property of the envelope.
-                           The <code>header.channelHeader.type</code> must be set to
-                           <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/common/common.proto#L44">common.HeaderType.DELIVER_SEEK_INFO</a></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -652,14 +590,7 @@ objects to broadcast requests for ordering transactions.
     
             
 <div class="param-desc">
-    A Promise for a protobuf object of type common.Block. Note that this
-                   is <b>NOT</b> the same type of object as the <a href="global.html#Block">Block</a> returned by the
-                   BlockDecoder.decode() method and various
-                   other methods. A <a href="global.html#Block">Block</a> is a pure javascript object, whereas
-                   the object returned by this method is a protobuf object that contains
-                   accessor methods, getters and setters, and toBuffer() for each property
-                   to be used for further manipulating the object and convert to and from
-                   byte arrays.
+    The hash of the client certificate
 </div>
 
 
@@ -670,7 +601,7 @@ objects to broadcast requests for ordering transactions.
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Array.&lt;byte></span>
 
 
 
@@ -687,7 +618,7 @@ objects to broadcast requests for ordering transactions.
             
 <hr>
 <dt>
-    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
+    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
     
     
 </dt>
@@ -695,7 +626,8 @@ objects to broadcast requests for ordering transactions.
 
     
     <div class="description">
-        return a printable representation of this object
+        Get the name. This is a client-side only identifier for this
+object.
     </div>
     
 
@@ -704,6 +636,696 @@ objects to broadcast requests for ordering transactions.
     
 
     
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The name of the object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getOrganizationName"><span class="type-signature"></span>getOrganizationName()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the organization name.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The organization name.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getPeer"><span class="type-signature"></span>getPeer()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the Peer instance this ChannelPeer represents on the channel.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The associated Peer instance.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the URL of this object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Get the URL associated with the peer object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="isInOrg"><span class="type-signature"></span>isInOrg()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Checks if this peer is in the specified organization.
+The default is true when the incoming organization name is not defined.
+The default will be true when this peer does not have the organization name defined.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    If this peer belongs to the organization.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="isInRole"><span class="type-signature"></span>isInRole()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Checks if this peer is in the specified role.
+The default is true when the incoming role is not defined.
+The default will be true when this peer does not have the role defined.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    If this peer has this role.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setRole"><span class="type-signature"></span>setRole(role, isIn)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Set a role for this peer.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>role</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the role</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isIn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The boolean value of does this peer have this role</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
