@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: CouchDBKeyValueStore</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Organization</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,17 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: CouchDBKeyValueStore</h1>
+	<h1 class="page-title">Class: Organization</h1>
 <section>
 
 <header>
     
         <h2>
-        CouchDBKeyValueStore
+        Organization
         </h2>
         
-            <div class="class-description">This is a sample database implementation of the <a href="module-api.KeyValueStore.html">KeyValueStore</a> API.
-It uses a local or remote CouchDB database instance to store the keys.</div>
+            <div class="class-description">The Organization class represents an organization in the target blockchain network.</div>
         
     
 </header>
@@ -108,7 +107,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="CouchDBKeyValueStore"><span class="type-signature"></span>new CouchDBKeyValueStore(options)</h4>
+    <h4 class="name" id="Organization"><span class="type-signature"></span>new Organization(name, mspid)</h4>
     
     
 </dt>
@@ -116,7 +115,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
     
     <div class="description">
-        constructor
+        Construct a Organization object
     </div>
     
 
@@ -151,13 +150,13 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
         <tr>
             
-                <td class="name"><code>options</code></td>
+                <td class="name"><code>name</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#CouchDBOpts">CouchDBOpts</a></span>
+<span class="param-type">string</span>
 
 
 
@@ -168,7 +167,31 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
             
 
-            <td class="description last">Settings used to connect to a CouchDB instance</td>
+            <td class="description last">The name of this organization</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mspid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The mspid of this organization</td>
         </tr>
 
     
@@ -234,17 +257,6 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
     
     </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="module-api.KeyValueStore.html">module:api.KeyValueStore</a></li>
-    </ul>
-
 
     
 
@@ -265,7 +277,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue(name)</h4>
+    <h4 class="name" id="addCertificateAuthority"><span class="type-signature"></span>addCertificateAuthority(certificateAuthority)</h4>
     
     
 </dt>
@@ -273,7 +285,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
     
     <div class="description">
-        Get the value associated with <code>name</code>.
+        Add a <a href="CertificateAuthority.html">CertificateAuthority</a> to this organization
     </div>
     
 
@@ -308,13 +320,13 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>certificateAuthority</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="CertificateAuthority.html">CertificateAuthority</a></span>
 
 
 
@@ -325,7 +337,8 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
             
 
-            <td class="description last">Name of the key</td>
+            <td class="description last">The CertificateAuthority
+         instance to add to this organizations list of CertificateAuthorities</td>
         </tr>
 
     
@@ -343,21 +356,498 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.KeyValueStore.html#getValue">module:api.KeyValueStore#getValue</a>
-			</li>
-		</ul>
-	</dd>
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="addEventHub"><span class="type-signature"></span>addEventHub(event_hub)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Add a <a href="EventHub.html">EventHub</a> to this organizations
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event_hub</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="EventHub.html">EventHub</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The event hub instance to add to this
+       organization's list of event hubs</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
 	
 
     
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.KeyValueStore.html#getValue">module:api.KeyValueStore#getValue</a>
-    </li></ul></dd>
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="addPeer"><span class="type-signature"></span>addPeer(peer)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Add a <a href="Peer.html">Peer</a> to this organization
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>peer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The peer instance to add to this organizations list of peers</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getAdminCert"><span class="type-signature"></span>getAdminCert()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the admin signing certificate in PEM format for this organization.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getAdminPrivateKey"><span class="type-signature"></span>getAdminPrivateKey()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the admin private key in PEM format for this organization.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getCertificateAuthorities"><span class="type-signature"></span>getCertificateAuthorities()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the list of this CertificateAuthorities <a href="CertificateAuthority.html">CertificateAuthority</a>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
     
 
     
@@ -403,8 +893,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
     
             
 <div class="param-desc">
-    Promise for the value corresponding to the key. If the value does not exist in the
-store, returns null without rejecting the promise
+    [] An array of <a href="CertificateAuthority.html">CertificateAuthority</a> objects
 </div>
 
 
@@ -415,7 +904,7 @@ store, returns null without rejecting the promise
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type"><a href="CertificateAuthority.html">CertificateAuthority</a></span>
 
 
 
@@ -432,7 +921,7 @@ store, returns null without rejecting the promise
             
 <hr>
 <dt>
-    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue(name, value)</h4>
+    <h4 class="name" id="getChannelEventHubs"><span class="type-signature"></span>getChannelEventHubs(channel)</h4>
     
     
 </dt>
@@ -440,7 +929,9 @@ store, returns null without rejecting the promise
 
     
     <div class="description">
-        Set the value associated with <code>name</code>.
+        Gets the list of this organization's <a href="ChannelEventHub.html">ChannelEventHub</a> as undefined
+by the 'endorsingPeer' setting on the peers defined in the channel that
+are in this orgranization.
     </div>
     
 
@@ -475,13 +966,13 @@ store, returns null without rejecting the promise
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>channel</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="Channel.html">Channel</a></span>
 
 
 
@@ -492,31 +983,8 @@ store, returns null without rejecting the promise
 
             
 
-            <td class="description last">Name of the key to save</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Value to save</td>
+            <td class="description last">The <a href="Channel.html">Channel</a> the channel instance that
+       the peers that are defined as channel event hubs are associated.</td>
         </tr>
 
     
@@ -534,21 +1002,7 @@ store, returns null without rejecting the promise
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.KeyValueStore.html#setValue">module:api.KeyValueStore#setValue</a>
-			</li>
-		</ul>
-	</dd>
-	
 
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.KeyValueStore.html#setValue">module:api.KeyValueStore#setValue</a>
-    </li></ul></dd>
     
 
     
@@ -594,7 +1048,7 @@ store, returns null without rejecting the promise
     
             
 <div class="param-desc">
-    Promise for the 'value' object upon successful write operation
+    [] An array of <a href="ChannelEventHub.html">ChannelEventHub</a> objects
 </div>
 
 
@@ -605,7 +1059,7 @@ store, returns null without rejecting the promise
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type"><a href="ChannelEventHub.html">ChannelEventHub</a></span>
 
 
 
@@ -614,6 +1068,648 @@ store, returns null without rejecting the promise
 
 
         
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getEventHubs"><span class="type-signature"></span>getEventHubs()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the list of this organization's <a href="EventHub.html">EventHub</a>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    [] An array of <a href="EventHub.html">EventHub</a> objects
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="EventHub.html">EventHub</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getMspid"><span class="type-signature"></span>getMspid()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the MSPID of this organization
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The mspid of this organization
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the name of this organization
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The name of this organization
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getPeers"><span class="type-signature"></span>getPeers()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the list of this organizations <a href="Peer.html">Peer</a>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    [] An array of <a href="Peer.html">Peer</a> objects
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setAdminCert"><span class="type-signature"></span>setAdminCert()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the admin signing certificate in PEM format for this organization.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setAdminPrivateKey"><span class="type-signature"></span>setAdminPrivateKey()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the admin private key in PEM format for this organization.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        return a printable representation of this object
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
 </dd>

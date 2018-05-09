@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: CouchDBKeyValueStore</title>
+	<title>Hyperledger Fabric SDK for node.js Class: BasePackager</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,17 +86,14 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: CouchDBKeyValueStore</h1>
+	<h1 class="page-title">Class: BasePackager</h1>
 <section>
 
 <header>
     
         <h2>
-        CouchDBKeyValueStore
+        BasePackager
         </h2>
-        
-            <div class="class-description">This is a sample database implementation of the <a href="module-api.KeyValueStore.html">KeyValueStore</a> API.
-It uses a local or remote CouchDB database instance to store the keys.</div>
         
     
 </header>
@@ -108,7 +105,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="CouchDBKeyValueStore"><span class="type-signature"></span>new CouchDBKeyValueStore(options)</h4>
+    <h4 class="name" id="BasePackager"><span class="type-signature"></span>new BasePackager( [keep])</h4>
     
     
 </dt>
@@ -116,7 +113,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
     
     <div class="description">
-        constructor
+        Constructor
     </div>
     
 
@@ -139,6 +136,8 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -151,13 +150,13 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
         <tr>
             
-                <td class="name"><code>options</code></td>
+                <td class="name"><code>keep</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#CouchDBOpts">CouchDBOpts</a></span>
+<span class="param-type">*</span>
 
 
 
@@ -165,10 +164,20 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Settings used to connect to a CouchDB instance</td>
+            <td class="description last">Array of valid source file extensions</td>
         </tr>
 
     
@@ -236,17 +245,6 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
     </div>
 
     
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="module-api.KeyValueStore.html">module:api.KeyValueStore</a></li>
-    </ul>
-
-
-    
 
     
 
@@ -265,7 +263,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue(name)</h4>
+    <h4 class="name" id="findMetadataDescriptors"><span class="type-signature"></span>findMetadataDescriptors(filePath)</h4>
     
     
 </dt>
@@ -273,7 +271,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
     
     <div class="description">
-        Get the value associated with <code>name</code>.
+        Find the metadata descriptor files.
     </div>
     
 
@@ -308,16 +306,10 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>filePath</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
             
             </td>
 
@@ -325,7 +317,8 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
             
 
-            <td class="description last">Name of the key</td>
+            <td class="description last">The top-level directory containing the metadata descriptors.
+Only files with a ".json" extension will be included in the results.</td>
         </tr>
 
     
@@ -343,21 +336,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.KeyValueStore.html#getValue">module:api.KeyValueStore#getValue</a>
-			</li>
-		</ul>
-	</dd>
-	
 
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.KeyValueStore.html#getValue">module:api.KeyValueStore#getValue</a>
-    </li></ul></dd>
     
 
     
@@ -402,11 +381,6 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    Promise for the value corresponding to the key. If the value does not exist in the
-store, returns null without rejecting the promise
-</div>
-
 
 
 <dl>
@@ -432,7 +406,7 @@ store, returns null without rejecting the promise
             
 <hr>
 <dt>
-    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue(name, value)</h4>
+    <h4 class="name" id="findSource"><span class="type-signature"></span>findSource(filepath)</h4>
     
     
 </dt>
@@ -440,7 +414,8 @@ store, returns null without rejecting the promise
 
     
     <div class="description">
-        Set the value associated with <code>name</code>.
+        Given an input 'filePath', recursively parse the filesystem for any files
+that fit the criteria for being valid chaincode source (ISREG + keep)
     </div>
     
 
@@ -475,16 +450,10 @@ store, returns null without rejecting the promise
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>filepath</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
             
             </td>
 
@@ -492,31 +461,7 @@ store, returns null without rejecting the promise
 
             
 
-            <td class="description last">Name of the key to save</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Value to save</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -534,21 +479,291 @@ store, returns null without rejecting the promise
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.KeyValueStore.html#setValue">module:api.KeyValueStore#setValue</a>
-			</li>
-		</ul>
-	</dd>
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="generateTarGz"><span class="type-signature"></span>generateTarGz(descriptors, dest)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Creates an .tar.gz stream from the provided descriptor entries
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>descriptors</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dest</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
 	
 
     
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.KeyValueStore.html#setValue">module:api.KeyValueStore#setValue</a>
-    </li></ul></dd>
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="isMetadata"><span class="type-signature"></span>isMetadata(filePath)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Predicate function for determining whether a given path should be
+considered a valid metadata descriptor based entirely on the
+file extension.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filePath</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The top-level directory containing the metadata descriptors.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
     
 
     
@@ -594,9 +809,456 @@ store, returns null without rejecting the promise
     
             
 <div class="param-desc">
-    Promise for the 'value' object upon successful write operation
+    Returns true for valid metadata descriptors.
 </div>
 
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="isSource"><span class="type-signature"></span>isSource(filePath)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Predicate function for determining whether a given path should be
+considered valid source code, based entirely on the extension.  It is
+assumed that other checks for file type (e.g. ISREG) have already been
+performed.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filePath</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="package"><span class="type-signature"></span>package(chaincodePath, metadataPath)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        All of the files in the directory of request.chaincodePath will be
+included in an archive file.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodePath</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metadataPath</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="packEntry"><span class="type-signature"></span>packEntry(pack, desc)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Given an {fqp, name} tuple, generate a tar entry complete with sensible
+header and populated contents read from the filesystem.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pack</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>desc</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
 
 
 <dl>
@@ -668,7 +1330,7 @@ store, returns null without rejecting the promise
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-05-09T19:25:36+00:00
+		on 2018-05-09T19:25:35+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

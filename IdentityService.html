@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: CouchDBKeyValueStore</title>
+	<title>Hyperledger Fabric SDK for node.js Class: IdentityService</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,17 +86,17 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: CouchDBKeyValueStore</h1>
+	<h1 class="page-title">Class: IdentityService</h1>
 <section>
 
 <header>
     
         <h2>
-        CouchDBKeyValueStore
+        IdentityService
         </h2>
         
-            <div class="class-description">This is a sample database implementation of the <a href="module-api.KeyValueStore.html">KeyValueStore</a> API.
-It uses a local or remote CouchDB database instance to store the keys.</div>
+            <div class="class-description">This is an implementation of the Identity service which communicates with
+the Fabric CA server using the Fabric CA client <a href="FabricCAClient.html">FabricCAClient</a>.</div>
         
     
 </header>
@@ -108,73 +108,19 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="CouchDBKeyValueStore"><span class="type-signature"></span>new CouchDBKeyValueStore(options)</h4>
+    <h4 class="name" id="IdentityService"><span class="type-signature"></span>new IdentityService()</h4>
     
     
 </dt>
 <dd>
 
     
-    <div class="description">
-        constructor
-    </div>
-    
 
     
 
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#CouchDBOpts">CouchDBOpts</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Settings used to connect to a CouchDB instance</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -236,17 +182,6 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
     </div>
 
     
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="module-api.KeyValueStore.html">module:api.KeyValueStore</a></li>
-    </ul>
-
-
-    
 
     
 
@@ -265,7 +200,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue(name)</h4>
+    <h4 class="name" id="create"><span class="type-signature"></span>create(req, registrar)</h4>
     
     
 </dt>
@@ -273,7 +208,9 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
     
     <div class="description">
-        Get the value associated with <code>name</code>.
+        Create a new identity with the Fabric CA server.
+An enrollment secret is returned which can then be used, along with the enrollment ID, to enroll a new identity.
+The caller must have `hf.Registrar` authority.
     </div>
     
 
@@ -308,13 +245,13 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>req</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="global.html#IdentityRequest">IdentityRequest</a></span>
 
 
 
@@ -325,7 +262,31 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
             
 
-            <td class="description last">Name of the key</td>
+            <td class="description last">The <a href="global.html#IdentityRequest">IdentityRequest</a></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The identity of the registrar (i.e. who is performing the registration).</td>
         </tr>
 
     
@@ -343,21 +304,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.KeyValueStore.html#getValue">module:api.KeyValueStore#getValue</a>
-			</li>
-		</ul>
-	</dd>
-	
 
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.KeyValueStore.html#getValue">module:api.KeyValueStore#getValue</a>
-    </li></ul></dd>
     
 
     
@@ -403,8 +350,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
     
             
 <div class="param-desc">
-    Promise for the value corresponding to the key. If the value does not exist in the
-store, returns null without rejecting the promise
+    Return the secret of this new identity
 </div>
 
 
@@ -432,7 +378,7 @@ store, returns null without rejecting the promise
             
 <hr>
 <dt>
-    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue(name, value)</h4>
+    <h4 class="name" id="delete"><span class="type-signature"></span>delete(enrollmentID, registrar)</h4>
     
     
 </dt>
@@ -440,7 +386,7 @@ store, returns null without rejecting the promise
 
     
     <div class="description">
-        Set the value associated with <code>name</code>.
+        Delete an existing identity. The caller must have `hf.Registrar` authority.
     </div>
     
 
@@ -475,7 +421,7 @@ store, returns null without rejecting the promise
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>enrollmentID</code></td>
             
 
             <td class="type">
@@ -492,20 +438,20 @@ store, returns null without rejecting the promise
 
             
 
-            <td class="description last">Name of the key to save</td>
+            <td class="description last"></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>value</code></td>
+                <td class="name"><code>registrar</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="User.html">User</a></span>
 
 
 
@@ -516,7 +462,7 @@ store, returns null without rejecting the promise
 
             
 
-            <td class="description last">The Value to save</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -534,21 +480,7 @@ store, returns null without rejecting the promise
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.KeyValueStore.html#setValue">module:api.KeyValueStore#setValue</a>
-			</li>
-		</ul>
-	</dd>
-	
 
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.KeyValueStore.html#setValue">module:api.KeyValueStore#setValue</a>
-    </li></ul></dd>
     
 
     
@@ -594,7 +526,535 @@ store, returns null without rejecting the promise
     
             
 <div class="param-desc">
-    Promise for the 'value' object upon successful write operation
+    <a href="global.html#ServiceResponse">ServiceResponse</a>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getAll"><span class="type-signature"></span>getAll(registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get all identities that the registrar is entitled to see.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <a href="global.html#ServiceResponse">ServiceResponse</a>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getOne"><span class="type-signature"></span>getOne(enrollmentID, registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get an identity. The caller must have `hf.Registrar` authority.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The enrollment ID which uniquely identifies an identity</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <a href="global.html#ServiceResponse">ServiceResponse</a>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="update"><span class="type-signature"></span>update(enrollmentID, req, registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Update an existing identity. The caller must have `hf.Registrar` authority.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IdentityRequest">IdentityRequest</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <a href="global.html#ServiceResponse">ServiceResponse</a>
 </div>
 
 

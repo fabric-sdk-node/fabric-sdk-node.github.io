@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: CouchDBKeyValueStore</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: How to configure mutual TLS</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -81,565 +81,62 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
-			
-
-	<h1 class="page-title">Class: CouchDBKeyValueStore</h1>
-<section>
+			<section class="tutorial-section">
 
 <header>
     
-        <h2>
-        CouchDBKeyValueStore
-        </h2>
-        
-            <div class="class-description">This is a sample database implementation of the <a href="module-api.KeyValueStore.html">KeyValueStore</a> API.
-It uses a local or remote CouchDB database instance to store the keys.</div>
-        
-    
+
+    <h2>How to configure mutual TLS</h2>
 </header>
 
-
 <article>
-    <div class="container-overview">
-    
-        
-<hr>
-<dt>
-    <h4 class="name" id="CouchDBKeyValueStore"><span class="type-signature"></span>new CouchDBKeyValueStore(options)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        constructor
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#CouchDBOpts">CouchDBOpts</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Settings used to connect to a CouchDB instance</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="module-api.KeyValueStore.html">module:api.KeyValueStore</a></li>
-    </ul>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue(name)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the value associated with <code>name</code>.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Name of the key</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.KeyValueStore.html#getValue">module:api.KeyValueStore#getValue</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.KeyValueStore.html#getValue">module:api.KeyValueStore#getValue</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for the value corresponding to the key. If the value does not exist in the
-store, returns null without rejecting the promise
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue(name, value)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the value associated with <code>name</code>.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Name of the key to save</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Value to save</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.KeyValueStore.html#setValue">module:api.KeyValueStore#setValue</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.KeyValueStore.html#setValue">module:api.KeyValueStore#setValue</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for the 'value' object upon successful write operation
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        </dl>
-    
-
-    
-
-    
+    <p>This tutorial illustrates how to use the node SDK APIs to connect to an
+orderer or peer which has TLS client authentication enabled (aka &quot;mutual TLS&quot;).</p>
+<p>An orderer has TLS client authentication enabled if the 
+<code>ORDERER_GENERAL_TLS_CLIENTAUTHREQUIRED</code> environment variable is set to <code>true</code>.</p>
+<p>A peer has TLS client authentication enabled if the 
+<code>CORE_PEER_TLS_CLIENTAUTHREQUIRED</code> environment variable is set to <code>true</code>.</p>
+<h3>Connecting to an orderer or peer with TLS client authentication enabled</h3><p>When creating an orderer, specify the <code>clientKey</code> and <code>clientCert</code> options with
+a value equal to the PEM-encoded private key and certificate, respectively.</p>
+<p>For example, the following demonstrates how to connect to an orderer which has TLS
+client authentication enabled.  This assumes that the client's PEM-encoded TLS key
+and certificate are at <code>somepath/tls/client.key</code> and <code>somepath/tls/client.crt</code>, respectively.</p>
+<pre class="prettyprint source"><code>let serverCert = fs.readFileSync(path.join(__dirname, 'somepath/msp/tlscacerts/example.com-cert.pem'));
+let clientKey = fs.readFileSync(path.join(__dirname, 'somepath/tls/client.key'));
+let clientCert = fs.readFileSync(path.join(__dirname, 'somepath/tls/client.crt'));
+
+orderer = client.newOrderer(
+              'grpcs://localhost:7050',
+              {
+                'pem': Buffer.from(serverCert).toString(),
+                'clientKey': Buffer.from(clientKey).toString(),
+                'clientCert': Buffer.from(clientCert).toString(),
+              });</code></pre><p>Similarly, the following demonstrates how to connect to a peer which has TLS
+client authentication enabled.  This assumes that the client's PEM-encoded TLS key
+and certificate are at <code>somepath/tls/client.key</code> and <code>somepath/tls/client.crt</code>, respectively.</p>
+<pre class="prettyprint source"><code>let serverCert = fs.readFileSync(path.join(__dirname, 'somepath/msp/tlscacerts/org1.example.com-cert.pem'));
+let clientKey = fs.readFileSync(path.join(__dirname, 'somepath/tls/client.key'));
+let clientCert = fs.readFileSync(path.join(__dirname, 'somepath/tls/client.crt'));
+let peer = client.newPeer(
+        'grpcs://localhost:7051',
+        {
+          'pem': Buffer.from(serverCert).toString(),
+          'clientKey': Buffer.from(clientKey).toString(),
+          'clientCert': Buffer.from(clientCert).toString(),
+        }
+);</code></pre>
 </article>
 
 </section>
-
-
-
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>

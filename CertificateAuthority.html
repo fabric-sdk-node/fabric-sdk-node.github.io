@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: CouchDBKeyValueStore</title>
+	<title>Hyperledger Fabric SDK for node.js Class: CertificateAuthority</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,17 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: CouchDBKeyValueStore</h1>
+	<h1 class="page-title">Class: CertificateAuthority</h1>
 <section>
 
 <header>
     
         <h2>
-        CouchDBKeyValueStore
+        CertificateAuthority
         </h2>
         
-            <div class="class-description">This is a sample database implementation of the <a href="module-api.KeyValueStore.html">KeyValueStore</a> API.
-It uses a local or remote CouchDB database instance to store the keys.</div>
+            <div class="class-description">The CertificateAuthority class represents an Certificate Authority in the target blockchain network.</div>
         
     
 </header>
@@ -108,7 +107,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="CouchDBKeyValueStore"><span class="type-signature"></span>new CouchDBKeyValueStore(options)</h4>
+    <h4 class="name" id="CertificateAuthority"><span class="type-signature"></span>new CertificateAuthority(name)</h4>
     
     
 </dt>
@@ -116,7 +115,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
     
     <div class="description">
-        constructor
+        Construct a CertificateAuthority object
     </div>
     
 
@@ -151,13 +150,13 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
         <tr>
             
-                <td class="name"><code>options</code></td>
+                <td class="name"><code>name</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#CouchDBOpts">CouchDBOpts</a></span>
+<span class="param-type">string</span>
 
 
 
@@ -168,7 +167,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
             
 
-            <td class="description last">Settings used to connect to a CouchDB instance</td>
+            <td class="description last">The name of this Certificate Authority</td>
         </tr>
 
     
@@ -234,17 +233,6 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
     
     </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="module-api.KeyValueStore.html">module:api.KeyValueStore</a></li>
-    </ul>
-
 
     
 
@@ -265,7 +253,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue(name)</h4>
+    <h4 class="name" id="getCaName"><span class="type-signature"></span>getCaName()</h4>
     
     
 </dt>
@@ -273,7 +261,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 
     
     <div class="description">
-        Get the value associated with <code>name</code>.
+        Gets the name of this CertificateAuthority to use in request
     </div>
     
 
@@ -282,56 +270,6 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Name of the key</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -343,21 +281,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.KeyValueStore.html#getValue">module:api.KeyValueStore#getValue</a>
-			</li>
-		</ul>
-	</dd>
-	
 
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.KeyValueStore.html#getValue">module:api.KeyValueStore#getValue</a>
-    </li></ul></dd>
     
 
     
@@ -403,8 +327,7 @@ It uses a local or remote CouchDB database instance to store the keys.</div>
     
             
 <div class="param-desc">
-    Promise for the value corresponding to the key. If the value does not exist in the
-store, returns null without rejecting the promise
+    The ca name of this CertificateAuthority
 </div>
 
 
@@ -415,7 +338,7 @@ store, returns null without rejecting the promise
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">string</span>
 
 
 
@@ -432,7 +355,7 @@ store, returns null without rejecting the promise
             
 <hr>
 <dt>
-    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue(name, value)</h4>
+    <h4 class="name" id="getConnectionOptions"><span class="type-signature"></span>getConnectionOptions()</h4>
     
     
 </dt>
@@ -440,7 +363,7 @@ store, returns null without rejecting the promise
 
     
     <div class="description">
-        Set the value associated with <code>name</code>.
+        Gets the connection options of this CertificateAuthority
     </div>
     
 
@@ -449,80 +372,6 @@ store, returns null without rejecting the promise
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Name of the key to save</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Value to save</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -534,21 +383,7 @@ store, returns null without rejecting the promise
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.KeyValueStore.html#setValue">module:api.KeyValueStore#setValue</a>
-			</li>
-		</ul>
-	</dd>
-	
 
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.KeyValueStore.html#setValue">module:api.KeyValueStore#setValue</a>
-    </li></ul></dd>
     
 
     
@@ -594,7 +429,7 @@ store, returns null without rejecting the promise
     
             
 <div class="param-desc">
-    Promise for the 'value' object upon successful write operation
+    The connection options of this CertificateAuthority
 </div>
 
 
@@ -605,7 +440,7 @@ store, returns null without rejecting the promise
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">object</span>
 
 
 
@@ -614,6 +449,492 @@ store, returns null without rejecting the promise
 
 
         
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the name of this CertificateAuthority
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The name of this CertificateAuthority
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getRegistrar"><span class="type-signature"></span>getRegistrar()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the registrar of this CertificateAuthority
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The registrar of this CertificateAuthority
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getTlsCACerts"><span class="type-signature"></span>getTlsCACerts()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the TLS CA Cert of this CertificateAuthority
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The TLS CA Cert PEM string of this CertificateAuthority
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the url of this CertificateAuthority
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The url of this CertificateAuthority
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        return a printable representation of this object
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
 </dd>
@@ -668,7 +989,7 @@ store, returns null without rejecting the promise
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-05-09T19:25:36+00:00
+		on 2018-05-09T19:25:35+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
