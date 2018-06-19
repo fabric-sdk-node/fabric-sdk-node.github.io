@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: NetworkConfig_1_0</title>
+	<title>Hyperledger Fabric SDK for node.js Class: CommitHandler</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,17 +86,18 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: NetworkConfig_1_0</h1>
+	<h1 class="page-title">Class: CommitHandler</h1>
 <section>
 
 <header>
     
         <h2>
-        NetworkConfig_1_0
+            <span class="ancestors"><a href="module-api.html">api</a>.</span>
+        
+        CommitHandler
         </h2>
         
-            <div class="class-description">This is an implementation of the NetworkConfig API.
-It will be used to work with the v1.0.1 version of a JSON based network configuration.</div>
+            <div class="class-description">Base class for commit handling</div>
         
     
 </header>
@@ -108,73 +109,19 @@ It will be used to work with the v1.0.1 version of a JSON based network configur
         
 <hr>
 <dt>
-    <h4 class="name" id="NetworkConfig_1_0"><span class="type-signature"></span>new NetworkConfig_1_0(network_config)</h4>
+    <h4 class="name" id="CommitHandler"><span class="type-signature"></span>new CommitHandler()</h4>
     
     
 </dt>
 <dd>
 
     
-    <div class="description">
-        constructor
-    </div>
-    
 
     
 
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>network_config</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Network Configuration as represented in a JSON object</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -236,14 +183,318 @@ It will be used to work with the v1.0.1 version of a JSON based network configur
     </div>
 
     
-        <h3 class="subsection-title">Extends</h3>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id=".create"><span class="type-signature">&lt;static> </span>create()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This static method will be called by the channel to create an instance of
+this handler. It will be passed the channel object this handler is working
+with.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="commit"><span class="type-signature"></span>commit(params)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method will process the parameters to determine the orderers.
+The handler will use the provided orderers or use the orderers assigned to
+the channel. The handler is expected to preform failover and use all available
+orderers to send the endorsed transaction.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
 
         
 
+        
 
-    <ul>
-        <li>module:api.NetworkConfig</li>
-    </ul>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">CommitHandlerParameters</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A EndorsementHandlerParameters</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for the <a href="global.html#ProposalResponseObject">ProposalResponseObject</a>, the
+       same results as calling the <a href="Channel.html">Channel</a> 'sendTransactionProposal'
+       method directly.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method will be called by the channel when the channel is initialzied.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
 
 
     
@@ -258,6 +509,10 @@ It will be used to work with the v1.0.1 version of a JSON based network configur
 
     
 
+    
+</dd>
+
+        </dl>
     
 
     

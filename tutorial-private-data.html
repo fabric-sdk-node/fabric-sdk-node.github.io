@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: NetworkConfig_1_0</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: How to use private data</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -81,204 +81,156 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
-			
-
-	<h1 class="page-title">Class: NetworkConfig_1_0</h1>
-<section>
+			<section class="tutorial-section">
 
 <header>
     
-        <h2>
-        NetworkConfig_1_0
-        </h2>
-        
-            <div class="class-description">This is an implementation of the NetworkConfig API.
-It will be used to work with the v1.0.1 version of a JSON based network configuration.</div>
-        
-    
+
+    <h2>How to use private data</h2>
 </header>
 
-
 <article>
-    <div class="container-overview">
-    
-        
-<hr>
-<dt>
-    <h4 class="name" id="NetworkConfig_1_0"><span class="type-signature"></span>new NetworkConfig_1_0(network_config)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        constructor
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>network_config</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Network Configuration as represented in a JSON object</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>module:api.NetworkConfig</li>
-    </ul>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+    <p>This tutorial illustrates how to use the Node.js SDK APIs to store and retrieve private data in the Hyperledger Fabric network.</p>
+<p>Starting in v1.2, Fabric offers the ability to create private data collections, which allows a subset of organizations on
+a channel to endorse, commit, or query private data without having to create a separate channel.For more information,
+refer to <a href="http://hyperledger-fabric.readthedocs.io/en/latest/private-data/private-data.html">Private Data Concept</a>, <a href="http://hyperledger-fabric.readthedocs.io/en/latest/private-data-arch.html">Private Data Architecture</a>, and <a href="http://hyperledger-fabric.readthedocs.io/en/latest/private_data_tutorial.html">Using Private Data in Fabric</a>.</p>
+<h3>Overview</h3><p>The following are the steps to use private data with the Node.js SDK.</p>
+<ol>
+<li><a href="#create-a-collection-definition-json-file">Create a collection definition json file</a></li>
+<li><a href="#implement-chaincode-to-store-and-query-private-data">Implement chaincode to store and query private data</a></li>
+<li><a href="#install-and-instantiate-chaincode-with-a-collection-definition">Install and instantiate chaincode with a collection definition</a></li>
+<li><a href="#invoke-chaincode-to-store-and-query-private-data">Invoke chaincode to store and query private data</a></li>
+<li><a href="#purge-private-data">Purge private data</a></li>
+</ol>
+<h3>Create a collection definition json file</h3><p>A collection definition describes who can persist data, how many peers the data is distributed to, how many peers are
+required to disseminate the private data, and how long the private data is persisted in the private database. Chaincode APIs
+will map the collection to the private data by the collection name.</p>
+<p>A collection definition is composed of the following five properties.</p>
+<ul>
+<li><code>name</code>: Name of the collection.</li>
+<li><code>policy</code>: Defines the organization peers allowed to persist the collection data.</li>
+<li><code>requiredPeerCount</code>: Number of peers required to disseminate the private data as a condition
+of the endorsement of the chaincode</li>
+<li><code>maxPeerCount</code>: For data redundancy purposes, the number of other peers that the current
+endorsing peer will attempt to distribute the data to. If an endorsing peer goes down, these
+other peers are available at commit time if there are requests to pull the private data.</li>
+<li><code>blockToLive</code>: For very sensitive information such as pricing or personal information,
+this value represents how long the data should live on the private database in terms of blocks.
+The data will be purged after this specified number of blocks on the private database. To keep
+private data indefinitely, that is, to never purge private data, set the blockToLive property to 0.</li>
+</ul>
+<p>Here is a sample collection definition JSON file, containing an array of two collection definitions:</p>
+<pre class="prettyprint source"><code>[{
+    &quot;name&quot;: &quot;collectionMarbles&quot;,
+    &quot;policy&quot;: {
+      &quot;identities&quot;: [{
+          &quot;role&quot;: {
+            &quot;name&quot;: &quot;member&quot;,
+            &quot;mspId&quot;: &quot;Org1MSP&quot;
+          }
+        },
+        {
+          &quot;role&quot;: {
+            &quot;name&quot;: &quot;member&quot;,
+            &quot;mspId&quot;: &quot;Org2MSP&quot;
+          }
+        }
+      ],
+      &quot;policy&quot;: {
+        &quot;1-of&quot;: [
+          {
+            &quot;signed-by&quot;: 0
+          },
+          {
+            &quot;signed-by&quot;: 1
+          }
+        ]
+      }
+    },
+    &quot;requiredPeerCount&quot;: 1,
+    &quot;maxPeerCount&quot;: 2,
+    &quot;blockToLive&quot;: 100
+  },
+  {
+    &quot;name&quot;: &quot;collectionMarblePrivateDetails&quot;,
+    &quot;policy&quot;: {
+      &quot;identities&quot;: [{
+        &quot;role&quot;: {
+          &quot;name&quot;: &quot;member&quot;,
+          &quot;mspId&quot;: &quot;Org1MSP&quot;
+        }
+      }],
+      &quot;policy&quot;: {
+        &quot;1-of&quot;: [{
+          &quot;signed-by&quot;: 0
+        }]
+      }
+    },
+    &quot;requiredPeerCount&quot;: 1,
+    &quot;maxPeerCount&quot;: 1,
+    &quot;blockToLive&quot;: 100
+  }
+]</code></pre><p>This example contains two private data collections: <code>collectionMarbles</code> and <code>collectionMarblePrivateDetails</code>.
+The policy property in the collectionMarbles definition allows all members of the channel (<code>Org1</code> and <code>Org2</code>) to have
+the private data in a private database. The collectionMarblesPrivateDetails collection allows only members of <code>Org1</code>
+to have the private data in their private database.</p>
+<p>For Node.js SDK, you must define policies in the same format as shown in the above.</p>
+<h3>Implement chaincode to store and query private data</h3><p>Fabric provides chaincode APIs to store and query private data. As an example, check out <a href="https://github.com/hyperledger/fabric-samples/blob/master/chaincode/marbles02_private/go/marbles_chaincode_private.go">marbles private data example</a>
+to understand how to use the chaincode APIs to read and write private data.</p>
+<p>This example implements the following functions to manage private data.</p>
+<ul>
+<li><code>readMarble</code>: query the values of the <code>name</code>, <code>color</code>, <code>size</code> and <code>owner</code> attributes using collection <code>collectionMarbles</code>.</li>
+<li><code>readMarblePrivateDetails</code>: query the values of the <code>price</code> attribute using collection <code>collectionMarblePrivateDetails</code>.</li>
+<li><code>initMarble</code>: store private data for the collections.</li>
+<li><code>delete</code>: delete a marble from private database.</li>
+</ul>
+<h3>Install and instantiate chaincode with a collection definition</h3><p>Client applications interact with the blockchain ledger through chaincode. As such
+we need to install and instantiate the chaincode on every peer that will execute and
+endorse transactions.</p>
+<ul>
+<li>Install chaincode. No specific parameter needed to support private data.</li>
+<li>Instantiate chaincode. To support private data, the request must include the <code>collections-config</code> attribute.<pre class="prettyprint source"><code>      const collectionsConfigPath = path.resolve(__dirname, collection_definition_json_filepath);
+      var request = {
+          targets: peers,
+          chaincodeId: chaincodeId,
+          chaincodeType: chaincodeType,
+          chaincodeVersion: chaincodeVersion,
+          fcn: functionName,
+          args: args,
+          txId: tx_id,
+          'collections-config': collectionsConfigPath
+      };
+      var endorsementResults = await channel.sendInstantiateProposal(request, time_out);
+      // additional code needed to validate endorsementResults and send transaction to commit
+      ......</code></pre></li>
+</ul>
+<h3>Invoke chaincode to store and query private data</h3><p>You must be authorized to transact with the private data based on the policy defined in collection definition.
+Recall that the above collection definition allows all members of <code>Org1</code> and <code>Org2</code> to access <code>collectionMarbles</code> (name,
+color, size, and owner) in their private database, but only peers in <code>Org1</code> can have access to
+<code>collectionMarblePrivateDetails</code> (price) in their private database.</p>
+<p>Acting as a member of <code>Org1</code>, you can do the following with <a href="https://github.com/hyperledger/fabric-samples/blob/master/chaincode/marbles02_private/go/marbles_chaincode_private.go">marbles private data example</a>,</p>
+<ul>
+<li>Invoke <code>initMarble</code> to create a marble with private data.</li>
+<li>Invoke <code>readMarble</code> to read name, color, size and owner from the private database for <code>collectionMarbles</code>.</li>
+<li>Invoke <code>readMarblePrivateDetails</code> to read price from the private database for <code>collectionMarblePrivateDetails</code>.</li>
+</ul>
+<h3>Purge private data</h3><p>The Hyperledger Fabric allows client applications to optionally purge the private data in a collection by setting the
+<code>blockToLive</code> property. This option may be needed when private data include personal or confidential information
+and transacting parties want to have a limited lifespan for these data.</p>
+<p>When <code>blockToLive</code> is set to a non-zero value in the collection definition file, Fabric will automatically purge the related
+private data after the specified number of blocks are committed. Client applications do not need to call any API.</p>
 </article>
 
 </section>
-
-
-
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>

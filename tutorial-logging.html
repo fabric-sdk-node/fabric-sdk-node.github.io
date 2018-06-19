@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: NetworkConfig_1_0</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: How to use logging</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -81,204 +81,76 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
-			
-
-	<h1 class="page-title">Class: NetworkConfig_1_0</h1>
-<section>
+			<section class="tutorial-section">
 
 <header>
     
-        <h2>
-        NetworkConfig_1_0
-        </h2>
-        
-            <div class="class-description">This is an implementation of the NetworkConfig API.
-It will be used to work with the v1.0.1 version of a JSON based network configuration.</div>
-        
-    
+
+    <h2>How to use logging</h2>
 </header>
 
-
 <article>
-    <div class="container-overview">
-    
-        
-<hr>
-<dt>
-    <h4 class="name" id="NetworkConfig_1_0"><span class="type-signature"></span>new NetworkConfig_1_0(network_config)</h4>
-    
-    
-</dt>
-<dd>
+    <p>This tutorial illustrates how to use the Hyperledger Fabric Node.js client logging feature.</p>
+<h3>Overview</h3><p>Hyperledger Fabric Node.js client logging uses the Node.js 'winston' package.
+The logging is initialized when the Node.js applicatiion first loads the Hyperledger
+Fabric package. All Hyperledger Fabric client objects will use the same settings (Peer, Orderer, ChannelEventHub).</p>
+<pre class="prettyprint source"><code>const Client = require('fabric-client');
+// the logging is now set</code></pre><p>There are four levels of logging</p>
+<ul>
+<li>info</li>
+<li>warn</li>
+<li>error</li>
+<li>debug</li>
+</ul>
+<p>By default <code>info</code>, <code>warn</code>, and <code>error</code> log entries will be sent to the 'console'.
+<code>debug</code> will not be recorded.</p>
+<h3>How to change logging</h3><p>The Hyperledger Fabric client's logging is controlled by the configuration setting
+<code>hfc-logging</code> and by the environment setting <code>HFC_LOGGING</code>.</p>
+<ul>
+<li><p>setting the logging settings in the <code>default.json</code> config file with an entry:</p>
+<pre class="prettyprint source"><code>&quot;hfc-logging&quot;: &quot;{'debug':'console', 'info':'console'}&quot;</code></pre></li>
+<li><p>using an environment setting will override the configuration setting:</p>
+<pre class="prettyprint source"><code>export HFC_LOGGING='{&quot;debug&quot;:&quot;console&quot;,&quot;info&quot;:&quot;console&quot;}'</code></pre></li>
+</ul>
+<p>The logging may use a file to write entries by specifying a file location as the
+level value.</p>
+<pre class="prettyprint source"><code>export HFC_LOGGING='{&quot;debug&quot;:&quot;/temp/debug.log&quot;,&quot;info&quot;:&quot;console&quot;}'</code></pre><h3>Using the logging from application</h3><p>When there is a need to log entries from the application code along with the
+Hyperledger Fabric client entries, use the following to get access to the same
+logger.</p>
+<p>as of 1.2</p>
+<pre class="prettyprint source"><code>const logger = Client.getLogger('APPLICATION');</code></pre><p>prior to 1.2</p>
+<pre class="prettyprint source"><code>const sdkUtils = = require('fabric-client/lib/utils.js');
+const logger = sdkUtils.getLogger('APPLICATION');</code></pre><p>To log</p>
+<pre class="prettyprint source"><code>const log_info = 'Sometext';
 
-    
-    <div class="description">
-        constructor
-    </div>
-    
+logger.info('%s infotext', log_info);
+// will log
+// info: [APPLICATION]: Sometext infotext
 
-    
+logger.warn('%s warntext', log_info);
+// will log
+// warn: [APPLICATION]: Sometext warntext
 
-    
+logger.error('%s errortext', log_info);
+// will log
+// error: [APPLICATION]: Sometext errortext
 
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>network_config</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Network Configuration as represented in a JSON object</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>module:api.NetworkConfig</li>
-    </ul>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+logger.debug('%s debugtext', log_info);
+// will log
+// debug: [APPLICATION]: Sometext debugtext
+</code></pre>
 </article>
 
 </section>
-
-
-
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>

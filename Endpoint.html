@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: NetworkConfig_1_0</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Endpoint</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,17 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: NetworkConfig_1_0</h1>
+	<h1 class="page-title">Class: Endpoint</h1>
 <section>
 
 <header>
     
         <h2>
-        NetworkConfig_1_0
+        Endpoint
         </h2>
         
-            <div class="class-description">This is an implementation of the NetworkConfig API.
-It will be used to work with the v1.0.1 version of a JSON based network configuration.</div>
+            <div class="class-description">The Endpoint class represents a remote grpc or grpcs target</div>
         
     
 </header>
@@ -108,16 +107,12 @@ It will be used to work with the v1.0.1 version of a JSON based network configur
         
 <hr>
 <dt>
-    <h4 class="name" id="NetworkConfig_1_0"><span class="type-signature"></span>new NetworkConfig_1_0(network_config)</h4>
+    <h4 class="name" id="Endpoint"><span class="type-signature"></span>new Endpoint(url, pem, clientKey, clientCert)</h4>
     
     
 </dt>
 <dd>
 
-    
-    <div class="description">
-        constructor
-    </div>
     
 
     
@@ -151,13 +146,13 @@ It will be used to work with the v1.0.1 version of a JSON based network configur
 
         <tr>
             
-                <td class="name"><code>network_config</code></td>
+                <td class="name"><code>url</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">string</span>
 
 
 
@@ -168,7 +163,79 @@ It will be used to work with the v1.0.1 version of a JSON based network configur
 
             
 
-            <td class="description last">Network Configuration as represented in a JSON object</td>
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pem</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clientKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clientCert</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -234,17 +301,6 @@ It will be used to work with the v1.0.1 version of a JSON based network configur
 
     
     </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>module:api.NetworkConfig</li>
-    </ul>
-
 
     
 
