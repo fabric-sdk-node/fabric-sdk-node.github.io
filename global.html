@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">How to use the service discovery</a></li><li><a href="tutorial-logging.html">How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">How to use the channel-based event service</a></li><li><a href="tutorial-logging.html">How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li>
 				</ul>
 			</li>
 			
@@ -2280,155 +2280,6 @@ metadata
 </dt>
 <dd>
     
-    <div class="description">
-        Object used internally to store chaincodes
-         names and versions found on this channel.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of the chaincode</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>version</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The version of the chaincode</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt class="name" id="ChaincodeInfo">
-    <h4 id="ChaincodeInfo">ChaincodeInfo</h4>
-
-    
-</dt>
-<dd>
-    
 
     
         <h5>Type:</h5>
@@ -2615,6 +2466,155 @@ metadata
 
             <td class="description last">the name of the VSCC for this chaincode. This will be blank
                           if the query is returning information about installed chaincodes.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="ChaincodeInfo">
+    <h4 id="ChaincodeInfo">ChaincodeInfo</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Object used internally to store chaincodes
+         names and versions found on this channel.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the chaincode</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>version</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The version of the chaincode</td>
         </tr>
 
     
@@ -11533,7 +11533,7 @@ with a network configuration.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-06-22T08:11:22+00:00
+		on 2018-06-22T16:27:20+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

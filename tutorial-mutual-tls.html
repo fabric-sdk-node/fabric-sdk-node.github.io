@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">How to use the service discovery</a></li><li><a href="tutorial-logging.html">How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">How to use the channel-based event service</a></li><li><a href="tutorial-logging.html">How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li>
 				</ul>
 			</li>
 			
@@ -95,34 +95,37 @@
 <article>
     <p>This tutorial illustrates how to use the node SDK APIs to connect to an
 orderer or peer which has TLS client authentication enabled (aka &quot;mutual TLS&quot;).</p>
-<p>An orderer has TLS client authentication enabled if the
+<p>An orderer has TLS client authentication enabled if the 
 <code>ORDERER_GENERAL_TLS_CLIENTAUTHREQUIRED</code> environment variable is set to <code>true</code>.</p>
-<p>A peer has TLS client authentication enabled if the
+<p>A peer has TLS client authentication enabled if the 
 <code>CORE_PEER_TLS_CLIENTAUTHREQUIRED</code> environment variable is set to <code>true</code>.</p>
-<h3>Connecting to an orderer or peer with TLS client authentication enabled</h3><p>After retrieving the client certificate and client key, assign those to the
-Client instance. The Client instance will then assign the material to each
-orderer and peer it creates.</p>
-<p>For example, the following demonstrates how to assign to the client first.
-Then build an orderer and peer which will then
-have the TLS client authentication enabled.  This assumes that the client's
-PEM-encoded TLS key and certificate are at <code>somepath/tls/client.key</code> and
-<code>somepath/tls/client.crt</code>, respectively.</p>
+<h3>Connecting to an orderer or peer with TLS client authentication enabled</h3><p>When creating an orderer, specify the <code>clientKey</code> and <code>clientCert</code> options with
+a value equal to the PEM-encoded private key and certificate, respectively.</p>
+<p>For example, the following demonstrates how to connect to an orderer which has TLS
+client authentication enabled.  This assumes that the client's PEM-encoded TLS key
+and certificate are at <code>somepath/tls/client.key</code> and <code>somepath/tls/client.crt</code>, respectively.</p>
 <pre class="prettyprint source"><code>let serverCert = fs.readFileSync(path.join(__dirname, 'somepath/msp/tlscacerts/example.com-cert.pem'));
 let clientKey = fs.readFileSync(path.join(__dirname, 'somepath/tls/client.key'));
 let clientCert = fs.readFileSync(path.join(__dirname, 'somepath/tls/client.crt'));
 
-client.setTlsClientCertAndKey(Buffer.from(clientCert).toString(), Buffer.from(clientKey).toString());
-
-let orderer = client.newOrderer(
+orderer = client.newOrderer(
               'grpcs://localhost:7050',
               {
-                'pem': Buffer.from(serverCert).toString()
-              });
-
+                'pem': Buffer.from(serverCert).toString(),
+                'clientKey': Buffer.from(clientKey).toString(),
+                'clientCert': Buffer.from(clientCert).toString(),
+              });</code></pre><p>Similarly, the following demonstrates how to connect to a peer which has TLS
+client authentication enabled.  This assumes that the client's PEM-encoded TLS key
+and certificate are at <code>somepath/tls/client.key</code> and <code>somepath/tls/client.crt</code>, respectively.</p>
+<pre class="prettyprint source"><code>let serverCert = fs.readFileSync(path.join(__dirname, 'somepath/msp/tlscacerts/org1.example.com-cert.pem'));
+let clientKey = fs.readFileSync(path.join(__dirname, 'somepath/tls/client.key'));
+let clientCert = fs.readFileSync(path.join(__dirname, 'somepath/tls/client.crt'));
 let peer = client.newPeer(
         'grpcs://localhost:7051',
         {
-          'pem': Buffer.from(serverCert).toString()
+          'pem': Buffer.from(serverCert).toString(),
+          'clientKey': Buffer.from(clientKey).toString(),
+          'clientCert': Buffer.from(clientCert).toString(),
         }
 );</code></pre>
 </article>
@@ -162,7 +165,7 @@ let peer = client.newPeer(
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-06-22T08:11:23+00:00
+		on 2018-06-22T16:27:21+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
