@@ -117,7 +117,7 @@ Javascript <code>Promise</code>.</p>
 <li><code>Client.loadFromConfig()</code> - A static utility method to get a fabric client instance loaded with the connection profile configuration.</li>
 <li><code>client.loadFromConfig()</code> - A fabric client instance method to load a connection profile configuration, overriding any existing connection profile configuration settings that may have been set when this client object was created by the call above.</li>
 </ul>
-<h4>new API's that use a loaded connetion profile</h4><ul>
+<h4>new API's that use a loaded connection profile</h4><ul>
 <li><code>client.initCredentialStores()</code> - A fabric client instance method to create a state store and assign it to the fabric client instance based on the current settings in the loaded connection profile configuration. It will also create the crypto suite and assign it to the fabric client instance. A crypto store will be created and assigned to crypto suite if needed. (HSM based crypto suites do not require a crypto store).</li>
 <li><code>client.setTlsClientCertAndKey(clientCert, clientKey)</code> -A fabric client instance method that will set a certificate and the corresponding private key on the client instance. Mutual TLS client settings are not stored within the connection profile. When a peer or orderer instance is created for the user from the endpoints defined in the connection profile, these settings will be used as the client mutual TLS settings. When using mutual TLS and a connection profile, this method must be called before endpoints are required. Calling this method is only required when using mutual TLS and a connection profile.</li>
 <li><code>channel.newChannelEventHub()</code> - A fabric channel instance method to create an channel-based event hub based on the current settings in the loaded connection profile configuration of the named peer.</li>
@@ -228,7 +228,7 @@ certificateAuthorities:
     registrar:
       - enrollId: admin
         enrollSecret: adminpw
-    caName: caorg2</code></pre><p>The following example will have an existing fabric client load a connection profile configuration. The definition will only contain client side definitions and no fabric network definitions. Calling for a load on an existing fabric client does an overlay of the top level sections in the file being loaded replacing the sections on those previously loaded. In this case the file being loaded only has a client section, therefore the loaded definition will now have the perviously loaded channels, organizations, peers, orderers, and certificateAuthorities section definitions and the newly loaded client section definition. This allows for an existing fabric client to be able to work within different organization.</p>
+    caName: caorg2</code></pre><p>The following example will have an existing fabric client load a connection profile configuration. The definition will only contain client side definitions and no fabric network definitions. Calling for a load on an existing fabric client does an overlay of the top level sections in the file being loaded replacing the sections on those previously loaded. In this case the file being loaded only has a client section, therefore the loaded definition will now have the previously loaded channels, organizations, peers, orderers, and certificateAuthorities section definitions and the newly loaded client section definition. This allows for an existing fabric client to be able to work within different organization.</p>
 <pre class="prettyprint source"><code>client.loadFromConfig('test/fixtures/org1.yaml');</code></pre><p>Here is the client definition loaded above</p>
 <pre class="prettyprint source"><code>name: &quot;Org1 Client&quot;
 version: &quot;1.0&quot;
@@ -331,7 +331,7 @@ channel.sendTransaction(request)
 </li>
 </ul>
 <h3>When monitoring for events</h3><p>Working with an channel-based event hub will not changed when a connection profile configuration has been loaded. A new method has been added to the fabric client to simplify setting up of an ChannelEventHub object. Use the following to get an ChannelEventHub object that will be setup to work with the named peer's channel-based event hub.</p>
-<pre class="prettyprint source"><code>var chanel_event_hub = channel.newChannelEventHub('peer0.org1.example.com');</code></pre><p>Notice how the parameter to the call is the name of the peer. All settings to create an channel-based event hub are defined by the connection profile configuration under the peer by that name.</p>
+<pre class="prettyprint source"><code>var channel_event_hub = channel.newChannelEventHub('peer0.org1.example.com');</code></pre><p>Notice how the parameter to the call is the name of the peer. All settings to create an channel-based event hub are defined by the connection profile configuration under the peer by that name.</p>
 <pre class="prettyprint source"><code>peer0.org1.example.com:
   url: grpcs://localhost:7051
   grpcOptions:
@@ -380,7 +380,7 @@ Use the mspid of the organization.</p>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-06-29T18:49:29+00:00
+		on 2018-06-30T20:01:23+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
