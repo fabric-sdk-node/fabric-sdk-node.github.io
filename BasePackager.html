@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Remote</title>
+	<title>Hyperledger Fabric SDK for node.js Class: BasePackager</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,16 +86,14 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Remote</h1>
+	<h1 class="page-title">Class: BasePackager</h1>
 <section>
 
 <header>
     
         <h2>
-        Remote
+        BasePackager
         </h2>
-        
-            <div class="class-description">The Remote class represents a the base class for all remote nodes, Peer, Orderer , and MemberServicespeer.</div>
         
     
 </header>
@@ -107,7 +105,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Remote"><span class="type-signature"></span>new Remote(url, opts)</h4>
+    <h4 class="name" id="BasePackager"><span class="type-signature"></span>new BasePackager( [keep])</h4>
     
     
 </dt>
@@ -115,7 +113,7 @@
 
     
     <div class="description">
-        Constructs an object with the endpoint configuration settings.
+        Constructor
     </div>
     
 
@@ -138,6 +136,8 @@
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -150,13 +150,13 @@
 
         <tr>
             
-                <td class="name"><code>url</code></td>
+                <td class="name"><code>keep</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">*</span>
 
 
 
@@ -164,49 +164,20 @@
             </td>
 
             
-
-            
-
-            <td class="description last">The orderer URL with format of 'grpc(s)://host:port'.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type">Object</span>
+                    &lt;optional><br>
+                
 
+                
 
-
-            
-            </td>
-
-            
-
+                
+                </td>
             
 
-            <td class="description last">An Object that may contain options to pass to grpcs calls
-<br>- pem {string} The certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol.
-<br>- clientKey {string} The private key file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol with client certificates.
-<br>- clientCert {string} The public certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol with client certificates.
-<br>- ssl-target-name-override {string} Used in test environment only, when the server certificate's
-   hostname (in the 'CN' field) does not match the actual host endpoint that the server process runs
-   at, the application can work around the client TLS verify failure by setting this property to the
-   value of the server certificate's hostname
-<br>- any other standard grpc call options will be passed to the grpc service calls directly
-       grpc options must be an object with string keys and integer or string values</td>
+            
+
+            <td class="description last">Array of valid source file extensions</td>
         </tr>
 
     
@@ -292,7 +263,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getClientCertHash"><span class="type-signature"></span>getClientCertHash()</h4>
+    <h4 class="name" id="findMetadataDescriptors"><span class="type-signature"></span>findMetadataDescriptors(filePath)</h4>
     
     
 </dt>
@@ -300,314 +271,7 @@
 
     
     <div class="description">
-        Get the client certificate hash
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The hash of the client certificate
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the name. This is a client-side only identifier for this
-object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The name of the object
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the URL of this object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Get the URL associated with the object.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setName"><span class="type-signature"></span>setName(name)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the name as a client-side only identifier of this object.
+        Find the metadata descriptor files.
     </div>
     
 
@@ -642,16 +306,154 @@ object.
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>filePath</code></td>
             
 
             <td class="type">
             
-                
-<span class="param-type">string</span>
+            </td>
+
+            
+
+            
+
+            <td class="description last">The top-level directory containing the metadata descriptors.
+Only files with a ".json" extension will be included in the results.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
 
 
 
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="findSource"><span class="type-signature"></span>findSource(filepath)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Given an input 'filePath', recursively parse the filesystem for any files
+that fit the criteria for being valid chaincode source (ISREG + keep)
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filepath</code></td>
+            
+
+            <td class="type">
             
             </td>
 
@@ -727,7 +529,7 @@ object.
             
 <hr>
 <dt>
-    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
+    <h4 class="name" id="generateTarGz"><span class="type-signature"></span>generateTarGz(descriptors, dest)</h4>
     
     
 </dt>
@@ -735,7 +537,7 @@ object.
 
     
     <div class="description">
-        return a printable representation of this object
+        Creates an .tar.gz stream from the provided descriptor entries
     </div>
     
 
@@ -744,6 +546,68 @@ object.
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>descriptors</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dest</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -797,6 +661,621 @@ object.
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="isMetadata"><span class="type-signature"></span>isMetadata(filePath)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Predicate function for determining whether a given path should be
+considered a valid metadata descriptor based entirely on the
+file extension.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filePath</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The top-level directory containing the metadata descriptors.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Returns true for valid metadata descriptors.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="isSource"><span class="type-signature"></span>isSource(filePath)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Predicate function for determining whether a given path should be
+considered valid source code, based entirely on the extension.  It is
+assumed that other checks for file type (e.g. ISREG) have already been
+performed.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filePath</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="package"><span class="type-signature"></span>package(chaincodePath, metadataPath)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        All of the files in the directory of request.chaincodePath will be
+included in an archive file.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodePath</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metadataPath</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="packEntry"><span class="type-signature"></span>packEntry(pack, desc)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Given an {fqp, name} tuple, generate a tar entry complete with sensible
+header and populated contents read from the filesystem.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pack</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>desc</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>

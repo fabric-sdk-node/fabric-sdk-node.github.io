@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Remote</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: How to add CouchDB indexes during chaincode installation</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -81,748 +81,93 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
-			
-
-	<h1 class="page-title">Class: Remote</h1>
-<section>
+			<section class="tutorial-section">
 
 <header>
     
-        <h2>
-        Remote
-        </h2>
-        
-            <div class="class-description">The Remote class represents a the base class for all remote nodes, Peer, Orderer , and MemberServicespeer.</div>
-        
-    
+
+    <h2>How to add CouchDB indexes during chaincode installation</h2>
 </header>
 
-
 <article>
-    <div class="container-overview">
-    
-        
-<hr>
-<dt>
-    <h4 class="name" id="Remote"><span class="type-signature"></span>new Remote(url, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Constructs an object with the endpoint configuration settings.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>url</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The orderer URL with format of 'grpc(s)://host:port'.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">An Object that may contain options to pass to grpcs calls
-<br>- pem {string} The certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol.
-<br>- clientKey {string} The private key file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol with client certificates.
-<br>- clientCert {string} The public certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol with client certificates.
-<br>- ssl-target-name-override {string} Used in test environment only, when the server certificate's
-   hostname (in the 'CN' field) does not match the actual host endpoint that the server process runs
-   at, the application can work around the client TLS verify failure by setting this property to the
-   value of the server certificate's hostname
-<br>- any other standard grpc call options will be passed to the grpc service calls directly
-       grpc options must be an object with string keys and integer or string values</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="getClientCertHash"><span class="type-signature"></span>getClientCertHash()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the client certificate hash
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The hash of the client certificate
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the name. This is a client-side only identifier for this
-object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The name of the object
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the URL of this object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Get the URL associated with the object.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setName"><span class="type-signature"></span>setName(name)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the name as a client-side only identifier of this object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        return a printable representation of this object
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        </dl>
-    
-
-    
-
-    
+    <p>This tutorial illustrates the use of adding metadata to your chaincode installation.
+As of v1.1 the only metadata are the indexes that may be added to a CouchDB state
+database of your channel ledger.</p>
+<p>For more information:</p>
+<ul>
+<li><a href="http://hyperledger-fabric.readthedocs.io/en/latest/build_network.html">getting started with Hyperledger Fabric</a></li>
+<li><a href="http://hyperledger-fabric.readthedocs.io/en/latest/couchdb_as_state_database.html">setting up a CouchDB as the state database</a></li>
+</ul>
+<p>The following assumes an understanding of the Hyperledger Fabric network
+(orderers and peers),
+and of Node application development, including the use of the
+Javascript <code>Promise</code>.</p>
+<h3>Overview</h3><p>Fabric 1.1 has introduced the capability of defining indexes in a CouchDB state
+database to help improve performance of your queries made in your chaincode.
+The index definitions need to be in JSON format and in files with a .json extension.
+These definitions will be included in the chaincode installation package that
+is sent to the Fabric peer.</p>
+<h4>Modified API's that allow for metadata</h4><ul>
+<li><code>client.installChaincode()</code> - There is a new attribute ('metadataPath') that
+may be included in the installation request. The value of the <code>metadataPath</code> is
+a string representing the absolute path to the directory structure containing
+the JSON index files.</li>
+</ul>
+<h3>Installing chaincode</h3><p>The following example will install the chaincode 'my_chaincode' and include
+index files.</p>
+<pre class="prettyprint source"><code>let targets = buildTargets(); //build the list of peers that will require this chaincode
+let chaincode_path = path.resolve(__dirname, '../chaincode/src/node_cc/my_chaincode');
+let metadata_path = path.resolve(__dirname, '../chaincode/my_indexes');
+
+// send proposal to install
+var request = {
+    targets: targets,
+    chaincodePath: chaincode_path,
+    metadataPath: metadata_path, // notice this is the new attribute of the request
+    chaincodeId: 'my_chaincode',
+    chaincodeType: 'node',
+    chaincodeVersion: 'v1'
+};
+
+client.installChaincode(request).then((results) => {
+    var proposalResponses = results[0];
+    // check the results
+}, (err) => {
+    console.log('Failed to send install proposal due to error: ' + err.stack ? err.stack : err);
+    throw new Error('Failed to send install proposal due to error: ' + err.stack ? err.stack : err);
+});</code></pre><p>The following shows the path used as the <code>metadataPath</code> above. This is the
+required directory structure required under the path.
+The <code>indexes</code> directory will hold the files with the index definitions.
+The required directory structure and files with a 'json' extension will be
+included in the chaincode installation package under the 'META_INF' package
+directory. 'META-INF' should not be included in your local directory structure.</p>
+<pre class="prettyprint source"><code> ..
+  &lt;> chaincode
+  │
+  └─── &lt;> my_indexes // here is where the 'metadataPath' will point to
+       │
+       └─── &lt;> statedb //starting here are the required directories
+            │
+            └─── &lt;> couchdb
+                 │
+                 └─── &lt;> indexes // this directory will contain the index files
+                         index-owner.json   // these will be the index files and must
+                         index-address.json // have the file extension of 'json'</code></pre><p>Each index must be defined in its own text file with an extension of <code>*.json</code>
+and contain the index definition formatted in JSON following the
+<a href="http://docs.couchdb.org/en/2.1.1/api/database/find.html#db-index">CouchDB index JSON syntax</a>.</p>
+<pre class="prettyprint source"><code>{&quot;index&quot;:{&quot;fields&quot;:[&quot;docType&quot;,&quot;owner&quot;]},&quot;ddoc&quot;:&quot;indexOwnerDoc&quot;, &quot;name&quot;:&quot;indexOwner&quot;,&quot;type&quot;:&quot;json&quot;}</code></pre><p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
 </article>
 
 </section>
-
-
-
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>

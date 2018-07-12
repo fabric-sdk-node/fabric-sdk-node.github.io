@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Remote</title>
+	<title>Hyperledger Fabric SDK for node.js Class: ChannelPeer</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,16 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Remote</h1>
+	<h1 class="page-title">Class: ChannelPeer</h1>
 <section>
 
 <header>
     
         <h2>
-        Remote
+        ChannelPeer
         </h2>
         
-            <div class="class-description">The Remote class represents a the base class for all remote nodes, Peer, Orderer , and MemberServicespeer.</div>
+            <div class="class-description">The ChannelPeer class represents a peer in the target blockchain network on this channel.</div>
         
     
 </header>
@@ -107,7 +107,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Remote"><span class="type-signature"></span>new Remote(url, opts)</h4>
+    <h4 class="name" id="ChannelPeer"><span class="type-signature"></span>new ChannelPeer(mspid, channel, peer, roles)</h4>
     
     
 </dt>
@@ -115,7 +115,15 @@
 
     
     <div class="description">
-        Constructs an object with the endpoint configuration settings.
+        Construct a ChannelPeer object with the given Peer and opts.
+A channel peer object holds channel based references:
+  MSP ID of the Organization this peer belongs.
+  <a href="Channel.html">Channel</a> object used to know the channel this peer is interacting.
+  <a href="Peer.html">Peer</a> object used for interacting with the Hyperledger fabric network.
+  <a href="ChannelEventHub.html">ChannelEventHub</a> object used for listening to block changes on the channel.
+  List of <a href="global.html#ChannelPeerRoles">ChannelPeerRoles</a> to indicate the roles this peer performs on the channel.
+
+The roles this Peer performs on this channel are indicated with is object.
     </div>
     
 
@@ -150,7 +158,7 @@
 
         <tr>
             
-                <td class="name"><code>url</code></td>
+                <td class="name"><code>mspid</code></td>
             
 
             <td class="type">
@@ -167,20 +175,20 @@
 
             
 
-            <td class="description last">The orderer URL with format of 'grpc(s)://host:port'.</td>
+            <td class="description last">The mspid of the organization this peer belongs.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>opts</code></td>
+                <td class="name"><code>channel</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="Channel.html">Channel</a></span>
 
 
 
@@ -191,22 +199,55 @@
 
             
 
-            <td class="description last">An Object that may contain options to pass to grpcs calls
-<br>- pem {string} The certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol.
-<br>- clientKey {string} The private key file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol with client certificates.
-<br>- clientCert {string} The public certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol with client certificates.
-<br>- ssl-target-name-override {string} Used in test environment only, when the server certificate's
-   hostname (in the 'CN' field) does not match the actual host endpoint that the server process runs
-   at, the application can work around the client TLS verify failure by setting this property to the
-   value of the server certificate's hostname
-<br>- any other standard grpc call options will be passed to the grpc service calls directly
-       grpc options must be an object with string keys and integer or string values</td>
+            <td class="description last">The Channel instance.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>peer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Peer instance.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>roles</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ChannelPeerRoles">ChannelPeerRoles</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The roles for this peer.</td>
         </tr>
 
     
@@ -292,7 +333,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getClientCertHash"><span class="type-signature"></span>getClientCertHash()</h4>
+    <h4 class="name" id="close"><span class="type-signature"></span>close()</h4>
     
     
 </dt>
@@ -300,7 +341,90 @@
 
     
     <div class="description">
-        Get the client certificate hash
+        Close the associated peer service connections.
+<br>see <a href="Peer.html#close">Peer#close</a>
+<br>see <a href="ChannelEventHub.html#close">ChannelEventHub#close</a>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getChannelEventHub"><span class="type-signature"></span>getChannelEventHub()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the channel event hub for this channel peer. The ChannelEventHub instance will
+be assigned when using the <a href="Channel.html">Channel</a> newChannelEventHub() method. When using
+a common connection profile, the ChannelEventHub will be automatically assigned
+on the Channel Peers as they are created and added to the channel.
     </div>
     
 
@@ -366,7 +490,7 @@
     
             
 <div class="param-desc">
-    The hash of the client certificate
+    - The ChannelEventHub instance associated with this <a href="Peer.html">Peer</a> instance.
 </div>
 
 
@@ -377,7 +501,109 @@
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;byte></span>
+<span class="param-type"><a href="ChannelEventHub.html">ChannelEventHub</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getMspid"><span class="type-signature"></span>getMspid()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the MSP ID.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The mspId.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
 
 
 
@@ -497,6 +723,108 @@ object.
             
 <hr>
 <dt>
+    <h4 class="name" id="getPeer"><span class="type-signature"></span>getPeer()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the Peer instance this ChannelPeer represents on the channel.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The associated Peer instance.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
     
     
@@ -571,7 +899,7 @@ object.
     
             
 <div class="param-desc">
-    Get the URL associated with the object.
+    Get the URL associated with the peer object.
 </div>
 
 
@@ -599,7 +927,7 @@ object.
             
 <hr>
 <dt>
-    <h4 class="name" id="setName"><span class="type-signature"></span>setName(name)</h4>
+    <h4 class="name" id="isInOrg"><span class="type-signature"></span>isInOrg(mspid)</h4>
     
     
 </dt>
@@ -607,7 +935,9 @@ object.
 
     
     <div class="description">
-        Set the name as a client-side only identifier of this object.
+        Checks if this peer is in the specified organization.
+The default is true when the incoming organization name is not defined.
+The default will be true when this peer does not have the organization name defined.
     </div>
     
 
@@ -642,7 +972,7 @@ object.
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>mspid</code></td>
             
 
             <td class="type">
@@ -659,13 +989,220 @@ object.
 
             
 
-            <td class="description last"></td>
+            <td class="description last">The mspid of the organnization</td>
         </tr>
 
     
     </tbody>
 </table>
 
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    If this peer belongs to the organization.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="isInRole"><span class="type-signature"></span>isInRole()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Checks if this peer is in the specified role.
+The default is true when the incoming role is not defined.
+The default will be true when this peer does not have the role defined.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    If this peer has this role.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="sendDiscovery"><span class="type-signature"></span>sendDiscovery()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Wrapper method for the associated peer so this object may be used as a <a href="Peer.html">Peer</a>
+<a href="Peer.html#sendDiscovery">Peer#sendDiscovery</a>
+    </div>
+    
+
+    
+
+    
+
+    
     
 
     
@@ -727,7 +1264,7 @@ object.
             
 <hr>
 <dt>
-    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
+    <h4 class="name" id="sendProposal"><span class="type-signature"></span>sendProposal()</h4>
     
     
 </dt>
@@ -735,7 +1272,8 @@ object.
 
     
     <div class="description">
-        return a printable representation of this object
+        Wrapper method for the associated peer so this object may be used as a <a href="Peer.html">Peer</a>
+<a href="Peer.html#sendProposal">Peer#sendProposal</a>
     </div>
     
 
@@ -744,6 +1282,158 @@ object.
     
 
     
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setRole"><span class="type-signature"></span>setRole(role, isIn)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Set a role for this peer.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>role</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the role</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isIn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The boolean value of does this peer have this role</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     

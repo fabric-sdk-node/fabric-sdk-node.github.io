@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Remote</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: How to use logging</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -81,748 +81,76 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
-			
-
-	<h1 class="page-title">Class: Remote</h1>
-<section>
+			<section class="tutorial-section">
 
 <header>
     
-        <h2>
-        Remote
-        </h2>
-        
-            <div class="class-description">The Remote class represents a the base class for all remote nodes, Peer, Orderer , and MemberServicespeer.</div>
-        
-    
+
+    <h2>How to use logging</h2>
 </header>
 
-
 <article>
-    <div class="container-overview">
-    
-        
-<hr>
-<dt>
-    <h4 class="name" id="Remote"><span class="type-signature"></span>new Remote(url, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Constructs an object with the endpoint configuration settings.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>url</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The orderer URL with format of 'grpc(s)://host:port'.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">An Object that may contain options to pass to grpcs calls
-<br>- pem {string} The certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol.
-<br>- clientKey {string} The private key file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol with client certificates.
-<br>- clientCert {string} The public certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol with client certificates.
-<br>- ssl-target-name-override {string} Used in test environment only, when the server certificate's
-   hostname (in the 'CN' field) does not match the actual host endpoint that the server process runs
-   at, the application can work around the client TLS verify failure by setting this property to the
-   value of the server certificate's hostname
-<br>- any other standard grpc call options will be passed to the grpc service calls directly
-       grpc options must be an object with string keys and integer or string values</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="getClientCertHash"><span class="type-signature"></span>getClientCertHash()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the client certificate hash
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The hash of the client certificate
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the name. This is a client-side only identifier for this
-object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The name of the object
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the URL of this object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Get the URL associated with the object.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setName"><span class="type-signature"></span>setName(name)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the name as a client-side only identifier of this object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        return a printable representation of this object
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        </dl>
-    
-
-    
-
-    
+    <p>This tutorial illustrates how to use the Hyperledger Fabric Node.js client logging feature.</p>
+<h3>Overview</h3><p>Hyperledger Fabric Node.js client logging uses the Node.js 'winston' package.
+The logging is initialized when the Node.js application first loads the Hyperledger
+Fabric package. All Hyperledger Fabric client objects will use the same settings (Peer, Orderer, ChannelEventHub).</p>
+<pre class="prettyprint source"><code>const Client = require('fabric-client');
+// the logging is now set</code></pre><p>There are four levels of logging</p>
+<ul>
+<li>info</li>
+<li>warn</li>
+<li>error</li>
+<li>debug</li>
+</ul>
+<p>By default <code>info</code>, <code>warn</code>, and <code>error</code> log entries will be sent to the 'console'.
+<code>debug</code> will not be recorded.</p>
+<h3>How to change logging</h3><p>The Hyperledger Fabric client's logging is controlled by the configuration setting
+<code>hfc-logging</code> and by the environment setting <code>HFC_LOGGING</code>.</p>
+<ul>
+<li><p>setting the logging settings in the <code>default.json</code> config file with an entry:</p>
+<pre class="prettyprint source"><code>&quot;hfc-logging&quot;: &quot;{'debug':'console', 'info':'console'}&quot;</code></pre></li>
+<li><p>using an environment setting will override the configuration setting:</p>
+<pre class="prettyprint source"><code>export HFC_LOGGING='{&quot;debug&quot;:&quot;console&quot;,&quot;info&quot;:&quot;console&quot;}'</code></pre></li>
+</ul>
+<p>The logging may use a file to write entries by specifying a file location as the
+level value.</p>
+<pre class="prettyprint source"><code>export HFC_LOGGING='{&quot;debug&quot;:&quot;/temp/debug.log&quot;,&quot;info&quot;:&quot;console&quot;}'</code></pre><h3>Using the logging from application</h3><p>When there is a need to log entries from the application code along with the
+Hyperledger Fabric client entries, use the following to get access to the same
+logger.</p>
+<p>as of 1.2</p>
+<pre class="prettyprint source"><code>const logger = Client.getLogger('APPLICATION');</code></pre><p>prior to 1.2</p>
+<pre class="prettyprint source"><code>const sdkUtils = require('fabric-client/lib/utils.js');
+const logger = sdkUtils.getLogger('APPLICATION');</code></pre><p>To log</p>
+<pre class="prettyprint source"><code>const log_info = 'Sometext';
+
+logger.info('%s infotext', log_info);
+// will log
+// info: [APPLICATION]: Sometext infotext
+
+logger.warn('%s warntext', log_info);
+// will log
+// warn: [APPLICATION]: Sometext warntext
+
+logger.error('%s errortext', log_info);
+// will log
+// error: [APPLICATION]: Sometext errortext
+
+logger.debug('%s debugtext', log_info);
+// will log
+// debug: [APPLICATION]: Sometext debugtext
+</code></pre>
 </article>
 
 </section>
-
-
-
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>
