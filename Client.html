@@ -385,6 +385,140 @@ the <a href="User.html">User</a> class) in the state store.</div>
             
 <hr>
 <dt>
+    <h4 class="name" id="_setUserFromConfig"><span class="type-signature">&lt;async> </span>_setUserFromConfig(opts)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Utility Method
+Sets the user context based on the passed in username and password
+and the organization in the client section of the network configuration
+settings.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">contains
+                 - username [required] - username of the user
+                 - password [optional] - password of the user
+                 - caName [optional] - name of the Certificate Authority</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="addTlsClientCertAndKey"><span class="type-signature"></span>addTlsClientCertAndKey(opts)</h4>
     
     
@@ -2701,7 +2835,7 @@ configuration's client section will be used.
             
 <hr>
 <dt>
-    <h4 class="name" id="getUserContext"><span class="type-signature"></span>getUserContext(name, checkPersistence)</h4>
+    <h4 class="name" id="getUserContext"><span class="type-signature">&lt;async> </span>getUserContext(name, checkPersistence)</h4>
     
     
 </dt>
@@ -2758,7 +2892,7 @@ enrollment certificate signed by a trusted CA (such as the CA server).
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
 
@@ -2862,8 +2996,7 @@ enrollment certificate signed by a trusted CA (such as the CA server).
             
 <div class="param-desc">
     Promise for the user object corresponding to the name, or null if the user does not exist or if the
-                          state store has not been set. If "checkPersistence" is not specified or false, then the user object
-                          is returned synchronously.
+                          state store has not been set.
 </div>
 
 
@@ -2874,10 +3007,7 @@ enrollment certificate signed by a trusted CA (such as the CA server).
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
-|
-
-<span class="param-type"><a href="User.html">User</a></span>
+<span class="param-type">Promise.&lt;<a href="User.html">User</a>></span>
 
 
 
@@ -2894,7 +3024,7 @@ enrollment certificate signed by a trusted CA (such as the CA server).
             
 <hr>
 <dt>
-    <h4 class="name" id="initCredentialStores"><span class="type-signature"></span>initCredentialStores()</h4>
+    <h4 class="name" id="initCredentialStores"><span class="type-signature">&lt;async> </span>initCredentialStores()</h4>
     
     
 </dt>
@@ -3000,7 +3130,7 @@ if needed.
             
 <hr>
 <dt>
-    <h4 class="name" id="installChaincode"><span class="type-signature"></span>installChaincode(request, timeout)</h4>
+    <h4 class="name" id="installChaincode"><span class="type-signature">&lt;async> </span>installChaincode(request, timeout)</h4>
     
     
 </dt>
@@ -3404,7 +3534,7 @@ any values in the config.
             
 <hr>
 <dt>
-    <h4 class="name" id="loadUserFromStateStore"><span class="type-signature"></span>loadUserFromStateStore(name)</h4>
+    <h4 class="name" id="loadUserFromStateStore"><span class="type-signature">&lt;async> </span>loadUserFromStateStore(name)</h4>
     
     
 </dt>
@@ -4518,7 +4648,7 @@ peer has joined.
             
 <hr>
 <dt>
-    <h4 class="name" id="queryInstalledChaincodes"><span class="type-signature"></span>queryInstalledChaincodes(peer, useAdmin)</h4>
+    <h4 class="name" id="queryInstalledChaincodes"><span class="type-signature">&lt;async> </span>queryInstalledChaincodes(peer, useAdmin)</h4>
     
     
 </dt>
@@ -4697,7 +4827,7 @@ peer has joined.
             
 <hr>
 <dt>
-    <h4 class="name" id="saveUserToStateStore"><span class="type-signature"></span>saveUserToStateStore()</h4>
+    <h4 class="name" id="saveUserToStateStore"><span class="type-signature">&lt;async> </span>saveUserToStateStore()</h4>
     
     
 </dt>
@@ -5540,7 +5670,7 @@ This must be called before a peer, orderer, or channel eventhub is needed.
             
 <hr>
 <dt>
-    <h4 class="name" id="setUserContext"><span class="type-signature"></span>setUserContext(user, skipPersistence)</h4>
+    <h4 class="name" id="setUserContext"><span class="type-signature">&lt;async> </span>setUserContext(user, skipPersistence)</h4>
     
     
 </dt>
@@ -6101,7 +6231,7 @@ in the channel.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-07-12T02:38:02+00:00
+		on 2018-07-16T08:30:08+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
