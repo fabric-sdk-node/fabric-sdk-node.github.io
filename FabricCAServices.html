@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: CertificateAuthority</title>
+	<title>Hyperledger Fabric SDK for node.js Class: FabricCAServices</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,22 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: CertificateAuthority</h1>
+	<h1 class="page-title">Class: FabricCAServices</h1>
 <section>
 
 <header>
     
         <h2>
-        CertificateAuthority
+        FabricCAServices
         </h2>
         
-            <div class="class-description">The CertificateAuthority class represents a Certificate Authority configuration
-as defined in a Connection Profile. This class will wrapper a FabricCAClientImpl
-fabric-ca-client implementation as a FabricCAServices instance when this class
-is returned from the <a href="Client.html#getCertificateAuthority">Client#getCertificateAuthority</a> method. This class
-has all the same methods as the <a href="FabricCAServices.html">FabricCAServices</a> so that this class
-may be used directly or use this class's <a href="CertificateAuthority.html#getFabricCAServices">CertificateAuthority#getFabricCAServices</a>
-method to get the actual FabricCAServices instance.</div>
+            <div class="class-description">This is an implementation of the member service client which communicates with the Fabric CA server.</div>
         
     
 </header>
@@ -113,7 +107,7 @@ method to get the actual FabricCAServices instance.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="CertificateAuthority"><span class="type-signature"></span>new CertificateAuthority(name)</h4>
+    <h4 class="name" id="FabricCAServices"><span class="type-signature"></span>new FabricCAServices(url, tlsOptions, caName, cryptoSuite)</h4>
     
     
 </dt>
@@ -121,7 +115,7 @@ method to get the actual FabricCAServices instance.</div>
 
     
     <div class="description">
-        Construct a CertificateAuthority object
+        constructor
     </div>
     
 
@@ -156,7 +150,59 @@ method to get the actual FabricCAServices instance.</div>
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The endpoint URL for Fabric CA services of the form: "http://host:port" or "https://host:port"
+	 	When this parameter is an object then it must include the parameters listed as key value pairs.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tlsOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#TLSOptions">TLSOptions</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The TLS settings to use when the Fabric CA services endpoint uses "https"</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>caName</code></td>
             
 
             <td class="type">
@@ -173,7 +219,40 @@ method to get the actual FabricCAServices instance.</div>
 
             
 
-            <td class="description last">The name of this Certificate Authority</td>
+            <td class="description last">The optional name of the CA. Fabric-ca servers support multiple Certificate Authorities from
+ a single server. If omitted or null or an empty string, then the default CA is the target of requests</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cryptoSuite</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">CryptoSuite</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The optional cryptoSuite instance to be used if options other than defaults are needed.
+If not specified, an instance of CryptoSuite will be constructed based on the current configuration settings:
+<br> - crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
+<br> - crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
+ is supported and the valid key sizes are 256 and 384
+<br> - crypto-hash-algo: hashing algorithm
+<br> - key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
+ is provided for this purpose, which can be used on top of any implementation of the KeyValueStore interface,
+ such as a file-based store or a database-based one. The specific implementation is determined by the value of this configuration setting.</td>
         </tr>
 
     
@@ -241,6 +320,17 @@ method to get the actual FabricCAServices instance.</div>
     </div>
 
     
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="BaseClient.html">BaseClient</a></li>
+    </ul>
+
+
+    
 
     
 
@@ -259,7 +349,7 @@ method to get the actual FabricCAServices instance.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="enroll"><span class="type-signature"></span>enroll()</h4>
+    <h4 class="name" id="enroll"><span class="type-signature"></span>enroll(req)</h4>
     
     
 </dt>
@@ -267,7 +357,7 @@ method to get the actual FabricCAServices instance.</div>
 
     
     <div class="description">
-        see <a href="FabricCAServices.html#enroll">FabricCAServices#enroll</a>
+        Enroll the member and return an opaque member object.
     </div>
     
 
@@ -276,6 +366,50 @@ method to get the actual FabricCAServices instance.</div>
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the <a href="global.html#EnrollmentRequest">EnrollmentRequest</a></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -329,6 +463,17 @@ method to get the actual FabricCAServices instance.</div>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Promise for an object with "key" for private key and "certificate" for the signed certificate
+</div>
+
+
+
+
+        
 
     
 </dd>
@@ -337,23 +482,93 @@ method to get the actual FabricCAServices instance.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="generateCRL"><span class="type-signature"></span>generateCRL()</h4>
+    <h4 class="name" id="generateCRL"><span class="type-signature"></span>generateCRL(request, registrar)</h4>
     
     
 </dt>
 <dd>
 
     
-    <div class="description">
-        see <a href="FabricCAServices.html#generateCRL">FabricCAServices#generateCRL</a>
-    </div>
-    
 
     
 
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Restriction">Restriction</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The identity of the registrar (i.e. who is performing the revocation)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -407,6 +622,30 @@ method to get the actual FabricCAServices instance.</div>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The Certificate Revocation List (CRL)
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -423,7 +662,7 @@ method to get the actual FabricCAServices instance.</div>
 
     
     <div class="description">
-        Gets the name of this CertificateAuthority to use in request
+        Returns the name of the certificate authority.
     </div>
     
 
@@ -489,7 +728,7 @@ method to get the actual FabricCAServices instance.</div>
     
             
 <div class="param-desc">
-    The ca name of this CertificateAuthority
+    caName
 </div>
 
 
@@ -517,7 +756,7 @@ method to get the actual FabricCAServices instance.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getConnectionOptions"><span class="type-signature"></span>getConnectionOptions()</h4>
+    <h4 class="name" id="getCryptoSuite"><span class="type-signature"></span>getCryptoSuite()</h4>
     
     
 </dt>
@@ -525,7 +764,7 @@ method to get the actual FabricCAServices instance.</div>
 
     
     <div class="description">
-        Gets the connection options of this CertificateAuthority
+        Returns the CryptoSuite object used by this client instance
     </div>
     
 
@@ -544,6 +783,15 @@ method to get the actual FabricCAServices instance.</div>
 
 	
 
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseClient.html#getCryptoSuite">BaseClient#getCryptoSuite</a>
+			</li>
+		</ul>
+	</dd>
 	
 
     
@@ -590,10 +838,6 @@ method to get the actual FabricCAServices instance.</div>
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    The connection options of this CertificateAuthority
-</div>
-
 
 
 <dl>
@@ -602,504 +846,7 @@ method to get the actual FabricCAServices instance.</div>
     </dt>
     <dd>
         
-<span class="param-type">object</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getFabricCAServices"><span class="type-signature"></span>getFabricCAServices()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the FabricCAServices implementation
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="FabricCAServices.html">FabricCAServices</a>
-</div>
-
-
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Gets the name of this CertificateAuthority
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The name of this CertificateAuthority
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getRegistrar"><span class="type-signature"></span>getRegistrar()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Gets the registrar of this CertificateAuthority
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The registrar of this CertificateAuthority
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getTlsCACerts"><span class="type-signature"></span>getTlsCACerts()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Gets the TLS CA Cert of this CertificateAuthority
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The TLS CA Cert PEM string of this CertificateAuthority
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Gets the url of this CertificateAuthority
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The url of this CertificateAuthority
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
+<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
 
 
 
@@ -1124,7 +871,7 @@ method to get the actual FabricCAServices instance.</div>
 
     
     <div class="description">
-        see <a href="FabricCAServices.html#newAffiliationService">FabricCAServices#newAffiliationService</a>
+        Create a new <a href="AffiliationService.html">AffiliationService</a> object
     </div>
     
 
@@ -1186,6 +933,30 @@ method to get the actual FabricCAServices instance.</div>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="AffiliationService.html">AffiliationService</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1202,7 +973,7 @@ method to get the actual FabricCAServices instance.</div>
 
     
     <div class="description">
-        see <a href="FabricCAServices.html#newCertificateService">FabricCAServices#newCertificateService</a>
+        Create a new CertificateService instance
     </div>
     
 
@@ -1264,6 +1035,30 @@ method to get the actual FabricCAServices instance.</div>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">CertificateService</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1280,7 +1075,7 @@ method to get the actual FabricCAServices instance.</div>
 
     
     <div class="description">
-        see <a href="FabricCAServices.html#newIdentityService">FabricCAServices#newIdentityService</a>
+        Creates a new <a href="IdentityService.html">IdentityService</a> object
     </div>
     
 
@@ -1342,84 +1137,30 @@ method to get the actual FabricCAServices instance.</div>
     
 
     
-
+    <h5>Returns:</h5>
     
-</dd>
-
-        
             
-<hr>
-<dt>
-    <h4 class="name" id="reenroll"><span class="type-signature"></span>reenroll()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        see <a href="FabricCAServices.html#reenroll">FabricCAServices#reenroll</a>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
+<div class="param-desc">
+    object
+</div>
 
 
 
-	
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="IdentityService.html">IdentityService</a></span>
 
-	
 
-	
 
-	
+    </dd>
 </dl>
 
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+        
 
     
 </dd>
@@ -1428,7 +1169,7 @@ method to get the actual FabricCAServices instance.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="register"><span class="type-signature"></span>register()</h4>
+    <h4 class="name" id="reenroll"><span class="type-signature"></span>reenroll(currentUser, Optional)</h4>
     
     
 </dt>
@@ -1436,163 +1177,8 @@ method to get the actual FabricCAServices instance.</div>
 
     
     <div class="description">
-        see <a href="FabricCAServices.html#register">FabricCAServices#register</a>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="revoke"><span class="type-signature"></span>revoke()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        see <a href="FabricCAServices.html#revoke">FabricCAServices#revoke</a>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setFabricCAServices"><span class="type-signature"></span>setFabricCAServices(ca_services)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the FabricCAServices implementation
+        Re-enroll the member in cases such as the existing enrollment certificate is about to expire, or
+it has been compromised
     </div>
     
 
@@ -1627,13 +1213,13 @@ method to get the actual FabricCAServices instance.</div>
 
         <tr>
             
-                <td class="name"><code>ca_services</code></td>
+                <td class="name"><code>currentUser</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="FabricCAServices.html">FabricCAServices</a></span>
+<span class="param-type"><a href="User.html">User</a></span>
 
 
 
@@ -1644,7 +1230,32 @@ method to get the actual FabricCAServices instance.</div>
 
             
 
-            <td class="description last"><a href="FabricCAServices.html">FabricCAServices</a></td>
+            <td class="description last">The identity of the current user that holds the existing enrollment certificate</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Optional</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#AttributeRequest">AttributeRequest</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">an array of <a href="global.html#AttributeRequest">AttributeRequest</a> that indicate attributes to
+                            be included in the certificate</td>
         </tr>
 
     
@@ -1661,6 +1272,524 @@ method to get the actual FabricCAServices instance.</div>
 
 	
 
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Promise for an object with "key" for private key and "certificate" for the signed certificate
+</div>
+
+
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="register"><span class="type-signature"></span>register(req, registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Register the member and return an enrollment secret.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#RegisterRequest">RegisterRequest</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The <a href="global.html#RegisterRequest">RegisterRequest</a></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">. The identity of the registrar (i.e. who is performing the registration)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The enrollment secret to use when this user enrolls
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="revoke"><span class="type-signature"></span>revoke(request, registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Revoke an existing certificate (enrollment certificate or transaction certificate), or revoke
+all certificates issued to an enrollment id. If revoking a particular certificate, then both
+the Authority Key Identifier and serial number are required. If revoking by enrollment id,
+then all future requests to enroll this id will be rejected.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Request object with the following fields:
+<br> - enrollmentID {string}. ID to revoke
+<br> - aki {string}. Authority Key Identifier string, hex encoded, for the specific certificate to revoke
+<br> - serial {string}. Serial number string, hex encoded, for the specific certificate to revoke
+<br> - reason {string}. The reason for revocation. See https://godoc.org/golang.org/x/crypto/ocsp
+ for valid values. The default value is 0 (ocsp.Unspecified).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The identity of the registrar (i.e. who is performing the revocation)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The revocation results
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setCryptoSuite"><span class="type-signature"></span>setCryptoSuite(cryptoSuite)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the client instance to use the CryptoSuite object for signing and hashing
+
+Creating and setting a CryptoSuite is optional because the client will construct
+an instance based on default configuration settings:
+<li> crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
+<li> crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
+ is supported and the valid key sizes are 256 and 384
+<li> crypto-hash-algo: hashing algorithm
+<li> key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
+ is provided for this purpose, which can be used on top of any implementation of the KeyValueStore interface,
+ such as a file-based store or a database-based one. The specific implementation is determined by the value of this configuration setting.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cryptoSuite</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the CryptoSuite object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseClient.html#setCryptoSuite">BaseClient#setCryptoSuite</a>
+			</li>
+		</ul>
+	</dd>
 	
 
     
@@ -1836,7 +1965,7 @@ method to get the actual FabricCAServices instance.</div>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-07-26T16:06:37+00:00
+		on 2018-07-26T16:06:38+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
