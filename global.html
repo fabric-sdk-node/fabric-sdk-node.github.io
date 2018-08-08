@@ -2338,6 +2338,155 @@ metadata
 </dt>
 <dd>
     
+    <div class="description">
+        Object used internally to store chaincodes
+         names and versions found on this channel.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the chaincode</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>version</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The version of the chaincode</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="ChaincodeInfo">
+    <h4 id="ChaincodeInfo">ChaincodeInfo</h4>
+
+    
+</dt>
+<dd>
+    
 
     
         <h5>Type:</h5>
@@ -2524,155 +2673,6 @@ metadata
 
             <td class="description last">the name of the VSCC for this chaincode. This will be blank
                           if the query is returning information about installed chaincodes.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt class="name" id="ChaincodeInfo">
-    <h4 id="ChaincodeInfo">ChaincodeInfo</h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        Object used internally to store chaincodes
-         names and versions found on this channel.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of the chaincode</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>version</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The version of the chaincode</td>
         </tr>
 
     
@@ -8929,6 +8929,97 @@ standard array of objects.
             
                 
 <hr>
+<dt class="name" id="REQUEST_TIMEOUT">
+    <h4 id="REQUEST_TIMEOUT">REQUEST_TIMEOUT</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The Error message string that indicates that
+          the request operation has timed out due to a remote node issue.
+          If there is an issue with the local system a 'SYSTEM_TIMEOUT'
+          error message will be returned.
+          The operation will only use one timer for both types of timeouts.
+          The timer will start running as the operation begins. If the timer
+          expires before the local instance is able to make the outbound
+          request then 'SYSTEM_TIMEOUT' error will be returned. If the local
+          instance is able to make the outbound request and the timer expires
+          before the remote node responds then the 'REQUEST_TIMEOUT' is
+          returned. The timer is controlled by the 'request-timeout' setting
+          or passed on a call that makes an outbound request
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Error</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">&#x27;client.setConfigSetting(&#x27;request-timeout&#x27;, 3000)&#x27;
+          </pre>
+
+    <pre class="sunlight-highlight-javascript">&#x27;channel.sendTranaction(request, 3000)&#x27;</pre>
+
+
+    
+</dd>
+
+            
+                
+<hr>
 <dt class="name" id="Response">
     <h4 id="Response">Response</h4>
 
@@ -9755,6 +9846,98 @@ rule
             
                 
 <hr>
+<dt class="name" id="SYSTEM_TIMEOUT">
+    <h4 id="SYSTEM_TIMEOUT">SYSTEM_TIMEOUT</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        The Error message string that indicates that
+          the request operation has timed out due to a system issue. This will
+          indicate that the issue is local rather than remote. If there is
+          an issue with the remote node a 'REQUEST_TIMEOUT' error message
+          will be returned.
+          The operation will only use one timer for both types of timeouts.
+          The timer will start running as the operation begins. If the timer
+          expires before the local instance is able to make the outbound
+          request then 'SYSTEM_TIMEOUT' error will be returned. If the local
+          instance is able to make the outbound request and the timer expires
+          before the remote node responds then the 'REQUEST_TIMEOUT' is
+          returned. The timer is controlled by the 'request-timeout' setting
+          or passed on a call that makes an outbound request
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Error</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">&#x27;client.setConfigSetting(&#x27;request-timeout&#x27;, 3000)&#x27;
+          </pre>
+
+    <pre class="sunlight-highlight-javascript">&#x27;channel.sendTranaction(request, 3000)&#x27;</pre>
+
+
+    
+</dd>
+
+            
+                
+<hr>
 <dt class="name" id="Transaction">
     <h4 id="Transaction">Transaction</h4>
 
@@ -10493,7 +10676,7 @@ with a network configuration.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-08-02T15:53:18+00:00
+		on 2018-08-08T07:30:05+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
