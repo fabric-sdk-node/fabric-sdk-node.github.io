@@ -145,10 +145,7 @@ received by your instance of a <code>ChannelEventHub</code>. When the channel-ba
 connects with the service, it will request to receive blocks or filtered blocks.
 If the <code>full_block</code> parameter is omitted, it will default to false
 and filtered blocks will be requested. Receiving blocks or filtered blocks
-can not be changed once <code>connect()</code> is called.
-When replaying blocks (by setting the startBlock and endBlock) <code>connect()</code> must be
-called after registering the listener as the connection to the peer must be
-setup to request existing blocks.</li>
+can not be changed once <code>connect()</code> is called.</li>
 <li><code>disconnect()</code> -- To have the client channel event hub shutdown the connection
 to the fabric network channel-based event service and notify all current channel
 event registrations of the shutdown by using the registered <code>errorCallBack</code>s.</li>
@@ -162,9 +159,7 @@ transaction or chaincode events.</p>
 <h4><code>errorCallback</code> parameter</h4><p>This is an optional parameter. This is the callback function to be notified when
 this channel event hub is shutdown. The shutdown may be caused by a fabric
 network error, network connection problem or by a call to the <code>disconnect()</code>
-method.
-This callback will also be called when the channel event hub is shutdown
-due to the last block being received if replaying with the endBlock set to 'newest'.</p>
+method.</p>
 <h4><code>options</code> parameter</h4><p>This is an optional parameter. This parameter will contain the following optional
 properties:</p>
 <ul>
@@ -176,21 +171,16 @@ sending blocks from this block number.</p>
   Replaying events may confuse other event listeners; therefore, only one listener
   will be allowed on a <code>ChannelEventHub</code> when <code>startBlock</code> and/or <code>endBlock</code> are used.
   When this parameter is excluded (as it will be normally) the event service
-  will be asked to start sending blocks from the last (newest) block on the ledger.</p>
+  will be asked to start sending blocks from the last block on the ledger.</p>
 </li>
-<li><p>{integer | 'newest'} <code>endBlock</code> -- (Optional) The ending block number for event checking.
+<li><p>{integer} <code>endBlock</code> -- (Optional) The ending block number for event checking.
 When included, the peer's channel-based event service will be asked to stop
   sending blocks once this block is delivered.</p>
 <p>This is how to replay missed blocks that were added to the ledger. When a
   <code>startBlock</code> is not included, the <code>endBlock</code> must be equal to or larger than
   the current channel block height. Replaying events may confuse other event
   listeners; therefore, only one listener will be allowed on a <code>ChannelEventHub</code>
-  when <code>startBlock</code> and/or <code>endBlock</code> are used.
-  The value 'newest' will indicate that 'endBlock' will be calculated by the
-  peer as the newest block on the ledger.
-  This allows the application to replay up to the latest block on
-  the ledger and then the listener will stop and be notified by the
-  'onError' callback.</p>
+  when <code>startBlock</code> and/or <code>endBlock</code> are used.</p>
 </li>
 <li><p>{boolean} <code>unregister</code> -- (Optional) This setting indicates that the
 registration should be removed (unregister) when the event is seen. When the
@@ -246,8 +236,7 @@ to receive new blocks as they are added to the ledger. This is a way for the
 application to resume and replay events that may have been lost if the
 application were to be offline. The application should remember the last block
 it has processed to avoid replaying the entire ledger.</p>
-<p>The following example will register a block listener to start receiving new
-blocks as they are added to the ledger.</p>
+<p>The following example will register a block listener to start receiving blocks.</p>
 <pre class="prettyprint source"><code>// keep the block_reg to unregister with later if needed
 block_reg = channel_event_hub.registerBlockEvent((block) => {
     console.log('Successfully received the block event');
@@ -275,39 +264,16 @@ handle the replayed blocks in the same manor as current events. The block
 listener will be automatically unregistered and the <code>ChannelEventHub</code> shutdown
 when the end block event is seen by the listener. The application will not have
 to handle this housekeeping.</p>
-<pre class="prettyprint source"><code>block_reg = channel_event_hub.registerBlockEvent((full_block) => {
-    console.log('Successfully received a block event');
+<pre class="prettyprint source"><code>block_reg = channel_event_hub.registerBlockEvent((block) => {
+    console.log('Successfully received the block event');
     &lt;do something with the block>
-    const event_block = Long.fromValue(full_block.header.number);
-    if(event_block.equals(current_block)) {
-        console.log('Successfully got the last block number');
-        &lt;application is now up to date>
-    }
 }, (error)=> {
     console.log('Failed to receive the block event ::'+error);
     &lt;do something with the error>
 },
     // for block listeners, the defaults for unregister and disconnect are true,
-    // so they are not required to be set in the following example
+    // so the they are not required to be set in the following example
     {startBlock:23, endBlock:30, unregister: true, disconnect: true}
-);
-channel_event_hub.connect(true); //get full blocks</code></pre><p>The following example will register with a start block number and an end block
-set to 'newest'. The error callback will be called to notify the application
-that the last block has been delivered and that the listener has been shutdown.</p>
-<pre class="prettyprint source"><code>block_reg = channel_event_hub.registerBlockEvent((block) => {
-    console.log('Successfully received the block event');
-    &lt;do something with the block>
-}, (error)=> {
-    if(error.toString().indexOf('Newest block received')) {
-        console.log('Received latest block');
-        &lt;application is now up to date>
-    } else {
-        console.log('Failed to receive the block event ::'+error);
-        &lt;do something with the error>
-    }
-
-},
-    {startBlock:23, endBlock:'newest'}
 );</code></pre><h3>Transaction listener</h3><p>When there is a need to monitor for the completion of a transaction on your
 organization's peer, use a transaction listener. The client Node.js will be
 notified when a new block is committed to the ledger on the peer. The client will
@@ -371,7 +337,6 @@ let event_monitor = new Promise((resolve, reject) => {
         // notice that `unregister` is not specified, so it will default to true
         // `disconnect` is also not specified and will default to false
     );
-    channel_event_hub.connect();
 });
 let send_trans = channel.sendTransaction({proposalResponses: results[0], proposal: results[1]});
 
@@ -453,6 +418,8 @@ let event_monitor = new Promise((resolve, reject) => {
         reject(error);
     }
         // no options specified
+        // startBlock will default to latest
+        // endBlock will default to MAX
         // unregister will default to false
         // disconnect will default to false
     );
@@ -501,7 +468,7 @@ return Promise.all([event_monitor, send_trans]);
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-08-10T13:13:45+00:00
+		on 2018-08-13T03:05:52+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
