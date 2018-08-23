@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: CryptoSuite</title>
+	<title>Hyperledger Fabric SDK for node.js Class: EventHub</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,25 +86,58 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: CryptoSuite</h1>
+	<h1 class="page-title">Class: EventHub</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-api.html">api</a>.</span>
-        
-        CryptoSuite
+        EventHub
         </h2>
         
-            <div class="class-description">Abstract class for a suite of crypto algorithms used by the SDK to perform digital signing,
-encryption/decryption and secure hashing. A complete suite includes support for asymmetric
-keys (such as ECDSA or RSA), symmetric keys (such as AES) and secure hash (such as
-SHA2/3).
-
-The SDK provides a default implementation based on ECDSA + SHA2/3. An alternative
-implementation can be specified using the "crypto-suite-software" configuration setting, pointing
-to a full require() path to the package for the module.</div>
+            <div class="class-description">Transaction processing in fabric v1.0 is a long operation spanning multiple
+components (application, endorsing peer, orderer, committing peer) and takes
+a relatively lengthy period of time (think seconds instead of milliseconds)
+to complete. As a result the applications must design their handling of the
+transaction lifecyle in an asynchrous fashion. After the transaction proposal
+has been successfully <a href="Channel.html#sendTransactionProposal">endorsed</a>, and before
+the transaction message has been successfully <a href="Channel.html#sendTransaction">broadcast</a>
+to the orderer, the application should register a listener to be notified of
+the event when the transaction achieves finality, which is when the block
+containing the transaction gets added to the peer's ledger/blockchain.
+<br><br>
+Fabric committing peers provides an event stream to publish events to registered
+listeners. As of v1.0, the only events that get published are Block events. A
+Block event gets published whenever the committing peer adds a validated block
+to the ledger. There are three ways to register a listener to get notified:
+<li>register a "block listener" to get called for every block event on all channels. The listener
+    will be passed a fully decoded <a href="global.html#Block">Block</a> object. See <a href="EventHub.html#registerBlockEvent">registerBlockEvent</a>
+<li>register a "transaction listener" to get called when the specific transaction
+    by id is committed (discovered inside a block event). The listener will be
+    passed the transaction id and the <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/peer/transaction.proto#L125">validation code</a>.
+    See <a href="EventHub.html#registerTxEvent">registerTxEvent</a>
+<li>register a "chaincode event listener" to get called when a specific
+    <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/examples/chaincode/go/eventsender/eventsender.go#L65">chaincode event</a>
+    has arrived. The listener will be passed the <a href="global.html#ChaincodeEvent">ChaincodeEvent</a>. See
+    <a href="EventHub.html#registerChaincodeEvent">registerChaincodeEvent</a>
+<br><br>
+The events are ephemeral, such that if a registered listener
+crashed when the event is published, the listener will miss the event.
+There are several techniques to compensate for missed events due to client crashes:
+<li>register block event listeners and record the block numbers received, such that
+    when the next block arrives and its number is not the next in sequence, then
+    the application knows exactly which block events have been missed. It can then use
+    <a href="Channel.html#queryBlock">queryBlock</a> to get those missed blocks from the target peer.
+<li>use a message queue to catch all the block events. With many robust message queue
+    implementations available today, you will be guaranteed to not miss an event. A
+    fabric event listener can be written in any programming language. The following
+    implementations can be used as reference to write the necessary glue code between
+    the fabric event stream and a message queue:
+<ul>
+    <li>Node.js: this class. Source code can be found <a href="https://github.com/hyperledger/fabric-sdk-node/blob/v1.0.0/fabric-client/lib/EventHub.js">here</a>
+    <li>Java: part of the Java SDK for Hyperledger Fabric. Source code can be found <a href="https://github.com/hyperledger/fabric-sdk-java/blob/v1.0.0/src/main/java/org/hyperledger/fabric/sdk/EventHub.java">here</a>
+    <li>Golang: an example event listener client can be found <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/examples/events/block-listener/block-listener.go">here</a>
+</ul></div>
         
     
 </header>
@@ -116,19 +149,74 @@ to a full require() path to the package for the module.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="CryptoSuite"><span class="type-signature"></span>new CryptoSuite()</h4>
+    <h4 class="name" id="EventHub"><span class="type-signature"></span>new EventHub(clientContext)</h4>
     
     
 </dt>
 <dd>
 
     
-
+    <div class="description">
+        Constructs an EventHub object
+    </div>
     
 
     
 
     
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>clientContext</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Client.html">Client</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An instance of the Client class
+which has already been initialzed with a userContext.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -182,6 +270,37 @@ to a full require() path to the package for the module.</div>
     
 
     
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">var eh = client.newEventHub();
+eh.setPeerAddr(
+	 &#x27;grpcs://localhost:7053&#x27;,
+	 {
+	   pem: Buffer.from(certdata).toString(),
+	   &#x27;ssl-target-name-override&#x27;: &#x27;peer1&#x27;]
+	 }
+);
+
+// register the listeners before calling &quot;connect()&quot; so that we can
+// have the error callback ready to process an error in case the
+// connect() call fails
+eh.registerTxEvent(
+  transactionId,
+	 (tx, code) =&gt; {
+	   eh.unregisterTxEvent(transactionId);
+	   console.log(util.format(&#x27;Transaction %s has completed&#x27;, transactionId));
+	 },
+	 (err) =&gt; {
+	   eh.unregisterTxEvent(transactionId);
+	   console.log(util.format(&#x27;Error %s! Transaction listener for %s has been &#x27; +
+                &#x27;deregistered with %s&#x27;, transactionId, err, eh.getPeerAddr()));
+	 }
+);
+
+eh.connect();</pre>
+
 
     
 </dd>
@@ -208,7 +327,7 @@ to a full require() path to the package for the module.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="decrypt"><span class="type-signature"></span>decrypt(key, cipherText, opts)</h4>
+    <h4 class="name" id="connect"><span class="type-signature"></span>connect()</h4>
     
     
 </dt>
@@ -216,8 +335,18 @@ to a full require() path to the package for the module.</div>
 
     
     <div class="description">
-        Decrypts ciphertext using key.
-The opts argument should be appropriate for the algorithm used.
+        Establishes a connection with the peer event source.
+The peer address must be set by calling the <a href="EventHub.html#setPeerAddr">setPeerAddr()</a>
+method before calling this method.
+
+The connection will be established asynchronously. If the connection fails to
+get established, the application will be notified via the error callbacks
+from the registerXXXEvent() methods. It is recommended that an application always
+registers at least one event listener with an error callback, by calling any one of the
+<a href="EventHub.html#registerBlockEvent">registerBlockEvent</a>,
+<a href="EventHub.html#registerTxEvent">registerTxEvent</a> or
+<a href="EventHub.html#registerChaincodeEvent">registerChaincodeEvent</a>
+methods, before calling connect().
     </div>
     
 
@@ -226,1432 +355,6 @@ The opts argument should be appropriate for the algorithm used.
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Decryption key (private key)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>cipherText</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Cipher text to decrypt</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Decrypt options</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Plain text after decryption
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="deriveKey"><span class="type-signature"></span>deriveKey(key, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Derives the new private key from the source public key using the parameters passed in the <code>opts</code>.
-This operation is needed for deriving private keys corresponding to the Transaction Certificates.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The source key</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">KeyOpts</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Derived key
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="encrypt"><span class="type-signature"></span>encrypt(key, plainText, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Encrypts plaintext using key.
-The opts argument should be appropriate for the algorithm used.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Encryption key (public key)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>plainText</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Plain text to encrypt</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Encryption options</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Cipher text after encryption
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="generateEphemeralKey"><span class="type-signature"></span>generateEphemeralKey()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Generate an ephemeral key.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Throws:</h5>
-    
-            
-
-    <div class="param-desc">
-    
-        Will throw an error if not implemented
-    
-    </div>
-
-
-        
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    An instance of the Key class
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="generateKey"><span class="type-signature"></span>generateKey(opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Generate a key using the options in <code>opts</code>. If the <code>opts.ephemeral</code>
-parameter is false, the method, in addition to returning the imported Key
-instance, also persists the generated key in the key store as PEM files that can be
-retrieved using the <code>getKey()</code> method
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">KeyOpts</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Throws:</h5>
-    
-            
-
-    <div class="param-desc">
-    
-        Will throw an error if not implemented
-    
-    </div>
-
-
-        
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for an instance of the Key class
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getKey"><span class="type-signature"></span>getKey(ski)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Returns the Key this implementation associates to the Subject Key Identifier ski.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>ski</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Subject Key Identifier specific to a Crypto Suite implementation, as the
-   unique index to represent the key</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise of an instance of the Key class corresponding to the ski
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="hash"><span class="type-signature"></span>hash(msg, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Produce a hash of the message <code>msg</code> using options <code>opts</code>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>msg</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Source message to be hashed</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">algorithm: an identifier for the algorithm to be used, such as "SHA3"</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The hashed digest in hexidecimal string encoding
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="importKey"><span class="type-signature"></span>importKey(pem, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Imports a Key from its raw representation using <code>opts</code>. If the <code>opts.ephemeral</code>
-parameter is false, the method, in addition to returning the imported Key
-instance, also saves the imported key in the key store as PEM files that can be
-retrieved using the 'getKey()' method
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pem</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">PEM string of the key to import</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">KeyOpts</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    If "opts.ephemeral" is true, returns the Key class synchronously.
-         If "opts.ephemeral" not set or false, returns a Promise of an instance of the
-         Key class.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Key</span>
-|
-
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setCryptoKeyStore"><span class="type-signature">&lt;abstract> </span>setCryptoKeyStore(cryptoKeyStore)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the cryptoKeyStore.
-
-When the application needs to use a key store other than the default,
-it should use the <a href="Client.html">Client</a> newCryptoKeyStore to create an instance and
-use this function to set the instance on the CryptoSuite.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>cryptoKeyStore</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="CryptoKeyStore.html">CryptoKeyStore</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The cryptoKeyStore.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -1713,7 +416,7 @@ use this function to set the instance on the CryptoSuite.
             
 <hr>
 <dt>
-    <h4 class="name" id="sign"><span class="type-signature"></span>sign(key, digest)</h4>
+    <h4 class="name" id="disconnect"><span class="type-signature"></span>disconnect()</h4>
     
     
 </dt>
@@ -1721,7 +424,10 @@ use this function to set the instance on the CryptoSuite.
 
     
     <div class="description">
-        Signs digest using key. The opts argument should be appropriate for the algorithm used.
+        Disconnects the event hub from the peer event source.
+Will close all event listeners and send an Error object
+with the message "EventHub has been shutdown" to
+all listeners that provided an "onError" callback.
     </div>
     
 
@@ -1730,82 +436,6 @@ use this function to set the instance on the CryptoSuite.
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Signing key (private key)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>digest</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The message digest to be signed. Note that when a
-signature of a larger message is needed, the caller is responsible
-for hashing the larger message and passing the hash (as digest) to sign.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -1859,30 +489,6 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    the resulting signature
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
@@ -1891,7 +497,7 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="verify"><span class="type-signature"></span>verify(key, signature, digest)</h4>
+    <h4 class="name" id="getPeerAddr"><span class="type-signature"></span>getPeerAddr()</h4>
     
     
 </dt>
@@ -1899,7 +505,7 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
 
     
     <div class="description">
-        Verifies signature against key and digest
+        Return the peer url of this event hub object
     </div>
     
 
@@ -1909,103 +515,83 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
 
     
     
-        <h5>Parameters:</h5>
-        
 
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
+    
+<dl class="details">
     
 
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
+	
 
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+	
 
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Signing verification key (public key)</td>
-        </tr>
+	
 
     
 
-        <tr>
-            
-                <td class="name"><code>signature</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The signature to verify</td>
-        </tr>
+    
 
     
 
-        <tr>
-            
-                <td class="name"><code>digest</code></td>
-            
+    
 
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
+	
+
+	
+
+	
+
+	
+
+	
 
 
 
-            
-            </td>
+	
 
-            
+	
 
-            
+	
 
-            <td class="description last">The digest that the signature was created for</td>
-        </tr>
+	
+</dl>
+
 
     
-    </tbody>
-</table>
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="isconnected"><span class="type-signature"></span>isconnected()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Is the event hub connected to the event source?
+    </div>
+    
+
+    
+
+    
+
+    
     
 
     
@@ -2063,7 +649,7 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
     
             
 <div class="param-desc">
-    true if the signature verifies successfully
+    True if connected to the event source, false otherwise
 </div>
 
 
@@ -2083,6 +669,1188 @@ for hashing the larger message and passing the hash (as digest) to sign.</td>
 
 
         
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="registerBlockEvent"><span class="type-signature"></span>registerBlockEvent(onEvent, onError)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Register a listener to receive all block events <b>from all the channels</b> that
+the target peer is part of. The listener's "onEvent" callback gets called
+on the arrival of every block. If the target peer is expected to participate
+in more than one channel, then care must be taken in the listener's implementation
+to differentiate blocks from different channels. See the example below on
+how to accomplish that.
+<br><br>
+An error may be thrown by this call if no "onError" callback
+is provided and this EventHub has noticed that the connection has not been
+established. However since the connection establishment is running
+asynchronously, a register call could be made before this EventHub has been
+notified of the network issue. The best practice would be to provide an
+"onError" callback to be notified when this EventHub has an issue.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>onEvent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback function that takes a single parameter
+                            of a <a href="global.html#Block">Block</a> object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onError</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback function to be notified when this event hub
+                            is shutdown. The shutdown may be caused by a network error or by
+                            a call to the "disconnect()" method or a connection error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    This is the block registration number that must be
+               sed to unregister (see unregisterBlockEvent)
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">int</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+        <p class="code-caption">Find out the channel Id of the arriving block</p>
+    
+    <pre class="sunlight-highlight-javascript">eh.registerBlockEvent(
+  (block) =&gt; {
+    var first_tx = block.data.data[0]; // get the first transaction
+    var header = first_tx.payload.header; // the &quot;header&quot; object contains metadata of the transaction
+    var channel_id = header.channel_header.channel_id;
+    if (&quot;mychannel&quot; !== channel_id) return;
+
+    // do useful processing of the block
+  },
+  (err) =&gt; {
+    console.log(&#x27;Oh snap!&#x27;);
+  }
+);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="registerChaincodeEvent"><span class="type-signature"></span>registerChaincodeEvent(ccid, eventname, onEvent, onError)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Register a listener to receive chaincode events.
+<br><br>
+An error may be thrown by this call if no "onError" callback
+is provided and this EventHub has noticed that the connection has not been
+established. However since the connection establishment is running
+asynchronously, a register call could be made before this EventHub has been
+notified of the network issue. The best practice would be to provide an
+"onError" callback to be notified when this EventHub has an issue.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ccid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Id of the chaincode of interest</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>eventname</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The exact name of the chaincode event (must match
+                            the name given to the target chaincode's call to
+                            <code>stub.SetEvent(name, payload)</code>), or a
+                            regex string to match more than one event by this
+                            chaincode</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onEvent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">callback function for matched events. It gets passed
+                            a single parameter which is a <a href="global.html#ChaincodeEvent">ChaincodeEvent</a> object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onError</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback function to be notified when this event hub
+                            is shutdown. The shutdown may be caused by a network error or by
+                            a call to the "disconnect()" method or a connection error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    An object that should be treated as an opaque handle used
+                  to unregister (see unregisterChaincodeEvent)
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="registerTxEvent"><span class="type-signature"></span>registerTxEvent(txid, onEvent, onError)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Register a callback function to receive a notification when the transaction
+by the given id has been committed into a block.
+<br><br>
+An error may be thrown by this call if no "onError" callback
+is provided and this EventHub has noticed that the connection has not been
+established. However since the connection establishment is running
+asynchronously, a register call could be made before this EventHub has been
+notified of the network issue. The best practice would be to provide an
+"onError" callback to be notified when this EventHub has an issue.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>txid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Transaction id string</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onEvent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback function that takes a parameter of type
+                            <a href="global.html#Transaction">Transaction</a>, and a string parameter which
+                            indicates if the transaction is valid (code = 'VALID'),
+                            or not (code string indicating the reason for invalid transaction)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onError</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional callback function to be notified when this event hub
+                            is shutdown. The shutdown may be caused by a network error or by
+                            a call to the "disconnect()" method or a connection error.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setPeerAddr"><span class="type-signature"></span>setPeerAddr(peeraddr, opts)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Set peer event source url.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>peeraddr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">grpc or grpcs URL for the target peer's event source</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ConnectionOpts">ConnectionOpts</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The options for the connection to the peer.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="unregisterBlockEvent"><span class="type-signature"></span>unregisterBlockEvent(The)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Unregister the block event listener using the block
+registration number that is returned by the call to
+the registerBlockEvent() method.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">block registration number that was returned
+             during registration.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="unregisterChaincodeEvent"><span class="type-signature"></span>unregisterChaincodeEvent(listener_handle)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Unregister the chaincode event listener represented by
+the <code>listener_handle</code> object returned by
+the registerChaincodeEvent() method
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>listener_handle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The handle object returned from the call to
+                                  registerChaincodeEvent.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="unregisterTxEvent"><span class="type-signature"></span>unregisterTxEvent(txid)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Unregister transaction event listener for the transaction id.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>txid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The transaction id</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
 </dd>
