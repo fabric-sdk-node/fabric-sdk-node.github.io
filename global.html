@@ -2090,6 +2090,30 @@ metadata
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>info</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. Additional information about the status</td>
+        </tr>
+
+    
     </tbody>
 </table>
 </dl>
@@ -2280,155 +2304,6 @@ metadata
 
             <td class="description last">Application-specific byte array that the chaincode set
                              when it called <code>stub.SetEvent(event_name, payload)</code></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt class="name" id="ChaincodeInfo">
-    <h4 id="ChaincodeInfo">ChaincodeInfo</h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        Object used internally to store chaincodes
-         names and versions found on this channel.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of the chaincode</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>version</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The version of the chaincode</td>
         </tr>
 
     
@@ -2782,6 +2657,9 @@ metadata
             
                 
 <span class="param-type">Array.&lt;<a href="Peer.html">Peer</a>></span>
+|
+
+<span class="param-type">Array.&lt;string></span>
 
 
 
@@ -2792,8 +2670,8 @@ metadata
 
             
 
-            <td class="description last">Optional. An array of Peer objects where the
-          chaincode will be installed. When excluded, the peers assigned
+            <td class="description last">Optional. An array of Peer objects or peer names
+          where the chaincode will be installed. When excluded, the peers assigned
           to this client's organization will be used as defined in the
           network configuration. If the 'channelNames' property is included,
           the target peers will be based the peers defined in the channels.</td>
@@ -2990,6 +2868,30 @@ metadata
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>txId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="TransactionID.html">TransactionID</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. TransactionID object for this request.</td>
+        </tr>
+
+    
     </tbody>
 </table>
 </dl>
@@ -3096,6 +2998,9 @@ metadata
             
                 
 <span class="param-type">Array.&lt;<a href="Peer.html">Peer</a>></span>
+|
+
+<span class="param-type">Array.&lt;string></span>
 
 
 
@@ -3107,8 +3012,8 @@ metadata
             
 
             <td class="description last">Optional. An array of endorsing
-          <a href="Peer.html">Peer</a> objects as the targets of the request. When this
-          parameter is omitted the target list will include peers assigned
+          <a href="Peer.html">Peer</a> objects or peer names as the targets of the request.
+          When this parameter is omitted the target list will include peers assigned
           to this channel instance that are in the endorsing role.</td>
         </tr>
 
@@ -3573,6 +3478,9 @@ chaincode_spec
             
                 
 <span class="param-type">Array.&lt;<a href="Peer.html">Peer</a>></span>
+|
+
+<span class="param-type">Array.&lt;string></span>
 
 
 
@@ -4705,6 +4613,32 @@ values
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>discover</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. This peer may be the target of service
+          discovery.
+          Default: true</td>
+        </tr>
+
+    
     </tbody>
 </table>
 </dl>
@@ -4955,6 +4889,9 @@ values
             
                 
 <span class="param-type"><a href="Orderer.html">Orderer</a></span>
+|
+
+<span class="param-type">string</span>
 
 
 
@@ -4965,7 +4902,7 @@ values
 
             
 
-            <td class="description last">Required. An Orderer object representing the
+            <td class="description last">Required. An Orderer object or an orderer name representing the
                               orderer node to send the channel create request</td>
         </tr>
 
@@ -5034,6 +4971,9 @@ values
             
                 
 <span class="param-type">Array.&lt;<a href="global.html#ConfigSignature">ConfigSignature</a>></span>
+|
+
+<span class="param-type">Array.&lt;string></span>
 
 
 
@@ -5045,7 +4985,7 @@ values
             
 
             <td class="description last">Required. The list of signatures required by the
-                              channel creation or update policy when using the `config` parameter.</td>
+                                                      channel creation or update policy when using the `config` parameter.</td>
         </tr>
 
     
@@ -9074,6 +9014,9 @@ policy
             
                 
 <span class="param-type">Array.&lt;<a href="Peer.html">Peer</a>></span>
+|
+
+<span class="param-type">Array.&lt;string></span>
 
 
 
@@ -10230,7 +10173,7 @@ standard array of objects.
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">Array.&lt;<a href="global.html#ProposalResponse">ProposalResponse</a>></span>
 
 
 
@@ -11765,7 +11708,7 @@ actions {array}
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">Array.&lt;<a href="global.html#ProposalResponse">ProposalResponse</a>></span>
 
 
 
@@ -11791,7 +11734,7 @@ actions {array}
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Proposal</span>
 
 
 
@@ -11816,7 +11759,7 @@ actions {array}
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">TransactionId</span>
 
 
 
@@ -12154,7 +12097,7 @@ with a network configuration.
 
             
 
-            <td class="description last">{string} - the user name used for enrollment</td>
+            <td class="description last">the user name used for enrollment</td>
         </tr>
 
     
@@ -12178,7 +12121,7 @@ with a network configuration.
 
             
 
-            <td class="description last">{string} - the MSP id</td>
+            <td class="description last">the MSP id</td>
         </tr>
 
     
@@ -12323,7 +12266,7 @@ with a network configuration.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-08-24T14:49:33+00:00
+		on 2018-08-28T20:13:09+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
