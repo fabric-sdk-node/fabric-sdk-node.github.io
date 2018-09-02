@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: User</title>
+	<title>Hyperledger Fabric SDK for node.js Class: FabricCAServices</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,30 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: User</h1>
+	<h1 class="page-title">Class: FabricCAServices</h1>
 <section>
 
 <header>
     
         <h2>
-        User
+        FabricCAServices
         </h2>
         
-            <div class="class-description">The User class represents users that have been enrolled and represented by
-an enrollment certificate (ECert) and a signing key. The ECert must have
-been signed by one of the CAs the blockchain network has been configured to trust.
-An enrolled user (having a signing key and ECert) can conduct chaincode instantiate,
-transactions and queries with the Channel.
-
-User ECerts can be obtained from a CA beforehand as part of installing and instantiating
-the application, or it can be obtained from the optional Fabric CA service via its
-enrollment process.
-
-Sometimes User identities are confused with Peer identities. User identities represent
-signing capability because it has access to the private key, while Peer identities in
-the context of the application/SDK only has the certificate for verifying signatures.
-An application cannot use the Peer identity to sign things because the application doesn’t
-have access to the Peer identity’s private key.</div>
+            <div class="class-description">This is an implementation of the member service client which communicates with the Fabric CA server.</div>
         
     
 </header>
@@ -121,7 +107,7 @@ have access to the Peer identity’s private key.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="User"><span class="type-signature"></span>new User(cfg)</h4>
+    <h4 class="name" id="FabricCAServices"><span class="type-signature"></span>new FabricCAServices(url, tlsOptions, caName, cryptoSuite)</h4>
     
     
 </dt>
@@ -129,7 +115,7 @@ have access to the Peer identity’s private key.</div>
 
     
     <div class="description">
-        Constructor for a member.
+        constructor
     </div>
     
 
@@ -164,7 +150,59 @@ have access to the Peer identity’s private key.</div>
 
         <tr>
             
-                <td class="name"><code>cfg</code></td>
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The endpoint URL for Fabric CA services of the form: "http://host:port" or "https://host:port"
+	 	When this parameter is an object then it must include the parameters listed as key value pairs.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tlsOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#TLSOptions">TLSOptions</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The TLS settings to use when the Fabric CA services endpoint uses "https"</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>caName</code></td>
             
 
             <td class="type">
@@ -181,11 +219,40 @@ have access to the Peer identity’s private key.</div>
 
             
 
-            <td class="description last">The member name or an object with the following attributes:
-  - enrollmentID {string}: user name
-  - name {string}: user name, if "enrollmentID" is also specified, the "name" is ignored
-  - roles {string[]}: optional. array of roles
-  - affiliation {string}: optional. affiliation with a group or organization</td>
+            <td class="description last">The optional name of the CA. Fabric-ca servers support multiple Certificate Authorities from
+ a single server. If omitted or null or an empty string, then the default CA is the target of requests</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cryptoSuite</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">CryptoSuite</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The optional cryptoSuite instance to be used if options other than defaults are needed.
+If not specified, an instance of CryptoSuite will be constructed based on the current configuration settings:
+<br> - crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
+<br> - crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
+ is supported and the valid key sizes are 256 and 384
+<br> - crypto-hash-algo: hashing algorithm
+<br> - key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
+ is provided for this purpose, which can be used on top of any implementation of the KeyValueStore interface,
+ such as a file-based store or a database-based one. The specific implementation is determined by the value of this configuration setting.</td>
         </tr>
 
     
@@ -251,6 +318,17 @@ have access to the Peer identity’s private key.</div>
 
     
     </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="BaseClient.html">BaseClient</a></li>
+    </ul>
+
 
     
 
@@ -271,7 +349,7 @@ have access to the Peer identity’s private key.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="fromString"><span class="type-signature"></span>fromString(str, no_save)</h4>
+    <h4 class="name" id="enroll"><span class="type-signature"></span>enroll(req)</h4>
     
     
 </dt>
@@ -279,7 +357,7 @@ have access to the Peer identity’s private key.</div>
 
     
     <div class="description">
-        Set the current state of this member from a string based JSON object
+        Enroll the member and return an opaque member object.
     </div>
     
 
@@ -314,16 +392,10 @@ have access to the Peer identity’s private key.</div>
 
         <tr>
             
-                <td class="name"><code>str</code></td>
+                <td class="name"><code>req</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
             
             </td>
 
@@ -331,31 +403,7 @@ have access to the Peer identity’s private key.</div>
 
             
 
-            <td class="description last">the member state serialized</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>no_save</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">to indicate that the cryptoSuite should not save</td>
+            <td class="description last">the <a href="global.html#EnrollmentRequest">EnrollmentRequest</a></td>
         </tr>
 
     
@@ -419,7 +467,166 @@ have access to the Peer identity’s private key.</div>
     
             
 <div class="param-desc">
-    Promise of the unmarshalled Member object represented by the serialized string
+    Promise for an object with "key" for private key and "certificate" for the signed certificate
+</div>
+
+
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="generateCRL"><span class="type-signature"></span>generateCRL(request, registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Restriction">Restriction</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The identity of the registrar (i.e. who is performing the revocation)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The Certificate Revocation List (CRL)
 </div>
 
 
@@ -430,7 +637,7 @@ have access to the Peer identity’s private key.</div>
     </dt>
     <dd>
         
-<span class="param-type">Member</span>
+<span class="param-type">Promise</span>
 
 
 
@@ -447,7 +654,7 @@ have access to the Peer identity’s private key.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getAffiliation"><span class="type-signature"></span>getAffiliation()</h4>
+    <h4 class="name" id="getCaName"><span class="type-signature"></span>getCaName()</h4>
     
     
 </dt>
@@ -455,7 +662,7 @@ have access to the Peer identity’s private key.</div>
 
     
     <div class="description">
-        Get the affiliation.
+        Returns the name of the certificate authority.
     </div>
     
 
@@ -521,7 +728,7 @@ have access to the Peer identity’s private key.</div>
     
             
 <div class="param-desc">
-    The affiliation.
+    caName
 </div>
 
 
@@ -557,7 +764,7 @@ have access to the Peer identity’s private key.</div>
 
     
     <div class="description">
-        Get the <a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a> cryptoSuite object for this User instance.
+        Returns the CryptoSuite object used by this client instance
     </div>
     
 
@@ -576,6 +783,15 @@ have access to the Peer identity’s private key.</div>
 
 	
 
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseClient.html#getCryptoSuite">BaseClient#getCryptoSuite</a>
+			</li>
+		</ul>
+	</dd>
 	
 
     
@@ -622,10 +838,6 @@ have access to the Peer identity’s private key.</div>
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    the cryptoSuite used to store crypto and key store settings
-</div>
-
 
 
 <dl>
@@ -651,7 +863,7 @@ have access to the Peer identity’s private key.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getIdentity"><span class="type-signature"></span>getIdentity()</h4>
+    <h4 class="name" id="newAffiliationService"><span class="type-signature"></span>newAffiliationService()</h4>
     
     
 </dt>
@@ -659,7 +871,7 @@ have access to the Peer identity’s private key.</div>
 
     
     <div class="description">
-        Get the <a href="global.html#Identity">Identity</a> object for this User instance, used to verify signatures
+        Create a new <a href="AffiliationService.html">AffiliationService</a> object
     </div>
     
 
@@ -725,7 +937,7 @@ have access to the Peer identity’s private key.</div>
     
             
 <div class="param-desc">
-    the identity object that encapsulates the user's enrollment certificate
+    object
 </div>
 
 
@@ -736,7 +948,7 @@ have access to the Peer identity’s private key.</div>
     </dt>
     <dd>
         
-<span class="param-type"><a href="global.html#Identity">Identity</a></span>
+<span class="param-type"><a href="AffiliationService.html">AffiliationService</a></span>
 
 
 
@@ -753,7 +965,7 @@ have access to the Peer identity’s private key.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
+    <h4 class="name" id="newCertificateService"><span class="type-signature"></span>newCertificateService()</h4>
     
     
 </dt>
@@ -761,7 +973,7 @@ have access to the Peer identity’s private key.</div>
 
     
     <div class="description">
-        Get the member name.
+        Create a new CertificateService instance
     </div>
     
 
@@ -827,7 +1039,7 @@ have access to the Peer identity’s private key.</div>
     
             
 <div class="param-desc">
-    The member name.
+    object
 </div>
 
 
@@ -838,7 +1050,7 @@ have access to the Peer identity’s private key.</div>
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">CertificateService</span>
 
 
 
@@ -855,7 +1067,7 @@ have access to the Peer identity’s private key.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getRoles"><span class="type-signature"></span>getRoles()</h4>
+    <h4 class="name" id="newIdentityService"><span class="type-signature"></span>newIdentityService()</h4>
     
     
 </dt>
@@ -863,7 +1075,7 @@ have access to the Peer identity’s private key.</div>
 
     
     <div class="description">
-        Get the roles.
+        Creates a new <a href="IdentityService.html">IdentityService</a> object
     </div>
     
 
@@ -929,7 +1141,7 @@ have access to the Peer identity’s private key.</div>
     
             
 <div class="param-desc">
-    The roles.
+    object
 </div>
 
 
@@ -940,7 +1152,7 @@ have access to the Peer identity’s private key.</div>
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;string></span>
+<span class="param-type"><a href="IdentityService.html">IdentityService</a></span>
 
 
 
@@ -957,7 +1169,7 @@ have access to the Peer identity’s private key.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getSigningIdentity"><span class="type-signature"></span>getSigningIdentity()</h4>
+    <h4 class="name" id="reenroll"><span class="type-signature"></span>reenroll(currentUser, Optional)</h4>
     
     
 </dt>
@@ -965,211 +1177,8 @@ have access to the Peer identity’s private key.</div>
 
     
     <div class="description">
-        Get the <a href="SigningIdentity.html">SigningIdentity</a> object for this User instance, used to generate signatures
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    the identity object that encapsulates the user's private key for signing
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="SigningIdentity.html">SigningIdentity</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="isEnrolled"><span class="type-signature"></span>isEnrolled()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Determine if this name has been enrolled.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    True if enrolled; otherwise, false.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setAffiliation"><span class="type-signature"></span>setAffiliation(affiliation)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the affiliation.
+        Re-enroll the member in cases such as the existing enrollment certificate is about to expire, or
+it has been compromised
     </div>
     
 
@@ -1204,13 +1213,13 @@ have access to the Peer identity’s private key.</div>
 
         <tr>
             
-                <td class="name"><code>affiliation</code></td>
+                <td class="name"><code>currentUser</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="User.html">User</a></span>
 
 
 
@@ -1221,7 +1230,32 @@ have access to the Peer identity’s private key.</div>
 
             
 
-            <td class="description last">The affiliation.</td>
+            <td class="description last">The identity of the current user that holds the existing enrollment certificate</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Optional</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#AttributeRequest">AttributeRequest</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">an array of <a href="global.html#AttributeRequest">AttributeRequest</a> that indicate attributes to
+                            be included in the certificate</td>
         </tr>
 
     
@@ -1281,6 +1315,377 @@ have access to the Peer identity’s private key.</div>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Promise for an object with "key" for private key and "certificate" for the signed certificate
+</div>
+
+
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="register"><span class="type-signature"></span>register(req, registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Register the member and return an enrollment secret.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#RegisterRequest">RegisterRequest</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The <a href="global.html#RegisterRequest">RegisterRequest</a></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">. The identity of the registrar (i.e. who is performing the registration)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The enrollment secret to use when this user enrolls
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="revoke"><span class="type-signature"></span>revoke(request, registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Revoke an existing certificate (enrollment certificate or transaction certificate), or revoke
+all certificates issued to an enrollment id. If revoking a particular certificate, then both
+the Authority Key Identifier and serial number are required. If revoking by enrollment id,
+then all future requests to enroll this id will be rejected.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Request object with the following fields:
+<br> - enrollmentID {string}. ID to revoke
+<br> - aki {string}. Authority Key Identifier string, hex encoded, for the specific certificate to revoke
+<br> - serial {string}. Serial number string, hex encoded, for the specific certificate to revoke
+<br> - reason {string}. The reason for revocation. See https://godoc.org/golang.org/x/crypto/ocsp
+ for valid values. The default value is 0 (ocsp.Unspecified).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The identity of the registrar (i.e. who is performing the revocation)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The revocation results
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1297,11 +1702,17 @@ have access to the Peer identity’s private key.</div>
 
     
     <div class="description">
-        Set the cryptoSuite.
+        Sets the client instance to use the CryptoSuite object for signing and hashing
 
-When the application needs to use crypto settings or a key store other than the default,
-it needs to set a cryptoSuite instance that was created with the desired CryptoSuite
-settings and CryptoKeyStore options.
+Creating and setting a CryptoSuite is optional because the client will construct
+an instance based on default configuration settings:
+<li> crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
+<li> crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
+ is supported and the valid key sizes are 256 and 384
+<li> crypto-hash-algo: hashing algorithm
+<li> key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
+ is provided for this purpose, which can be used on top of any implementation of the KeyValueStore interface,
+ such as a file-based store or a database-based one. The specific implementation is determined by the value of this configuration setting.
     </div>
     
 
@@ -1353,7 +1764,7 @@ settings and CryptoKeyStore options.
 
             
 
-            <td class="description last">The cryptoSuite.</td>
+            <td class="description last">the CryptoSuite object</td>
         </tr>
 
     
@@ -1371,333 +1782,14 @@ settings and CryptoKeyStore options.
 	
 
 	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setEnrollment"><span class="type-signature"></span>setEnrollment(privateKey, certificate, mspId)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the enrollment object for this User instance
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>privateKey</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the private key object</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>certificate</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the PEM-encoded string of certificate</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mspId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Member Service Provider id for the local signing identity</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for successful completion of creating the user's signing Identity
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setRoles"><span class="type-signature"></span>setRoles(roles)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the roles.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>roles</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;string></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The roles.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseClient.html#setCryptoSuite">BaseClient#setCryptoSuite</a>
+			</li>
+		</ul>
+	</dd>
 	
 
     
@@ -1757,7 +1849,7 @@ settings and CryptoKeyStore options.
 
     
     <div class="description">
-        Save the current state of this member as a string
+        return a printable representation of this object
     </div>
     
 
@@ -1819,30 +1911,6 @@ settings and CryptoKeyStore options.
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The state of this member as a string
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
