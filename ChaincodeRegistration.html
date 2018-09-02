@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: CommitHandler</title>
+	<title>Hyperledger Fabric SDK for node.js Class: ChaincodeRegistration</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,18 +86,14 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: CommitHandler</h1>
+	<h1 class="page-title">Class: ChaincodeRegistration</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-api.html">api</a>.</span>
-        
-        CommitHandler
+        ChaincodeRegistration
         </h2>
-        
-            <div class="class-description">Base class for commit handling</div>
         
     
 </header>
@@ -109,99 +105,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="CommitHandler"><span class="type-signature"></span>new CommitHandler()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id=".create"><span class="type-signature">&lt;static> </span>create()</h4>
+    <h4 class="name" id="ChaincodeRegistration"><span class="type-signature"></span>new ChaincodeRegistration(ccid, eventNameFilter, event_reg)</h4>
     
     
 </dt>
@@ -209,90 +113,7 @@
 
     
     <div class="description">
-        This static method will be called by the channel to create an instance of
-this handler. It will be passed the channel object this handler is working
-with.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="commit"><span class="type-signature"></span>commit(params)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This method will process the parameters to determine the orderers.
-The handler will use the provided orderers or use the orderers assigned to
-the channel. The handler is expected to preform failover and use all available
-orderers to send the endorsed transaction.
+        Constructs a chaincode callback entry
     </div>
     
 
@@ -327,13 +148,13 @@ orderers to send the endorsed transaction.
 
         <tr>
             
-                <td class="name"><code>params</code></td>
+                <td class="name"><code>ccid</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">CommitHandlerParameters</span>
+<span class="param-type">string</span>
 
 
 
@@ -344,7 +165,58 @@ orderers to send the endorsed transaction.
 
             
 
-            <td class="description last">A EndorsementHandlerParameters</td>
+            <td class="description last">chaincode id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>eventNameFilter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">RegExp</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The regex used to filter events</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>event_reg</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">EventRegistration</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">event registrations callbacks</td>
         </tr>
 
     
@@ -404,98 +276,12 @@ orderers to send the endorsed transaction.
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    A Promise for the <a href="global.html#ProposalResponseObject">ProposalResponseObject</a>, the
-       same results as calling the <a href="Channel.html">Channel</a> 'sendTransactionProposal'
-       method directly.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
 
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize()</h4>
     
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This method will be called by the channel when the channel is initialzied.
     </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
 
     
 
@@ -509,10 +295,6 @@ orderers to send the endorsed transaction.
 
     
 
-    
-</dd>
-
-        </dl>
     
 
     
