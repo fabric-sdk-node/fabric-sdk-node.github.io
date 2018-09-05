@@ -3248,8 +3248,9 @@ metadata
           <b>WARNING:</b> The default policy is NOT recommended for production,
           because this allows an application to bypass the proposal endorsement
           and send a manually constructed transaction, with arbitrary output
-          in the write set, to the orderer directly. An application's own
-          signature would allow the transaction to be successfully validated
+          in the write set, to the orderer directly. The user context assigned
+          to the client instance that creates the signature will allow the
+          transaction to be successfully validated
           and committed to the ledger.</td>
         </tr>
 
@@ -3521,6 +3522,35 @@ chaincode_spec
 
             <td class="description last">Required. The id of the chaincode to process
           the transaction proposal</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endorsement_hint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">DiscoveryChaincodeIntereset</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. A
+          of <a href="global.html#DiscoveryChaincodeInterest">DiscoveryChaincodeInterest</a> object that will be used by
+          discovery service to calculate an appropriate endorsement plan.
+          The parameter is only required when the endorsement will be preformed
+          by a chaincode that will call other chaincodes or if the endorsement
+          should be made by only peers within a collection or collections.</td>
         </tr>
 
     
@@ -6454,6 +6484,475 @@ signatures -- {array}
             
                 
 <hr>
+<dt class="name" id="DiscoveryChaincodeCall">
+    <h4 id="DiscoveryChaincodeCall">DiscoveryChaincodeCall</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the chaincode</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>collection_names</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The names of the related collections</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Examples</h5>
+        
+        <p class="code-caption">"single chaincode"</p>
+    
+    <pre class="sunlight-highlight-javascript">{ name: &quot;mychaincode&quot;}</pre>
+
+        <p class="code-caption">"chaincode to chaincode"</p>
+    
+    <pre class="sunlight-highlight-javascript">[ { name: &quot;mychaincode&quot;}, { name: &quot;myotherchaincode&quot;} ]</pre>
+
+        <p class="code-caption">"single chaincode with a collection"</p>
+    
+    <pre class="sunlight-highlight-javascript">{ name: &quot;mychaincode&quot;, collection_names: [&quot;mycollection&quot;] }</pre>
+
+        <p class="code-caption">"chaincode to chaincode with a collection"</p>
+    
+    <pre class="sunlight-highlight-javascript">[
+    { name: &quot;mychaincode&quot;, collection_names: [&quot;mycollection&quot;] },
+    { name: &quot;myotherchaincode&quot;, collection_names: [&quot;mycollection&quot;] }}
+  ]</pre>
+
+        <p class="code-caption">"chaincode to chaincode with collections"</p>
+    
+    <pre class="sunlight-highlight-javascript">[
+    { name: &quot;mychaincode&quot;, collection_names: [&quot;mycollection&quot;, &quot;myothercollection&quot;] },
+    { name: &quot;myotherchaincode&quot;, collection_names: [&quot;mycollection&quot;, &quot;myothercollection&quot;] }}
+  ]</pre>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="DiscoveryChaincodeInterest">
+    <h4 id="DiscoveryChaincodeInterest">DiscoveryChaincodeInterest</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#DiscoveryChaincodeCall">DiscoveryChaincodeCall</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="DiscoveryChaincodeQuery">
+    <h4 id="DiscoveryChaincodeQuery">DiscoveryChaincodeQuery</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Requests DiscoveryResults for a given list invocations.
+         Each interest is a separate invocation of one or more chaincodes,
+         which may include invocation on collections.
+         The endorsement policy is evaluated independantly for each given
+         interest.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>interests</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#DiscoveryChaincodeInterest">DiscoveryChaincodeInterest</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">defines interests
+          in an invocations of chaincodes</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Examples</h5>
+        
+        <p class="code-caption">"chaincode and no collection"</p>
+    
+    <pre class="sunlight-highlight-javascript">{
+  interests: [
+    { chaincodes: [{ name: &quot;mychaincode&quot;}]}
+  ]
+}</pre>
+
+        <p class="code-caption">"chaincode with collection"</p>
+    
+    <pre class="sunlight-highlight-javascript">{
+  interests: [
+    { chaincodes: [{ name: &quot;mychaincode&quot;, collection_names: [&quot;mycollection&quot;] }]}
+  ]
+}</pre>
+
+        <p class="code-caption">"chaincode to chaincode with collection"</p>
+    
+    <pre class="sunlight-highlight-javascript">{
+  interests: [
+     { chaincodes: [
+         { name: &quot;mychaincode&quot;, collection_names: [&quot;mycollection&quot;] }},
+         { name: &quot;myotherchaincode&quot;, collection_names: [&quot;mycollection&quot;] }}
+       ]
+     }
+  ]
+}</pre>
+
+        <p class="code-caption">"query for multiple invocations"</p>
+    
+    <pre class="sunlight-highlight-javascript">{
+  interests: [
+     { chaincodes: [
+         { name: &quot;mychaincode&quot;, collection_names: [&quot;mycollection&quot;] }},
+         { name: &quot;myotherchaincode&quot;, collection_names: [&quot;mycollection&quot;] }}
+       ]
+     },
+    { chaincodes: [{ name: &quot;mychaincode&quot;, collection_names: [&quot;mycollection&quot;] }]},
+    { chaincodes: [{ name: &quot;mychaincode&quot;}]}
+  ]
+}</pre>
+
+
+    
+</dd>
+
+            
+                
+<hr>
 <dt class="name" id="DiscoveryResultChaincode">
     <h4 id="DiscoveryResultChaincode">DiscoveryResultChaincode</h4>
 
@@ -6726,7 +7225,8 @@ signatures -- {array}
 <dd>
     
     <div class="description">
-        lists the group names, and the amount of signatures needed from each group.
+        lists
+         the group names, and the amount of signatures needed from each group.
     </div>
     
 
@@ -6789,8 +7289,8 @@ signatures -- {array}
             
                 
 <hr>
-<dt class="name" id="DiscoveryResultEndorsementTarget">
-    <h4 id="DiscoveryResultEndorsementTarget">DiscoveryResultEndorsementTarget</h4>
+<dt class="name" id="DiscoveryResultEndorsementPlan">
+    <h4 id="DiscoveryResultEndorsementPlan">DiscoveryResultEndorsementPlan</h4>
 
     
 </dt>
@@ -6840,6 +7340,59 @@ signatures -- {array}
 
         <tr>
             
+                <td class="name"><code>chaincode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The chaincode name that is the first
+          chaincode in the interest that was used to calculate this plan.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>plan_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The string of the JSON object that represents
+          the hint that was used to build the query for this result. The
+          hint is a <a href="global.html#DiscoveryChaincodeInterest">DiscoveryChaincodeInterest</a> that contains chaincode
+          names and collections that the discovery service uses to calculate
+          the returned plan.</td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>groups</code></td>
             
 
@@ -6857,7 +7410,8 @@ signatures -- {array}
 
             
 
-            <td class="description last">Specifies the endorsers, separated to groups.</td>
+            <td class="description last">Specifies
+          the endorsers, separated to groups.</td>
         </tr>
 
     
@@ -6881,7 +7435,8 @@ signatures -- {array}
 
             
 
-            <td class="description last">Specifies options of fulfulling the endorsement policy</td>
+            <td class="description last">Specifies options
+          of fulfulling the endorsement policy</td>
         </tr>
 
     
@@ -7290,7 +7845,7 @@ signatures -- {array}
             
 
             <td class="description last">List of root certificates trusted by this MSP.
-                             They are used upon certificate validation.</td>
+          They are used upon certificate validation.</td>
         </tr>
 
     
@@ -7314,14 +7869,14 @@ signatures -- {array}
 
             
 
-            <td class="description last">List of intermediate certificates trusted by this MSP.
-                                     They are used upon certificate validation as follows:
-                                     validation attempts to build a path from the certificate
-                                     to be validated (which is at one end of the path) and
-                                     one of the certs in the RootCerts field (which is at
-                                     the other end of the path). If the path is longer than
-                                     2, certificates in the middle are searched within the
-                                     IntermediateCerts pool.</td>
+            <td class="description last">List of intermediate certificates
+          trusted by this MSP. They are used upon certificate validation
+          as follows:
+          Validation attempts to build a path from the certificate to be
+          validated (which is at one end of the path) and one of the certs
+          in the RootCerts field (which is at the other end of the path).
+          If the path is longer than 2, certificates in the middle are
+          searched within the IntermediateCerts pool.</td>
         </tr>
 
     
@@ -7393,7 +7948,8 @@ signatures -- {array}
 
             
 
-            <td class="description last">fabric organizational unit identifiers that belong to this MSP configuration</td>
+            <td class="description last">fabric organizational unit identifiers that
+          belong to this MSP configuration</td>
         </tr>
 
     
@@ -7441,7 +7997,8 @@ signatures -- {array}
 
             
 
-            <td class="description last">TLS intermediate certificates trusted by this MSP</td>
+            <td class="description last">TLS intermediate certificates
+          trusted by this MSP</td>
         </tr>
 
     
@@ -7952,13 +8509,13 @@ signatures -- {array}
 
         <tr>
             
-                <td class="name"><code>endorsement_targets</code></td>
+                <td class="name"><code>endorsement_plans</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object.&lt;string, <a href="global.html#DiscoveryResultEndorsementTarget">DiscoveryResultEndorsementTarget</a>></span>
+<span class="param-type">Array.&lt;<a href="global.html#DiscoveryResultEndorsementPlan">DiscoveryResultEndorsementPlan</a>></span>
 
 
 
@@ -8855,6 +9412,31 @@ policy
 
             <td class="description last">Optional. The path to a custom
           endorsement handler implementing EndorsementHandler.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>commitHandler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. The path to a custom
+          commit handler implementing CommitHandler.</td>
         </tr>
 
     
@@ -12801,7 +13383,7 @@ with a network configuration.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-09-04T14:47:24+00:00
+		on 2018-09-05T15:21:19+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
