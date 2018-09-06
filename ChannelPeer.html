@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: SigningIdentity</title>
+	<title>Hyperledger Fabric SDK for node.js Class: ChannelPeer</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,17 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: SigningIdentity</h1>
+	<h1 class="page-title">Class: ChannelPeer</h1>
 <section>
 
 <header>
     
         <h2>
-        SigningIdentity
+        ChannelPeer
         </h2>
         
-            <div class="class-description">SigningIdentity is an extension of Identity to cover signing capabilities. E.g., signing identity
-should be requested in the case of a client who wishes to sign proposal responses and transactions</div>
+            <div class="class-description">The ChannelPeer class represents a peer in the target blockchain network on this channel.</div>
         
     
 </header>
@@ -108,12 +107,24 @@ should be requested in the case of a client who wishes to sign proposal response
         
 <hr>
 <dt>
-    <h4 class="name" id="SigningIdentity"><span class="type-signature"></span>new SigningIdentity(certificate, publicKey, mspId, cryptoSuite, signer)</h4>
+    <h4 class="name" id="ChannelPeer"><span class="type-signature"></span>new ChannelPeer(mspid, channel, peer, roles)</h4>
     
     
 </dt>
 <dd>
 
+    
+    <div class="description">
+        Construct a ChannelPeer object with the given Peer and opts.
+A channel peer object holds channel based references:
+  MSP ID of the Organization this peer belongs.
+  <a href="Channel.html">Channel</a> object used to know the channel this peer is interacting.
+  <a href="Peer.html">Peer</a> object used for interacting with the Hyperledger fabric network.
+  <a href="ChannelEventHub.html">ChannelEventHub</a> object used for listening to block changes on the channel.
+  List of <a href="global.html#ChannelPeerRoles">ChannelPeerRoles</a> to indicate the roles this peer performs on the channel.
+
+The roles this Peer performs on this channel are indicated with is object.
+    </div>
     
 
     
@@ -147,7 +158,7 @@ should be requested in the case of a client who wishes to sign proposal response
 
         <tr>
             
-                <td class="name"><code>certificate</code></td>
+                <td class="name"><code>mspid</code></td>
             
 
             <td class="type">
@@ -164,20 +175,20 @@ should be requested in the case of a client who wishes to sign proposal response
 
             
 
-            <td class="description last">HEX string for the PEM encoded certificate</td>
+            <td class="description last">The mspid of the organization this peer belongs.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>publicKey</code></td>
+                <td class="name"><code>channel</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
+<span class="param-type"><a href="Channel.html">Channel</a></span>
 
 
 
@@ -188,20 +199,20 @@ should be requested in the case of a client who wishes to sign proposal response
 
             
 
-            <td class="description last">The public key represented by the certificate</td>
+            <td class="description last">The Channel instance.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>mspId</code></td>
+                <td class="name"><code>peer</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="Peer.html">Peer</a></span>
 
 
 
@@ -212,20 +223,20 @@ should be requested in the case of a client who wishes to sign proposal response
 
             
 
-            <td class="description last">The associated MSP's ID that manages this identity</td>
+            <td class="description last">The Peer instance.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>cryptoSuite</code></td>
+                <td class="name"><code>roles</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
+<span class="param-type"><a href="global.html#ChannelPeerRoles">ChannelPeerRoles</a></span>
 
 
 
@@ -236,33 +247,7 @@ should be requested in the case of a client who wishes to sign proposal response
 
             
 
-            <td class="description last">The underlying CryptoSuite implementation for the digital
-signature algorithm</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>signer</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Signer.html">Signer</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The signer object encapsulating the opaque private key and the corresponding
-digital signature algorithm to be used for signing operations</td>
+            <td class="description last">The roles for this peer.</td>
         </tr>
 
     
@@ -348,7 +333,7 @@ digital signature algorithm to be used for signing operations</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="sign"><span class="type-signature"></span>sign(msg, opts)</h4>
+    <h4 class="name" id="close"><span class="type-signature"></span>close()</h4>
     
     
 </dt>
@@ -356,7 +341,603 @@ digital signature algorithm to be used for signing operations</td>
 
     
     <div class="description">
-        Signs digest with the private key contained inside the signer.
+        Close the associated peer service connections.
+<br>see <a href="Peer.html#close">Peer#close</a>
+<br>see <a href="ChannelEventHub.html#close">ChannelEventHub#close</a>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getChannelEventHub"><span class="type-signature"></span>getChannelEventHub()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the channel event hub for this channel peer. The ChannelEventHub instance will
+be assigned when using the <a href="Channel.html">Channel</a> newChannelEventHub() method. When using
+a common connection profile, the ChannelEventHub will be automatically assigned
+on the Channel Peers as they are created and added to the channel.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    - The ChannelEventHub instance associated with this <a href="Peer.html">Peer</a> instance.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ChannelEventHub.html">ChannelEventHub</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getMspid"><span class="type-signature"></span>getMspid()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the MSP ID.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The mspId.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the name. This is a client-side only identifier for this
+object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The name of the object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getPeer"><span class="type-signature"></span>getPeer()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the Peer instance this ChannelPeer represents on the channel.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The associated Peer instance.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the URL of this object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Get the URL associated with the peer object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="isInOrg"><span class="type-signature"></span>isInOrg(mspid)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Checks if this peer is in the specified organization.
+The default is true when the incoming organization name is not defined.
+The default will be true when this peer does not have the organization name defined.
     </div>
     
 
@@ -391,13 +972,13 @@ digital signature algorithm to be used for signing operations</td>
 
         <tr>
             
-                <td class="name"><code>msg</code></td>
+                <td class="name"><code>mspid</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;byte></span>
+<span class="param-type">string</span>
 
 
 
@@ -408,20 +989,434 @@ digital signature algorithm to be used for signing operations</td>
 
             
 
-            <td class="description last">The message to sign</td>
+            <td class="description last">The mspid of the organnization</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    If this peer belongs to the organization.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="isInRole"><span class="type-signature"></span>isInRole()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Checks if this peer is in the specified role.
+The default is true when the incoming role is not defined.
+The default will be true when this peer does not have the role defined.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    If this peer has this role.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="sendDiscovery"><span class="type-signature"></span>sendDiscovery()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Wrapper method for the associated peer so this object may be used as a <a href="Peer.html">Peer</a>
+<a href="Peer.html#sendDiscovery">Peer#sendDiscovery</a>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="sendProposal"><span class="type-signature"></span>sendProposal()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Wrapper method for the associated peer so this object may be used as a <a href="Peer.html">Peer</a>
+<a href="Peer.html#sendProposal">Peer#sendProposal</a>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setRole"><span class="type-signature"></span>setRole(role, isIn)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Set a role for this peer.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>role</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the role</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>opts</code></td>
+                <td class="name"><code>isIn</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">boolean</span>
 
 
 
@@ -432,9 +1427,7 @@ digital signature algorithm to be used for signing operations</td>
 
             
 
-            <td class="description last">Options object for the signing, contains one field 'hashFunction' that allows
-  different hashing algorithms to be used. If not present, will default to the hash function
-  configured for the identity's own crypto suite object</td>
+            <td class="description last">The boolean value of does this peer have this role</td>
         </tr>
 
     
