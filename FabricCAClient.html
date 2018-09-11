@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: BaseClient</title>
+	<title>Hyperledger Fabric SDK for node.js Class: FabricCAClient</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,18 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: BaseClient</h1>
+	<h1 class="page-title">Class: FabricCAClient</h1>
 <section>
 
 <header>
     
         <h2>
-        BaseClient
+        FabricCAClient
         </h2>
         
-            <div class="class-description">Base class for a client that can use a CryptoSuite to sign and hash.
-It also contains utility methods for constructing new instances of <a href="CryptoKeyStore.html">CryptoKeyStore</a>,
-<a href="module-api.CryptoSuite.html">CryptoSuite</a> and <a href="module-api.KeyValueStore.html">KeyValueStore</a></div>
+            <div class="class-description">Client for communciating with the Fabric CA APIs</div>
         
     
 </header>
@@ -109,19 +107,220 @@ It also contains utility methods for constructing new instances of <a href="Cryp
         
 <hr>
 <dt>
-    <h4 class="name" id="BaseClient"><span class="type-signature"></span>new BaseClient()</h4>
+    <h4 class="name" id="FabricCAClient"><span class="type-signature"></span>new FabricCAClient(connect_opts)</h4>
     
     
 </dt>
 <dd>
 
     
-
+    <div class="description">
+        constructor
+    </div>
     
 
     
 
     
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>connect_opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Connection options for communciating with the Fabric CA server
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>protocol</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The protocol to use (either HTTP or HTTPS)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hostname</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The hostname of the Fabric CA server endpoint</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>port</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The port of the Fabric CA server endpoint</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tlsOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#TLSOptions">TLSOptions</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The TLS settings to use when the Fabric CA endpoint uses "https"</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>caname</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The optional name of the CA. Fabric-ca servers support multiple Certificate Authorities from
+ a single server. If omitted or null or an empty string, then the default CA is the target of requests</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -201,7 +400,7 @@ It also contains utility methods for constructing new instances of <a href="Cryp
             
 <hr>
 <dt>
-    <h4 class="name" id=".addConfigFile"><span class="type-signature">&lt;static> </span>addConfigFile(path)</h4>
+    <h4 class="name" id=".pemToDER"><span class="type-signature">&lt;static> </span>pemToDER({string))</h4>
     
     
 </dt>
@@ -209,13 +408,7 @@ It also contains utility methods for constructing new instances of <a href="Cryp
 
     
     <div class="description">
-        Adds a file to the top of the list of configuration setting files that are
-part of the hierarchical configuration.
-These files will override the default settings and be overriden by environment,
-command line arguments, and settings programmatically set into configuration settings.
-
-<br><p>
-The hierarchical configuration settings search order: see <a href="BaseClient.html#.getConfigSetting">BaseClient.getConfigSetting</a>
+        Convert a PEM encoded certificate to DER format
     </div>
     
 
@@ -250,16 +443,10 @@ The hierarchical configuration settings search order: see <a href="BaseClient.ht
 
         <tr>
             
-                <td class="name"><code>path</code></td>
+                <td class="name"><code>{string)</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
             
             </td>
 
@@ -267,950 +454,7 @@ The hierarchical configuration settings search order: see <a href="BaseClient.ht
 
             
 
-            <td class="description last">The path to the file to be added to the top of list of configuration files</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".getConfigSetting"><span class="type-signature">&lt;static> </span>getConfigSetting(name, default_value)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Retrieves a setting from the hierarchical configuration and if not found
-will return the provided default value.
-
-<br><br>
-The hierarchical configuration settings search order for a setting <code>aa-bb</code>:
-<ol>
-<li> memory: if the setting has been added with <pre>Client.setConfigSetting('aa-bb', 'value')</pre>
-<li> Command-line arguments: like <pre>node app.js --aa-bb value</pre>
-<li> Environment variables: <pre>AA_BB=value node app.js</pre>
-<li> Custom Files: all files added with <code>addConfigFile(path)</code>
-    will be ordered by when added, where same settings in the files added later will override those added earlier
-<li> The file located at <code>lib/config/default.json</code> with default settings
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of a setting</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>default_value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The value of a setting if not found in the hierarchical configuration</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".getLogger"><span class="type-signature">&lt;static> </span>getLogger(name)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Use this method to get a logger that will add entries to the same location
-being used by the Hyperledger Fabric client.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of the label to be added to the log entries.
-       To help identify the source of the log entry.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The logger that may be used to log entires with
-        'info()', 'warn()', 'error()' and 'debug()' methods to mark the
-        the type of the log entries.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Logger</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".newCryptoKeyStore"><span class="type-signature">&lt;static> </span>newCryptoKeyStore(KVSImplClass, opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This is a factory method. It returns a new instance of the <a href="CryptoKeyStore.html">CryptoKeyStore</a>.
-
-When the application needs to use a key store other than the default,
-it should create a new CryptoKeyStore and set it on the CryptoSuite.
-
-<br><br><code>cryptosuite.setCryptoKeyStore(Client.newCryptoKeyStore(KVSImplClass, opts))</code>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>KVSImplClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">api.KeyValueStore</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. The built-in key store saves private keys. The key store may be backed by different
-KeyValueStore implementations. If specified, the value of the argument must point to a module implementing the
-KeyValueStore interface.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Implementation-specific option object used in the constructor</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    a new instance of the CryptoKeystore
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="CryptoKeyStore.html">CryptoKeyStore</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".newCryptoSuite"><span class="type-signature">&lt;static> </span>newCryptoSuite(setting)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This is a factory method. It returns a new instance of the CryptoSuite API implementation, based on the "setting"
-that is passed in, or if skipped, based on default values of the <a href="global.html#CryptoSetting">CryptoSetting</a> properties.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>setting</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#CryptoSetting">CryptoSetting</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    a new instance of the CryptoSuite API implementation
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".newDefaultKeyValueStore"><span class="type-signature">&lt;static> </span>newDefaultKeyValueStore(options)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Obtains an instance of the <a href="module-api.KeyValueStore.html">KeyValueStore</a> class. By default
-it returns the built-in implementation, which is based on files (FileKeyValueStore).
-This can be overriden with a configuration setting <code>key-value-store</code>, the value of which is the
-full path of a CommonJS module for the alternative implementation.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Specific to the implementation, for initializing the instance. For the built-in
-file-based implementation, this requires a single property <code>path</code> to the top-level folder for the store</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    A Promise for a <a href="module-api.KeyValueStore.html">module:api.KeyValueStore</a> instance of the KeyValueStore implementation
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".normalizeX509"><span class="type-signature">&lt;static> </span>normalizeX509(raw)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Fixes a certificate string that may not be in the correct format.
-Make sure there's a start line with '-----BEGIN CERTIFICATE-----'
-and end line with '-----END CERTIFICATE-----', so as to be compliant
-with x509 parsers.
-Will remove or add required linefeeds and carriage returns.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>raw</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">a string that contains a X509 certiicate</td>
+            <td class="description last">pem PEM encoded public or private key</td>
         </tr>
 
     
@@ -1272,33 +516,310 @@ Will remove or add required linefeeds and carriage returns.
     
             
 
+    <div class="param-desc">
+    
+        Will throw an error if the conversation fails
+    
+    </div>
+
+
+        
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    hex Hex-encoded DER bytes
+</div>
+
+
+
 <dl>
     <dt>
-        <div class="param-desc">
-        An error indicating that the begining and end parts are
-        not correct.
-        </div>
+        Type
     </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="enroll"><span class="type-signature"></span>enroll(enrollmentID, enrollmentSecret, csr, profile, attr_reqs)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Enroll a registered user in order to receive a signed X509 certificate
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The registered ID to use for enrollment</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentSecret</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The secret associated with the enrollment ID</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>csr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">PEM-encoded PKCS#10 certificate signing request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>profile</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The profile name.  Specify the 'tls' profile for a TLS certificate; otherwise, an enrollment certificate is issued.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>attr_reqs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#AttributeRequest">AttributeRequest</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An array of <a href="global.html#AttributeRequest">AttributeRequest</a></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Throws:</h5>
+    <ul>
+            <li>
+
+    <div class="param-desc">
+    
+        Will throw an error if all parameters are not provided
+    
+    </div>
+
+</li>
+        
+            <li>
+
+    <div class="param-desc">
+    
+        Will throw an error if calling the enroll API fails for any reason
+    
+    </div>
+
+</li>
+        </ul>
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <a href="global.html#EnrollmentResponse">EnrollmentResponse</a>
+</div>
+
+
+
+<dl>
     <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">Error</span>
-
-
-
-            </dd>
-        </dl>
+        Type
     </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
 </dl>
 
 
         
-
-    
 
     
 </dd>
@@ -1307,7 +828,7 @@ Will remove or add required linefeeds and carriage returns.
             
 <hr>
 <dt>
-    <h4 class="name" id=".setConfigSetting"><span class="type-signature">&lt;static> </span>setConfigSetting(name, value)</h4>
+    <h4 class="name" id="newAffiliationService"><span class="type-signature"></span>newAffiliationService()</h4>
     
     
 </dt>
@@ -1315,304 +836,7 @@ Will remove or add required linefeeds and carriage returns.
 
     
     <div class="description">
-        Adds a setting to override all settings that are
-part of the hierarchical configuration.
-
-<br><p>
-The hierarchical configuration settings search order: see <a href="BaseClient.html#.getConfigSetting">BaseClient.getConfigSetting</a>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of a setting</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The value of a setting</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id=".setLogger"><span class="type-signature">&lt;static> </span>setLogger(logger)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Configures a logger for the entire SDK to use and override the default logger. Unless this method is called,
-the SDK uses a default logger based on <a href="https://www.npmjs.com/package/winston">winston</a>.
-When using the built-in winston based logger, use the configuration setting <code>hfc-logging</code> to pass
-in configurations in the following format:
-<br><br>
-<pre>
-{
-  'error': 'error.log',			// 'error' logs are printed to file 'error.log' relative of the current working dir for node.js
-  'debug': '/tmp/myapp/debug.log',	// 'debug' and anything more critical ('info', 'warn', 'error') can also be an absolute path
-  'info': 'console'			// 'console' is a keyword for logging to console
-}
-</pre>
-<br>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>logger</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">a logger instance that defines the following methods: debug(), info(), warn(), error() with
-string interpolation methods like <a href="https://nodejs.org/api/util.html#util_util_format_format">util.format</a>.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getCryptoSuite"><span class="type-signature"></span>getCryptoSuite()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Returns the CryptoSuite object used by this client instance
+        Create a new <a href="AffiliationService.html">AffiliationService</a> instance
     </div>
     
 
@@ -1677,6 +901,10 @@ string interpolation methods like <a href="https://nodejs.org/api/util.html#util
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    instance
+</div>
+
 
 
 <dl>
@@ -1685,7 +913,7 @@ string interpolation methods like <a href="https://nodejs.org/api/util.html#util
     </dt>
     <dd>
         
-<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
+<span class="param-type"><a href="AffiliationService.html">AffiliationService</a></span>
 
 
 
@@ -1702,7 +930,7 @@ string interpolation methods like <a href="https://nodejs.org/api/util.html#util
             
 <hr>
 <dt>
-    <h4 class="name" id="setCryptoSuite"><span class="type-signature"></span>setCryptoSuite(cryptoSuite)</h4>
+    <h4 class="name" id="newCertificateService"><span class="type-signature"></span>newCertificateService()</h4>
     
     
 </dt>
@@ -1710,17 +938,211 @@ string interpolation methods like <a href="https://nodejs.org/api/util.html#util
 
     
     <div class="description">
-        Sets the client instance to use the CryptoSuite object for signing and hashing
+        Create a new CertificateService instance
+    </div>
+    
 
-Creating and setting a CryptoSuite is optional because the client will construct
-an instance based on default configuration settings:
-<li> crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
-<li> crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
- is supported and the valid key sizes are 256 and 384
-<li> crypto-hash-algo: hashing algorithm
-<li> key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
- is provided for this purpose, which can be used on top of any implementation of the KeyValueStore interface,
- such as a file-based store or a database-based one. The specific implementation is determined by the value of this configuration setting.
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    instance
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">CertificateService</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="newIdentityService"><span class="type-signature"></span>newIdentityService()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Creates a new <a href="IdentityService.html">IdentityService</a> instance
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    instance
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="IdentityService.html">IdentityService</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="reenroll"><span class="type-signature"></span>reenroll(csr, signingIdentity, attr_reqs)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Re-enroll an existing user.
     </div>
     
 
@@ -1755,13 +1177,13 @@ an instance based on default configuration settings:
 
         <tr>
             
-                <td class="name"><code>cryptoSuite</code></td>
+                <td class="name"><code>csr</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
+<span class="param-type">string</span>
 
 
 
@@ -1772,7 +1194,56 @@ an instance based on default configuration settings:
 
             
 
-            <td class="description last">the CryptoSuite object</td>
+            <td class="description last">PEM-encoded PKCS#10 certificate signing request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>signingIdentity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="SigningIdentity.html">SigningIdentity</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The instance of a SigningIdentity encapsulating the
+signing certificate, hash algorithm and signature algorithm</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>attr_reqs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#AttributeRequest">AttributeRequest</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An array of <a href="global.html#AttributeRequest">AttributeRequest</a></td>
         </tr>
 
     
@@ -1832,6 +1303,583 @@ an instance based on default configuration settings:
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <a href="global.html#EnrollmentResponse">EnrollmentResponse</a>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="register"><span class="type-signature"></span>register(enrollmentID, enrollmentSecret, role, affiliation, maxEnrollments, attrs, signingIdentity)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Register a new user and return the enrollment secret
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">ID which will be used for enrollment</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentSecret</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional enrollment secret to set for the registered user.
+       If not provided, the server will generate one.
+       When not including, use a null for this parameter.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>role</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional type of role for this user.
+       When not including, use a null for this parameter.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>affiliation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Affiliation with which this user will be associated</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxEnrollments</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The maximum number of times the user is permitted to enroll</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>attrs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#KeyValueAttribute">KeyValueAttribute</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Array of key/value attributes to assign to the user</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>signingIdentity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="SigningIdentity.html">SigningIdentity</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The instance of a SigningIdentity encapsulating the
+signing certificate, hash algorithm and signature algorithm</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The enrollment secret to use when this user enrolls
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="revoke"><span class="type-signature"></span>revoke(enrollmentID, aki, serial, reason, signingIdentity)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Revoke an existing certificate (enrollment certificate or transaction certificate), or revoke
+all certificates issued to an enrollment id. If revoking a particular certificate, then both
+the Authority Key Identifier and serial number are required. If revoking by enrollment id,
+then all future requests to enroll this id will be rejected.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">ID to revoke</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>aki</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Authority Key Identifier string, hex encoded, for the specific certificate to revoke</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>serial</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Serial number string, hex encoded, for the specific certificate to revoke</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>reason</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The reason for revocation. See https://godoc.org/golang.org/x/crypto/ocsp
+ for valid values</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>signingIdentity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="SigningIdentity.html">SigningIdentity</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The instance of a SigningIdentity encapsulating the
+signing certificate, hash algorithm and signature algorithm</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The revocation results
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
