@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: ChannelPeer</title>
+	<title>Hyperledger Fabric SDK for node.js Class: FabricCAClient</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,16 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: ChannelPeer</h1>
+	<h1 class="page-title">Class: FabricCAClient</h1>
 <section>
 
 <header>
     
         <h2>
-        ChannelPeer
+        FabricCAClient
         </h2>
         
-            <div class="class-description">The ChannelPeer class represents a peer in the target blockchain network on this channel.</div>
+            <div class="class-description">Client for communciating with the Fabric CA APIs</div>
         
     
 </header>
@@ -107,7 +107,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="ChannelPeer"><span class="type-signature"></span>new ChannelPeer(mspid, channel, peer, roles)</h4>
+    <h4 class="name" id="FabricCAClient"><span class="type-signature"></span>new FabricCAClient(connect_opts)</h4>
     
     
 </dt>
@@ -115,15 +115,7 @@
 
     
     <div class="description">
-        Construct a ChannelPeer object with the given Peer and opts.
-A channel peer object holds channel based references:
-  MSP ID of the Organization this peer belongs.
-  <a href="Channel.html">Channel</a> object used to know the channel this peer is interacting.
-  <a href="Peer.html">Peer</a> object used for interacting with the Hyperledger fabric network.
-  <a href="ChannelEventHub.html">ChannelEventHub</a> object used for listening to block changes on the channel.
-  List of <a href="global.html#ChannelPeerRoles">ChannelPeerRoles</a> to indicate the roles this peer performs on the channel.
-
-The roles this Peer performs on this channel are indicated with is object.
+        constructor
     </div>
     
 
@@ -158,7 +150,50 @@ The roles this Peer performs on this channel are indicated with is object.
 
         <tr>
             
-                <td class="name"><code>mspid</code></td>
+                <td class="name"><code>connect_opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Connection options for communciating with the Fabric CA server
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>protocol</code></td>
             
 
             <td class="type">
@@ -175,20 +210,20 @@ The roles this Peer performs on this channel are indicated with is object.
 
             
 
-            <td class="description last">The mspid of the organization this peer belongs.</td>
+            <td class="description last">The protocol to use (either HTTP or HTTPS)</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>channel</code></td>
+                <td class="name"><code>hostname</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Channel.html">Channel</a></span>
+<span class="param-type">string</span>
 
 
 
@@ -199,20 +234,20 @@ The roles this Peer performs on this channel are indicated with is object.
 
             
 
-            <td class="description last">The Channel instance.</td>
+            <td class="description last">The hostname of the Fabric CA server endpoint</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>peer</code></td>
+                <td class="name"><code>port</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Peer.html">Peer</a></span>
+<span class="param-type">number</span>
 
 
 
@@ -223,20 +258,20 @@ The roles this Peer performs on this channel are indicated with is object.
 
             
 
-            <td class="description last">The Peer instance.</td>
+            <td class="description last">The port of the Fabric CA server endpoint</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>roles</code></td>
+                <td class="name"><code>tlsOptions</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#ChannelPeerRoles">ChannelPeerRoles</a></span>
+<span class="param-type"><a href="global.html#TLSOptions">TLSOptions</a></span>
 
 
 
@@ -247,7 +282,39 @@ The roles this Peer performs on this channel are indicated with is object.
 
             
 
-            <td class="description last">The roles for this peer.</td>
+            <td class="description last">The TLS settings to use when the Fabric CA endpoint uses "https"</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>caname</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The optional name of the CA. Fabric-ca servers support multiple Certificate Authorities from
+ a single server. If omitted or null or an empty string, then the default CA is the target of requests</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -333,7 +400,7 @@ The roles this Peer performs on this channel are indicated with is object.
             
 <hr>
 <dt>
-    <h4 class="name" id="close"><span class="type-signature"></span>close()</h4>
+    <h4 class="name" id=".pemToDER"><span class="type-signature">&lt;static> </span>pemToDER({string))</h4>
     
     
 </dt>
@@ -341,603 +408,7 @@ The roles this Peer performs on this channel are indicated with is object.
 
     
     <div class="description">
-        Close the associated peer service connections.
-<br>see <a href="Peer.html#close">Peer#close</a>
-<br>see <a href="ChannelEventHub.html#close">ChannelEventHub#close</a>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getChannelEventHub"><span class="type-signature"></span>getChannelEventHub()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the channel event hub for this channel peer. The ChannelEventHub instance will
-be assigned when using the <a href="Channel.html">Channel</a> newChannelEventHub() method. When using
-a common connection profile, the ChannelEventHub will be automatically assigned
-on the Channel Peers as they are created and added to the channel.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    - The ChannelEventHub instance associated with this <a href="Peer.html">Peer</a> instance.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="ChannelEventHub.html">ChannelEventHub</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getMspid"><span class="type-signature"></span>getMspid()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the MSP ID.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The mspId.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the name. This is a client-side only identifier for this
-object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The name of the object
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getPeer"><span class="type-signature"></span>getPeer()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the Peer instance this ChannelPeer represents on the channel.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The associated Peer instance.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Peer.html">Peer</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the URL of this object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Get the URL associated with the peer object.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="isInOrg"><span class="type-signature"></span>isInOrg(mspid)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Checks if this peer is in the specified organization.
-The default is true when the incoming organization name is not defined.
-The default will be true when this peer does not have the organization name defined.
+        Convert a PEM encoded certificate to DER format
     </div>
     
 
@@ -972,7 +443,165 @@ The default will be true when this peer does not have the organization name defi
 
         <tr>
             
-                <td class="name"><code>mspid</code></td>
+                <td class="name"><code>{string)</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">pem PEM encoded public or private key</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Throws:</h5>
+    
+            
+
+    <div class="param-desc">
+    
+        Will throw an error if the conversation fails
+    
+    </div>
+
+
+        
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    hex Hex-encoded DER bytes
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="enroll"><span class="type-signature"></span>enroll(enrollmentID, enrollmentSecret, csr, profile, attr_reqs)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Enroll a registered user in order to receive a signed X509 certificate
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentID</code></td>
             
 
             <td class="type">
@@ -989,7 +618,632 @@ The default will be true when this peer does not have the organization name defi
 
             
 
-            <td class="description last">The mspid of the organnization</td>
+            <td class="description last">The registered ID to use for enrollment</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentSecret</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The secret associated with the enrollment ID</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>csr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">PEM-encoded PKCS#10 certificate signing request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>profile</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The profile name.  Specify the 'tls' profile for a TLS certificate; otherwise, an enrollment certificate is issued.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>attr_reqs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#AttributeRequest">AttributeRequest</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An array of <a href="global.html#AttributeRequest">AttributeRequest</a></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Throws:</h5>
+    <ul>
+            <li>
+
+    <div class="param-desc">
+    
+        Will throw an error if all parameters are not provided
+    
+    </div>
+
+</li>
+        
+            <li>
+
+    <div class="param-desc">
+    
+        Will throw an error if calling the enroll API fails for any reason
+    
+    </div>
+
+</li>
+        </ul>
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <a href="global.html#EnrollmentResponse">EnrollmentResponse</a>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="newAffiliationService"><span class="type-signature"></span>newAffiliationService()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Create a new <a href="AffiliationService.html">AffiliationService</a> instance
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    instance
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="AffiliationService.html">AffiliationService</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="newCertificateService"><span class="type-signature"></span>newCertificateService()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Create a new CertificateService instance
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    instance
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">CertificateService</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="newIdentityService"><span class="type-signature"></span>newIdentityService()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Creates a new <a href="IdentityService.html">IdentityService</a> instance
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    instance
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="IdentityService.html">IdentityService</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="reenroll"><span class="type-signature"></span>reenroll(csr, signingIdentity, attr_reqs)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Re-enroll an existing user.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>csr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">PEM-encoded PKCS#10 certificate signing request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>signingIdentity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="SigningIdentity.html">SigningIdentity</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The instance of a SigningIdentity encapsulating the
+signing certificate, hash algorithm and signature algorithm</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>attr_reqs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#AttributeRequest">AttributeRequest</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An array of <a href="global.html#AttributeRequest">AttributeRequest</a></td>
         </tr>
 
     
@@ -1053,7 +1307,7 @@ The default will be true when this peer does not have the organization name defi
     
             
 <div class="param-desc">
-    If this peer belongs to the organization.
+    <a href="global.html#EnrollmentResponse">EnrollmentResponse</a>
 </div>
 
 
@@ -1064,7 +1318,7 @@ The default will be true when this peer does not have the organization name defi
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Promise</span>
 
 
 
@@ -1081,7 +1335,7 @@ The default will be true when this peer does not have the organization name defi
             
 <hr>
 <dt>
-    <h4 class="name" id="isInRole"><span class="type-signature"></span>isInRole()</h4>
+    <h4 class="name" id="register"><span class="type-signature"></span>register(enrollmentID, enrollmentSecret, role, affiliation, maxEnrollments, attrs, signingIdentity)</h4>
     
     
 </dt>
@@ -1089,269 +1343,7 @@ The default will be true when this peer does not have the organization name defi
 
     
     <div class="description">
-        Checks if this peer is in the specified role.
-The default is true when the incoming role is not defined.
-The default will be true when this peer does not have the role defined.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    If this peer has this role.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="sendDiscovery"><span class="type-signature"></span>sendDiscovery()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Wrapper method for the associated peer so this object may be used as a <a href="Peer.html">Peer</a>
-<a href="Peer.html#sendDiscovery">Peer#sendDiscovery</a>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="sendProposal"><span class="type-signature"></span>sendProposal()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Wrapper method for the associated peer so this object may be used as a <a href="Peer.html">Peer</a>
-<a href="Peer.html#sendProposal">Peer#sendProposal</a>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setRole"><span class="type-signature"></span>setRole(role, isIn)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set a role for this peer.
+        Register a new user and return the enrollment secret
     </div>
     
 
@@ -1382,6 +1374,56 @@ The default will be true when this peer does not have the role defined.
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">ID which will be used for enrollment</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentSecret</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional enrollment secret to set for the registered user.
+       If not provided, the server will generate one.
+       When not including, use a null for this parameter.</td>
+        </tr>
+
     
 
         <tr>
@@ -1403,20 +1445,21 @@ The default will be true when this peer does not have the role defined.
 
             
 
-            <td class="description last">The name of the role</td>
+            <td class="description last">Optional type of role for this user.
+       When not including, use a null for this parameter.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>isIn</code></td>
+                <td class="name"><code>affiliation</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">string</span>
 
 
 
@@ -1427,7 +1470,80 @@ The default will be true when this peer does not have the role defined.
 
             
 
-            <td class="description last">The boolean value of does this peer have this role</td>
+            <td class="description last">Affiliation with which this user will be associated</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxEnrollments</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The maximum number of times the user is permitted to enroll</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>attrs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#KeyValueAttribute">KeyValueAttribute</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Array of key/value attributes to assign to the user</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>signingIdentity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="SigningIdentity.html">SigningIdentity</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The instance of a SigningIdentity encapsulating the
+signing certificate, hash algorithm and signature algorithm</td>
         </tr>
 
     
@@ -1487,6 +1603,283 @@ The default will be true when this peer does not have the role defined.
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The enrollment secret to use when this user enrolls
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="revoke"><span class="type-signature"></span>revoke(enrollmentID, aki, serial, reason, signingIdentity)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Revoke an existing certificate (enrollment certificate or transaction certificate), or revoke
+all certificates issued to an enrollment id. If revoking a particular certificate, then both
+the Authority Key Identifier and serial number are required. If revoking by enrollment id,
+then all future requests to enroll this id will be rejected.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">ID to revoke</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>aki</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Authority Key Identifier string, hex encoded, for the specific certificate to revoke</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>serial</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Serial number string, hex encoded, for the specific certificate to revoke</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>reason</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The reason for revocation. See https://godoc.org/golang.org/x/crypto/ocsp
+ for valid values</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>signingIdentity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="SigningIdentity.html">SigningIdentity</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The instance of a SigningIdentity encapsulating the
+signing certificate, hash algorithm and signature algorithm</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The revocation results
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1541,7 +1934,7 @@ The default will be true when this peer does not have the role defined.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-09-13T07:46:02+00:00
+		on 2018-09-13T07:46:03+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

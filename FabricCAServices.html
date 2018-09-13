@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: ChannelPeer</title>
+	<title>Hyperledger Fabric SDK for node.js Class: FabricCAServices</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,16 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: ChannelPeer</h1>
+	<h1 class="page-title">Class: FabricCAServices</h1>
 <section>
 
 <header>
     
         <h2>
-        ChannelPeer
+        FabricCAServices
         </h2>
         
-            <div class="class-description">The ChannelPeer class represents a peer in the target blockchain network on this channel.</div>
+            <div class="class-description">This is an implementation of the member service client which communicates with the Fabric CA server.</div>
         
     
 </header>
@@ -107,7 +107,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="ChannelPeer"><span class="type-signature"></span>new ChannelPeer(mspid, channel, peer, roles)</h4>
+    <h4 class="name" id="FabricCAServices"><span class="type-signature"></span>new FabricCAServices(url, tlsOptions, caName, cryptoSuite)</h4>
     
     
 </dt>
@@ -115,15 +115,7 @@
 
     
     <div class="description">
-        Construct a ChannelPeer object with the given Peer and opts.
-A channel peer object holds channel based references:
-  MSP ID of the Organization this peer belongs.
-  <a href="Channel.html">Channel</a> object used to know the channel this peer is interacting.
-  <a href="Peer.html">Peer</a> object used for interacting with the Hyperledger fabric network.
-  <a href="ChannelEventHub.html">ChannelEventHub</a> object used for listening to block changes on the channel.
-  List of <a href="global.html#ChannelPeerRoles">ChannelPeerRoles</a> to indicate the roles this peer performs on the channel.
-
-The roles this Peer performs on this channel are indicated with is object.
+        constructor
     </div>
     
 
@@ -158,7 +150,59 @@ The roles this Peer performs on this channel are indicated with is object.
 
         <tr>
             
-                <td class="name"><code>mspid</code></td>
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The endpoint URL for Fabric CA services of the form: "http://host:port" or "https://host:port"
+	 	When this parameter is an object then it must include the parameters listed as key value pairs.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tlsOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#TLSOptions">TLSOptions</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The TLS settings to use when the Fabric CA services endpoint uses "https"</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>caName</code></td>
             
 
             <td class="type">
@@ -175,20 +219,21 @@ The roles this Peer performs on this channel are indicated with is object.
 
             
 
-            <td class="description last">The mspid of the organization this peer belongs.</td>
+            <td class="description last">The optional name of the CA. Fabric-ca servers support multiple Certificate Authorities from
+ a single server. If omitted or null or an empty string, then the default CA is the target of requests</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>channel</code></td>
+                <td class="name"><code>cryptoSuite</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Channel.html">Channel</a></span>
+<span class="param-type">CryptoSuite</span>
 
 
 
@@ -199,55 +244,15 @@ The roles this Peer performs on this channel are indicated with is object.
 
             
 
-            <td class="description last">The Channel instance.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>peer</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Peer.html">Peer</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Peer instance.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>roles</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#ChannelPeerRoles">ChannelPeerRoles</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The roles for this peer.</td>
+            <td class="description last">The optional cryptoSuite instance to be used if options other than defaults are needed.
+If not specified, an instance of CryptoSuite will be constructed based on the current configuration settings:
+<br> - crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
+<br> - crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
+ is supported and the valid key sizes are 256 and 384
+<br> - crypto-hash-algo: hashing algorithm
+<br> - key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
+ is provided for this purpose, which can be used on top of any implementation of the KeyValueStore interface,
+ such as a file-based store or a database-based one. The specific implementation is determined by the value of this configuration setting.</td>
         </tr>
 
     
@@ -313,6 +318,17 @@ The roles this Peer performs on this channel are indicated with is object.
 
     
     </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="BaseClient.html">BaseClient</a></li>
+    </ul>
+
 
     
 
@@ -333,7 +349,7 @@ The roles this Peer performs on this channel are indicated with is object.
             
 <hr>
 <dt>
-    <h4 class="name" id="close"><span class="type-signature"></span>close()</h4>
+    <h4 class="name" id="enroll"><span class="type-signature"></span>enroll(req)</h4>
     
     
 </dt>
@@ -341,603 +357,7 @@ The roles this Peer performs on this channel are indicated with is object.
 
     
     <div class="description">
-        Close the associated peer service connections.
-<br>see <a href="Peer.html#close">Peer#close</a>
-<br>see <a href="ChannelEventHub.html#close">ChannelEventHub#close</a>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getChannelEventHub"><span class="type-signature"></span>getChannelEventHub()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the channel event hub for this channel peer. The ChannelEventHub instance will
-be assigned when using the <a href="Channel.html">Channel</a> newChannelEventHub() method. When using
-a common connection profile, the ChannelEventHub will be automatically assigned
-on the Channel Peers as they are created and added to the channel.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    - The ChannelEventHub instance associated with this <a href="Peer.html">Peer</a> instance.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="ChannelEventHub.html">ChannelEventHub</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getMspid"><span class="type-signature"></span>getMspid()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the MSP ID.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The mspId.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the name. This is a client-side only identifier for this
-object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The name of the object
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getPeer"><span class="type-signature"></span>getPeer()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the Peer instance this ChannelPeer represents on the channel.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The associated Peer instance.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Peer.html">Peer</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the URL of this object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Get the URL associated with the peer object.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="isInOrg"><span class="type-signature"></span>isInOrg(mspid)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Checks if this peer is in the specified organization.
-The default is true when the incoming organization name is not defined.
-The default will be true when this peer does not have the organization name defined.
+        Enroll the member and return an opaque member object.
     </div>
     
 
@@ -972,16 +392,10 @@ The default will be true when this peer does not have the organization name defi
 
         <tr>
             
-                <td class="name"><code>mspid</code></td>
+                <td class="name"><code>req</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
             
             </td>
 
@@ -989,7 +403,7 @@ The default will be true when this peer does not have the organization name defi
 
             
 
-            <td class="description last">The mspid of the organnization</td>
+            <td class="description last">the <a href="global.html#EnrollmentRequest">EnrollmentRequest</a></td>
         </tr>
 
     
@@ -1053,7 +467,166 @@ The default will be true when this peer does not have the organization name defi
     
             
 <div class="param-desc">
-    If this peer belongs to the organization.
+    Promise for an object with "key" for private key and "certificate" for the signed certificate
+</div>
+
+
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="generateCRL"><span class="type-signature"></span>generateCRL(request, registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Restriction">Restriction</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The identity of the registrar (i.e. who is performing the revocation)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The Certificate Revocation List (CRL)
 </div>
 
 
@@ -1064,7 +637,7 @@ The default will be true when this peer does not have the organization name defi
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Promise</span>
 
 
 
@@ -1081,7 +654,7 @@ The default will be true when this peer does not have the organization name defi
             
 <hr>
 <dt>
-    <h4 class="name" id="isInRole"><span class="type-signature"></span>isInRole()</h4>
+    <h4 class="name" id="getCaName"><span class="type-signature"></span>getCaName()</h4>
     
     
 </dt>
@@ -1089,9 +662,7 @@ The default will be true when this peer does not have the organization name defi
 
     
     <div class="description">
-        Checks if this peer is in the specified role.
-The default is true when the incoming role is not defined.
-The default will be true when this peer does not have the role defined.
+        Returns the name of the certificate authority.
     </div>
     
 
@@ -1157,7 +728,7 @@ The default will be true when this peer does not have the role defined.
     
             
 <div class="param-desc">
-    If this peer has this role.
+    caName
 </div>
 
 
@@ -1168,7 +739,7 @@ The default will be true when this peer does not have the role defined.
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">string</span>
 
 
 
@@ -1185,7 +756,7 @@ The default will be true when this peer does not have the role defined.
             
 <hr>
 <dt>
-    <h4 class="name" id="sendDiscovery"><span class="type-signature"></span>sendDiscovery()</h4>
+    <h4 class="name" id="getCryptoSuite"><span class="type-signature"></span>getCryptoSuite()</h4>
     
     
 </dt>
@@ -1193,8 +764,114 @@ The default will be true when this peer does not have the role defined.
 
     
     <div class="description">
-        Wrapper method for the associated peer so this object may be used as a <a href="Peer.html">Peer</a>
-<a href="Peer.html#sendDiscovery">Peer#sendDiscovery</a>
+        Returns the CryptoSuite object used by this client instance
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseClient.html#getCryptoSuite">BaseClient#getCryptoSuite</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="newAffiliationService"><span class="type-signature"></span>newAffiliationService()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Create a new <a href="AffiliationService.html">AffiliationService</a> object
     </div>
     
 
@@ -1256,6 +933,30 @@ The default will be true when this peer does not have the role defined.
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="AffiliationService.html">AffiliationService</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1264,7 +965,7 @@ The default will be true when this peer does not have the role defined.
             
 <hr>
 <dt>
-    <h4 class="name" id="sendProposal"><span class="type-signature"></span>sendProposal()</h4>
+    <h4 class="name" id="newCertificateService"><span class="type-signature"></span>newCertificateService()</h4>
     
     
 </dt>
@@ -1272,8 +973,7 @@ The default will be true when this peer does not have the role defined.
 
     
     <div class="description">
-        Wrapper method for the associated peer so this object may be used as a <a href="Peer.html">Peer</a>
-<a href="Peer.html#sendProposal">Peer#sendProposal</a>
+        Create a new CertificateService instance
     </div>
     
 
@@ -1335,6 +1035,30 @@ The default will be true when this peer does not have the role defined.
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">CertificateService</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1343,7 +1067,7 @@ The default will be true when this peer does not have the role defined.
             
 <hr>
 <dt>
-    <h4 class="name" id="setRole"><span class="type-signature"></span>setRole(role, isIn)</h4>
+    <h4 class="name" id="newIdentityService"><span class="type-signature"></span>newIdentityService()</h4>
     
     
 </dt>
@@ -1351,7 +1075,110 @@ The default will be true when this peer does not have the role defined.
 
     
     <div class="description">
-        Set a role for this peer.
+        Creates a new <a href="IdentityService.html">IdentityService</a> object
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="IdentityService.html">IdentityService</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="reenroll"><span class="type-signature"></span>reenroll(currentUser, Optional)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Re-enroll the member in cases such as the existing enrollment certificate is about to expire, or
+it has been compromised
     </div>
     
 
@@ -1386,13 +1213,13 @@ The default will be true when this peer does not have the role defined.
 
         <tr>
             
-                <td class="name"><code>role</code></td>
+                <td class="name"><code>currentUser</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="User.html">User</a></span>
 
 
 
@@ -1403,20 +1230,20 @@ The default will be true when this peer does not have the role defined.
 
             
 
-            <td class="description last">The name of the role</td>
+            <td class="description last">The identity of the current user that holds the existing enrollment certificate</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>isIn</code></td>
+                <td class="name"><code>Optional</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">Array.&lt;<a href="global.html#AttributeRequest">AttributeRequest</a>></span>
 
 
 
@@ -1427,13 +1254,610 @@ The default will be true when this peer does not have the role defined.
 
             
 
-            <td class="description last">The boolean value of does this peer have this role</td>
+            <td class="description last">an array of <a href="global.html#AttributeRequest">AttributeRequest</a> that indicate attributes to
+                            be included in the certificate</td>
         </tr>
 
     
     </tbody>
 </table>
 
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Promise for an object with "key" for private key and "certificate" for the signed certificate
+</div>
+
+
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="register"><span class="type-signature"></span>register(req, registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Register the member and return an enrollment secret.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#RegisterRequest">RegisterRequest</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The <a href="global.html#RegisterRequest">RegisterRequest</a></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">. The identity of the registrar (i.e. who is performing the registration)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The enrollment secret to use when this user enrolls
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="revoke"><span class="type-signature"></span>revoke(request, registrar)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Revoke an existing certificate (enrollment certificate or transaction certificate), or revoke
+all certificates issued to an enrollment id. If revoking a particular certificate, then both
+the Authority Key Identifier and serial number are required. If revoking by enrollment id,
+then all future requests to enroll this id will be rejected.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Request object with the following fields:
+<br> - enrollmentID {string}. ID to revoke
+<br> - aki {string}. Authority Key Identifier string, hex encoded, for the specific certificate to revoke
+<br> - serial {string}. Serial number string, hex encoded, for the specific certificate to revoke
+<br> - reason {string}. The reason for revocation. See https://godoc.org/golang.org/x/crypto/ocsp
+ for valid values. The default value is 0 (ocsp.Unspecified).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>registrar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The identity of the registrar (i.e. who is performing the revocation)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The revocation results
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setCryptoSuite"><span class="type-signature"></span>setCryptoSuite(cryptoSuite)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the client instance to use the CryptoSuite object for signing and hashing
+
+Creating and setting a CryptoSuite is optional because the client will construct
+an instance based on default configuration settings:
+<li> crypto-hsm: use an implementation for Hardware Security Module (if set to true) or software-based key management (if set to false)
+<li> crypto-keysize: security level, or key size, to use with the digital signature public key algorithm. Currently ECDSA
+ is supported and the valid key sizes are 256 and 384
+<li> crypto-hash-algo: hashing algorithm
+<li> key-value-store: some CryptoSuite implementation requires a key store to persist private keys. A <a href="CryptoKeyStore.html">CryptoKeyStore</a>
+ is provided for this purpose, which can be used on top of any implementation of the KeyValueStore interface,
+ such as a file-based store or a database-based one. The specific implementation is determined by the value of this configuration setting.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cryptoSuite</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the CryptoSuite object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseClient.html#setCryptoSuite">BaseClient#setCryptoSuite</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        return a printable representation of this object
+    </div>
+    
+
+    
+
+    
+
+    
     
 
     
@@ -1541,7 +1965,7 @@ The default will be true when this peer does not have the role defined.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-09-13T07:46:02+00:00
+		on 2018-09-13T07:46:03+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
