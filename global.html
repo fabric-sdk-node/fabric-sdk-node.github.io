@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">How to use the service discovery</a></li><li><a href="tutorial-logging.html">How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">How to use the service discovery</a></li><li><a href="tutorial-logging.html">How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">How to sign a transaction with an offline private key</a></li>
 				</ul>
 			</li>
 			
@@ -2230,7 +2230,8 @@ metadata
 
             
 
-            <td class="description last"></td>
+            <td class="description last">The name of chaincode that sourced this
+          event.</td>
         </tr>
 
     
@@ -2254,7 +2255,7 @@ metadata
 
             
 
-            <td class="description last"></td>
+            <td class="description last">The transaction ID of this event.</td>
         </tr>
 
     
@@ -2278,7 +2279,9 @@ metadata
 
             
 
-            <td class="description last"></td>
+            <td class="description last">The string that is the event_name of this
+          event as set by the chaincode during endorsement.
+          <code>stub.SetEvent(event_name, payload)</code></td>
         </tr>
 
     
@@ -2302,8 +2305,8 @@ metadata
 
             
 
-            <td class="description last">Application-specific byte array that the chaincode set
-                             when it called <code>stub.SetEvent(event_name, payload)</code></td>
+            <td class="description last">Application-specific byte array that the chaincode
+          set when it called <code>stub.SetEvent(event_name, payload)</code></td>
         </tr>
 
     
@@ -5908,6 +5911,163 @@ signatures -- {array}
             
 
             <td class="description last">any other standard grpc call options will be passed to the grpc service calls directly</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="ConnectOptions">
+    <h4 id="ConnectOptions">ConnectOptions</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>full_block</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. to indicated that the connection
+       with the peer will be sending full blocks or filtered blocks to this
+       ChannelEventHub.
+       The default will be to establish a connection using filtered blocks.
+       Filtered blocks have the required information to provided transaction
+       status and chaincode events (no payload).
+       When using the non filtered blocks (full blocks) the user
+       will be required to have access to establish the connection to
+       receive full blocks.
+       Registering a block listener on a filtered block connection may not
+       provide sufficient information.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>signedEvent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#SignedEvent">SignedEvent</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. the signed event to be sent
+       to the peer. This option is useful when the fabric-client application
+       does not have the user's privateKey and can not sign requests to the
+       fabric network.</td>
         </tr>
 
     
@@ -11645,14 +11805,18 @@ standard array of objects.
             
 
             <td class="description last">Optional - The starting block number
-          for event checking. When included, the peer's channel event service
+          for event checking. When included, the peer's fabric service
           will be asked to start sending blocks from this block number.
           This is how to resume or replay missed blocks that were added
           to the ledger.
           Default is the latest block on the ledger.
           Setting a startBlock may confuse other event listeners,
           therefore only one listener will be allowed on a ChannelEventHub
-          when a startBlock is being used.</td>
+          when a startBlock is being used.
+          Setting a startBlock also requires
+          this ChannelEventHub to connect to the fabric service using
+          different options. The registration with a startBlock must be
+          done before calling connect().</td>
         </tr>
 
     
@@ -11680,19 +11844,24 @@ standard array of objects.
             
 
             <td class="description last">Optional - The ending block number
-          for event checking. The value 'newest' to indicate that endBlock
-          will be calculated by the peer as the newest block on the ledger.
+          for event checking. The value 'newest' indicates that the endBlock
+          will be calculated by the peer as the newest block on the ledger
+          at the time of registration.
           This allows the application to replay up to the latest block on
           the ledger and then the listener will stop and be notified by the
           'onError' callback.
-          When included, the peer's channel event service
+          When included, the peer's fabric service
           will be asked to stop sending blocks once this block is delivered.
           This is how to replay missed blocks that were added
           to the ledger. When a startBlock is not included, the endBlock
           must be equal to or larger the current channel block height.
           Setting an endBlock may confuse other event listeners,
           therefore only one listener will be allowed on a ChannelEventHub
-          when an endBlock is being used.</td>
+          when an endBlock is being used.
+          Setting a endBlock also requires
+          this ChannelEventHub to connect to the fabric service using
+          different options. The a registration with an endBlock must be
+          done before calling connect().</td>
         </tr>
 
     
@@ -11756,7 +11925,7 @@ standard array of objects.
 
             <td class="description last">Optional - This option setting Indicates
           to the ChannelEventHub instance to automatically disconnect itself
-          from the peer's channel event service once the event has been seen.
+          from the peer's fabric service once the event has been seen.
           The default is false unless the endBlock has been set, then it
           it will be true.</td>
         </tr>
@@ -12991,7 +13160,7 @@ rule
 
             
 
-            <td class="description last">the payload byte array to be send to peer</td>
+            <td class="description last">the payload byte array to be sent to the peer</td>
         </tr>
 
     
@@ -14040,7 +14209,7 @@ with a network configuration.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-09-21T17:07:58+00:00
+		on 2018-09-24T21:02:44+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
