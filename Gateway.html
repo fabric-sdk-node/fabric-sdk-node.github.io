@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Tutorial: How to use logging</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Gateway</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -88,76 +88,853 @@
 <div class="row">
 
 	
-	<div class="col-md-12">
+	<div class="col-md-8">
 	
 		<div id="main">
-			<section class="tutorial-section">
+			
+
+	<h1 class="page-title">Class: Gateway</h1>
+<section>
 
 <header>
     
-
-    <h2>How to use logging</h2>
+        <h2>
+        Gateway
+        </h2>
+        
+            <div class="class-description">The gateway peer provides the connection point for an application to access the Fabric network.  It is instantiated using
+the default constructor.
+It can then be connected to a fabric network using the <a href="Gateway.html#connect">connect</a> method by passing either a CCP definition
+or an existing <a href="Client.html">Client</a> object.
+Once connected, it can then access individual Network instances (channels) using the <a href="Gateway.html#getNetwork">getNetwork</a> method
+which in turn can access the <a href="Contract.html">smart contracts</a> installed on a network and
+<a href="Contract.html#submitTransaction">submit transactions</a> to the ledger.</div>
+        
+    
 </header>
 
+
 <article>
-    <p>This tutorial illustrates how to use the Hyperledger Fabric Node.js client logging feature.</p>
-<h3>Overview</h3><p>Hyperledger Fabric Node.js client logging uses the Node.js 'winston' package.
-The logging is initialized when the Node.js application first loads the Hyperledger
-Fabric package. All Hyperledger Fabric client objects will use the same settings (Peer, Orderer, ChannelEventHub).</p>
-<pre class="prettyprint source"><code>const Client = require('fabric-client');
-// the logging is now set</code></pre><p>There are four levels of logging</p>
-<ul>
-<li>info</li>
-<li>warn</li>
-<li>error</li>
-<li>debug</li>
-</ul>
-<p>By default <code>info</code>, <code>warn</code>, and <code>error</code> log entries will be sent to the 'console'.
-<code>debug</code> will not be recorded.</p>
-<h3>How to change logging</h3><p>The Hyperledger Fabric client's logging is controlled by the configuration setting
-<code>hfc-logging</code> and by the environment setting <code>HFC_LOGGING</code>.</p>
-<ul>
-<li><p>setting the logging settings in the <code>default.json</code> config file with an entry:</p>
-<pre class="prettyprint source"><code>&quot;hfc-logging&quot;: &quot;{'debug':'console', 'info':'console'}&quot;</code></pre></li>
-<li><p>using an environment setting will override the configuration setting:</p>
-<pre class="prettyprint source"><code>export HFC_LOGGING='{&quot;debug&quot;:&quot;console&quot;,&quot;info&quot;:&quot;console&quot;}'</code></pre></li>
-</ul>
-<p>The logging may use a file to write entries by specifying a file location as the
-level value.</p>
-<pre class="prettyprint source"><code>export HFC_LOGGING='{&quot;debug&quot;:&quot;/temp/debug.log&quot;,&quot;info&quot;:&quot;console&quot;}'</code></pre><h3>Using the logging from application</h3><p>When there is a need to log entries from the application code along with the
-Hyperledger Fabric client entries, use the following to get access to the same
-logger.</p>
-<p>as of 1.2</p>
-<pre class="prettyprint source"><code>const logger = Client.getLogger('APPLICATION');</code></pre><p>prior to 1.2</p>
-<pre class="prettyprint source"><code>const sdkUtils = require('fabric-client/lib/utils.js');
-const logger = sdkUtils.getLogger('APPLICATION');</code></pre><p>To log</p>
-<pre class="prettyprint source"><code>const log_info = 'Sometext';
+    <div class="container-overview">
+    
+        
+<hr>
+<dt>
+    <h4 class="name" id="Gateway"><span class="type-signature"></span>new Gateway()</h4>
+    
+    
+</dt>
+<dd>
 
-logger.info('%s infotext', log_info);
-// will log
-// info: [APPLICATION]: Sometext infotext
+    
+    <div class="description">
+        Public constructor for Gateway object
+    </div>
+    
 
-logger.warn('%s warntext', log_info);
-// will log
-// warn: [APPLICATION]: Sometext warntext
+    
 
-logger.error('%s errortext', log_info);
-// will log
-// error: [APPLICATION]: Sometext errortext
+    
 
-logger.debug('%s debugtext', log_info);
-// will log
-// debug: [APPLICATION]: Sometext debugtext
-</code></pre>
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id="connect"><span class="type-signature">&lt;async> </span>connect(config, options)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Connect to the Gateway with a connection profile or a prebuilt Client instance.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="Client.html">Client</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The configuration for this Gateway which can come from a common connection
+profile or an existing fabric-client Client instance</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#GatewayOptions">GatewayOptions</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">specific options for creating this Gateway instance</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">const gateway = new Gateway();
+const wallet = new FileSystemWallet(&#x27;./WALLETS/wallet&#x27;);
+const ccpFile = fs.readFileSync(&#x27;./network.json&#x27;);
+const ccp = JSON.parse(ccpFile.toString());
+await gateway.connect(ccp, {
+  identity: &#x27;admin&#x27;,
+  wallet: wallet
+});</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="disconnect"><span class="type-signature"></span>disconnect()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Clean up and disconnect this Gateway connection in preparation for it to be discarded and garbage collected
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getClient"><span class="type-signature"></span>getClient()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the underlying Client object instance
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The underlying fabric-client <a href="Client.html">Client</a> instance
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Client.html">Client</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getCurrentIdentity"><span class="type-signature"></span>getCurrentIdentity()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the current identity
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A fabric-client <a href="User.html">User</a> instance of the current identity used by this Gateway
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getNetwork"><span class="type-signature">&lt;async> </span>getNetwork(networkName)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns an object representing a network
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>networkName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the network (channel name)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Network.html">Network</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getOptions"><span class="type-signature"></span>getOptions()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the set of options associated with the Gateway connection
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The Gateway connection options
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#GatewayOptions">GatewayOptions</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
 </article>
 
 </section>
+
+
+
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
 	
 
 </div>
@@ -186,7 +963,7 @@ logger.debug('%s debugtext', log_info);
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-09-28T12:00:23+00:00
+		on 2018-09-28T12:00:22+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

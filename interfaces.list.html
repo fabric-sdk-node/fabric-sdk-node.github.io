@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Tutorial: How to use logging</title>
+	<title>Hyperledger Fabric SDK for node.js Interfaces</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -88,76 +88,260 @@
 <div class="row">
 
 	
-	<div class="col-md-12">
+	<div class="col-md-8">
 	
 		<div id="main">
-			<section class="tutorial-section">
+			
+
+	<h1 class="page-title">Interfaces</h1>
+<section>
 
 <header>
     
-
-    <h2>How to use logging</h2>
+        <h2>
+        
+        </h2>
+        
+    
 </header>
 
+
 <article>
-    <p>This tutorial illustrates how to use the Hyperledger Fabric Node.js client logging feature.</p>
-<h3>Overview</h3><p>Hyperledger Fabric Node.js client logging uses the Node.js 'winston' package.
-The logging is initialized when the Node.js application first loads the Hyperledger
-Fabric package. All Hyperledger Fabric client objects will use the same settings (Peer, Orderer, ChannelEventHub).</p>
-<pre class="prettyprint source"><code>const Client = require('fabric-client');
-// the logging is now set</code></pre><p>There are four levels of logging</p>
-<ul>
-<li>info</li>
-<li>warn</li>
-<li>error</li>
-<li>debug</li>
-</ul>
-<p>By default <code>info</code>, <code>warn</code>, and <code>error</code> log entries will be sent to the 'console'.
-<code>debug</code> will not be recorded.</p>
-<h3>How to change logging</h3><p>The Hyperledger Fabric client's logging is controlled by the configuration setting
-<code>hfc-logging</code> and by the environment setting <code>HFC_LOGGING</code>.</p>
-<ul>
-<li><p>setting the logging settings in the <code>default.json</code> config file with an entry:</p>
-<pre class="prettyprint source"><code>&quot;hfc-logging&quot;: &quot;{'debug':'console', 'info':'console'}&quot;</code></pre></li>
-<li><p>using an environment setting will override the configuration setting:</p>
-<pre class="prettyprint source"><code>export HFC_LOGGING='{&quot;debug&quot;:&quot;console&quot;,&quot;info&quot;:&quot;console&quot;}'</code></pre></li>
-</ul>
-<p>The logging may use a file to write entries by specifying a file location as the
-level value.</p>
-<pre class="prettyprint source"><code>export HFC_LOGGING='{&quot;debug&quot;:&quot;/temp/debug.log&quot;,&quot;info&quot;:&quot;console&quot;}'</code></pre><h3>Using the logging from application</h3><p>When there is a need to log entries from the application code along with the
-Hyperledger Fabric client entries, use the following to get access to the same
-logger.</p>
-<p>as of 1.2</p>
-<pre class="prettyprint source"><code>const logger = Client.getLogger('APPLICATION');</code></pre><p>prior to 1.2</p>
-<pre class="prettyprint source"><code>const sdkUtils = require('fabric-client/lib/utils.js');
-const logger = sdkUtils.getLogger('APPLICATION');</code></pre><p>To log</p>
-<pre class="prettyprint source"><code>const log_info = 'Sometext';
+    <div class="container-overview">
+    
+        
 
-logger.info('%s infotext', log_info);
-// will log
-// info: [APPLICATION]: Sometext infotext
+        
+<dl class="details">
+    
 
-logger.warn('%s warntext', log_info);
-// will log
-// warn: [APPLICATION]: Sometext warntext
+	
 
-logger.error('%s errortext', log_info);
-// will log
-// error: [APPLICATION]: Sometext errortext
+	
 
-logger.debug('%s debugtext', log_info);
-// will log
-// debug: [APPLICATION]: Sometext debugtext
-</code></pre>
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="AffiliationService.html">AffiliationService</a></dt>
+            <dd></dd>
+        
+            <dt><a href="BaseClient.html">BaseClient</a></dt>
+            <dd></dd>
+        
+            <dt><a href="BasePackager.html">BasePackager</a></dt>
+            <dd></dd>
+        
+            <dt><a href="BaseWallet.html">BaseWallet</a></dt>
+            <dd></dd>
+        
+            <dt><a href="BasicCommitHandler.html">BasicCommitHandler</a></dt>
+            <dd></dd>
+        
+            <dt><a href="BlockDecoder.html">BlockDecoder</a></dt>
+            <dd></dd>
+        
+            <dt><a href="CertificateAuthority.html">CertificateAuthority</a></dt>
+            <dd></dd>
+        
+            <dt><a href="ChaincodeRegistration.html">ChaincodeRegistration</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Channel.html">Channel</a></dt>
+            <dd></dd>
+        
+            <dt><a href="ChannelEventHub.html">ChannelEventHub</a></dt>
+            <dd></dd>
+        
+            <dt><a href="ChannelPeer.html">ChannelPeer</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Client.html">Client</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Contract.html">Contract</a></dt>
+            <dd></dd>
+        
+            <dt><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></dt>
+            <dd></dd>
+        
+            <dt><a href="CryptoKeyStore.html">CryptoKeyStore</a></dt>
+            <dd></dd>
+        
+            <dt><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></dt>
+            <dd></dd>
+        
+            <dt><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></dt>
+            <dd></dd>
+        
+            <dt><a href="DefaultEventHandlerManager.html">DefaultEventHandlerManager</a></dt>
+            <dd></dd>
+        
+            <dt><a href="DiscoveryEndorsementHandler.html">DiscoveryEndorsementHandler</a></dt>
+            <dd></dd>
+        
+            <dt><a href="ECDSA_KEY.html">ECDSA_KEY</a></dt>
+            <dd></dd>
+        
+            <dt><a href="EndorsementPolicy.html">EndorsementPolicy</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Endpoint.html">Endpoint</a></dt>
+            <dd></dd>
+        
+            <dt><a href="FileKeyValueStore.html">FileKeyValueStore</a></dt>
+            <dd></dd>
+        
+            <dt><a href="FileSystemWallet.html">FileSystemWallet</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Gateway.html">Gateway</a></dt>
+            <dd></dd>
+        
+            <dt><a href="global.html#Identity">Identity</a></dt>
+            <dd></dd>
+        
+            <dt><a href="IdentityService.html">IdentityService</a></dt>
+            <dd></dd>
+        
+            <dt><a href="InMemoryKVS.html">InMemoryKVS</a></dt>
+            <dd></dd>
+        
+            <dt><a href="InMemoryWallet.html">InMemoryWallet</a></dt>
+            <dd></dd>
+        
+            <dt><a href="module.exports_module.exports.html">exports</a></dt>
+            <dd></dd>
+        
+            <dt><a href="module-api.CommitHandler.html">CommitHandler</a></dt>
+            <dd></dd>
+        
+            <dt><a href="module-api.CryptoSuite.html">CryptoSuite</a></dt>
+            <dd></dd>
+        
+            <dt><a href="module-api.EndorsementHandler.html">EndorsementHandler</a></dt>
+            <dd></dd>
+        
+            <dt><a href="module-api.Hash.html">Hash</a></dt>
+            <dd></dd>
+        
+            <dt><a href="module-api.Key.html">Key</a></dt>
+            <dd></dd>
+        
+            <dt><a href="module-api.KeyValueStore.html">KeyValueStore</a></dt>
+            <dd></dd>
+        
+            <dt><a href="MSP.html">MSP</a></dt>
+            <dd></dd>
+        
+            <dt><a href="MSPManager.html">MSPManager</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Network.html">Network</a></dt>
+            <dd></dd>
+        
+            <dt><a href="NetworkConfig_1_0.html">NetworkConfig_1_0</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Orderer.html">Orderer</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Organization.html">Organization</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Peer.html">Peer</a></dt>
+            <dd></dd>
+        
+            <dt><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Remote.html">Remote</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Signer.html">Signer</a></dt>
+            <dd></dd>
+        
+            <dt><a href="SigningIdentity.html">SigningIdentity</a></dt>
+            <dd></dd>
+        
+            <dt><a href="TransactionID.html">TransactionID</a></dt>
+            <dd></dd>
+        
+            <dt><a href="User.html">User</a></dt>
+            <dd></dd>
+        
+            <dt><a href="X509WalletMixin.html">X509WalletMixin</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </article>
 
 </section>
+
+
+
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
 	
 
 </div>
@@ -186,7 +370,7 @@ logger.debug('%s debugtext', log_info);
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-09-28T12:00:23+00:00
+		on 2018-09-28T12:00:22+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

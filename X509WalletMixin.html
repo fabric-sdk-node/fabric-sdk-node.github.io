@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Tutorial: How to use logging</title>
+	<title>Hyperledger Fabric SDK for node.js Class: X509WalletMixin</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -88,76 +88,136 @@
 <div class="row">
 
 	
-	<div class="col-md-12">
+	<div class="col-md-8">
 	
 		<div id="main">
-			<section class="tutorial-section">
+			
+
+	<h1 class="page-title">Class: X509WalletMixin</h1>
+<section>
 
 <header>
     
-
-    <h2>How to use logging</h2>
+        <h2>
+        X509WalletMixin
+        </h2>
+        
+    
 </header>
 
+
 <article>
-    <p>This tutorial illustrates how to use the Hyperledger Fabric Node.js client logging feature.</p>
-<h3>Overview</h3><p>Hyperledger Fabric Node.js client logging uses the Node.js 'winston' package.
-The logging is initialized when the Node.js application first loads the Hyperledger
-Fabric package. All Hyperledger Fabric client objects will use the same settings (Peer, Orderer, ChannelEventHub).</p>
-<pre class="prettyprint source"><code>const Client = require('fabric-client');
-// the logging is now set</code></pre><p>There are four levels of logging</p>
-<ul>
-<li>info</li>
-<li>warn</li>
-<li>error</li>
-<li>debug</li>
-</ul>
-<p>By default <code>info</code>, <code>warn</code>, and <code>error</code> log entries will be sent to the 'console'.
-<code>debug</code> will not be recorded.</p>
-<h3>How to change logging</h3><p>The Hyperledger Fabric client's logging is controlled by the configuration setting
-<code>hfc-logging</code> and by the environment setting <code>HFC_LOGGING</code>.</p>
-<ul>
-<li><p>setting the logging settings in the <code>default.json</code> config file with an entry:</p>
-<pre class="prettyprint source"><code>&quot;hfc-logging&quot;: &quot;{'debug':'console', 'info':'console'}&quot;</code></pre></li>
-<li><p>using an environment setting will override the configuration setting:</p>
-<pre class="prettyprint source"><code>export HFC_LOGGING='{&quot;debug&quot;:&quot;console&quot;,&quot;info&quot;:&quot;console&quot;}'</code></pre></li>
-</ul>
-<p>The logging may use a file to write entries by specifying a file location as the
-level value.</p>
-<pre class="prettyprint source"><code>export HFC_LOGGING='{&quot;debug&quot;:&quot;/temp/debug.log&quot;,&quot;info&quot;:&quot;console&quot;}'</code></pre><h3>Using the logging from application</h3><p>When there is a need to log entries from the application code along with the
-Hyperledger Fabric client entries, use the following to get access to the same
-logger.</p>
-<p>as of 1.2</p>
-<pre class="prettyprint source"><code>const logger = Client.getLogger('APPLICATION');</code></pre><p>prior to 1.2</p>
-<pre class="prettyprint source"><code>const sdkUtils = require('fabric-client/lib/utils.js');
-const logger = sdkUtils.getLogger('APPLICATION');</code></pre><p>To log</p>
-<pre class="prettyprint source"><code>const log_info = 'Sometext';
+    <div class="container-overview">
+    
+        
+<hr>
+<dt>
+    <h4 class="name" id="X509WalletMixin"><span class="type-signature"></span>new X509WalletMixin()</h4>
+    
+    
+</dt>
+<dd>
 
-logger.info('%s infotext', log_info);
-// will log
-// info: [APPLICATION]: Sometext infotext
+    
 
-logger.warn('%s warntext', log_info);
-// will log
-// warn: [APPLICATION]: Sometext warntext
+    
 
-logger.error('%s errortext', log_info);
-// will log
-// error: [APPLICATION]: Sometext errortext
+    
 
-logger.debug('%s debugtext', log_info);
-// will log
-// debug: [APPLICATION]: Sometext debugtext
-</code></pre>
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </article>
 
 </section>
+
+
+
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
 	
 
 </div>

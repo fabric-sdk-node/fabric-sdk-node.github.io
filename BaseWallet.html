@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Tutorial: How to use logging</title>
+	<title>Hyperledger Fabric SDK for node.js Class: BaseWallet</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -88,76 +88,868 @@
 <div class="row">
 
 	
-	<div class="col-md-12">
+	<div class="col-md-8">
 	
 		<div id="main">
-			<section class="tutorial-section">
+			
+
+	<h1 class="page-title">Class: BaseWallet</h1>
+<section>
 
 <header>
     
-
-    <h2>How to use logging</h2>
+        <h2>
+        BaseWallet
+        </h2>
+        
+            <div class="class-description">Base class for the built-in wallet implementations.  For internal use only.</div>
+        
+    
 </header>
 
+
 <article>
-    <p>This tutorial illustrates how to use the Hyperledger Fabric Node.js client logging feature.</p>
-<h3>Overview</h3><p>Hyperledger Fabric Node.js client logging uses the Node.js 'winston' package.
-The logging is initialized when the Node.js application first loads the Hyperledger
-Fabric package. All Hyperledger Fabric client objects will use the same settings (Peer, Orderer, ChannelEventHub).</p>
-<pre class="prettyprint source"><code>const Client = require('fabric-client');
-// the logging is now set</code></pre><p>There are four levels of logging</p>
-<ul>
-<li>info</li>
-<li>warn</li>
-<li>error</li>
-<li>debug</li>
-</ul>
-<p>By default <code>info</code>, <code>warn</code>, and <code>error</code> log entries will be sent to the 'console'.
-<code>debug</code> will not be recorded.</p>
-<h3>How to change logging</h3><p>The Hyperledger Fabric client's logging is controlled by the configuration setting
-<code>hfc-logging</code> and by the environment setting <code>HFC_LOGGING</code>.</p>
-<ul>
-<li><p>setting the logging settings in the <code>default.json</code> config file with an entry:</p>
-<pre class="prettyprint source"><code>&quot;hfc-logging&quot;: &quot;{'debug':'console', 'info':'console'}&quot;</code></pre></li>
-<li><p>using an environment setting will override the configuration setting:</p>
-<pre class="prettyprint source"><code>export HFC_LOGGING='{&quot;debug&quot;:&quot;console&quot;,&quot;info&quot;:&quot;console&quot;}'</code></pre></li>
-</ul>
-<p>The logging may use a file to write entries by specifying a file location as the
-level value.</p>
-<pre class="prettyprint source"><code>export HFC_LOGGING='{&quot;debug&quot;:&quot;/temp/debug.log&quot;,&quot;info&quot;:&quot;console&quot;}'</code></pre><h3>Using the logging from application</h3><p>When there is a need to log entries from the application code along with the
-Hyperledger Fabric client entries, use the following to get access to the same
-logger.</p>
-<p>as of 1.2</p>
-<pre class="prettyprint source"><code>const logger = Client.getLogger('APPLICATION');</code></pre><p>prior to 1.2</p>
-<pre class="prettyprint source"><code>const sdkUtils = require('fabric-client/lib/utils.js');
-const logger = sdkUtils.getLogger('APPLICATION');</code></pre><p>To log</p>
-<pre class="prettyprint source"><code>const log_info = 'Sometext';
+    <div class="container-overview">
+    
+        
+<hr>
+<dt>
+    <h4 class="name" id="BaseWallet"><span class="type-signature"></span>new BaseWallet()</h4>
+    
+    
+</dt>
+<dd>
 
-logger.info('%s infotext', log_info);
-// will log
-// info: [APPLICATION]: Sometext infotext
+    
 
-logger.warn('%s warntext', log_info);
-// will log
-// warn: [APPLICATION]: Sometext warntext
+    
 
-logger.error('%s errortext', log_info);
-// will log
-// error: [APPLICATION]: Sometext errortext
+    
 
-logger.debug('%s debugtext', log_info);
-// will log
-// debug: [APPLICATION]: Sometext debugtext
-</code></pre>
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html">Wallet</a></li>
+        
+    </ul></dd>
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id="delete"><span class="type-signature">&lt;async> </span>delete(label)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Removes an identity from the wallet
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#delete">Wallet#delete</a></li>
+        
+    </ul></dd>
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="exists"><span class="type-signature">&lt;async> </span>exists(label)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Query the existence of an identity in the wallet
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#exists">Wallet#exists</a></li>
+        
+    </ul></dd>
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="export"><span class="type-signature">&lt;async> </span>export(label)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Extract an identity from the wallet
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#export">Wallet#export</a></li>
+        
+    </ul></dd>
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="import"><span class="type-signature">&lt;async> </span>import(label, identity)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Import an identity into the wallet
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>identity</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#import">Wallet#import</a></li>
+        
+    </ul></dd>
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="list"><span class="type-signature">&lt;async> </span>list()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        List the contents of the wallet
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#list">Wallet#list</a></li>
+        
+    </ul></dd>
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
 </article>
 
 </section>
+
+
+
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
 	
 
 </div>
@@ -186,7 +978,7 @@ logger.debug('%s debugtext', log_info);
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-09-28T12:00:23+00:00
+		on 2018-09-28T12:00:22+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

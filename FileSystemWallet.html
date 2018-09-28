@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Peer</title>
+	<title>Hyperledger Fabric SDK for node.js Class: FileSystemWallet</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,18 +93,17 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Peer</h1>
+	<h1 class="page-title">Class: FileSystemWallet</h1>
 <section>
 
 <header>
     
         <h2>
-        Peer
+        FileSystemWallet
         </h2>
         
-            <div class="class-description">The Peer class represents a peer in the target blockchain network.
-The application can send endorsement proposals, and query requests through this
-class.</div>
+            <div class="class-description">This class defines an implementation of an Identity wallet that persists
+to the file system.</div>
         
     
 </header>
@@ -116,7 +115,7 @@ class.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="Peer"><span class="type-signature"></span>new Peer(url, opts)</h4>
+    <h4 class="name" id="FileSystemWallet"><span class="type-signature"></span>new FileSystemWallet(path [, mixin])</h4>
     
     
 </dt>
@@ -124,13 +123,7 @@ class.</div>
 
     
     <div class="description">
-        Construct a Peer object with the given url and opts. A peer object
-encapsulates the properties of an endorsing peer and the interactions with it
-via the grpc service API. Peer objects are used by the <a href="Client.html">Client</a> objects to
-send channel-agnostic requests such as installing chaincode, querying peers for
-installed chaincodes, etc. They are also used by the <a href="Channel.html">Channel</a> objects to
-send channel-aware requests such as instantiating chaincodes, and invoking
-transactions.
+        Creates an instance of FileSystemWallet.
     </div>
     
 
@@ -153,6 +146,8 @@ transactions.
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -165,7 +160,7 @@ transactions.
 
         <tr>
             
-                <td class="name"><code>url</code></td>
+                <td class="name"><code>path</code></td>
             
 
             <td class="type">
@@ -179,23 +174,31 @@ transactions.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">The URL with format of "grpc(s)://host:port".</td>
+            <td class="description last">The root path for this wallet on the file system</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>opts</code></td>
+                <td class="name"><code>mixin</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#ConnectionOpts">ConnectionOpts</a></span>
+<span class="param-type">WalletMixin</span>
 
 
 
@@ -203,10 +206,20 @@ transactions.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">The options for the connection to the peer.</td>
+            <td class="description last">optionally provide an alternative WalletMixin. Defaults to X509WalletMixin</td>
         </tr>
 
     
@@ -280,7 +293,7 @@ transactions.
 
 
     <ul>
-        <li><a href="Remote.html">Remote</a></li>
+        <li><a href="BaseWallet.html">BaseWallet</a></li>
     </ul>
 
 
@@ -303,7 +316,7 @@ transactions.
             
 <hr>
 <dt>
-    <h4 class="name" id="close"><span class="type-signature"></span>close()</h4>
+    <h4 class="name" id="delete"><span class="type-signature">&lt;async> </span>delete(label)</h4>
     
     
 </dt>
@@ -311,419 +324,7 @@ transactions.
 
     
     <div class="description">
-        Close the service connections.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getClientCertHash"><span class="type-signature"></span>getClientCertHash()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the client certificate hash
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Remote.html#getClientCertHash">Remote#getClientCertHash</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The hash of the client certificate
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the name. This is a client-side only identifier for this
-object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Remote.html#getName">Remote#getName</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The name of the object
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the URL of this object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Remote.html#getUrl">Remote#getUrl</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Get the URL associated with the object.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="sendDiscovery"><span class="type-signature"></span>sendDiscovery(request, timeout)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Send an discovery request to this peer.
+        Removes an identity from the wallet
     </div>
     
 
@@ -758,378 +359,10 @@ object.
 
         <tr>
             
-                <td class="name"><code>request</code></td>
+                <td class="name"><code>label</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">SignedRequest</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A protobuf encoded byte array of type
-       <a href="https://github.com/hyperledger/fabric/blob/release-1.2/protos/discovery/protocol.proto">Proposal</a></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>timeout</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A number indicating milliseconds to wait on the
-       response before rejecting the promise with a timeout error. This
-       overrides the default timeout of the Peer instance and the global
-       timeout in the config settings.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    A Promise for a DiscoveryResponse
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="sendProposal"><span class="type-signature">&lt;async> </span>sendProposal(proposal, timeout)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Send an endorsement proposal to an endorser. This is used to call an
-endorsing peer to execute a chaincode to process a transaction proposal,
-or runs queries.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>proposal</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Proposal</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A protobuf encoded byte array of type
-       <a href="https://github.com/hyperledger/fabric/blob/release-1.2/protos/peer/proposal.proto">Proposal</a></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>timeout</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A number indicating milliseconds to wait on the
-       response before rejecting the promise with a timeout error. This
-       overrides the default timeout of the Peer instance and the global
-       timeout in the config settings.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    A Promise for a <a href="global.html#ProposalResponse">ProposalResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setName"><span class="type-signature"></span>setName(name)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the name as a client-side only identifier of this object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
             
             </td>
 
@@ -1159,10 +392,437 @@ or runs queries.
 	<dd class="inherited-from">
 		<ul class="dummy">
 			<li>
-				<a href="Remote.html#setName">Remote#setName</a>
+				<a href="BaseWallet.html#delete">BaseWallet#delete</a>
 			</li>
 		</ul>
 	</dd>
+	
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseWallet.html#delete">BaseWallet#delete</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#delete">Wallet#delete</a></li>
+        
+    </ul></dd>
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="exists"><span class="type-signature">&lt;async> </span>exists(label)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Query the existence of an identity in the wallet
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseWallet.html#exists">BaseWallet#exists</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseWallet.html#exists">BaseWallet#exists</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#exists">Wallet#exists</a></li>
+        
+    </ul></dd>
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="export"><span class="type-signature">&lt;async> </span>export(label)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Extract an identity from the wallet
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseWallet.html#export">BaseWallet#export</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+
+    
+
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#export">Wallet#export</a></li>
+        
+    </ul></dd>
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getAllLabels"><span class="type-signature">&lt;async> </span>getAllLabels()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
 	
 
     
@@ -1214,16 +874,12 @@ or runs queries.
             
 <hr>
 <dt>
-    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
+    <h4 class="name" id="getCryptoSuite"><span class="type-signature">&lt;async> </span>getCryptoSuite()</h4>
     
     
 </dt>
 <dd>
 
-    
-    <div class="description">
-        return a printable representation of this object
-    </div>
     
 
     
@@ -1243,11 +899,6 @@ or runs queries.
 
 	
 
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="Remote.html#toString">Remote#toString</a>
-    </li></ul></dd>
     
 
     
@@ -1289,6 +940,370 @@ or runs queries.
     
 
     
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getStateStore"><span class="type-signature">&lt;async> </span>getStateStore()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="import"><span class="type-signature">&lt;async> </span>import(label, identity)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Import an identity into the wallet
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>identity</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseWallet.html#import">BaseWallet#import</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+
+    
+
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#import">Wallet#import</a></li>
+        
+    </ul></dd>
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="list"><span class="type-signature">&lt;async> </span>list()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        List the contents of the wallet
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseWallet.html#list">BaseWallet#list</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+
+    
+
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#list">Wallet#list</a></li>
+        
+    </ul></dd>
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
