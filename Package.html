@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: EndorsementHandler</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Package</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,18 +93,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: EndorsementHandler</h1>
+	<h1 class="page-title">Class: Package</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-api.html">api</a>.</span>
-        
-        EndorsementHandler
+        Package
         </h2>
         
-            <div class="class-description">Base class for endorsement handling</div>
+            <div class="class-description">A class representing a smart contract package.</div>
         
     
 </header>
@@ -116,19 +114,73 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="EndorsementHandler"><span class="type-signature"></span>new EndorsementHandler()</h4>
+    <h4 class="name" id="Package"><span class="type-signature"></span>new Package(chaincodeDeploymentSpec)</h4>
     
     
 </dt>
 <dd>
 
     
-
+    <div class="description">
+        Constructor.
+    </div>
     
 
     
 
     
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodeDeploymentSpec</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ChaincodeDeploymentSpec</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The chaincode deployment specification.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -208,7 +260,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".create"><span class="type-signature">&lt;static> </span>create()</h4>
+    <h4 class="name" id=".fromBuffer"><span class="type-signature">&lt;async, static> </span>fromBuffer(buffer)</h4>
     
     
 </dt>
@@ -216,90 +268,7 @@
 
     
     <div class="description">
-        This static method will be called by the channel to create an instance of
-this handler. It will be passed the channel object this handler is working
-with.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="endorse"><span class="type-signature"></span>endorse(params)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This method will process the request object to calculate the target peers.
-Once the targets have been determined, the channel to send the endorsement
-transaction to all targets. The results will be analized to see if
-enough good endorsments have been received.
+        Load a smart contract package from the specified buffer.
     </div>
     
 
@@ -334,13 +303,13 @@ enough good endorsments have been received.
 
         <tr>
             
-                <td class="name"><code>params</code></td>
+                <td class="name"><code>buffer</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">EndorsementHandlerParameters</span>
+<span class="param-type">Buffer</span>
 
 
 
@@ -351,10 +320,7 @@ enough good endorsments have been received.
 
             
 
-            <td class="description last">A EndorsementHandlerParameters
-       that contains enough information to determine the targets and contains
-       a <a href="global.html#ChaincodeInvokeRequest">ChaincodeInvokeRequest</a> to be sent using the included channel
-       with the <a href="Channel.html">Channel</a> 'sendTransactionProposal' method.</td>
+            <td class="description last">A buffer containing the serialized smart contract package.</td>
         </tr>
 
     
@@ -418,9 +384,7 @@ enough good endorsments have been received.
     
             
 <div class="param-desc">
-    A Promise for the <a href="global.html#ProposalResponseObject">ProposalResponseObject</a>, the
-       same results as calling the <a href="Channel.html">Channel</a> 'sendTransactionProposal'
-       method directly.
+    The smart contract package.
 </div>
 
 
@@ -431,7 +395,7 @@ enough good endorsments have been received.
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type"><a href="Package.html">Package</a></span>
 
 
 
@@ -448,7 +412,7 @@ enough good endorsments have been received.
             
 <hr>
 <dt>
-    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize()</h4>
+    <h4 class="name" id=".fromDirectory"><span class="type-signature">&lt;async, static> </span>fromDirectory(options)</h4>
     
     
 </dt>
@@ -456,7 +420,349 @@ enough good endorsments have been received.
 
     
     <div class="description">
-        This method will be called by the channel when the channel is initialzied.
+        Create a new smart contract package from the specified directory.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The options for the packager.
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The name of the smart contract.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>version</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The version of the smart contract.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The directory containing the smart contract.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The type of the smart contract, one of 'golang', 'car', 'node' or 'java'.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metadataPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The directory containing the metadata descriptors.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The smart contract package.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Package.html">Package</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getFileNames"><span class="type-signature"></span>getFileNames()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the list of file names in this smart contract package.
     </div>
     
 
@@ -518,6 +824,438 @@ enough good endorsments have been received.
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The list of file names in this smart contract package.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;string></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the name of the smart contract package.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The name of the smart contract package.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getType"><span class="type-signature"></span>getType()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the type of the smart contract package.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The type of the smart contract package, one of 'golang', 'car', 'node' or 'java'.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getVersion"><span class="type-signature"></span>getVersion()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the version of the smart contract package.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The version of the smart contract package.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toBuffer"><span class="type-signature">&lt;async> </span>toBuffer()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Save the smart contract package to a buffer.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A buffer containing the serialized smart contract package.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Buffer</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
