@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: IdentityService</title>
+	<title>Hyperledger Fabric SDK for node.js Class: FileSystemWallet</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,17 +93,17 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: IdentityService</h1>
+	<h1 class="page-title">Class: FileSystemWallet</h1>
 <section>
 
 <header>
     
         <h2>
-        IdentityService
+        FileSystemWallet
         </h2>
         
-            <div class="class-description">This is an implementation of the Identity service which communicates with
-the Fabric CA server using the Fabric CA client FabricCAClient.</div>
+            <div class="class-description">This class defines an implementation of an Identity wallet that persists
+to the file system.</div>
         
     
 </header>
@@ -115,19 +115,117 @@ the Fabric CA server using the Fabric CA client FabricCAClient.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="IdentityService"><span class="type-signature"></span>new IdentityService()</h4>
+    <h4 class="name" id="FileSystemWallet"><span class="type-signature"></span>new FileSystemWallet(path [, mixin])</h4>
     
     
 </dt>
 <dd>
 
     
-
+    <div class="description">
+        Creates an instance of FileSystemWallet.
+    </div>
     
 
     
 
     
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The root path for this wallet on the file system</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mixin</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">WalletMixin</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">optionally provide an alternative WalletMixin. Defaults to X509WalletMixin</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -187,6 +285,17 @@ the Fabric CA server using the Fabric CA client FabricCAClient.</div>
 
     
     </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="BaseWallet.html">BaseWallet</a></li>
+    </ul>
+
 
     
 
@@ -207,7 +316,7 @@ the Fabric CA server using the Fabric CA client FabricCAClient.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="create"><span class="type-signature"></span>create(req, registrar)</h4>
+    <h4 class="name" id="delete"><span class="type-signature">&lt;async> </span>delete(label)</h4>
     
     
 </dt>
@@ -215,9 +324,7 @@ the Fabric CA server using the Fabric CA client FabricCAClient.</div>
 
     
     <div class="description">
-        Create a new identity with the Fabric CA server.
-An enrollment secret is returned which can then be used, along with the enrollment ID, to enroll a new identity.
-The caller must have `hf.Registrar` authority.
+        Removes an identity from the wallet
     </div>
     
 
@@ -252,16 +359,10 @@ The caller must have `hf.Registrar` authority.
 
         <tr>
             
-                <td class="name"><code>req</code></td>
+                <td class="name"><code>label</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IdentityRequest">IdentityRequest</a></span>
-
-
-
             
             </td>
 
@@ -269,31 +370,7 @@ The caller must have `hf.Registrar` authority.
 
             
 
-            <td class="description last">The <a href="global.html#IdentityRequest">IdentityRequest</a></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The identity of the registrar (i.e. who is performing the registration).</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -311,11 +388,32 @@ The caller must have `hf.Registrar` authority.
 	
 
 	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseWallet.html#delete">BaseWallet#delete</a>
+			</li>
+		</ul>
+	</dd>
+	
 
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseWallet.html#delete">BaseWallet#delete</a>
+    </li></ul></dd>
     
 
     
 
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#delete">Wallet#delete</a></li>
+        
+    </ul></dd>
     
 
     
@@ -356,10 +454,6 @@ The caller must have `hf.Registrar` authority.
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    Return the secret of this new identity
-</div>
-
 
 
 <dl>
@@ -368,7 +462,7 @@ The caller must have `hf.Registrar` authority.
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Promise.&lt;void></span>
 
 
 
@@ -385,7 +479,7 @@ The caller must have `hf.Registrar` authority.
             
 <hr>
 <dt>
-    <h4 class="name" id="delete"><span class="type-signature"></span>delete(enrollmentID, registrar, force)</h4>
+    <h4 class="name" id="exists"><span class="type-signature">&lt;async> </span>exists(label)</h4>
     
     
 </dt>
@@ -393,7 +487,7 @@ The caller must have `hf.Registrar` authority.
 
     
     <div class="description">
-        Delete an existing identity. The caller must have `hf.Registrar` authority.
+        Query the existence of an identity in the wallet
     </div>
     
 
@@ -428,16 +522,10 @@ The caller must have `hf.Registrar` authority.
 
         <tr>
             
-                <td class="name"><code>enrollmentID</code></td>
+                <td class="name"><code>label</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
             
             </td>
 
@@ -446,54 +534,6 @@ The caller must have `hf.Registrar` authority.
             
 
             <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>force</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. With force, some identity can delete itself</td>
         </tr>
 
     
@@ -511,11 +551,32 @@ The caller must have `hf.Registrar` authority.
 	
 
 	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseWallet.html#exists">BaseWallet#exists</a>
+			</li>
+		</ul>
+	</dd>
+	
 
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseWallet.html#exists">BaseWallet#exists</a>
+    </li></ul></dd>
     
 
     
 
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#exists">Wallet#exists</a></li>
+        
+    </ul></dd>
     
 
     
@@ -556,10 +617,6 @@ The caller must have `hf.Registrar` authority.
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
 
 
 <dl>
@@ -568,7 +625,7 @@ The caller must have `hf.Registrar` authority.
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Promise.&lt;void></span>
 
 
 
@@ -585,7 +642,7 @@ The caller must have `hf.Registrar` authority.
             
 <hr>
 <dt>
-    <h4 class="name" id="getAll"><span class="type-signature"></span>getAll(registrar)</h4>
+    <h4 class="name" id="export"><span class="type-signature">&lt;async> </span>export(label)</h4>
     
     
 </dt>
@@ -593,7 +650,7 @@ The caller must have `hf.Registrar` authority.
 
     
     <div class="description">
-        Get all identities that the registrar is entitled to see.
+        Extract an identity from the wallet
     </div>
     
 
@@ -628,16 +685,10 @@ The caller must have `hf.Registrar` authority.
 
         <tr>
             
-                <td class="name"><code>registrar</code></td>
+                <td class="name"><code>label</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
             
             </td>
 
@@ -645,7 +696,7 @@ The caller must have `hf.Registrar` authority.
 
             
 
-            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -663,11 +714,27 @@ The caller must have `hf.Registrar` authority.
 	
 
 	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseWallet.html#export">BaseWallet#export</a>
+			</li>
+		</ul>
+	</dd>
+	
 
     
 
     
 
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#export">Wallet#export</a></li>
+        
+    </ul></dd>
     
 
     
@@ -708,10 +775,6 @@ The caller must have `hf.Registrar` authority.
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
 
 
 <dl>
@@ -720,7 +783,7 @@ The caller must have `hf.Registrar` authority.
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Promise.&lt;void></span>
 
 
 
@@ -737,97 +800,19 @@ The caller must have `hf.Registrar` authority.
             
 <hr>
 <dt>
-    <h4 class="name" id="getOne"><span class="type-signature"></span>getOne(enrollmentID, registrar)</h4>
+    <h4 class="name" id="getAllLabels"><span class="type-signature">&lt;async> </span>getAllLabels()</h4>
     
     
 </dt>
 <dd>
 
     
-    <div class="description">
-        Get an identity. The caller must have `hf.Registrar` authority.
-    </div>
-    
 
     
 
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>enrollmentID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The enrollment ID which uniquely identifies an identity</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -881,13 +866,313 @@ The caller must have `hf.Registrar` authority.
     
 
     
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getCryptoSuite"><span class="type-signature">&lt;async> </span>getCryptoSuite()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getStateStore"><span class="type-signature">&lt;async> </span>getStateStore()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="import"><span class="type-signature">&lt;async> </span>import(label, identity)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Import an identity into the wallet
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>identity</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseWallet.html#import">BaseWallet#import</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+
+    
+
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#import">Wallet#import</a></li>
+        
+    </ul></dd>
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
 
 
 <dl>
@@ -896,7 +1181,7 @@ The caller must have `hf.Registrar` authority.
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Promise.&lt;void></span>
 
 
 
@@ -913,7 +1198,7 @@ The caller must have `hf.Registrar` authority.
             
 <hr>
 <dt>
-    <h4 class="name" id="update"><span class="type-signature"></span>update(enrollmentID, req, registrar)</h4>
+    <h4 class="name" id="list"><span class="type-signature">&lt;async> </span>list()</h4>
     
     
 </dt>
@@ -921,7 +1206,7 @@ The caller must have `hf.Registrar` authority.
 
     
     <div class="description">
-        Update an existing identity. The caller must have `hf.Registrar` authority.
+        List the contents of the wallet
     </div>
     
 
@@ -930,104 +1215,6 @@ The caller must have `hf.Registrar` authority.
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>enrollmentID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IdentityRequest">IdentityRequest</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -1039,11 +1226,27 @@ The caller must have `hf.Registrar` authority.
 	
 
 	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="BaseWallet.html#list">BaseWallet#list</a>
+			</li>
+		</ul>
+	</dd>
+	
 
     
 
     
 
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="Wallet.html#list">Wallet#list</a></li>
+        
+    </ul></dd>
     
 
     
@@ -1084,10 +1287,6 @@ The caller must have `hf.Registrar` authority.
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
 
 
 <dl>
@@ -1096,7 +1295,7 @@ The caller must have `hf.Registrar` authority.
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Promise.&lt;void></span>
 
 
 

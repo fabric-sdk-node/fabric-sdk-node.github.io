@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: IdentityService</title>
+	<title>Hyperledger Fabric SDK for node.js Interfaces</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,17 +93,14 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: IdentityService</h1>
+	<h1 class="page-title">Interfaces</h1>
 <section>
 
 <header>
     
         <h2>
-        IdentityService
-        </h2>
         
-            <div class="class-description">This is an implementation of the Identity service which communicates with
-the Fabric CA server using the Fabric CA client FabricCAClient.</div>
+        </h2>
         
     
 </header>
@@ -113,24 +110,8 @@ the Fabric CA server using the Fabric CA client FabricCAClient.</div>
     <div class="container-overview">
     
         
-<hr>
-<dt>
-    <h4 class="name" id="IdentityService"><span class="type-signature"></span>new IdentityService()</h4>
-    
-    
-</dt>
-<dd>
 
-    
-
-    
-
-    
-
-    
-    
-
-    
+        
 <dl class="details">
     
 
@@ -170,21 +151,7 @@ the Fabric CA server using the Fabric CA client FabricCAClient.</div>
 </dl>
 
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
+        
     
     </div>
 
@@ -193,923 +160,170 @@ the Fabric CA server using the Fabric CA client FabricCAClient.</div>
     
 
     
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
+        <h3 class="subsection-title">Classes</h3>
 
         <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="create"><span class="type-signature"></span>create(req, registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Create a new identity with the Fabric CA server.
-An enrollment secret is returned which can then be used, along with the enrollment ID, to enroll a new identity.
-The caller must have `hf.Registrar` authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
+            <dt><a href="AffiliationService.html">AffiliationService</a></dt>
+            <dd></dd>
         
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
+            <dt><a href="BaseClient.html">BaseClient</a></dt>
+            <dd></dd>
         
-        <th>Name</th>
+            <dt><a href="BasePackager.html">BasePackager</a></dt>
+            <dd></dd>
         
-
-        <th>Type</th>
-
+            <dt><a href="BaseWallet.html">BaseWallet</a></dt>
+            <dd></dd>
         
-
+            <dt><a href="BasicCommitHandler.html">BasicCommitHandler</a></dt>
+            <dd></dd>
         
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IdentityRequest">IdentityRequest</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The <a href="global.html#IdentityRequest">IdentityRequest</a></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The identity of the registrar (i.e. who is performing the registration).</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Return the secret of this new identity
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
+            <dt><a href="BlockDecoder.html">BlockDecoder</a></dt>
+            <dd></dd>
         
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
+            <dt><a href="CertificateAuthority.html">CertificateAuthority</a></dt>
+            <dd></dd>
         
-
-    
-</dd>
-
+            <dt><a href="ChaincodeRegistration.html">ChaincodeRegistration</a></dt>
+            <dd></dd>
         
-            
-<hr>
-<dt>
-    <h4 class="name" id="delete"><span class="type-signature"></span>delete(enrollmentID, registrar, force)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Delete an existing identity. The caller must have `hf.Registrar` authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
+            <dt><a href="Channel.html">Channel</a></dt>
+            <dd></dd>
         
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
+            <dt><a href="ChannelEventHub.html">ChannelEventHub</a></dt>
+            <dd></dd>
         
-        <th>Name</th>
+            <dt><a href="ChannelPeer.html">ChannelPeer</a></dt>
+            <dd></dd>
         
-
-        <th>Type</th>
-
+            <dt><a href="Client.html">Client</a></dt>
+            <dd></dd>
         
-
+            <dt><a href="Contract.html">Contract</a></dt>
+            <dd></dd>
         
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>enrollmentID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>force</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. With force, some identity can delete itself</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
+            <dt><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></dt>
+            <dd></dd>
         
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
+            <dt><a href="CryptoKeyStore.html">CryptoKeyStore</a></dt>
+            <dd></dd>
         
-
-    
-</dd>
-
+            <dt><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></dt>
+            <dd></dd>
         
-            
-<hr>
-<dt>
-    <h4 class="name" id="getAll"><span class="type-signature"></span>getAll(registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get all identities that the registrar is entitled to see.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
+            <dt><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></dt>
+            <dd></dd>
         
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
+            <dt><a href="DefaultEventHandlerManager.html">DefaultEventHandlerManager</a></dt>
+            <dd></dd>
         
-        <th>Name</th>
+            <dt><a href="DiscoveryEndorsementHandler.html">DiscoveryEndorsementHandler</a></dt>
+            <dd></dd>
         
-
-        <th>Type</th>
-
+            <dt><a href="ECDSA_KEY.html">ECDSA_KEY</a></dt>
+            <dd></dd>
         
-
+            <dt><a href="EndorsementPolicy.html">EndorsementPolicy</a></dt>
+            <dd></dd>
         
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
+            <dt><a href="Endpoint.html">Endpoint</a></dt>
+            <dd></dd>
         
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
+            <dt><a href="FileKeyValueStore.html">FileKeyValueStore</a></dt>
+            <dd></dd>
         
-
-    
-</dd>
-
+            <dt><a href="FileSystemWallet.html">FileSystemWallet</a></dt>
+            <dd></dd>
         
-            
-<hr>
-<dt>
-    <h4 class="name" id="getOne"><span class="type-signature"></span>getOne(enrollmentID, registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get an identity. The caller must have `hf.Registrar` authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
+            <dt><a href="Gateway.html">Gateway</a></dt>
+            <dd></dd>
         
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
+            <dt><a href="global.html#Identity">Identity</a></dt>
+            <dd></dd>
         
-        <th>Name</th>
+            <dt><a href="IdentityService.html">IdentityService</a></dt>
+            <dd></dd>
         
-
-        <th>Type</th>
-
+            <dt><a href="InMemoryKVS.html">InMemoryKVS</a></dt>
+            <dd></dd>
         
-
+            <dt><a href="InMemoryWallet.html">InMemoryWallet</a></dt>
+            <dd></dd>
         
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>enrollmentID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The enrollment ID which uniquely identifies an identity</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
+            <dt><a href="module.exports_module.exports.html">exports</a></dt>
+            <dd></dd>
         
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
+            <dt><a href="module-api.CommitHandler.html">CommitHandler</a></dt>
+            <dd></dd>
         
-
-    
-</dd>
-
+            <dt><a href="module-api.CryptoSuite.html">CryptoSuite</a></dt>
+            <dd></dd>
         
-            
-<hr>
-<dt>
-    <h4 class="name" id="update"><span class="type-signature"></span>update(enrollmentID, req, registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Update an existing identity. The caller must have `hf.Registrar` authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
+            <dt><a href="module-api.EndorsementHandler.html">EndorsementHandler</a></dt>
+            <dd></dd>
         
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
+            <dt><a href="module-api.Hash.html">Hash</a></dt>
+            <dd></dd>
         
-        <th>Name</th>
+            <dt><a href="module-api.Key.html">Key</a></dt>
+            <dd></dd>
         
-
-        <th>Type</th>
-
+            <dt><a href="module-api.KeyValueStore.html">KeyValueStore</a></dt>
+            <dd></dd>
         
-
+            <dt><a href="MSP.html">MSP</a></dt>
+            <dd></dd>
         
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>enrollmentID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IdentityRequest">IdentityRequest</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
+            <dt><a href="MSPManager.html">MSPManager</a></dt>
+            <dd></dd>
         
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
+            <dt><a href="Network.html">Network</a></dt>
+            <dd></dd>
         
-
-    
-</dd>
-
+            <dt><a href="NetworkConfig_1_0.html">NetworkConfig_1_0</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Orderer.html">Orderer</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Organization.html">Organization</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Package.html">Package</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Peer.html">Peer</a></dt>
+            <dd></dd>
+        
+            <dt><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Remote.html">Remote</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Signer.html">Signer</a></dt>
+            <dd></dd>
+        
+            <dt><a href="SigningIdentity.html">SigningIdentity</a></dt>
+            <dd></dd>
+        
+            <dt><a href="TransactionID.html">TransactionID</a></dt>
+            <dd></dd>
+        
+            <dt><a href="User.html">User</a></dt>
+            <dd></dd>
+        
+            <dt><a href="X509WalletMixin.html">X509WalletMixin</a></dt>
+            <dd></dd>
         </dl>
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -1159,7 +373,7 @@ The caller must have `hf.Registrar` authority.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-10-04T01:15:09+00:00
+		on 2018-10-04T01:15:07+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

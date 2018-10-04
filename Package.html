@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: IdentityService</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Package</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,17 +93,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: IdentityService</h1>
+	<h1 class="page-title">Class: Package</h1>
 <section>
 
 <header>
     
         <h2>
-        IdentityService
+        Package
         </h2>
         
-            <div class="class-description">This is an implementation of the Identity service which communicates with
-the Fabric CA server using the Fabric CA client FabricCAClient.</div>
+            <div class="class-description">A class representing a smart contract package.</div>
         
     
 </header>
@@ -115,19 +114,73 @@ the Fabric CA server using the Fabric CA client FabricCAClient.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="IdentityService"><span class="type-signature"></span>new IdentityService()</h4>
+    <h4 class="name" id="Package"><span class="type-signature"></span>new Package(chaincodeDeploymentSpec)</h4>
     
     
 </dt>
 <dd>
 
     
-
+    <div class="description">
+        Constructor.
+    </div>
     
 
     
 
     
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodeDeploymentSpec</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ChaincodeDeploymentSpec</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The chaincode deployment specification.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -207,7 +260,7 @@ the Fabric CA server using the Fabric CA client FabricCAClient.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="create"><span class="type-signature"></span>create(req, registrar)</h4>
+    <h4 class="name" id=".fromBuffer"><span class="type-signature">&lt;async, static> </span>fromBuffer(buffer)</h4>
     
     
 </dt>
@@ -215,9 +268,7 @@ the Fabric CA server using the Fabric CA client FabricCAClient.</div>
 
     
     <div class="description">
-        Create a new identity with the Fabric CA server.
-An enrollment secret is returned which can then be used, along with the enrollment ID, to enroll a new identity.
-The caller must have `hf.Registrar` authority.
+        Load a smart contract package from the specified buffer.
     </div>
     
 
@@ -252,13 +303,13 @@ The caller must have `hf.Registrar` authority.
 
         <tr>
             
-                <td class="name"><code>req</code></td>
+                <td class="name"><code>buffer</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#IdentityRequest">IdentityRequest</a></span>
+<span class="param-type">Buffer</span>
 
 
 
@@ -269,31 +320,7 @@ The caller must have `hf.Registrar` authority.
 
             
 
-            <td class="description last">The <a href="global.html#IdentityRequest">IdentityRequest</a></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The identity of the registrar (i.e. who is performing the registration).</td>
+            <td class="description last">A buffer containing the serialized smart contract package.</td>
         </tr>
 
     
@@ -357,7 +384,7 @@ The caller must have `hf.Registrar` authority.
     
             
 <div class="param-desc">
-    Return the secret of this new identity
+    The smart contract package.
 </div>
 
 
@@ -368,7 +395,7 @@ The caller must have `hf.Registrar` authority.
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type"><a href="Package.html">Package</a></span>
 
 
 
@@ -385,7 +412,7 @@ The caller must have `hf.Registrar` authority.
             
 <hr>
 <dt>
-    <h4 class="name" id="delete"><span class="type-signature"></span>delete(enrollmentID, registrar, force)</h4>
+    <h4 class="name" id=".fromDirectory"><span class="type-signature">&lt;async, static> </span>fromDirectory(options)</h4>
     
     
 </dt>
@@ -393,7 +420,7 @@ The caller must have `hf.Registrar` authority.
 
     
     <div class="description">
-        Delete an existing identity. The caller must have `hf.Registrar` authority.
+        Create a new smart contract package from the specified directory.
     </div>
     
 
@@ -428,7 +455,52 @@ The caller must have `hf.Registrar` authority.
 
         <tr>
             
-                <td class="name"><code>enrollmentID</code></td>
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The options for the packager.
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
             
 
             <td class="type">
@@ -442,345 +514,25 @@ The caller must have `hf.Registrar` authority.
             </td>
 
             
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type"><a href="User.html">User</a></span>
 
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>force</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type">boolean</span>
 
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. With force, some identity can delete itself</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getAll"><span class="type-signature"></span>getAll(registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get all identities that the registrar is entitled to see.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
+                </td>
             
 
             
 
-            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
+            <td class="description last">The name of the smart contract.</td>
         </tr>
 
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getOne"><span class="type-signature"></span>getOne(enrollmentID, registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get an identity. The caller must have `hf.Registrar` authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>enrollmentID</code></td>
+                <td class="name"><code>version</code></td>
             
 
             <td class="type">
@@ -794,23 +546,31 @@ The caller must have `hf.Registrar` authority.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Required. The enrollment ID which uniquely identifies an identity</td>
+            <td class="description last">The version of the smart contract.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>registrar</code></td>
+                <td class="name"><code>path</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="User.html">User</a></span>
+<span class="param-type">string</span>
 
 
 
@@ -818,10 +578,91 @@ The caller must have `hf.Registrar` authority.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
+            <td class="description last">The directory containing the smart contract.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The type of the smart contract, one of 'golang', 'car', 'node' or 'java'.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metadataPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The directory containing the metadata descriptors.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -885,7 +726,7 @@ The caller must have `hf.Registrar` authority.
     
             
 <div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
+    The smart contract package.
 </div>
 
 
@@ -896,7 +737,7 @@ The caller must have `hf.Registrar` authority.
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type"><a href="Package.html">Package</a></span>
 
 
 
@@ -913,7 +754,7 @@ The caller must have `hf.Registrar` authority.
             
 <hr>
 <dt>
-    <h4 class="name" id="update"><span class="type-signature"></span>update(enrollmentID, req, registrar)</h4>
+    <h4 class="name" id="getFileNames"><span class="type-signature"></span>getFileNames()</h4>
     
     
 </dt>
@@ -921,7 +762,7 @@ The caller must have `hf.Registrar` authority.
 
     
     <div class="description">
-        Update an existing identity. The caller must have `hf.Registrar` authority.
+        Get the list of file names in this smart contract package.
     </div>
     
 
@@ -930,104 +771,6 @@ The caller must have `hf.Registrar` authority.
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>enrollmentID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IdentityRequest">IdentityRequest</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -1085,7 +828,7 @@ The caller must have `hf.Registrar` authority.
     
             
 <div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
+    The list of file names in this smart contract package.
 </div>
 
 
@@ -1096,7 +839,415 @@ The caller must have `hf.Registrar` authority.
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Array.&lt;string></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the name of the smart contract package.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The name of the smart contract package.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getType"><span class="type-signature"></span>getType()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the type of the smart contract package.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The type of the smart contract package, one of 'golang', 'car', 'node' or 'java'.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getVersion"><span class="type-signature"></span>getVersion()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the version of the smart contract package.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The version of the smart contract package.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toBuffer"><span class="type-signature">&lt;async> </span>toBuffer()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Save the smart contract package to a buffer.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A buffer containing the serialized smart contract package.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Buffer</span>
 
 
 
