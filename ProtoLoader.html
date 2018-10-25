@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: FileKeyValueStore</title>
+	<title>Hyperledger Fabric SDK for node.js Class: ProtoLoader</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,17 +93,17 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: FileKeyValueStore</h1>
+	<h1 class="page-title">Class: ProtoLoader</h1>
 <section>
 
 <header>
     
         <h2>
-        FileKeyValueStore
+        ProtoLoader
         </h2>
         
-            <div class="class-description">This is a default implementation of the <a href="module-api.KeyValueStore.html">KeyValueStore</a> API.
-It uses files to store the key values.</div>
+            <div class="class-description">A class for easily loading service descriptors and client stub definitions from
+.proto files at runtime.</div>
         
     
 </header>
@@ -115,74 +115,19 @@ It uses files to store the key values.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="FileKeyValueStore"><span class="type-signature"></span>new FileKeyValueStore(options)</h4>
+    <h4 class="name" id="ProtoLoader"><span class="type-signature"></span>new ProtoLoader()</h4>
     
     
 </dt>
 <dd>
 
     
-    <div class="description">
-        constructor
-    </div>
-    
 
     
 
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">contains a single property <code>path</code> which points to the top-level directory
-for the store</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -242,17 +187,6 @@ for the store</td>
 
     
     </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="module-api.KeyValueStore.html">module:api.KeyValueStore</a></li>
-    </ul>
-
 
     
 
@@ -273,7 +207,7 @@ for the store</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="getValue"><span class="type-signature"></span>getValue(name)</h4>
+    <h4 class="name" id=".load"><span class="type-signature">&lt;static> </span>load(filename [, options])</h4>
     
     
 </dt>
@@ -281,7 +215,7 @@ for the store</td>
 
     
     <div class="description">
-        Get the value associated with <code>name</code>.
+        Load service descriptors and client stub definitions from a .proto file.
     </div>
     
 
@@ -304,6 +238,8 @@ for the store</td>
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -316,7 +252,7 @@ for the store</td>
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>filename</code></td>
             
 
             <td class="type">
@@ -330,10 +266,52 @@ for the store</td>
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Name of the key</td>
+            <td class="description last">The filename of the .proto file.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The options used to load the .proto file.</td>
         </tr>
 
     
@@ -351,21 +329,7 @@ for the store</td>
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.KeyValueStore.html#getValue">module:api.KeyValueStore#getValue</a>
-			</li>
-		</ul>
-	</dd>
-	
 
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.KeyValueStore.html#getValue">module:api.KeyValueStore#getValue</a>
-    </li></ul></dd>
     
 
     
@@ -411,8 +375,7 @@ for the store</td>
     
             
 <div class="param-desc">
-    Promise for the value corresponding to the key. If the value does not exist in the
-store, returns null without rejecting the promise
+    The loaded service descriptors and client stub definitions.
 </div>
 
 
@@ -423,197 +386,7 @@ store, returns null without rejecting the promise
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setValue"><span class="type-signature"></span>setValue(name, value)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the value associated with <code>name</code>.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Name of the key to save</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Value to save</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.KeyValueStore.html#setValue">module:api.KeyValueStore#setValue</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.KeyValueStore.html#setValue">module:api.KeyValueStore#setValue</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for the 'value' object upon successful write operation
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
+<span class="param-type">*</span>
 
 
 
