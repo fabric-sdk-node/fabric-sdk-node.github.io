@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: TransactionID</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Transaction</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,18 +93,14 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: TransactionID</h1>
+	<h1 class="page-title">Class: Transaction</h1>
 <section>
 
 <header>
     
         <h2>
-        TransactionID
+        Transaction
         </h2>
-        
-            <div class="class-description">The class representing the transaction identifier. Provides for
-automatically creating the `nonce` value when an instance of this
-object is created.</div>
         
     
 </header>
@@ -116,7 +112,7 @@ object is created.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="TransactionID"><span class="type-signature"></span>new TransactionID(signer_or_userContext, admin)</h4>
+    <h4 class="name" id="Transaction"><span class="type-signature"></span>new Transaction(contract, name)</h4>
     
     
 </dt>
@@ -124,8 +120,7 @@ object is created.</div>
 
     
     <div class="description">
-        Builds a new transaction Id based on a user's certificate and an automatically
-generates a nonce value.
+        Constructor.
     </div>
     
 
@@ -160,13 +155,13 @@ generates a nonce value.
 
         <tr>
             
-                <td class="name"><code>signer_or_userContext</code></td>
+                <td class="name"><code>contract</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#Identity">Identity</a></span>
+<span class="param-type"><a href="Contract.html">Contract</a></span>
 
 
 
@@ -177,21 +172,20 @@ generates a nonce value.
 
             
 
-            <td class="description last">An instance of <a href="global.html#Identity">Identity</a> that provides an unique
-                base for this transaction id. This also may be an instance of a {@User}.</td>
+            <td class="description last">Contract to which this transaction belongs.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>admin</code></td>
+                <td class="name"><code>name</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">String</span>
 
 
 
@@ -202,7 +196,7 @@ generates a nonce value.
 
             
 
-            <td class="description last">Indicates that this instance will be used for administrative  transactions.</td>
+            <td class="description last">Transaction name.</td>
         </tr>
 
     
@@ -288,7 +282,7 @@ generates a nonce value.
             
 <hr>
 <dt>
-    <h4 class="name" id="getNonce"><span class="type-signature"></span>getNonce()</h4>
+    <h4 class="name" id="submit"><span class="type-signature">&lt;async> </span>submit(args)</h4>
     
     
 </dt>
@@ -296,7 +290,9 @@ generates a nonce value.
 
     
     <div class="description">
-        The nonce value
+        Submit a transaction to the ledger. The transaction function <code>name</code>
+will be evaluated on the endorsing peers and then submitted to the ordering service
+for committing to the ledger.
     </div>
     
 
@@ -306,161 +302,67 @@ generates a nonce value.
 
     
     
+        <h5>Parameters:</h5>
+        
 
-    
-<dl class="details">
-    
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
 
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
+        <th>Type</th>
 
         
-            
-<hr>
-<dt>
-    <h4 class="name" id="getTransactionID"><span class="type-signature"></span>getTransactionID()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        The transaction ID
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
+        <th>Argument</th>
+        
 
         
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
             
-<hr>
-<dt>
-    <h4 class="name" id="isAdmin"><span class="type-signature"></span>isAdmin()</h4>
-    
-    
-</dt>
-<dd>
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Transaction function arguments.</td>
+        </tr>
 
     
-    <div class="description">
-        indicates if this transactionID was generated for an admin
-    </div>
-    
+    </tbody>
+</table>
 
-    
-
-    
-
-    
     
 
     
@@ -514,6 +416,30 @@ generates a nonce value.
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Payload response from the transaction function.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Buffer</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
