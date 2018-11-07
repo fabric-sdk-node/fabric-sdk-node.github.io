@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Tutorial: How to use the channel-based event service</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: fabric-client: How to use the channel-based event service</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -40,21 +40,21 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="AffiliationService.html">AffiliationService</a></li><li><a href="BaseClient.html">BaseClient</a></li><li><a href="BasePackager.html">BasePackager</a></li><li><a href="BaseWallet.html">BaseWallet</a></li><li><a href="BasicCommitHandler.html">BasicCommitHandler</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="CertificateAuthority.html">CertificateAuthority</a></li><li><a href="ChaincodeRegistration.html">ChaincodeRegistration</a></li><li><a href="Channel.html">Channel</a></li><li><a href="ChannelEventHub.html">ChannelEventHub</a></li><li><a href="ChannelPeer.html">ChannelPeer</a></li><li><a href="Client.html">Client</a></li><li><a href="Contract.html">Contract</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CouchDBWallet.html">CouchDBWallet</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="DiscoveryEndorsementHandler.html">DiscoveryEndorsementHandler</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="Endpoint.html">Endpoint</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="FileSystemWallet.html">FileSystemWallet</a></li><li><a href="Gateway.html">Gateway</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="IdentityService.html">IdentityService</a></li><li><a href="InMemoryKVS.html">InMemoryKVS</a></li><li><a href="InMemoryWallet.html">InMemoryWallet</a></li><li><a href="module.exports_module.exports.html">module.exports#module.exports</a></li><li><a href="module-api.CommitHandler.html">api.CommitHandler</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.EndorsementHandler.html">api.EndorsementHandler</a></li><li><a href="module-api.Hash.html">api.Hash</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="Network.html">Network</a></li><li><a href="NetworkConfig_1_0.html">NetworkConfig_1_0</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Organization.html">Organization</a></li><li><a href="Package.html">Package</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="ProtoLoader.html">ProtoLoader</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="global.html#Transaction">Transaction</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li><li><a href="X509WalletMixin.html">X509WalletMixin</a></li>
+					<li><a href="AffiliationService.html">AffiliationService</a></li><li><a href="BaseClient.html">BaseClient</a></li><li><a href="BasePackager.html">BasePackager</a></li><li><a href="BaseWallet.html">BaseWallet</a></li><li><a href="BasicCommitHandler.html">BasicCommitHandler</a></li><li><a href="BlockDecoder.html">BlockDecoder</a></li><li><a href="CertificateAuthority.html">CertificateAuthority</a></li><li><a href="ChaincodeRegistration.html">ChaincodeRegistration</a></li><li><a href="Channel.html">Channel</a></li><li><a href="ChannelEventHub.html">ChannelEventHub</a></li><li><a href="ChannelPeer.html">ChannelPeer</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="DiscoveryEndorsementHandler.html">DiscoveryEndorsementHandler</a></li><li><a href="ECDSA_KEY.html">ECDSA_KEY</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="Endpoint.html">Endpoint</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="global.html#Identity">Identity</a></li><li><a href="IdentityService.html">IdentityService</a></li><li><a href="InMemoryKVS.html">InMemoryKVS</a></li><li><a href="module.exports_module.exports.html">module.exports#module.exports</a></li><li><a href="module-api.CommitHandler.html">api.CommitHandler</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.EndorsementHandler.html">api.EndorsementHandler</a></li><li><a href="module-api.Hash.html">api.Hash</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="module-fabric-network.Contract.html">fabric-network.Contract</a></li><li><a href="module-fabric-network.CouchDBWallet.html">fabric-network.CouchDBWallet</a></li><li><a href="module-fabric-network.FileSystemWallet.html">fabric-network.FileSystemWallet</a></li><li><a href="module-fabric-network.Gateway.html">fabric-network.Gateway</a></li><li><a href="module-fabric-network.HSMWalletMixin.html">fabric-network.HSMWalletMixin</a></li><li><a href="module-fabric-network.InMemoryWallet.html">fabric-network.InMemoryWallet</a></li><li><a href="module-fabric-network.Network.html">fabric-network.Network</a></li><li><a href="module-fabric-network.Transaction.html">fabric-network.Transaction</a></li><li><a href="module-fabric-network.X509WalletMixin.html">fabric-network.X509WalletMixin</a></li><li><a href="MSP.html">MSP</a></li><li><a href="MSPManager.html">MSPManager</a></li><li><a href="NetworkConfig_1_0.html">NetworkConfig_1_0</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Organization.html">Organization</a></li><li><a href="Package.html">Package</a></li><li><a href="Peer.html">Peer</a></li><li><a href="PKCS11_ECDSA_KEY.html">PKCS11_ECDSA_KEY</a></li><li><a href="ProtoLoader.html">ProtoLoader</a></li><li><a href="Remote.html">Remote</a></li><li><a href="Signer.html">Signer</a></li><li><a href="SigningIdentity.html">SigningIdentity</a></li><li><a href="TransactionID.html">TransactionID</a></li><li><a href="User.html">User</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="interfaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Interfaces<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="QueryHandler.html">QueryHandler</a></li><li><a href="Wallet.html">Wallet</a></li>
+					<li><a href="module-fabric-network.Wallet.html">fabric-network.Wallet</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">How to use the service discovery</a></li><li><a href="tutorial-logging.html">How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">How to sign a transaction with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">transaction-commit-events</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the service discovery</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">fabric-client: How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">fabric-client: How to sign a transaction with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
 				</ul>
 			</li>
 			
@@ -96,7 +96,7 @@
 <header>
     
 
-    <h2>How to use the channel-based event service</h2>
+    <h2>fabric-client: How to use the channel-based event service</h2>
 </header>
 
 <article>
@@ -232,22 +232,22 @@ endpoint configuration settings that the peer instance is using, like the tls
 certs and the host and port address.</p>
 <p>When using a connection profile (<a href="tutorial-network-config.html">see</a>) then
 the peer's name may be used to get a new channel event hub.</p>
-<pre class="prettyprint source"><code>var channel_event_hub = channel.newChannelEventHub('peer0.org1.example.com');</code></pre><p>Here is an example of how to get a list of channel event hubs when using a
+<pre class="prettyprint source"><code>const channel_event_hub = channel.newChannelEventHub('peer0.org1.example.com');</code></pre><p>Here is an example of how to get a list of channel event hubs when using a
 connection profile. The following will get a list based on the current
 organization that is defined in the currently active <code>client</code> section of the
 connection profile. Peers defined in the organization that have the <code>eventSource</code>
 set to true will be added to the list.</p>
-<pre class="prettyprint source"><code>var channel_event_hubs = channel.getChannelEventHubsForOrg();</code></pre><p>When creating a peer instance, you can get a <code>ChannelEventHub</code> instance by using
+<pre class="prettyprint source"><code>const channel_event_hubs = channel.getChannelEventHubsForOrg();</code></pre><p>When creating a peer instance, you can get a <code>ChannelEventHub</code> instance by using
 the peer instance.</p>
-<pre class="prettyprint source"><code>let data = fs.readFileSync(path.join(__dirname, 'somepath/tlscacerts/org1.example.com-cert.pem'));
-let peer = client.newPeer(
+<pre class="prettyprint source"><code>const data = fs.readFileSync(path.join(__dirname, 'somepath/tlscacerts/org1.example.com-cert.pem'));
+const peer = client.newPeer(
     'grpcs://localhost:7051',
     {
         pem: Buffer.from(data).toString(),
         'ssl-target-name-override': 'peer0.org1.example.com'
     }
 );
-let channel_event_hub = channel.newChannelEventHub(peer);</code></pre><h3>Block Listener</h3><p>When there is a need to monitor for new blocks being added to the ledger,
+const channel_event_hub = channel.newChannelEventHub(peer);</code></pre><h3>Block Listener</h3><p>When there is a need to monitor for new blocks being added to the ledger,
 use a block event listener. The Fabric client Node.js will be notified when a
 new block is committed to the ledger on the peer. The client Node.js will then
 call the registered callback of the application program. The callback will be
@@ -478,7 +478,20 @@ let send_trans = channel.sendTransaction({proposalResponses: results[0], proposa
 
 // now that we have two promises all set to go... execute them
 return Promise.all([event_monitor, send_trans]);
-}).then((results) => {</code></pre><p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+}).then((results) => {</code></pre><h3>When using mutual tls</h3><p>All peers and orderers objects need to use the same client side credentials
+for a mutual TLS connection. The credentials must be assigned to the 'client'
+object instance before it is used to create the peer used in the ChannelEventHub
+creation.</p>
+<pre class="prettyprint source"><code>const client = new Client();
+client.setTlsClientCertAndKey(tlsInfo.certificate, tlsInfo.key);
+
+const channel = client.newChannel('mychannel');
+const peer = client.newPeer('grpcs://localhost:7051', {
+    pem: '&lt;pem string here>',
+    'ssl-target-name-override': 'peer0.org1.example.com'
+});
+channel.addPeer(peer);
+const channelEventHub = channel.newChannelEventHub(peer);</code></pre><p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
 </article>
 
 </section>
@@ -516,7 +529,7 @@ return Promise.all([event_monitor, send_trans]);
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-11-02T19:18:54+00:00
+		on 2018-11-07T21:27:14+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

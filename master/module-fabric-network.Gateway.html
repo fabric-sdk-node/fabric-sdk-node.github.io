@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Identity</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Gateway</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,21 +93,24 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Identity</h1>
+	<h1 class="page-title">Class: Gateway</h1>
 <section>
 
 <header>
     
         <h2>
-        Identity
+            <span class="ancestors"><a href="module-fabric-network.html">fabric-network</a>.</span>
+        
+        Gateway
         </h2>
         
-            <div class="class-description">This interface is shared within the peer and client API of the membership service provider.
-Identity interface defines operations associated to a "certificate".
-That is, the public part of the identity could be thought to be a certificate,
-and offers solely signature verification capabilities. This is to be used
-at the client side when validating certificates that endorsements are signed
-with, and verifying signatures that correspond to these certificates.</div>
+            <div class="class-description">The gateway peer provides the connection point for an application to access the Fabric network.  It is instantiated using
+the default constructor.
+It can then be connected to a fabric network using the connect method by passing either a CCP definition
+or an existing module:fabric-client.Client object.
+Once connected, it can then access individual Network instances (channels) using the getNetwork method
+which in turn can access the smart contracts installed on a network and
+submit transactions to the ledger.</div>
         
     
 </header>
@@ -119,7 +122,7 @@ with, and verifying signatures that correspond to these certificates.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="Identity"><span class="type-signature"></span>new Identity(certificate, publicKey, mspId, cryptoSuite)</h4>
+    <h4 class="name" id="Gateway"><span class="type-signature"></span>new Gateway()</h4>
     
     
 </dt>
@@ -132,129 +135,6 @@ with, and verifying signatures that correspond to these certificates.</div>
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>certificate</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">HEX string for the PEM encoded certificate</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>publicKey</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The public key represented by the certificate</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mspId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The associated MSP's mspId that manages this identity</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>cryptoSuite</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The underlying CryptoSuite implementation for the digital
-signature algorithm</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -334,7 +214,7 @@ signature algorithm</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="getMSPId"><span class="type-signature"></span>getMSPId()</h4>
+    <h4 class="name" id="connect"><span class="type-signature">&lt;async> </span>connect(config, options)</h4>
     
     
 </dt>
@@ -342,9 +222,7 @@ signature algorithm</td>
 
     
     <div class="description">
-        Returns the identifier of the Membser Service Provider that manages
-this identity in terms of being able to understand the key algorithms
-and have access to the trusted roots needed to validate it
+        Connect to the Gateway with a connection profile or a prebuilt Client instance.
     </div>
     
 
@@ -354,78 +232,156 @@ and have access to the trusted roots needed to validate it
 
     
     
+        <h5>Parameters:</h5>
+        
 
-    
-<dl class="details">
-    
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
 
-	
+        <th>Type</th>
 
-	
+        
 
-	
+        
 
-    
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
+    <tbody>
     
 
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
+        <tr>
+            
+                <td class="name"><code>config</code></td>
             
 
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
+            <td class="type">
+            
+                
 <span class="param-type">string</span>
+|
+
+<span class="param-type">object</span>
+|
+
+<span class="param-type">module:fabric-client.Client</span>
 
 
 
-    </dd>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The configuration for this Gateway which can be:
+<ul>
+  <li>A fully qualified common connection profile file path (String)</li>
+  <li>A common connection profile JSON (Object)</li>
+  <li>A pre-configured client instance</li>
+</ul></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-fabric-network.Gateway.html#~GatewayOptions">module:fabric-network.Gateway~GatewayOptions</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">specific options for creating this Gateway instance</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
 </dl>
 
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
         
+    <pre class="sunlight-highlight-javascript">const gateway = new Gateway();
+const wallet = new FileSystemWallet(&#x27;./WALLETS/wallet&#x27;);
+const ccpFile = fs.readFileSync(&#x27;./network.json&#x27;);
+const ccp = JSON.parse(ccpFile.toString());
+await gateway.connect(ccp, {
+  identity: &#x27;admin&#x27;,
+  wallet: wallet
+});</pre>
+
 
     
 </dd>
@@ -434,7 +390,7 @@ and have access to the trusted roots needed to validate it
             
 <hr>
 <dt>
-    <h4 class="name" id="getOrganizationUnits"><span class="type-signature"></span>getOrganizationUnits()</h4>
+    <h4 class="name" id="disconnect"><span class="type-signature"></span>disconnect()</h4>
     
     
 </dt>
@@ -442,17 +398,7 @@ and have access to the trusted roots needed to validate it
 
     
     <div class="description">
-        Returns the organization units this identity is related to
-as long as this is public information. In certain implementations
-this could be implemented by certain attributes that are publicly
-associated to that identity, or the identifier of the root certificate
-authority that has provided signatures on this certificate.
-Examples:
- - OrganizationUnit of a fabric-tcert that was signed by TCA under name
-   "Organization 1", would be "Organization 1".
- - OrganizationUnit of an alternative implementation of tcert signed by a public
-   CA used by organization "Organization 1", could be provided in the clear
-   as part of that tcert structure that this call would be able to return.
+        Clean up and disconnect this Gateway connection in preparation for it to be discarded and garbage collected
     </div>
     
 
@@ -514,26 +460,6 @@ Examples:
     
 
     
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
@@ -542,7 +468,7 @@ Examples:
             
 <hr>
 <dt>
-    <h4 class="name" id="isValid"><span class="type-signature"></span>isValid()</h4>
+    <h4 class="name" id="getClient"><span class="type-signature"></span>getClient()</h4>
     
     
 </dt>
@@ -550,108 +476,7 @@ Examples:
 
     
     <div class="description">
-        This uses the rules that govern this identity to validate it.
-E.g., if it is a fabric TCert implemented as identity, validate
-will check the TCert signature against the assumed root certificate
-authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="serialize"><span class="type-signature"></span>serialize()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Converts this identity to bytes
+        Get the underlying Client object instance
     </div>
     
 
@@ -717,7 +542,7 @@ authority.
     
             
 <div class="param-desc">
-    protobuf-based serialization with two fields: "mspid" and "certificate PEM bytes"
+    The underlying client instance
 </div>
 
 
@@ -728,7 +553,7 @@ authority.
     </dt>
     <dd>
         
-<span class="param-type">Buffer</span>
+<span class="param-type">module:fabric-client.Client</span>
 
 
 
@@ -745,7 +570,7 @@ authority.
             
 <hr>
 <dt>
-    <h4 class="name" id="verify"><span class="type-signature"></span>verify(msg, signature, opts)</h4>
+    <h4 class="name" id="getCurrentIdentity"><span class="type-signature"></span>getCurrentIdentity()</h4>
     
     
 </dt>
@@ -753,7 +578,109 @@ authority.
 
     
     <div class="description">
-        Verify a signature over some message using this identity as reference
+        Get the current identity
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The current identity used by this Gateway.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">module:fabric-client.User</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getNetwork"><span class="type-signature">&lt;async> </span>getNetwork(networkName)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns an object representing a network
     </div>
     
 
@@ -788,13 +715,13 @@ authority.
 
         <tr>
             
-                <td class="name"><code>msg</code></td>
+                <td class="name"><code>networkName</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;byte></span>
+<span class="param-type">string</span>
 
 
 
@@ -805,55 +732,7 @@ authority.
 
             
 
-            <td class="description last">The message to be verified</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>signature</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The signature generated against the message "msg"</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Options include 'policy' and 'label' TODO (not implemented yet)</td>
+            <td class="description last">The name of the network (channel name)</td>
         </tr>
 
     
@@ -913,6 +792,26 @@ authority.
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-fabric-network.Network.html">module:fabric-network.Network</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -921,7 +820,7 @@ authority.
             
 <hr>
 <dt>
-    <h4 class="name" id="verifyAttributes"><span class="type-signature"></span>verifyAttributes()</h4>
+    <h4 class="name" id="getOptions"><span class="type-signature"></span>getOptions()</h4>
     
     
 </dt>
@@ -929,8 +828,7 @@ authority.
 
     
     <div class="description">
-        Verify attributes against the given attribute spec
-TODO: when this method's design is finalized
+        Returns the set of options associated with the Gateway connection
     </div>
     
 
@@ -992,6 +890,30 @@ TODO: when this method's design is finalized
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The Gateway connection options
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-fabric-network.Gateway.html#~GatewayOptions">module:fabric-network.Gateway~GatewayOptions</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -999,6 +921,758 @@ TODO: when this method's design is finalized
         </dl>
     
 
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        <dl>
+                
+<hr>
+<dt class="name" id="~DefaultEventHandlerOptions">
+    <h4 id="~DefaultEventHandlerOptions">DefaultEventHandlerOptions</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>commitTimeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    300
+                
+                </td>
+            
+
+            <td class="description last">The timeout period in seconds to wait for commit notification to
+complete.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>strategy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-fabric-network.Gateway.html#~TxEventHandlerFactory">module:fabric-network.Gateway~TxEventHandlerFactory</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                    &lt;nullable><br>
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    MSPID_SCOPE_ALLFORTX
+                
+                </td>
+            
+
+            <td class="description last">Event handling strategy to identify
+successful transaction commits. A null value indicates that no event handling is desired. The default is
+<a href="global.html#MSPID_SCOPE_ALLFORTX">MSPID_SCOPE_ALLFORTX</a>.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="~GatewayOptions">
+    <h4 id="~GatewayOptions">GatewayOptions</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>wallet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">fabric-network.Wallet</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The identity wallet implementation for use with this Gateway instance.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>identity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The identity in the wallet for all interactions on this Gateway instance.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clientTlsIdentity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The identity in the wallet to use as the client TLS identity.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>eventHandlerOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-fabric-network.Gateway.html#~DefaultEventHandlerOptions">module:fabric-network.Gateway~DefaultEventHandlerOptions</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Options for the inbuilt default
+event handler capability.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="~TxEventHandler">
+    <h4 id="~TxEventHandler">TxEventHandler</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>startLstening</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Async function that resolves when the handler has started listening for
+transaction commit events. Called after the transaction proposal has been accepted and prior to submission of
+the transaction to the orderer.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>waitForEvents</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Async function that resolves (or rejects) when suitable transaction
+commit events have been received. Called after submission of the transaction to the orderer.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cancelListening</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Cancel listening. Called if submission of the transaction to the orderer
+fails.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt>
+    <h4 class="name" id="~TxEventHandlerFactory"><span class="type-signature"></span>TxEventHandlerFactory(transactionId, network)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>transactionId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The transaction ID for which the handler should listen.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>network</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-fabric-network.Network.html">module:fabric-network.Network</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The network on which this transaction is being submitted.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A transaction event handler.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-fabric-network.Gateway.html#~TxEventHandler">module:fabric-network.Gateway~TxEventHandler</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+            </dl>
     
 
     
@@ -1046,7 +1720,7 @@ TODO: when this method's design is finalized
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-11-07T21:27:13+00:00
+		on 2018-11-07T21:27:14+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
