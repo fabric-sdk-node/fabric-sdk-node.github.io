@@ -3417,7 +3417,9 @@ metadata
             <td class="description last">Optional. <string, byte[]> map that can be
           used by the chaincode during initialization, but not saved in the
           ledger. Data such as cryptographic information for encryption can
-          be passed to the chaincode using this technique.</td>
+          be passed to the chaincode using this technique. Data that is to be
+          kept in a private data store (a collection) should be passed to the
+          chaincode in the transientMap.</td>
         </tr>
 
     
@@ -3853,7 +3855,10 @@ chaincode_spec
 
             <td class="description last">Optional. <string, byte[]> map that can be
           used by the chaincode but not
-          saved in the ledger, such as cryptographic information for encryption</td>
+          saved in the ledger, such as cryptographic information for encryption.
+          Data that is to be
+          kept in a private data store (a collection) should be passed to the
+          chaincode in the transientMap.</td>
         </tr>
 
     
@@ -4129,7 +4134,9 @@ chaincode_spec
 
             <td class="description last">Optional. <string, byte[]> map that can be
           used by the chaincode but not saved in the ledger, such as cryptographic
-          information for encryption</td>
+          information for encryption. Data that is to be
+          kept in a private data store (a collection) should be passed to the
+          chaincode in the transientMap.</td>
         </tr>
 
     
@@ -5540,6 +5547,401 @@ values
             
 
             <td class="description last">param will be converted to unsigned int64 as Long</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="CollectionQueryOptions">
+    <h4 id="CollectionQueryOptions">CollectionQueryOptions</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodeId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. Name of the chaincode</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. The peer that will receive this
+          request, when not provided the first peer in this channel
+          object will be used.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="CollectionQueryResponse">
+    <h4 id="CollectionQueryResponse">CollectionQueryResponse</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The collection type</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the name of the collection inside the denoted chaincode</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>required_peer_count</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The minimum number of peers private data
+ will be sent to upon endorsement. The endorsement would fail if dissemination to
+ at least this number of peers is not achieved.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maximum_peer_count</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The maximum number of peers that private
+ data will be sent to upon endorsement. This number has to be bigger than
+ required_peer_count.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>block_to_live</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of blocks after which the collection
+ data expires. For instance if the value is set to 10, a key last modified by block
+ number 100 will be purged at block number 111. A zero value is treated same as MaxUint64</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>policy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Policy">Policy</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The</td>
         </tr>
 
     
@@ -12383,7 +12785,9 @@ payload -- {}
 
             <td class="description last">Optional. <sting, byte[]> The Map that can be
           used by the chaincode but not saved in the ledger, such as
-          cryptographic information for encryption.</td>
+          cryptographic information for encryption. Data that is to be
+          kept in a private data store (a collection) should be passed to the
+          chaincode in the transientMap.</td>
         </tr>
 
     
@@ -15285,7 +15689,7 @@ with a network configuration.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-11-02T18:35:36+00:00
+		on 2018-11-20T10:59:57+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
