@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Tutorial: How to use private data</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: fabric-client: How to use private data</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -54,7 +54,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the service discovery</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">fabric-client: How to sign a transaction with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the service discovery</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">fabric-client: How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">fabric-client: How to sign a transaction with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
 				</ul>
 			</li>
 			
@@ -96,19 +96,14 @@
 <header>
     
 
-    <h2>How to use private data</h2>
+    <h2>fabric-client: How to use private data</h2>
 </header>
 
 <article>
     <p>This tutorial illustrates how to use the Node.js SDK APIs to store and retrieve private data in the Hyperledger Fabric network.</p>
 <p>Starting in v1.2, Fabric offers the ability to create private data collections, which allows a subset of organizations on
 a channel to endorse, commit, or query private data without having to create a separate channel. For more information,
-refer to:</p>
-<ul>
-<li><a href="http://hyperledger-fabric.readthedocs.io/en/latest/private-data/private-data.html">Private Data Concept</a> </li>
-<li><a href="http://hyperledger-fabric.readthedocs.io/en/latest/private-data-arch.html">Private Data Architecture</a></li>
-<li><a href="http://hyperledger-fabric.readthedocs.io/en/latest/private_data_tutorial.html">Using Private Data in Fabric</a></li>
-</ul>
+refer to <a href="http://hyperledger-fabric.readthedocs.io/en/latest/private-data/private-data.html">Private Data Concept</a>, <a href="http://hyperledger-fabric.readthedocs.io/en/latest/private-data-arch.html">Private Data Architecture</a>, and <a href="http://hyperledger-fabric.readthedocs.io/en/latest/private_data_tutorial.html">Using Private Data in Fabric</a>.</p>
 <h3>Overview</h3><p>The following are the steps to use private data with the Node.js SDK (fabric-client). Check out the sections below for details on these steps.</p>
 <ol>
 <li>Create a collection definition json file</li>
@@ -136,62 +131,56 @@ The data will be purged after this specified number of blocks on the private dat
 private data indefinitely, that is, to never purge private data, set the blockToLive property to 0.</li>
 </ul>
 <p>Here is a sample collection definition JSON file, containing an array of two collection definitions:</p>
-<pre class="prettyprint source lang-json"><code>[
-    {
-        &quot;name&quot;: &quot;collectionMarbles&quot;,
-        &quot;policy&quot;: {
-            &quot;identities&quot;: [
-                {
-                    &quot;role&quot;: {
-                        &quot;name&quot;: &quot;member&quot;,
-                        &quot;mspId&quot;: &quot;Org1MSP&quot;
-                    }
-                },
-                {
-                    &quot;role&quot;: {
-                        &quot;name&quot;: &quot;member&quot;,
-                        &quot;mspId&quot;: &quot;Org2MSP&quot;
-                    }
-                }
-            ],
-            &quot;policy&quot;: {
-                &quot;1-of&quot;: [
-                    {
-                        &quot;signed-by&quot;: 0
-                    },
-                    {
-                        &quot;signed-by&quot;: 1
-                    }
-                ]
-            }
+<pre class="prettyprint source"><code>[{
+    &quot;name&quot;: &quot;collectionMarbles&quot;,
+    &quot;policy&quot;: {
+      &quot;identities&quot;: [{
+          &quot;role&quot;: {
+            &quot;name&quot;: &quot;member&quot;,
+            &quot;mspId&quot;: &quot;Org1MSP&quot;
+          }
         },
-        &quot;requiredPeerCount&quot;: 1,
-        &quot;maxPeerCount&quot;: 2,
-        &quot;blockToLive&quot;: 100
+        {
+          &quot;role&quot;: {
+            &quot;name&quot;: &quot;member&quot;,
+            &quot;mspId&quot;: &quot;Org2MSP&quot;
+          }
+        }
+      ],
+      &quot;policy&quot;: {
+        &quot;1-of&quot;: [
+          {
+            &quot;signed-by&quot;: 0
+          },
+          {
+            &quot;signed-by&quot;: 1
+          }
+        ]
+      }
     },
-    {
-        &quot;name&quot;: &quot;collectionMarblePrivateDetails&quot;,
-        &quot;policy&quot;: {
-            &quot;identities&quot;: [
-                {
-                    &quot;role&quot;: {
-                        &quot;name&quot;: &quot;member&quot;,
-                        &quot;mspId&quot;: &quot;Org1MSP&quot;
-                    }
-                }
-            ],
-            &quot;policy&quot;: {
-                &quot;1-of&quot;: [
-                    {
-                        &quot;signed-by&quot;: 0
-                    }
-                ]
-            }
-        },
-        &quot;requiredPeerCount&quot;: 1,
-        &quot;maxPeerCount&quot;: 1,
-        &quot;blockToLive&quot;: 100
-    }
+    &quot;requiredPeerCount&quot;: 1,
+    &quot;maxPeerCount&quot;: 2,
+    &quot;blockToLive&quot;: 100
+  },
+  {
+    &quot;name&quot;: &quot;collectionMarblePrivateDetails&quot;,
+    &quot;policy&quot;: {
+      &quot;identities&quot;: [{
+        &quot;role&quot;: {
+          &quot;name&quot;: &quot;member&quot;,
+          &quot;mspId&quot;: &quot;Org1MSP&quot;
+        }
+      }],
+      &quot;policy&quot;: {
+        &quot;1-of&quot;: [{
+          &quot;signed-by&quot;: 0
+        }]
+      }
+    },
+    &quot;requiredPeerCount&quot;: 1,
+    &quot;maxPeerCount&quot;: 1,
+    &quot;blockToLive&quot;: 100
+  }
 ]</code></pre><p>This example contains two private data collections: <code>collectionMarbles</code> and <code>collectionMarblePrivateDetails</code>.
 The policy property in the collectionMarbles definition allows all members of the channel (<code>Org1</code> and <code>Org2</code>) to have
 the private data in a private database. The collectionMarblesPrivateDetails collection allows only members of <code>Org1</code>
@@ -212,20 +201,20 @@ endorse transactions. When instantiated a chaincode on a channel the collection 
 be associated with that chaincode.</p>
 <ul>
 <li>Install chaincode. No specific parameter needed to support private data.</li>
-<li>Instantiate chaincode. To support private data, the request must include the <code>collections-config</code> attribute.<pre class="prettyprint source lang-javascript"><code>const collectionsConfigPath = path.resolve(__dirname, collection_definition_json_filepath);
-const request = {
-  targets: peers,
-  chaincodeId: chaincodeId,
-  chaincodeType: chaincodeType,
-  chaincodeVersion: chaincodeVersion,
-  fcn: functionName,
-  args: args,
-  txId: tx_id,
-  'collections-config': collectionsConfigPath
-};
-const endorsementResults = await channel.sendInstantiateProposal(request, time_out);
-// additional code needed to validate endorsementResults and send transaction to commit
-......</code></pre></li>
+<li>Instantiate chaincode. To support private data, the request must include the <code>collections-config</code> attribute.<pre class="prettyprint source"><code>      const collectionsConfigPath = path.resolve(__dirname, collection_definition_json_filepath);
+      var request = {
+          targets: peers,
+          chaincodeId: chaincodeId,
+          chaincodeType: chaincodeType,
+          chaincodeVersion: chaincodeVersion,
+          fcn: functionName,
+          args: args,
+          txId: tx_id,
+          'collections-config': collectionsConfigPath
+      };
+      var endorsementResults = await channel.sendInstantiateProposal(request, time_out);
+      // additional code needed to validate endorsementResults and send transaction to commit
+      ......</code></pre></li>
 </ul>
 <h3>Invoke chaincode to store and query private data</h3><p>You must be authorized to transact with the private data based on the policy defined in collection definition.
 Recall that the above collection definition allows all members of <code>Org1</code> and <code>Org2</code> to access <code>collectionMarbles</code> (name,
@@ -246,54 +235,18 @@ private data after the specified number of blocks are committed. Client applicat
 The Node.js SDK (fabric-client) has an API that will query a Hyperledger Fabric Peer for a
 collection definition associated with a chaincode running on the specified channel.
 See <a href="Channel.html#queryCollectionsConfig">Channel#queryCollectionsConfig</a> for detailed information.</p>
-<pre class="prettyprint source lang-javascript"><code>const request = {
-    chaincodeId: chaincodeId,
-    target: peer
-};
+<pre class="prettyprint source"><code>        const request = {
+            chaincodeId: chaincodeId,
+            target: peer
+        };
 
-try {
-    const response = await channel.queryCollectionsConfig(request);
-    // response contains an array of collection definitions
-    return response;
-} catch (error) {
-    throw error;
-}</code></pre><h3>Include private data in a transaction invocation</h3><p>The client application must put all private data into the transient
-data of the proposal request if the application wishes to keep
-the data private. Transient data is not returned in the
-endorsement results, only the hash of the transient data is
-returned in the endorsement created by the peer.
-The chaincode executed during the endorsement will be responsible
-for pulling the private data from the transient area of the proposal
-request and then work with the private data store of the peer.</p>
-<h4>Example using fabric-network API</h4><pre class="prettyprint source lang-javascript"><code>// Private data sent as transient data: { [key: string]: Buffer }
-const transientData = {
-    marblename: Buffer.from('marble1'),
-    color: Buffer.from('red'),
-    owner: Buffer.from('John'),
-    size: Buffer.from('85'),
-    price: Buffer.from('99')
-};
-const result = await contract.createTransaction('initMarble')
-    .setTransient(transientData)
-    .submit();</code></pre><h4>Example using fabric-client API</h4><pre class="prettyprint source lang-javascript"><code>// private data
-const transient_data = {
-    'marblename': Buffer.from('marble1'), // string &lt;-> byte[]
-    'color': Buffer.from('red'), // string &lt;-> byte[]
-    'owner': Buffer.from('John'), // string &lt;-> byte[]
-    'size': Buffer.from('85'), // string &lt;-> byte[]
-    'price': Buffer.from('99') // string &lt;-> byte[]
-};
-const tx_id = client.newTransactionID();
-const request = {
-    chaincodeId : chaincodeId,
-    txId: tx_id,
-    fcn: 'initMarble',
-    args: [], // all data is transient data
-    transientMap: transient_data // private data
-};
-
-// results will not contain the private data
-const endorsementResults = await channel.sendTransactionProposal(request);</code></pre>
+        try {
+            const response = await channel.queryCollectionsConfig(request);
+            // response contains an array of collection definitions
+            return response;
+        } catch (error) {
+            throw error;
+        }</code></pre>
 </article>
 
 </section>
@@ -331,7 +284,7 @@ const endorsementResults = await channel.sendTransactionProposal(request);</code
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-11-22T17:34:26+00:00
+		on 2018-11-26T09:36:27+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
