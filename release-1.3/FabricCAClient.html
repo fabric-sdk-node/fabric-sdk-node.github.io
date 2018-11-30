@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: BasePackager</title>
+	<title>Hyperledger Fabric SDK for node.js Class: FabricCAClient</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,14 +86,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: BasePackager</h1>
+	<h1 class="page-title">Class: FabricCAClient</h1>
 <section>
 
 <header>
     
         <h2>
-        BasePackager
+        FabricCAClient
         </h2>
+        
+            <div class="class-description">Client for communciating with the Fabric CA APIs</div>
         
     
 </header>
@@ -105,7 +107,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="BasePackager"><span class="type-signature"></span>new BasePackager( [keep])</h4>
+    <h4 class="name" id="FabricCAClient"><span class="type-signature"></span>new FabricCAClient(connect_opts)</h4>
     
     
 </dt>
@@ -113,7 +115,7 @@
 
     
     <div class="description">
-        Constructor
+        constructor
     </div>
     
 
@@ -136,7 +138,48 @@
         <th>Type</th>
 
         
-        <th>Argument</th>
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>connect_opts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Connection options for communciating with the Fabric CA server
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
         
 
         
@@ -150,13 +193,13 @@
 
         <tr>
             
-                <td class="name"><code>keep</code></td>
+                <td class="name"><code>protocol</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">string</span>
 
 
 
@@ -164,20 +207,114 @@
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
 
-                
+            
 
+            <td class="description last">The protocol to use (either HTTP or HTTPS)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hostname</code></td>
+            
+
+            <td class="type">
+            
                 
-                </td>
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
             
 
             
 
-            <td class="description last">Array of valid source file extensions</td>
+            <td class="description last">The hostname of the Fabric CA server endpoint</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>port</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The port of the Fabric CA server endpoint</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tlsOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#TLSOptions">TLSOptions</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The TLS settings to use when the Fabric CA endpoint uses "https"</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>caname</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The optional name of the CA. Fabric-ca servers support multiple Certificate Authorities from
+ a single server. If omitted or null or an empty string, then the default CA is the target of requests</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -263,7 +400,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="findMetadataDescriptors"><span class="type-signature"></span>findMetadataDescriptors(filePath)</h4>
+    <h4 class="name" id="enroll"><span class="type-signature"></span>enroll(enrollmentID, enrollmentSecret, csr, profile, attr_reqs)</h4>
     
     
 </dt>
@@ -271,7 +408,7 @@
 
     
     <div class="description">
-        Find the metadata descriptor files.
+        Enroll a registered user in order to receive a signed X509 certificate
     </div>
     
 
@@ -306,10 +443,16 @@
 
         <tr>
             
-                <td class="name"><code>filePath</code></td>
+                <td class="name"><code>enrollmentID</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
             
             </td>
 
@@ -317,14 +460,233 @@
 
             
 
-            <td class="description last">The top-level directory containing the metadata descriptors.
-Only files with a ".json" extension will be included in the results.</td>
+            <td class="description last">The registered ID to use for enrollment</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentSecret</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The secret associated with the enrollment ID</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>csr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">PEM-encoded PKCS#10 certificate signing request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>profile</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The profile name.  Specify the 'tls' profile for a TLS certificate; otherwise, an enrollment certificate is issued.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>attr_reqs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#AttributeRequest">AttributeRequest</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An array of <a href="global.html#AttributeRequest">AttributeRequest</a></td>
         </tr>
 
     
     </tbody>
 </table>
 
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Throws:</h5>
+    <ul>
+            <li>
+
+    <div class="param-desc">
+    
+        Will throw an error if all parameters are not provided
+    
+    </div>
+
+</li>
+        
+            <li>
+
+    <div class="param-desc">
+    
+        Will throw an error if calling the enroll API fails for any reason
+    
+    </div>
+
+</li>
+        </ul>
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <a href="global.html#EnrollmentResponse">EnrollmentResponse</a>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="newAffiliationService"><span class="type-signature"></span>newAffiliationService()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Create a new <a href="AffiliationService.html">AffiliationService</a> instance
+    </div>
+    
+
+    
+
+    
+
+    
     
 
     
@@ -381,6 +743,10 @@ Only files with a ".json" extension will be included in the results.</td>
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    instance
+</div>
+
 
 
 <dl>
@@ -389,7 +755,7 @@ Only files with a ".json" extension will be included in the results.</td>
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type"><a href="AffiliationService.html">AffiliationService</a></span>
 
 
 
@@ -406,7 +772,7 @@ Only files with a ".json" extension will be included in the results.</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="findSource"><span class="type-signature"></span>findSource(filepath)</h4>
+    <h4 class="name" id="newCertificateService"><span class="type-signature"></span>newCertificateService()</h4>
     
     
 </dt>
@@ -414,8 +780,7 @@ Only files with a ".json" extension will be included in the results.</td>
 
     
     <div class="description">
-        Given an input 'filePath', recursively parse the filesystem for any files
-that fit the criteria for being valid chaincode source (ISREG + keep)
+        Create a new CertificateService instance
     </div>
     
 
@@ -424,190 +789,6 @@ that fit the criteria for being valid chaincode source (ISREG + keep)
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>filepath</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="generateTarGz"><span class="type-signature"></span>generateTarGz(descriptors, dest)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Creates an .tar.gz stream from the provided descriptor entries
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>descriptors</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>dest</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -664,6 +845,10 @@ that fit the criteria for being valid chaincode source (ISREG + keep)
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    instance
+</div>
+
 
 
 <dl>
@@ -672,7 +857,7 @@ that fit the criteria for being valid chaincode source (ISREG + keep)
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">CertificateService</span>
 
 
 
@@ -689,7 +874,7 @@ that fit the criteria for being valid chaincode source (ISREG + keep)
             
 <hr>
 <dt>
-    <h4 class="name" id="isMetadata"><span class="type-signature"></span>isMetadata(filePath)</h4>
+    <h4 class="name" id="newIdentityService"><span class="type-signature"></span>newIdentityService()</h4>
     
     
 </dt>
@@ -697,9 +882,109 @@ that fit the criteria for being valid chaincode source (ISREG + keep)
 
     
     <div class="description">
-        Predicate function for determining whether a given path should be
-considered a valid metadata descriptor based entirely on the
-file extension.
+        Creates a new <a href="IdentityService.html">IdentityService</a> instance
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    instance
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="IdentityService.html">IdentityService</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="reenroll"><span class="type-signature"></span>reenroll(csr, signingIdentity, attr_reqs)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Re-enroll an existing user.
     </div>
     
 
@@ -734,10 +1019,16 @@ file extension.
 
         <tr>
             
-                <td class="name"><code>filePath</code></td>
+                <td class="name"><code>csr</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
             
             </td>
 
@@ -745,7 +1036,56 @@ file extension.
 
             
 
-            <td class="description last">The top-level directory containing the metadata descriptors.</td>
+            <td class="description last">PEM-encoded PKCS#10 certificate signing request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>signingIdentity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="SigningIdentity.html">SigningIdentity</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The instance of a SigningIdentity encapsulating the
+signing certificate, hash algorithm and signature algorithm</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>attr_reqs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#AttributeRequest">AttributeRequest</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An array of <a href="global.html#AttributeRequest">AttributeRequest</a></td>
         </tr>
 
     
@@ -809,7 +1149,7 @@ file extension.
     
             
 <div class="param-desc">
-    Returns true for valid metadata descriptors.
+    <a href="global.html#EnrollmentResponse">EnrollmentResponse</a>
 </div>
 
 
@@ -820,7 +1160,7 @@ file extension.
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Promise</span>
 
 
 
@@ -837,7 +1177,7 @@ file extension.
             
 <hr>
 <dt>
-    <h4 class="name" id="isSource"><span class="type-signature"></span>isSource(filePath)</h4>
+    <h4 class="name" id="register"><span class="type-signature"></span>register(enrollmentID, enrollmentSecret, role, affiliation, maxEnrollments, attrs, signingIdentity)</h4>
     
     
 </dt>
@@ -845,10 +1185,7 @@ file extension.
 
     
     <div class="description">
-        Predicate function for determining whether a given path should be
-considered valid source code, based entirely on the extension.  It is
-assumed that other checks for file type (e.g. ISREG) have already been
-performed.
+        Register a new user and return the enrollment secret
     </div>
     
 
@@ -883,10 +1220,16 @@ performed.
 
         <tr>
             
-                <td class="name"><code>filePath</code></td>
+                <td class="name"><code>enrollmentID</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
             
             </td>
 
@@ -894,7 +1237,155 @@ performed.
 
             
 
-            <td class="description last"></td>
+            <td class="description last">ID which will be used for enrollment</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentSecret</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional enrollment secret to set for the registered user.
+       If not provided, the server will generate one.
+       When not including, use a null for this parameter.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>role</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional type of role for this user.
+       When not including, use a null for this parameter.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>affiliation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Affiliation with which this user will be associated</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxEnrollments</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The maximum number of times the user is permitted to enroll</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>attrs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#KeyValueAttribute">KeyValueAttribute</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Array of key/value attributes to assign to the user</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>signingIdentity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="SigningIdentity.html">SigningIdentity</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The instance of a SigningIdentity encapsulating the
+signing certificate, hash algorithm and signature algorithm</td>
         </tr>
 
     
@@ -957,6 +1448,10 @@ performed.
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    The enrollment secret to use when this user enrolls
+</div>
+
 
 
 <dl>
@@ -965,7 +1460,7 @@ performed.
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">Promise</span>
 
 
 
@@ -982,7 +1477,7 @@ performed.
             
 <hr>
 <dt>
-    <h4 class="name" id="package"><span class="type-signature"></span>package(chaincodePath, metadataPath)</h4>
+    <h4 class="name" id="revoke"><span class="type-signature"></span>revoke(enrollmentID, aki, serial, reason, signingIdentity)</h4>
     
     
 </dt>
@@ -990,8 +1485,10 @@ performed.
 
     
     <div class="description">
-        All of the files in the directory of request.chaincodePath will be
-included in an archive file.
+        Revoke an existing certificate (enrollment certificate or transaction certificate), or revoke
+all certificates issued to an enrollment id. If revoking a particular certificate, then both
+the Authority Key Identifier and serial number are required. If revoking by enrollment id,
+then all future requests to enroll this id will be rejected.
     </div>
     
 
@@ -1026,10 +1523,16 @@ included in an archive file.
 
         <tr>
             
-                <td class="name"><code>chaincodePath</code></td>
+                <td class="name"><code>enrollmentID</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
             
             </td>
 
@@ -1037,17 +1540,23 @@ included in an archive file.
 
             
 
-            <td class="description last"></td>
+            <td class="description last">ID to revoke</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>metadataPath</code></td>
+                <td class="name"><code>aki</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
             
             </td>
 
@@ -1055,140 +1564,23 @@ included in an archive file.
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="packEntry"><span class="type-signature"></span>packEntry(pack, desc)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Given an {fqp, name} tuple, generate a tar entry complete with sensible
-header and populated contents read from the filesystem.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pack</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last">Authority Key Identifier string, hex encoded, for the specific certificate to revoke</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>desc</code></td>
+                <td class="name"><code>serial</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
             
             </td>
 
@@ -1196,7 +1588,57 @@ header and populated contents read from the filesystem.
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Serial number string, hex encoded, for the specific certificate to revoke</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>reason</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The reason for revocation. See https://godoc.org/golang.org/x/crypto/ocsp
+ for valid values</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>signingIdentity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="SigningIdentity.html">SigningIdentity</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The instance of a SigningIdentity encapsulating the
+signing certificate, hash algorithm and signature algorithm</td>
         </tr>
 
     
@@ -1259,6 +1701,10 @@ header and populated contents read from the filesystem.
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    The revocation results
+</div>
+
 
 
 <dl>
@@ -1330,7 +1776,7 @@ header and populated contents read from the filesystem.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-11-30T12:02:29+00:00
+		on 2018-11-30T12:02:30+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
