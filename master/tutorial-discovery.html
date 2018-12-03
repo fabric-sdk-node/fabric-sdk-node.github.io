@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Tutorial: fabric-client: How to use the discovery service</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: fabric-client: How to use the service discovery</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -54,7 +54,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">fabric-client: How to sign a transaction with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the service discovery</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">fabric-client: How to sign a transaction with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
 				</ul>
 			</li>
 			
@@ -96,7 +96,7 @@
 <header>
     
 
-    <h2>fabric-client: How to use the discovery service</h2>
+    <h2>fabric-client: How to use the service discovery</h2>
 </header>
 
 <article>
@@ -211,7 +211,7 @@ configuration.</p>
 --or--
 Client.addConfigFile('/path/to/config.json');
 // the json file contains the following line
-// &quot;commit-handler&quot;: &quot;/path/to/the/handler.js&quot;</code></pre><p>A commit handler must implement the <code>api.CommitHandler</code>. When the
+// &quot;commit-handler&quot;: &quot;/path/to/the/handler.js&quot;</code></pre><p>A commit handler must implement the <code>api.CommmitHandler</code>. When the
 channel is instantiated, the channel will read the path setting and create an
 instance of the handler for use by the new channel instance.</p>
 <h4>How the <code>BasicCommitHandler</code> works</h4><p>The default handler that comes with the fabric-client will send to one orderer at
@@ -436,75 +436,24 @@ const request = {
     txId: tx_id,
     endorsement_hint: hint
 };
-await channel.sendTransactionProposal(request);</code></pre><p>The application is able to have specific peers or peers in a specified
-organization chosen before other peers or not be chosen at all for endorsements.</p>
+await channel.sendTransactionProposal(request);</code></pre><p>The application is able to have specific peers chosen before other peers or
+to be not chosen at all for endorsements. The application may add the following
+optional settings to the request object.</p>
 <ul>
-<li><code>required</code>: An array of strings that represent the names of peers.
-Peers named on this list and in the endorsement plan will be the only
-peers to be sent the endorsement request. Other peers found in the endorsement
-plan will not be used.</li>
 <li><code>preferred</code>: An array of strings that represent the names of peers that should
-be given priority by the endorsement handler if their ledger height is up to date.</li>
+be given priority by the endorsement. This list only applies to endorsements
+using the service discovery.</li>
 <li><code>ignored</code>: An array of strings that represent the names of peers that should be
-ignored by the endorsement handler.</li>
-<li><code>requiredOrgs</code>: An array of strings that represent the names of organizations.
-Peers found in the endorsement plan that are in these organizations will be
-the only peers to be sent the endorsement request. Other peers found in the
-endorsement plan will not be used.</li>
-<li><code>preferredOrgs</code>: An array of strings that represent the MSP ids of organizations
-that should be given priority by the endorsement handler if their ledger height is
-up to date.</li>
-<li><code>ignoredOrgs</code>: An array of strings that represent the MSP ids of organizations
-that should be ignored by the endorsement handler.</li>
-<li><code>preferredHeightGap</code>: An integer representing the maximum difference in the
-ledger height of a peer and the highest ledger height found in a group of peers.
-A peer will be given priority if it's ledger height is within this range.
-There is no default, if this value is not provided the ledger height of the peer
-will not be considered when being added a peer to the preferred list.</li>
-<li><code>sort</code>: A string value that indicates how the peers within groups should
-be chosen. There are two sorts available:
-  <br>&quot;<code>ledgerHeight</code>&quot;, sort the peers descending by the number of blocks
-  on the channel ledger. 
-  <br>&quot;<code>random</code>&quot;, sort the peers randomly from the list, the
-  preferred peers will be added randomly first then the others will be
-  added randomly.
-<br>The default is to sort by ledger height.</li>
+ignored by the endorsement. This list only applies to endorsements using the
+service discovery.</li>
 </ul>
-<p>For example when the handler gets the following request and has an endorsement
-plan with 'peer3' ledger height of 2000 and 'peer1' ledger height of 1990.
-Notice that the gap is 10, this gap is too large and 'peer1' will not be given
-priority.</p>
 <pre class="prettyprint source"><code>const request = {
     chaincodeId : 'example',
     fcn: 'move',
     args: ['a', 'b','100'],
     txId: tx_id,
-    preferred: ['peer0', 'peer1.org1.example.com:8051'],
-    preferredHeightGap: 5,
+    preferred: ['peer0', 'peer1.org1.exmaple.com:8051'],
     ignored: ['peer1', 'peer2.org2.example.com:8054']
-}</code></pre><p>For example when the handler gets the following request and has an endorsement
-plan with 'peer3' in 'Org3MSP'  ledger height of 2000 and 'peer1' in 'Org1MSP'
-ledger height of 1990. Notice that the difference is 10, this gap is too large and
-'peer1' will not be given priority.</p>
-<pre class="prettyprint source"><code>const request = {
-    chaincodeId : 'example',
-    fcn: 'move',
-    args: ['a', 'b','100'],
-    txId: tx_id,
-    preferredOrgs: ['Org1MSP', 'Org3MSP'],
-    preferredHeightGap: 5,
-    ignored: ['Org4MSP']
-}</code></pre><p>When the application only knows about organizations and
-will not know about specific peers it may use the 'requiredOrgs',
-'preferredOrgs', and/or 'ignoredOrgs' request parameters.
-For example if the application knows that the transaction is between two
-organizations, it may require that only these two endorse the proposal.</p>
-<pre class="prettyprint source"><code>const request = {
-    chaincodeId : 'example',
-    fcn: 'move',
-    args: ['a', 'b','100'],
-    txId: tx_id,
-    requiredOrgs: ['Org2MSP', 'Org3MSP']
 }</code></pre><h3>To Commit</h3><p>As discussed above, the <code>channel.sendTransaction()</code> will now use a pluggable
 handler. The fabric-client will come with a handler that will use all orderers
 added to the channel. By default the <code>commit-handler</code> configuration setting
@@ -551,7 +500,7 @@ If an orderer is specified on the call, only that orderer will be used.</p>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-12-03T02:53:18+00:00
+		on 2018-12-03T09:53:22+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
