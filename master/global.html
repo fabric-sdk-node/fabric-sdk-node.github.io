@@ -54,7 +54,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the service discovery</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">fabric-client: How to sign a transaction with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">fabric-client: How to sign a transaction with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
 				</ul>
 			</li>
 			
@@ -3974,6 +3974,10 @@ chaincode_spec
 </dt>
 <dd>
     
+    <div class="description">
+        This object contains many properties that will be used by the Discovery service.
+    </div>
+    
 
     
         <h5>Type:</h5>
@@ -4255,6 +4259,40 @@ chaincode_spec
 
         <tr>
             
+                <td class="name"><code>required</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. An array of strings that represent
+          the names of peers that are required for the endorsement. These will
+          be the only peers which the proposal will be sent.
+          This list only applies to endorsements using the discovery service.
+          This property is used by the <a href="DiscoveryEndorsementHandler.html">DiscoveryEndorsementHandler</a>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>ignore</code></td>
             
 
@@ -4280,7 +4318,8 @@ chaincode_spec
 
             <td class="description last">Optional. An array of strings that represent
           the names of peers that should be ignored by the endorsement.
-          This list only applies to endorsements using the discovery service.</td>
+          This list only applies to endorsements using the discovery service.
+          This property is used by the <a href="DiscoveryEndorsementHandler.html">DiscoveryEndorsementHandler</a>.</td>
         </tr>
 
     
@@ -4312,7 +4351,191 @@ chaincode_spec
 
             <td class="description last">Optional. An array of strings that represent
           the names of peers that should be given priority by the endorsement.
-          This list only applies to endorsements using the discovery service.</td>
+          Priority means that these peers will be chosen first for endorsements
+          when an endorsement plan has more peers in a group then needed to
+          satisfy the endorsement policy.
+          This list only applies to endorsements using the discovery service.
+          This property is used by the <a href="DiscoveryEndorsementHandler.html">DiscoveryEndorsementHandler</a>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>requiredOrgs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. An array of strings that represent
+          the names of an organization's MSP id that are required for the
+          endorsement. Only peers in these organizations will be sent the
+          proposal.
+          This list only applies to endorsements using the discovery service.
+          This property is used by the <a href="DiscoveryEndorsementHandler.html">DiscoveryEndorsementHandler</a>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ignoreOrgs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. An array of strings that represent
+          the names of an organization's MSP id that should be ignored by the
+          endorsement.
+          This list only applies to endorsements using the discovery service.
+          This property is used by the <a href="DiscoveryEndorsementHandler.html">DiscoveryEndorsementHandler</a>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>preferredOrgs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. An array of strings that represent
+          the names of an organization's MSP id that should be given priority
+          by the endorsement. Peers within an organization may have their
+          ledger height considered  using the optional property preferredHeightGap
+          before being added to the priority list.
+          This list only applies to endorsements using the discovery service.
+          This property is used by the <a href="DiscoveryEndorsementHandler.html">DiscoveryEndorsementHandler</a>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>preferredHeightGap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. An integer representing
+          the maximum difference in the block height of a peer and the
+          highest block height found in a group of peers within an endorsement
+          plan allowed to be a preferred peer. A peer will not be given
+          priority if it's block height is less than the highest block
+          height by an amount greater than this value. There is no default,
+          if this value is not provided the block height of the peer will
+          not be considered when being added to the preferred list.
+          This list only applies to endorsements using the discovery service.
+          This property is used by the <a href="DiscoveryEndorsementHandler.html">DiscoveryEndorsementHandler</a>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sort</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. A string value that indicates how
+          the peers within groups should be chosen.
+          "ledgerHeight", sort the peers descending by the number of blocks
+           on the channel ledger.
+          "random", pull the peers randomly from the list, the preferred
+           will be pulled first.
+           The default will be to sort by ledger height.</td>
         </tr>
 
     
@@ -17174,7 +17397,7 @@ with a network configuration.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-12-04T10:08:52+00:00
+		on 2018-12-04T11:41:15+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
