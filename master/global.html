@@ -54,7 +54,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">fabric-client: How to sign a transaction with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">Working with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
 				</ul>
 			</li>
 			
@@ -3153,7 +3153,7 @@ metadata
             <td class="description last">Optional. An array of Peer objects or peer names
           where the chaincode will be installed. When excluded, the peers assigned
           to this client's organization will be used as defined in the
-          network configuration. If the 'channelNames' property is included,
+          common connection profile. If the 'channelNames' property is included,
           the target peers will be based the peers defined in the channels.</td>
         </tr>
 
@@ -3340,7 +3340,7 @@ metadata
             
 
             <td class="description last">Optional. When no targets are
-          provided. The loaded network configuration will be searched for
+          provided. The loaded common connection profile will be searched for
           suitable target peers. Peers that are defined in the channels named
           by this property and in this client's organization and that are
           in the endorsing or chain code query role on the named channel
@@ -10424,7 +10424,7 @@ signature -- {byte[]}
             <td class="type">
             
                 
-<span class="param-type">Buffer</span>
+<span class="param-type">string</span>
 
 
 
@@ -10435,7 +10435,7 @@ signature -- {byte[]}
 
             
 
-            <td class="description last">Optional. Certificate Signing Request. The message sent from client side to
+            <td class="description last">Optional. PEM-encoded PKCS#10 Certificate Signing Request. The message sent from client side to
                   Fabric-ca for the digital identity certificate.</td>
         </tr>
 
@@ -13950,8 +13950,8 @@ inside the proposal response message.
 
             
 
-            <td class="description last">The payload of the response. It is the encoded bytes of
-                             the "ProposalResponsePayload" protobuf message</td>
+            <td class="description last">The payload of the response. It is the encoded
+          bytes of the "ProposalResponsePayload" protobuf message</td>
         </tr>
 
     
@@ -13975,8 +13975,38 @@ inside the proposal response message.
 
             
 
-            <td class="description last">The endorsement of the proposal, basically the
-                                      endorser's signature over the payload</td>
+            <td class="description last">The endorsement of the proposal,
+          basically the endorser's signature over the payload</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>peer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#RemoteCharacteristics">RemoteCharacteristics</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The characteristics of the peer
+          that created this ProposalResponse. Items include the url, name,
+          and connection options.
+          This information is not returned from the peer, it is not part of
+          the serialized protobuf data returned by the peer. This information
+          is added by the client instance peer object to help identify
+          this ProposalResponse object.</td>
         </tr>
 
     
@@ -14090,7 +14120,7 @@ standard array of objects.
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;<a href="global.html#ProposalResponse">ProposalResponse</a>></span>
+<span class="param-type">Array.&lt;(<a href="global.html#ProposalResponse">ProposalResponse</a>|Error)></span>
 
 
 
@@ -14101,8 +14131,9 @@ standard array of objects.
 
             
 
-            <td class="description last">Array of ProposalResponse objects from the
-          endorsing peers</td>
+            <td class="description last">Array where each element is either a ProposalResponse
+          object (for a successful response from the endorsing peer) or an Error object (for an unsuccessful
+          peer response or runtime error).</td>
         </tr>
 
     
@@ -14613,6 +14644,181 @@ standard array of objects.
           from the peer's fabric service once the event has been seen.
           The default is false unless the endBlock has been set, then it
           it will be true.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="RemoteCharacteristics">
+    <h4 id="RemoteCharacteristics">RemoteCharacteristics</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Information related to the peer instance object.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The url of this peer</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of this peer, this will be the host and port
+          if the peer was not created with the name option.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The options object that this peer built
+          based on defaults and what was passed when it was created.
+          Typical options will include the GRPC connection settings.</td>
         </tr>
 
     
@@ -16995,7 +17201,7 @@ indicates that the handler should wait indefinitely.</td>
     <div class="description">
         An alternate object to use on the 'setUserContext' call in place of the 'User' object.
 When using this object it is assumed that the current 'Client' instance has been loaded
-with a network configuration.
+with a common connection profile.
     </div>
     
 
@@ -17397,7 +17603,7 @@ with a network configuration.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-12-04T11:41:15+00:00
+		on 2018-12-06T10:06:36+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

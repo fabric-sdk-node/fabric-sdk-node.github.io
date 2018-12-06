@@ -54,7 +54,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">fabric-client: How to sign a transaction with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">Working with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
 				</ul>
 			</li>
 			
@@ -245,7 +245,7 @@ the <a href="User.html">User</a> class) in the state store.</div>
 
     
     <div class="description">
-        Load a network configuration object or load a JSON file and return a Client object.
+        Load a common connection profile object or load a JSON file and return a Client object.
     </div>
     
 
@@ -402,7 +402,7 @@ the <a href="User.html">User</a> class) in the state store.</div>
     <div class="description">
         Utility Method
 Sets the user context based on the passed in username and password
-and the organization in the client section of the network configuration
+and the organization in the client section of the common connection profile
 settings.
     </div>
     
@@ -459,6 +459,148 @@ settings.
                  - username [required] - username of the user
                  - password [optional] - password of the user
                  - caName [optional] - name of the Certificate Authority</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="addConnectionOptions"><span class="type-signature"></span>addConnectionOptions(options)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Add a set of connection options to this client. These will be
+available to be merged into an application's options when new
+peers and orderers are created or when a channel
+uses discovery to automatically create the peers and orderers on
+the channel. This would be a convenient place to store common GRPC settings
+that affect all connections from this client.
+These settings will be used when this client object builds new
+<a href="Peer.html">Peer</a> or <a href="Orderer.html">Orderer</a> instances when the <a href="Client.html#newPeer">Client#newPeer</a>,
+<a href="Client.html#getPeer">Client#getPeer</a>, <a href="Client.html#newOrderer">Client#newOrderer</a> or <a href="Client.html#getOrderer">Client#getOrderer</a>
+methods are called.
+Options will be automatically added when loading a common connection profile
+and the client section has the 'connection' section with an 'options' attribute.
+These options will be initially loaded from the system configuration
+'connection-options' setting.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The connection options that will be assigned to
+       this client instance.</td>
         </tr>
 
     
@@ -1155,12 +1297,12 @@ on the <a href="Client.html#createChannel">createChannel()</a> or <a href="Clien
     
     <div class="description">
         Returns a CertificateAuthority implementation as defined by the settings
-in the currently loaded network configuration and the client configuration.
-A network configuration must be loaded for this get method to return a
+in the currently loaded common connection profile and the client configuration.
+A common connection profile must be loaded for this get method to return a
 Certificate Authority.
 A crypto suite must be assigned to this client instance. Running the
 'initCredentialStores' method will build the stores and create a crypto
-suite as defined in the network configuration.
+suite as defined in the common connection profile.
     </div>
     
 
@@ -1310,9 +1452,9 @@ suite as defined in the network configuration.
     
     <div class="description">
         Get a <a href="Channel.html">Channel</a> instance from the client instance. This is a memory-only lookup.
-If the loaded network configuration has a channel by the 'name', a new channel instance
+If the loaded common connection profile has a channel by the 'name', a new channel instance
 will be created and populated with <a href="Orderer.html">Orderer</a> objects and <a href="Peer.html">Peer</a> objects
-as defined in the network configuration.
+as defined in the common connection profile.
     </div>
     
 
@@ -1371,7 +1513,7 @@ as defined in the network configuration.
             
 
             <td class="description last">Optional. The name of the channel. When omitted the
-       first channel defined in the loaded network configuration will be
+       first channel defined in the loaded common connection profile will be
        returned</td>
         </tr>
 
@@ -1656,7 +1798,7 @@ as defined in the network configuration.
 
     
     <div class="description">
-        Returns the "client" section of the network configuration.
+        Returns the "client" section of the common connection profile.
     </div>
     
 
@@ -1933,7 +2075,7 @@ reference to the organization.
             
 <div class="param-desc">
     the mspid of the organization defined in the client
-         section of the loaded network configuration
+         section of the loaded common connection profile
 </div>
 
 
@@ -2281,7 +2423,7 @@ contains a peer with the name.
     
     <div class="description">
         Returns a list of <a href="Peer.html">Peer</a> for the mspid of an organization as defined
-in the currently loaded network configuration. If no id is
+in the currently loaded common connection profile. If no id is
 provided then the organization named in the currently active network
 configuration's client section will be used.
     </div>
@@ -2727,8 +2869,8 @@ enrollment certificate signed by a trusted CA (such as the CA server).
     
     <div class="description">
         Sets the state and crypto suite for use by this client.
-This requires that a network config has been loaded. Will use the settings
-from the network configuration along with the system configuration to build
+This requires that a common connection profile has been loaded. Will use the settings
+from the common connection profile along with the system configuration to build
 instances of the stores and assign them to this client and the crypto suites
 if needed.
     </div>
@@ -3104,7 +3246,7 @@ to the peers during chaincode install.
 
     
     <div class="description">
-        Load a network configuration object or load a JSON file and update this client with
+        Load a common connection profile object or load a JSON file and update this client with
 any values in the config.
     </div>
     
@@ -4145,7 +4287,7 @@ peer has joined.
 
             <td class="description last">Optional. Indicates that the admin credentials
        should be used in making this call to the peer. An administrative
-       identity must have been loaded by network configuration or by
+       identity must have been loaded by common connection profile or by
        using the 'setAdminSigningIdentity' method.</td>
         </tr>
 
@@ -4324,7 +4466,7 @@ peer has joined.
 
             <td class="description last">Optional. Indicates that the admin credentials
        should be used in making this call to the peer. An administrative
-       identity must have been loaded by network configuration or by
+       identity must have been loaded by common connection profile or by
        using the 'setAdminSigningIdentity' method.</td>
         </tr>
 
@@ -5268,7 +5410,7 @@ Applications can provide alternative implementations.
     
     <div class="description">
         Sets the mutual TLS client side certificate and key necessary to build
-network endpoints when working with a network configuration (connection profile).
+network endpoints when working with a common connection profile (connection profile).
 This must be called before a peer, orderer, or channel eventhub is needed.
 
 If the tls client material has not been provided for the client, it will be
@@ -5490,7 +5632,7 @@ and the application is responsible for setting the user context again if the app
             <td class="description last">An instance of the User class encapsulating the authenticated
                      user’s signing materials (private key and enrollment certificate).
                      The parameter may also be a <a href="global.html#UserNamePasswordObject">UserNamePasswordObject</a> that contains the username
-                     and optionally the password and caName. A network configuration must has been loaded to use the
+                     and optionally the password and caName. A common connection profile must has been loaded to use the
                      <a href="global.html#UserNamePasswordObject">UserNamePasswordObject</a> which will also create the user context and set it on
                      this client instance. The created user context will be based on the current network
                      configuration( i.e. the current organization's CA, current persistence stores).</td>
@@ -5519,7 +5661,7 @@ and the application is responsible for setting the user context again if the app
 
             <td class="description last">Whether to skip saving the user object into persistence. Default is false and the
                                    method will attempt to save the user object to the state store. When using a
-                                   network configuration and <a href="global.html#UserNamePasswordObject">UserNamePasswordObject</a>, the user object will
+                                   common connection profile and <a href="global.html#UserNamePasswordObject">UserNamePasswordObject</a>, the user object will
                                    always be stored to the persistence store.</td>
         </tr>
 
@@ -5979,7 +6121,7 @@ in the channel.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-12-04T11:41:16+00:00
+		on 2018-12-06T10:06:37+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

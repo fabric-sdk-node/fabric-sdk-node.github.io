@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Tutorial: fabric-client: How to sign a transaction with an offline private key</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: Working with an offline private key</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -54,7 +54,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">fabric-client: How to sign a transaction with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">Working with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
 				</ul>
 			</li>
 			
@@ -96,13 +96,27 @@
 <header>
     
 
-    <h2>fabric-client: How to sign a transaction with an offline private key</h2>
+    <h2>Working with an offline private key</h2>
 </header>
 
 <article>
-    <p>This tutorial illustrates how to use the Hyperledger Fabric Node.js client (fabric client) APIs when signing a transaction offline.</p>
-<p>In most use cases the fabric client will persist the user's credentials including the private key and sign transactions for the user. However some business scenarios may require a higher level of privacy. What if the user wants to keep their private key secret and does not trust another system or backend server to securely store it and use it.</p>
-<p>The fabric client comes with the ability to sign a transaction offline. The fabric client does not have to have access to the user's private key. The application may request the fabric client to generate a transaction proposal and then the application may sign the transaction. The application may then send the signed transaction back to fabric client ready to be sent to the fabric network.</p>
+    <p>This tutorial illustrates how to work with an offline private key with the Hyperledger Fabric Node.js SDK (fabric-client and fabric-ca-client) APIs.</p>
+<p>For more information on:</p>
+<ul>
+<li>getting started with Hyperledger Fabric see
+<a href="http://hyperledger-fabric.readthedocs.io/en/latest/build_network.html">Building your first network</a>.</li>
+<li>The transactional mechanics that take place during a standard asset exchange.
+<a href="https://hyperledger-fabric.readthedocs.io/en/latest/txflow.html">transacton flow in fabric</a>.</li>
+<li>The Certificate Signing Request (CSR) in a PKI system.
+<a href="https://en.wikipedia.org/wiki/Certificate_signing_request">CSR</a></li>
+</ul>
+<p>The following assumes an understanding of the Hyperledger Fabric network
+(orderers and peers),
+and of Node application development, including the use of the
+Javascript <code>promise</code> and <code>async await</code>.</p>
+<h2>Overview</h2><p>In most use cases the <code>fabric-client</code> will persist the user's credentials including the private key and sign transactions for the user. However some business scenarios may require higher level of privacy. What if the user wants to keep their private key secret and does not trust another system or backend server to securely store it and use it?</p>
+<p>The <code>fabric-client</code> comes with the ability to sign a transaction with an offline private key. By contrast to call <code>setUserContext()</code> with the user's identity (which contains the user's private key), an alternative way is to split the <code>sign a tx</code> process out of the <code>fabric-client</code> and let the application layer choose the place to store the private key, sign the transaction and send the signed transaction back. By this approach, the <code>fabric-client</code> does not require the user's private key any more.</p>
+<p>The Fabric-ca comes with the ability to enroll with a PKCS#10 standard CSR, which means the user can use an existing key pairs to generate the CSR and send this CSR to Fabric-ca to get the signed certificate. The <code>fabric-ca-client</code> also accepts a CSR at the API <code>enroll()</code>.</p>
 <h2>The transaction flow for signing a transaction offline</h2><p>The following will show the steps to signing a transaction offline:</p>
 <p>With the user's identity (cert and private key) set at the fabric client:</p>
 <ol>
@@ -217,6 +231,32 @@
 <pre class="prettyprint source lang-javascript"><code>channelEventHub.connect({signedEvent});</code></pre></li>
 </ol>
 <p>A full test can be found at <code>fabric-sdk-node/test/integration/signTransactionOffline.js</code></p>
+<h2>How to enroll with a CSR</h2><p>The <code>fabric-ca-client</code> provides the API <code>enroll()</code> that accepts an optional param 'CSR'.
+If the params does not contains CSR, <code>fabric-ca-client</code> will first generate a key pair,
+then use the user's enrollmentID as the common name to create a CSR which is signed with
+the new generated private key. The response will contain the private key object if no 'CSR'
+in enroll params.</p>
+<p>To enroll with a CSR, first we should call <code>fabric-ca-client</code> API <code>register</code> to register
+a new identity at Fabric-ca. After a successfully register, we have the <code>enrollmentID</code> and <code>enrollmentSecret</code>.</p>
+<p>Then we should create the CSR. A common way is using the <code>openssl</code> command.</p>
+<blockquote>
+<p>Notice the CSR must contain the information &quot;common name&quot; and the &quot;common name&quot; must be
+same as the &quot;enrollmentID&quot; at the register step.</p>
+</blockquote>
+<p>Here is an example of how to create a CSR with the key algorithm rsa and key size 2048 bits</p>
+<pre class="prettyprint source"><code>openssl req -nodes -newkey rsa:2048 -keyout test.key -out test.csr</code></pre><p>The <code>test.csr</code> from the above command is represented as a Base64 encoded PKCS#10.</p>
+<p>Here is how we call enroll with a CSR</p>
+<pre class="prettyprint source lang-javascript"><code>const fs = require('fs');
+const csr = fs.readFileSync('the path to test.csr', 'utf8');
+const req = {
+    enrollmentID: enrollmentID,
+    enrollmentSecret: enrollmentSecret,
+    csr: csr,
+};
+
+const enrollment = await caService.enroll(req);
+
+// the enrollment.certificate contains the signed certificate from Fabric-ca</code></pre>
 </article>
 
 </section>
@@ -254,7 +294,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-12-04T11:41:17+00:00
+		on 2018-12-06T10:06:38+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

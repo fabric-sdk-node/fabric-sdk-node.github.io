@@ -54,7 +54,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">fabric-client: How to sign a transaction with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-sign-transaction-offline.html">Working with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be commited to the ledger</a></li>
 				</ul>
 			</li>
 			
@@ -233,7 +233,14 @@ certificateAuthorities:
     registrar:
       - enrollId: admin
         enrollSecret: adminpw
-    caName: caorg2</code></pre><p>The following example will have an existing fabric client load a connection profile configuration. The definition will only contain client side definitions and no fabric network definitions. Calling for a load on an existing fabric client does an overlay of the top level sections in the file being loaded replacing the sections on those previously loaded. In this case the file being loaded only has a client section, therefore the loaded definition will now have the previously loaded channels, organizations, peers, orderers, and certificateAuthorities section definitions and the newly loaded client section definition. This allows for an existing fabric client to be able to work within different organization. Note: The the SDK's <code>grpc-max-send-message-length</code> default is -1 (unlimited).</p>
+    caName: caorg2</code></pre><p>The following example will have an existing fabric client load a connection profile configuration. The definition will only contain client side definitions and no fabric network definitions. The client may load a new profile at anytime, it will overlay the top level sections it contains of those previously loaded. In this case the file being loaded only has a client section, therefore the loaded definition will now have the previously loaded channels, organizations, peers, orderers, and certificateAuthorities section definitions and the newly loaded client section definition. This allows for an existing fabric client to be able to work within different organization. 
+Notice this client definition contains a <code>connection</code> section with an <code>options</code> attribute in the
+client section. Settings defined here will be applied to new peer and orderer
+instances the client creates.
+This will include peers and orderers that will be created automatically when
+using the discovery service.
+Peers and Orderers may override these connection settings in their <code>grpcOptions</code> settings.</p>
+<p>Note: The fabric-client <code>grpc-max-send-message-length</code> and <code>grpc-max-receive-message-length</code> defaults are -1 (unlimited).</p>
 <pre class="prettyprint source"><code>client.loadFromConfig('test/fixtures/org1.yaml');</code></pre><p>Here is the client definition loaded above</p>
 <pre class="prettyprint source"><code>name: &quot;Org1 Client&quot;
 version: &quot;1.0&quot;
@@ -243,7 +250,10 @@ client:
   credentialStore:
     path: &quot;/tmp/hfc-kvs/org1&quot;
     cryptoStore:
-      path: &quot;/tmp/hfc-cvs/org1&quot;</code></pre><h3>Setup the stores</h3><p>The next step is to set up the client object with the state and crypto stores. If the client section of the connection profile configuration has these defined then it is a simple matter of running the following. This API is promise based, notice that we will need a <code>.then</code> on the returned promise to have it actually execute. This API does not return anything, however it has created a state store and assigned it to the client, it has created a CryptoSuite and also assigned it to the client, and created a crypto store and assigned that to the crypto suite. Notice the credentialStore and cryptoStore definitions above in the client section of the connection profile configuration. In this case we are using two different locations, it may be easier to have these in the same locations when first starting out.</p>
+      path: &quot;/tmp/hfc-cvs/org1&quot;
+  connection:
+    options
+      grpc.keepalive_time_ms: 120000</code></pre><h3>Setup the stores</h3><p>The next step is to set up the client object with the state and crypto stores. If the client section of the connection profile configuration has these defined then it is a simple matter of running the following. This API is promise based, notice that we will need a <code>.then</code> on the returned promise to have it actually execute. This API does not return anything, however it has created a state store and assigned it to the client, it has created a CryptoSuite and also assigned it to the client, and created a crypto store and assigned that to the crypto suite. Notice the credentialStore and cryptoStore definitions above in the client section of the connection profile configuration. In this case we are using two different locations, it may be easier to have these in the same locations when first starting out.</p>
 <p>The following will create two stores and a CryptoSuite and assign them to the fabric client all based on the loaded configurations.</p>
 <pre class="prettyprint source"><code>client.initCredentialStores()
 .then((nothing) => {</code></pre><h3>Work with user context</h3><p>When there is certificate Authority information on the organization, the fabric client may be used to simplify the enrollment and user context creation. The application will still have to register new users with the certificate authority, however when a connection profile configuration has been loaded there a simpler way to get a certificate authority client.</p>
@@ -255,7 +265,7 @@ client:
 <pre class="prettyprint source"><code>fabric_ca_client.register({enrollmentID: 'user1', affiliation: 'org1'}, admin)
 .then((secret) => {
     return client.setUserContext({username:'user1', password:secret});
-}).then((user)=> {</code></pre><h3>Work with mutual TLS</h3><p>When your network configuration includes mutual TLS, the client certificate and private key must be available to the client instance before the endpoints are automatically built. The client instance will be able to pass the required material to the endpoint instance that is needed to establish the connection. The example shown will also retrieve the material. These steps must be performed before any actions on the fabric network.</p>
+}).then((user)=> {</code></pre><h3>Work with mutual TLS</h3><p>When your network is using mutual TLS, the client certificate and private key must be available to the client instance before the endpoints are automatically built. The client instance will be able to pass the required material to the endpoint instance that is needed to establish the connection. The example shown will also retrieve the material. These steps must be performed before any actions on the fabric network.</p>
 <pre class="prettyprint source"><code>// get the CA associated with this client's organization
 let fabric_ca_client = client.getCertificateAuthority();
 
@@ -275,7 +285,7 @@ fabric_ca_client.enroll(request)
    // set the material on the client to be used when building endpoints for the user
    client.setTlsClientCertAndKey(cert, key);
    ...</code></pre><h3>When an admin is needed</h3><p>Notice in the organizations section of the connection profile configuration that an organization may have a signed cert setting and admin private key setting that are associated with the organization. This is a convenience for your organization such that operations that require a fabric network administrator will be able to get one easily. These credentials will be assigned to the fabric client when the configuration is loaded. If one has not been assigned than the current user context assigned to the fabric client is assumed to be an administrator. There is also a convenience method on the client object that will assign credentials to the client to be used for operations that require an admin.</p>
-<pre class="prettyprint source"><code>client.setAdminSigningIdentity('admin privateKey','admin cert');</code></pre><p>Assume that connection profile configurations have been loaded, setting up both an organization with an admin and indicating that the client is in that organization. Then when the call is made to get a transaction id object, the fabric client will check to see if an admin has been assigned to the fabric client and use that to generate the transaction id. The transaction id returned will be tagged that it was generated with the assigned administrative identity. Notice how the request object being built is using just a name for the orderer rather than a <code>Orderer</code> object. The fabric client will look up this name in the loaded connection profile configuration. When the <code>createChannel</code> call is made, the fabric client will know that this action should be signed by the administrative identity because the transaction id was marked as an admin based transaction. Note that the administrative signing identity is not required if the logged in user is an administrative user and has been assigned to the fabric client.  </p>
+<pre class="prettyprint source"><code>client.setAdminSigningIdentity('admin privateKey','admin cert');</code></pre><p>Assume that a common connection profile has been loaded, setting up both an organization with an admin and indicating that the client is in that organization. Then when the call is made to get a transaction id object, the fabric client will check to see if an admin has been assigned to the fabric client and use that to generate the transaction id. The transaction id returned will be tagged that it was generated with the assigned administrative identity. Notice how the request object being built is using just a name for the orderer rather than an <code>Orderer</code> object. The fabric client will look up this name in the loaded connection profile configuration. When the <code>createChannel</code> call is made, the fabric client will know that this action should be signed by the administrative identity because the transaction id was marked as an admin based transaction. Note that the administrative signing identity is not required if the logged in user is an administrative user and has been assigned to the fabric client.  </p>
 <pre class="prettyprint source"><code>let tx_id = client.newTransactionID(true);
 
 let request = {
@@ -608,7 +618,7 @@ certificateAuthorities:
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-12-04T11:41:17+00:00
+		on 2018-12-06T10:06:38+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
