@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: CouchDBWallet</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: fabric-client: How to set gRPC settings</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -88,370 +88,193 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
-			
-
-	<h1 class="page-title">Class: CouchDBWallet</h1>
-<section>
+			<section class="tutorial-section">
 
 <header>
     
-        <h2>
-            <span class="ancestors"><a href="module-fabric-network.html">fabric-network</a>.</span>
-        
-        CouchDBWallet
-        </h2>
-        
-            <div class="class-description">This class defines an implementation of an Identity wallet that persists
-to a Couch DB database</div>
-        
-    
+
+    <h2>fabric-client: How to set gRPC settings</h2>
 </header>
 
-
 <article>
-    <div class="container-overview">
-    
-        
-<hr>
-<dt>
-    <h4 class="name" id="CouchDBWallet"><span class="type-signature"></span>new CouchDBWallet(options [, mixin])</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Creates an instance of the CouchDBWallet
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Argument</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-fabric-network.CouchDBWallet.html#~CouchDBWalletOptions">module:fabric-network.CouchDBWallet~CouchDBWalletOptions</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">contains required property <code>url</code> and other Nano options</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mixin</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">module:fabric-network.WalletMixin</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-    <dt class="implements">Implements:</dt>
-    <dd class="implements"><ul>
-        
-            <li><a href="module-fabric-network.Wallet.html">module:fabric-network.Wallet</a></li>
-        
-    </ul></dd>
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        <dl>
-                
-<hr>
-<dt class="name" id="~CouchDBWalletOptions">
-    <h4 id="~CouchDBWalletOptions">CouchDBWalletOptions</h4>
-
-    
-</dt>
-<dd>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>url</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">CouchDB URL</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            </dl>
-    
-
-    
+    <p>This tutorial illustrates the different ways of setting the gRPC settings used on connections to the Hyperledger Fabric network with a Hyperledger Fabric Node.js Client as of 1.4.</p>
+<p>For more information on:</p>
+<ul>
+<li>getting started with Hyperledger Fabric see
+<a href="http://hyperledger-fabric.readthedocs.io/en/latest/build_network.html">Building your first network</a>.</li>
+</ul>
+<p>The following assumes an understanding of the Hyperledger Fabric network
+(orderers and peers),
+and of Node application development.</p>
+<h3>Overview</h3><p>The Hyperledger Fabric Node.js javascript SDK, <code>fabric-client</code>,  communicates
+with a Hyperledger Fabric network using gRPC. The gRPC technology, framework,
+handles moving data reliably between the fabric network and the fabric client
+application.
+fabric-client allows the application to provide settings required to control
+the environment.</p>
+<p>fabric-client has default connection options that include default gRPC settings.
+There are various ways for the application to override the default connection
+options. </p>
+<h3>Default connection options</h3><p>fabric-client has the following gRPC connection options as defaults.
+These are in the <code>default.json</code> system configuration file that is included
+with the fabric-client NPM package.</p>
+<pre class="prettyprint source"><code>    &quot;connection-options&quot;: {
+        &quot;grpc.max_receive_message_length&quot;: -1,
+        &quot;grpc.max_send_message_length&quot;: -1,
+        &quot;grpc.keepalive_time_ms&quot;: 120000, 
+        &quot;grpc.http2.min_time_between_pings_ms&quot;: 120000, 
+        &quot;grpc.keepalive_timeout_ms&quot;: 20000, 
+        &quot;grpc.http2.max_pings_without_data&quot;: 0, 
+        &quot;grpc.keepalive_permit_without_calls&quot;: 1 
+    }</code></pre><ul>
+<li><code>grpc.max_receive_message_length</code> - Maximum message length that the channel
+can receive. Int valued, bytes. -1 means unlimited.</li>
+<li><code>grpc.max_send_message_length</code> - Maximum message length that the channel can
+send. Int valued, bytes. -1 means unlimited.</li>
+<li><code>grpc.keepalive_time_ms</code> - After a duration of this time the client/server
+pings its peer to see if the transport is still alive. Int valued, milliseconds.</li>
+<li><code>grpc.keepalive_timeout_ms</code> - After waiting for a duration of this time, 
+if the keepalive ping sender does not receive the ping ack, it will close the
+transport. Int valued, milliseconds. </li>
+<li><code>grpc.keepalive_permit_without_calls</code> - Is it permissible to send keepalive
+pings without any outstanding streams. Int valued, 0(false)/1(true). </li>
+<li><code>grpc.http2.min_time_between_pings_ms</code> - Minimum time between sending
+successive ping frames without receiving any data frame.
+Int valued, milliseconds.</li>
+<li><code>grpc.http2.max_pings_without_data</code> - Minimum allowed time between a server
+receiving successive ping frames without sending any data frame.
+Int valued, milliseconds.</li>
+</ul>
+<h3>Change default connection options</h3><p>The application may have a need to change or add new gRPC settings.
+By using the system configuration, the application may change the default
+connection options used for all new connections established.</p>
+<p>The default connection options are retrieved as a set of options when
+the <a href="Client.html">Client</a> instance builds new <a href="Peer.html">Peer</a>s or new <a href="Orderer.html">Orderer</a>s.
+To modify the  default connection options before runtime, update the
+<code>default.json</code> file or add your own configuration file to the system configuration.
+The last file loaded will override all previous files including the <code>default.json</code>
+file shipped with the fabric-client. see <a href="BaseClient.html#.addConfigFile">BaseClient.addConfigFile</a>.</p>
+<pre class="prettyprint source"><code>const Client = require('fabric-client');
+Client.addConfigFile(&lt;path to the config file>);</code></pre><p>To modify the default connection options during runtime, get them from the
+system configuration, make modifications, then set them back on the system
+configuration.</p>
+<pre class="prettyprint source"><code>const default_options = client.getConfigSetting('connection-options');
+const new_option = {
+    'grpc.keepalive_timeout_ms': 10000
+};
+
+// use the assign call to keep all other options and only update
+// the one setting or add a setting.
+const new_defaults = Object.assign(default_options, new_option);
+client.setConfigSetting('connection-options', new_defaults);
+
+// peer will have default options
+const peer = client.newPeer(url, options);</code></pre><p>Note: Making a change to the system configuration will have all new
+connections use new default connection options. This includes the
+connections that are created by new peers and new orderers that are
+created automatically when using the discovery service.
+Be careful when assigning new values to not remove other values.
+All the default connection options are contained in the one system
+configuration setting <code>connection-options</code>.</p>
+<h3>Add connection options to the client</h3><p>The application may have a need to change or add new gRPC settings.
+The application may add connection options to the client instance
+that may be new options or to override existing default connection
+options stored in the system configuration. See the above
+discussion on how to change the options within the system configuration.</p>
+<pre class="prettyprint source"><code>const new_options = {
+    'grpc.keepalive_timeout_ms': 10000
+};
+client.addConnectionOptions(new_options);
+
+// peer will have options from default and from client
+const peer = client.newPeer(url, options);
+
+// discovered peers will have options from default and from client
+channel.initialize({discover: true, target: peer});</code></pre><p>Note: All new connections created by this client, including those created
+automatically when using the discovery service will use the client's
+connection options to override the default connection options.</p>
+<h3>Add connection options on create</h3><p>The application may need unique connection options for individual
+peers or orderers. Unique settings may be passed on the
+<a href="Client.html#newPeer">Client#newPeer</a> or
+<a href="Client.html#newOrderer">Client#newOrderer</a> calls in the option parameter.
+Options passed in on the call will override both the client based
+options and the system configuration based options.</p>
+<pre class="prettyprint source"><code>const options = {
+    pem: '&lt;pem string>',
+    'ssl-target-name-override': 'myhost.org1.com',
+    'grpc.keepalive_timeout_ms': 10000
+};
+
+// peer will have options from default, client, and parameter
+const peer = client.newPeer(url, options);</code></pre><p>Note: Connection options passed on the <code>newPeer()</code> and the <code>newOrderer()</code>
+calls will only be used for that peer or orderer.</p>
+<h3>Add connection options to a common connection profile</h3><p>Connection options may be set at the client level or individually on peers and
+orderers when using a common connection profile. In the following profile
+both the client section and one peer have a gRPC setting.</p>
+<pre class="prettyprint source"><code>client:
+  # Which organization does this application instance belong to? The value is the name of an org
+  # defined under &quot;organizations&quot;
+  organization: Org1
+
+  # set connection timeouts for the peer and orderer for the client
+  connection:
+    timeout:
+      peer:
+        # the timeout in seconds to be used on requests to a peer,
+        # for example 'sendTransactionProposal'
+        endorser: 120
+        # the timeout in seconds to be used by applications when waiting for an
+        # event to occur. This time should be used in a javascript timer object
+        # that will cancel the event registration with the channel event hub instance.
+        eventHub: 60
+        # the timeout in seconds to be used when setting up the connection
+        # with the peer event hub. If the peer does not acknowledge the
+        # connection within the time, the application will be notified over the
+        # error callback if provided.
+        eventReg: 3
+      # the timeout in seconds to be used on request to the orderer,
+      # for example
+      orderer: 30
+      # connection options, typically these will be common GRPC settings,
+      # overriding what has been set in the system config file &quot;default.json&quot;
+    options:
+      grpc.keepalive_timeout_ms: 10000
+peers:
+  peer1.org2.example.com:
+    url: grpcs://localhost:8051
+    grpcOptions:
+      ssl-target-name-override: peer1.org2.example.com
+      grpc.keepalive_timeout_ms: 20000
+    tlsCACerts:
+      path: test/fixtures/channel/c...
+  peer2.org2.example.com:
+    url: grpcs://localhost:8052
+    grpcOptions:
+      ssl-target-name-override: peer2.org2.example.com
+    tlsCACerts:
+      path: test/fixtures/channel/c...</code></pre><p>Note: All new connections created by this client, including those created
+automatically when using the discovery service will use the client's
+connection options to override the default connection options. <code>peer1</code>
+will be override the one setting with it's own unique value. <code>peer2</code>
+will not override any of the client's or the system defaults.
+The application may call the <code>client.addConnectionOptions()</code> to add
+additional settings or override settings. Peers created by a call
+to <a href="Client.html#getPeer">Client#getPeer</a> or orderers created by a call to
+<a href="Client.html#getOrderer">Client#getOrderer</a> or by a call to <a href="Client.html#getChannel">Client#getChannel</a>
+after the add call will use the new set of values.
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
 </article>
 
 </section>
-
-
-
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>
