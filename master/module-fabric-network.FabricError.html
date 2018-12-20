@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: EndorsementHandler</title>
+	<title>Hyperledger Fabric SDK for node.js Interface: FabricError</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,18 +93,18 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: EndorsementHandler</h1>
+	<h1 class="page-title">Interface: FabricError</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-api.html">api</a>.</span>
+            <span class="ancestors"><a href="module-fabric-network.html">fabric-network</a>.</span>
         
-        EndorsementHandler
+        FabricError
         </h2>
         
-            <div class="class-description">Base class for endorsement handling</div>
+            <div class="class-description">Base type for Fabric-specific errors.</div>
         
     
 </header>
@@ -114,205 +114,16 @@
     <div class="container-overview">
     
         
-<hr>
-<dt>
-    <h4 class="name" id="EndorsementHandler"><span class="type-signature"></span>new EndorsementHandler()</h4>
-    
-    
-</dt>
-<dd>
 
-    
-
-    
-
-    
-
-    
-    
-
-    
+        
 <dl class="details">
     
 
-	
+    <h5 class="subsection-title">Properties:</h5>
 
-	
+    <dl>
 
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id=".create"><span class="type-signature">&lt;static> </span>create()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This static method will be called by the channel to create an instance of
-this handler. It will be passed the channel object this handler is working
-with.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="endorse"><span class="type-signature"></span>endorse(params)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This method will process the request object to calculate the target peers.
-Once the targets have been determined, the channel to send the endorsement
-transaction to all targets. The results will be analyzed to see if
-enough completed endorsements have been received.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
+<table class="props table table-striped">
     <thead>
     <tr>
         
@@ -321,6 +132,8 @@ enough completed endorsements have been received.
 
         <th>Type</th>
 
+        
+        <th>Argument</th>
         
 
         
@@ -334,13 +147,13 @@ enough completed endorsements have been received.
 
         <tr>
             
-                <td class="name"><code>params</code></td>
+                <td class="name"><code>cause</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">EndorsementHandlerParameters</span>
+<span class="param-type">Error</span>
 
 
 
@@ -348,23 +161,57 @@ enough completed endorsements have been received.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">A EndorsementHandlerParameters
-       that contains enough information to determine the targets and contains
-       a <a href="global.html#ChaincodeInvokeRequest">ChaincodeInvokeRequest</a> to be sent using the included channel
-       with the <a href="Channel.html">Channel</a> 'sendTransactionProposal' method.</td>
+            <td class="description last">Underlying error that caused this error.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>transactionId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">ID of the associated transaction.</td>
         </tr>
 
     
     </tbody>
 </table>
+</dl>
 
-    
-
-    
-<dl class="details">
     
 
 	
@@ -403,109 +250,9 @@ enough completed endorsements have been received.
 </dl>
 
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    A Promise for the <a href="global.html#ProposalResponseObject">ProposalResponseObject</a>, the
-       same results as calling the <a href="Channel.html">Channel</a> 'sendTransactionProposal'
-       method directly.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
         
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
     
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This method will be called by the channel when the channel is initialzied.
     </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
 
     
 
@@ -519,10 +266,6 @@ enough completed endorsements have been received.
 
     
 
-    
-</dd>
-
-        </dl>
     
 
     
@@ -572,7 +315,7 @@ enough completed endorsements have been received.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2018-12-20T13:48:50+00:00
+		on 2018-12-20T13:48:51+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
