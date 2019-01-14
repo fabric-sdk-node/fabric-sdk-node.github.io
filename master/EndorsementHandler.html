@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: ECDSA_KEY</title>
+	<title>Hyperledger Fabric SDK for node.js Class: EndorsementHandler</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,14 +93,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: ECDSA_KEY</h1>
+	<h1 class="page-title">Class: EndorsementHandler</h1>
 <section>
 
 <header>
     
         <h2>
-        ECDSA_KEY
+        EndorsementHandler
         </h2>
+        
+            <div class="class-description">Base class for endorsement handling</div>
         
     
 </header>
@@ -112,16 +114,12 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="ECDSA_KEY"><span class="type-signature"></span>new ECDSA_KEY()</h4>
+    <h4 class="name" id="EndorsementHandler"><span class="type-signature"></span>new EndorsementHandler()</h4>
     
     
 </dt>
 <dd>
 
-    
-    <div class="description">
-        This module implements the module:api.Key interface, for ECDSA.
-    </div>
     
 
     
@@ -190,14 +188,321 @@
     </div>
 
     
-        <h3 class="subsection-title">Extends</h3>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id=".create"><span class="type-signature">&lt;static> </span>create()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This static method will be called by the channel to create an instance of
+this handler. It will be passed the channel object this handler is working
+with.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="endorse"><span class="type-signature"></span>endorse(params)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method will process the request object to calculate the target peers.
+Once the targets have been determined, the channel to send the endorsement
+transaction to all targets. The results will be analyzed to see if
+enough completed endorsements have been received.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
 
         
 
+        
 
-    <ul>
-        <li>module:api.Key</li>
-    </ul>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#EndorsementHandlerParameters">EndorsementHandlerParameters</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A <a href="global.html#EndorsementHandlerParameters">EndorsementHandlerParameters</a>
+       that contains enough information to determine the targets and contains
+       a <a href="global.html#ChaincodeInvokeRequest">ChaincodeInvokeRequest</a> to be sent using the included channel
+       with the <a href="Channel.html">Channel</a> 'sendTransactionProposal' method.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for the <a href="global.html#ProposalResponseObject">ProposalResponseObject</a>, the
+       same results as calling the <a href="Channel.html">Channel</a> 'sendTransactionProposal'
+       method directly.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method will be called by the channel when the channel is initialzied.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
 
 
     
@@ -212,6 +517,10 @@
 
     
 
+    
+</dd>
+
+        </dl>
     
 
     
