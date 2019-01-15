@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: IdentityService</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: fabric-client: How to use the endorsement and commit handlers</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -88,1049 +88,134 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
-			
-
-	<h1 class="page-title">Class: IdentityService</h1>
-<section>
+			<section class="tutorial-section">
 
 <header>
     
-        <h2>
-        IdentityService
-        </h2>
-        
-            <div class="class-description">This is an implementation of the Identity service which communicates with
-the Fabric CA server using the Fabric CA client <a href="FabricCAClient.html">FabricCAClient</a>.</div>
-        
-    
+
+    <h2>fabric-client: How to use the endorsement and commit handlers</h2>
 </header>
 
-
 <article>
-    <div class="container-overview">
-    
-        
-<hr>
-<dt>
-    <h4 class="name" id="IdentityService"><span class="type-signature"></span>new IdentityService()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="create"><span class="type-signature"></span>create(req, registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Create a new identity with the Fabric CA server.
-An enrollment secret is returned which can then be used, along with the enrollment ID, to enroll a new identity.
-The caller must have `hf.Registrar` authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IdentityRequest">IdentityRequest</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The <a href="global.html#IdentityRequest">IdentityRequest</a></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The identity of the registrar (i.e. who is performing the registration).</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Return the secret of this new identity
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="delete"><span class="type-signature"></span>delete(enrollmentID, registrar, force)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Delete an existing identity. The caller must have `hf.Registrar` authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>enrollmentID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>force</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. With force, some identity can delete itself</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getAll"><span class="type-signature"></span>getAll(registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get all identities that the registrar is entitled to see.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getOne"><span class="type-signature"></span>getOne(enrollmentID, registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get an identity. The caller must have `hf.Registrar` authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>enrollmentID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The enrollment ID which uniquely identifies an identity</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="update"><span class="type-signature"></span>update(enrollmentID, req, registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Update an existing identity. The caller must have `hf.Registrar` authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>enrollmentID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IdentityRequest">IdentityRequest</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        </dl>
-    
-
-    
-
-    
+    <p>This tutorial illustrates the use of the handlers by the Hyperledger Fabric Node.js Client as of 1.3.</p>
+<p>For more information on:</p>
+<ul>
+<li>getting started with Hyperledger Fabric see
+<a href="http://hyperledger-fabric.readthedocs.io/en/latest/build_network.html">Building your first network</a>.</li>
+<li>the configuration of a channel in Hyperledger Fabric and the internal
+process of creating and updating see
+<a href="http://hyperledger-fabric.readthedocs.io/en/latest/configtx.html">Hyperledger Fabric channel configuration</a></li>
+<li><a href="https://hyperledger-fabric.readthedocs.io/en/latest/discovery-overview.html">Service Discovery</a></li>
+</ul>
+<p>The following assumes an understanding of the Hyperledger Fabric network
+(orderers and peers),
+and of Node application development, including the use of the
+Javascript <code>promise</code> and <code>async await</code>.</p>
+<h3>Overview</h3><p>The fabric-client provides the ability for custom code that will handle the
+endorsement process and the submitting of endorsements to the orderer.
+There are two plug points defined, one on the <a href="Channel.html#sendTransactionProposal">Channel#sendTransactionProposal</a>
+and one on the <a href="Channel.html#sendTransaction">Channel#sendTransaction</a>. The fabric-client will pass
+control to the handler to complete the processing. The custom code may
+decide to retry, try another end point, or use discovery to complete the
+task.</p>
+<p>see <a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a> on how the default handlers are
+used with discovery.</p>
+<h4>Modified API's that will use handlers</h4><ul>
+<li><code>channel.initialize()</code> - This method has been enhanced to instantiate
+instances of the handlers for use by the channel. The method will get the
+paths from the system configuration settings to create and initialize them.</li>
+<li><code>channel.sendTransactionProposal()</code> - This method has been enhanced to use
+an <code>endorsement-handler</code> if one has been instantiated and initialized.</li>
+<li><code>channel.sendTransaction()</code> - This method has been enhanced to use
+a <code>commit-handler</code> if one has been instantiated and initialized.</li>
+</ul>
+<h4>New configuration settings</h4><ul>
+<li><code>endorsement-handler</code> - string - The path to the endorsement handler. Allows for a
+custom handler to be used. This handler is used in the
+<a href="Channel.html#sendTransactionProposal"><code>sendTransactionProposal()</code></a>
+method to determine the target peers and how to send the proposal.
+(default 'fabric-client/lib/impl/DiscoveryEndorsementHandler.js')</li>
+<li><code>commit-handler</code> - string - The path to the commit handler. Allows for
+a custom handler to be used. This handler is used in the
+<a href="Channel.html#sendTransaction"><code>sendTransaction()</code></a> method
+to determine the orderers and how to send the transaction to be committed.
+(default 'fabric-client/lib/impl/BasicCommitHandler.js')</li>
+</ul>
+<h3>new Endorsement Handler</h3><p>The sending of a proposal to be endorsed may be done using custom code. The
+fabric-client will use by default the file called <code>DiscoveryEndorsementHandler</code>.
+A different endorsement handler may be used by changing the configuration setting
+&quot;endorsement-handler&quot; with the <code>setConfigSetting()</code> or placing a new line
+in configuration JSON file that application has applied to the fabric-client
+configuration. This will instantiate a handler
+located at the path provide in the attribute for all channels initialized
+after the call.
+The default handler was designed to be used with discovery to provided automatic
+selection of peers and fail over. When used without discovery the handler will
+only send to the peers as defined in the targets parameter without fail over.
+The handler may also be changed using the <code>endorsementHandler</code> attribute on the
+<code>channel.initialize()</code> request call parameter. This will instantiate a handler
+located at the path provide in the attribute just for this channel.</p>
+<pre class="prettyprint source"><code>// set value in memory
+Client.setConfigSetting('endorsement-handler', '/path/to/the/handler.js');
+--or--
+// the path to an additional config file
+Client.addConfigFile('/path/to/config.json');
+// the json file contains the following line
+// &quot;endorsement-handler&quot;: &quot;/path/to/the/handler.js&quot;
+--or--
+const request = {
+    ...
+    endorsementHandler: &quot;/path/to/the/handler.js&quot;,
+    ...
+}
+// initialize must be run to use handlers.
+channel.initialize(request);</code></pre><p>A endorsement handler must implement the <code>api.EndorsementHandler</code>. When the
+channel is initialized, the channel will read the path setting and create an
+instance of the handler for use by the new channel instance.</p>
+<h3>new <code>CommitHandler</code></h3><p>The sending of the endorsements to be committed may be done using custom code.
+The fabric-client will use by default the file called <code>BasicCommitHandler</code>.
+The commit handler may be changed by changing the configuration setting
+&quot;commit-handler&quot; by doing a <code>setConfigSetting()</code> or placing a new line
+in configuration JSON file that application has applied to the fabric-client
+configuration.
+The default handler was designed to be used with discovery to provided automatic
+selection of orderers and fail over. When used without discovery the handler will
+still provide fail over to all orderers assigned to the channel, sending to
+each one in orderer until an orderer response successfully to the transaction
+submission. 
+The handler may also be changed using the <code>commitHandler</code> attribute on the
+<code>channel.initialize()</code> request call parameter. This will instantiate a handler
+located at the path provide in the attribute just for this channel.</p>
+<pre class="prettyprint source"><code>// set the config value in memory
+Client.setConfigSetting('commit-handler', '/path/to/the/handler.js');
+--or--
+// path of an additional config file
+Client.addConfigFile('/path/to/config.json');
+// the json file contains the following line
+// &quot;commit-handler&quot;: &quot;/path/to/the/handler.js&quot;
+--or--
+const request = {
+    ...
+    commitHandler: &quot;/path/to/the/handler.js&quot;,
+    ...
+}
+// initialize must be run to use handlers.
+channel.initialize(request);</code></pre><p>A commit handler must implement the <code>api.CommitHandler</code>. When the
+channel is initialized, the channel will read the path setting and create an
+instance of the handler for use by the new channel instance.</p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
 </article>
 
 </section>
-
-
-
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>
