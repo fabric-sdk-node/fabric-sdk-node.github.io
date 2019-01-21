@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: CryptoSuite_ECDSA_AES</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Query</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,17 +93,19 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: CryptoSuite_ECDSA_AES</h1>
+	<h1 class="page-title">Class: Query</h1>
 <section>
 
 <header>
     
         <h2>
-        CryptoSuite_ECDSA_AES
+            <span class="ancestors"><a href="module-fabric-network.html">fabric-network</a>.</span>
+        
+        Query
         </h2>
         
-            <div class="class-description">The module:api.CryptoSuite implementation for ECDSA, and AES algorithms using software key generation.
-This class implements a software-based key generation (as opposed to Hardware Security Module based key management)</div>
+            <div class="class-description">Describes a transaction to be evaluated on a specified set of peers.
+Used by query handler implementations to evaluate transactions on peers of their choosing.</div>
         
     
 </header>
@@ -115,97 +117,19 @@ This class implements a software-based key generation (as opposed to Hardware Se
         
 <hr>
 <dt>
-    <h4 class="name" id="CryptoSuite_ECDSA_AES"><span class="type-signature"></span>new CryptoSuite_ECDSA_AES(keySize, hash)</h4>
+    <h4 class="name" id="Query"><span class="type-signature"></span>new Query()</h4>
     
     
 </dt>
 <dd>
 
     
-    <div class="description">
-        constructor
-    </div>
-    
 
     
 
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>keySize</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Key size for the ECDSA algorithm, can only be 256 or 384</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>hash</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. Hash algorithm, supported values are "SHA2" and "SHA3"</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -265,17 +189,6 @@ This class implements a software-based key generation (as opposed to Hardware Se
 
     
     </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>module:api.CryptoSuite</li>
-    </ul>
-
 
     
 
@@ -296,7 +209,7 @@ This class implements a software-based key generation (as opposed to Hardware Se
             
 <hr>
 <dt>
-    <h4 class="name" id="decrypt"><span class="type-signature"></span>decrypt()</h4>
+    <h4 class="name" id="evaluate"><span class="type-signature">&lt;async> </span>evaluate(peers)</h4>
     
     
 </dt>
@@ -304,405 +217,7 @@ This class implements a software-based key generation (as opposed to Hardware Se
 
     
     <div class="description">
-        This is an implementation of module:api.CryptoSuite#decrypt
-To be implemented.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="deriveKey"><span class="type-signature"></span>deriveKey()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This is an implementation of module:api.CryptoSuite#deriveKey
-To be implemented
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="encrypt"><span class="type-signature"></span>encrypt()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This is an implementation of module:api.CryptoSuite#encrypt
-To be implemented.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="hash"><span class="type-signature"></span>hash()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This is an implementation of module:api.CryptoSuite#hash
-The opts argument is not supported.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="importKey"><span class="type-signature"></span>importKey()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This is an implementation of module:api.CryptoSuite#importKey
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setCryptoKeyStore"><span class="type-signature"></span>setCryptoKeyStore(cryptoKeyStore)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the cryptoKeyStore.
-
-When the application needs to use a key store other than the default,
-it should use the <a href="Client.html">Client</a> newCryptoKeyStore to create an instance and
-use this function to set the instance on the CryptoSuite.
+        Evaluates the query on the specified peers.
     </div>
     
 
@@ -737,13 +252,13 @@ use this function to set the instance on the CryptoSuite.
 
         <tr>
             
-                <td class="name"><code>cryptoKeyStore</code></td>
+                <td class="name"><code>peers</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="CryptoKeyStore.html">CryptoKeyStore</a></span>
+<span class="param-type">Array.&lt;<a href="ChannelPeer.html">ChannelPeer</a>></span>
 
 
 
@@ -754,7 +269,7 @@ use this function to set the instance on the CryptoSuite.
 
             
 
-            <td class="description last">The cryptoKeyStore.</td>
+            <td class="description last">The peers to query</td>
         </tr>
 
     
@@ -814,85 +329,31 @@ use this function to set the instance on the CryptoSuite.
     
 
     
-
+    <h5>Returns:</h5>
     
-</dd>
-
-        
             
-<hr>
-<dt>
-    <h4 class="name" id="sign"><span class="type-signature"></span>sign()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This is an implementation of module:api.CryptoSuite#sign
-Signs digest using key k.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
+<div class="param-desc">
+    Object with peer name keys and associated values that are either
+Buffer or Error objects.
+</div>
 
 
 
-	
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object.&lt;String, (Buffer|Error)></span>
 
-	
 
-	
 
-	
+    </dd>
 </dl>
 
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+        
 
     
 </dd>
