@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Tutorial: fabric-network: How to wait for transactions to be committed to the ledger</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: fabric-client: How to use the endorsement and commit handlers</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -96,99 +96,117 @@
 <header>
     
 
-    <h2>fabric-network: How to wait for transactions to be committed to the ledger</h2>
+    <h2>fabric-client: How to use the endorsement and commit handlers</h2>
 </header>
 
 <article>
-    <p>This tutorial describes the approaches that can be selected by users of the
-fabric-network module for ensuring that submitted transactions are commited
-on peers.</p>
-<h3>Overview</h3><p>The submit of a transaction involves several steps:</p>
-<ol>
-<li>Send proposals to endorsing peers.</li>
-<li>Send the endorsed transaction to the orderer.</li>
-<li>The transaction is <em>eventually</em> committed on all peers in the network.</li>
-</ol>
-<p>In some cases a client application might be happy to proceed immediately after
-the transaction is successfully sent to the orderer. In other cases a client
-application might need to ensure that the transaction has been committed on
-certain peers with which it wants to interact before proceeding.</p>
-<p>It is important to note that the blockchain state visible from a specific peer
-will remain unchanged until a transaction is committed on that peer. If a
-client application queries a peer for state after an endorsed transaction has
-been successfully sent to the orderer but before the transaction has been
-committed on that peer, the state returned will still be that prior to the
-transaction. For example, a query of a bank balance after a transaction to
-deduct funds from that bank account is submitted to the orderer will return
-the old balance until the transaction is eventually committed on the peer
-being queried.</p>
-<h3>Event handling strategies</h3><p>The SDK provides several selectable strategies for how it should wait for
-commit events following a transaction invocation. The available strategies
-are defined in <code>DefaultEventHandlerStrategies</code>. The desired strategy is
-(optionally) specified as an argument to <code>connect()</code> on the <code>Gateway</code>, and
-is used for all transaction invocations on Contracts obtained from that
-Gateway instance.</p>
-<p>If no event handling strategy is specified, <code>MSPID_SCOPE_ALLFORTX</code> is used
-by default.</p>
-<pre class="prettyprint source lang-javascript"><code>const { Gateway, DefaultEventHandlerStrategies } = require('fabric-network');
-
-const connectOptions = {
-    eventHandlerOptions: {
-        strategy: DefaultEventHandlerStrategies.MSPID_SCOPE_ALLFORTX
-    }
+    <p>This tutorial illustrates the use of the handlers by the Hyperledger Fabric Node.js Client as of 1.3.</p>
+<p>For more information on:</p>
+<ul>
+<li>getting started with Hyperledger Fabric see
+<a href="http://hyperledger-fabric.readthedocs.io/en/latest/build_network.html">Building your first network</a>.</li>
+<li>the configuration of a channel in Hyperledger Fabric and the internal
+process of creating and updating see
+<a href="http://hyperledger-fabric.readthedocs.io/en/latest/configtx.html">Hyperledger Fabric channel configuration</a></li>
+<li><a href="https://hyperledger-fabric.readthedocs.io/en/latest/discovery-overview.html">Service Discovery</a></li>
+</ul>
+<p>The following assumes an understanding of the Hyperledger Fabric network
+(orderers and peers),
+and of Node application development, including the use of the
+Javascript <code>promise</code> and <code>async await</code>.</p>
+<h3>Overview</h3><p>The fabric-client provides the ability for custom code that will handle the
+endorsement process and the submitting of endorsements to the orderer.
+There are two plug points defined, one on the <a href="Channel.html#sendTransactionProposal">Channel#sendTransactionProposal</a>
+and one on the <a href="Channel.html#sendTransaction">Channel#sendTransaction</a>. The fabric-client will pass
+control to the handler to complete the processing. The custom code may
+decide to retry, try another end point, or use discovery to complete the
+task.</p>
+<p>see <a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a> on how the default handlers are
+used with discovery.</p>
+<h4>Modified API's that will use handlers</h4><ul>
+<li><code>channel.initialize()</code> - This method has been enhanced to instantiate
+instances of the handlers for use by the channel. The method will get the
+paths from the system configuration settings to create and initialize them.</li>
+<li><code>channel.sendTransactionProposal()</code> - This method has been enhanced to use
+an <code>endorsement-handler</code> if one has been instantiated and initialized.</li>
+<li><code>channel.sendTransaction()</code> - This method has been enhanced to use
+a <code>commit-handler</code> if one has been instantiated and initialized.</li>
+</ul>
+<h4>New configuration settings</h4><ul>
+<li><code>endorsement-handler</code> - string - The path to the endorsement handler. Allows for a
+custom handler to be used. This handler is used in the
+<a href="Channel.html#sendTransactionProposal"><code>sendTransactionProposal()</code></a>
+method to determine the target peers and how to send the proposal.
+(default 'fabric-client/lib/impl/DiscoveryEndorsementHandler.js')</li>
+<li><code>commit-handler</code> - string - The path to the commit handler. Allows for
+a custom handler to be used. This handler is used in the
+<a href="Channel.html#sendTransaction"><code>sendTransaction()</code></a> method
+to determine the orderers and how to send the transaction to be committed.
+(default 'fabric-client/lib/impl/BasicCommitHandler.js')</li>
+</ul>
+<h3>new Endorsement Handler</h3><p>The sending of a proposal to be endorsed may be done using custom code. The
+fabric-client will use by default the file called <code>DiscoveryEndorsementHandler</code>.
+A different endorsement handler may be used by changing the configuration setting
+&quot;endorsement-handler&quot; with the <code>setConfigSetting()</code> or placing a new line
+in configuration JSON file that application has applied to the fabric-client
+configuration. This will instantiate a handler
+located at the path provide in the attribute for all channels initialized
+after the call.
+The default handler was designed to be used with discovery to provided automatic
+selection of peers and fail over. When used without discovery the handler will
+only send to the peers as defined in the targets parameter without fail over.
+The handler may also be changed using the <code>endorsementHandler</code> attribute on the
+<code>channel.initialize()</code> request call parameter. This will instantiate a handler
+located at the path provide in the attribute just for this channel.</p>
+<pre class="prettyprint source"><code>// set value in memory
+Client.setConfigSetting('endorsement-handler', '/path/to/the/handler.js');
+--or--
+// the path to an additional config file
+Client.addConfigFile('/path/to/config.json');
+// the json file contains the following line
+// &quot;endorsement-handler&quot;: &quot;/path/to/the/handler.js&quot;
+--or--
+const request = {
+    ...
+    endorsementHandler: &quot;/path/to/the/handler.js&quot;,
+    ...
 }
-
-const gateway = new Gateway();
-await gateway.connect(connectionProfile, connectOptions);</code></pre><p>Specifying <code>null</code> as the event handling strategy will cause transaction
-invocations to return immediately after successfully sending the endorsed
-transaction to the orderer. It will not wait for any commit events to be
-received from peers.</p>
-<h3>Plug-in event handlers</h3><p>If behavior is required that is not provided by the default event handling
-strategies, it is possible to implement your own event handling. This is
-achieved by specifying your own factory function as the event handling
-strategy. The factory function should return a <em>transaction event handler</em>
-object and take two parameters:</p>
-<ol>
-<li>Transaction ID: <code>String</code></li>
-<li>Blockchain network: <code>Network</code></li>
-</ol>
-<p>The Network provides access to peers and event hubs from which events should
-be recieved.</p>
-<pre class="prettyprint source lang-javascript"><code>function createTransactionEventHandler(transactionId, network) {
-    /* Your implementation here */
-    return new MyTransactionEventHandler(transactionId, eventHubs);
+// initialize must be run to use handlers.
+channel.initialize(request);</code></pre><p>A endorsement handler should extend the <a href="EndorsementHandler.html">EndorsementHandler</a>. When the
+channel is initialized, the channel will read the path setting and create an
+instance of the handler for use by the new channel instance.</p>
+<h3>new <code>CommitHandler</code></h3><p>The sending of the endorsements to be committed may be done using custom code.
+The fabric-client will use by default the file called <code>BasicCommitHandler</code>.
+The commit handler may be changed by changing the configuration setting
+&quot;commit-handler&quot; by doing a <code>setConfigSetting()</code> or placing a new line
+in configuration JSON file that application has applied to the fabric-client
+configuration.
+The default handler was designed to be used with discovery to provided automatic
+selection of orderers and fail over. When used without discovery the handler will
+still provide fail over to all orderers assigned to the channel, sending to
+each one in orderer until an orderer response successfully to the transaction
+submission. 
+The handler may also be changed using the <code>commitHandler</code> attribute on the
+<code>channel.initialize()</code> request call parameter. This will instantiate a handler
+located at the path provide in the attribute just for this channel.</p>
+<pre class="prettyprint source"><code>// set the config value in memory
+Client.setConfigSetting('commit-handler', '/path/to/the/handler.js');
+--or--
+// path of an additional config file
+Client.addConfigFile('/path/to/config.json');
+// the json file contains the following line
+// &quot;commit-handler&quot;: &quot;/path/to/the/handler.js&quot;
+--or--
+const request = {
+    ...
+    commitHandler: &quot;/path/to/the/handler.js&quot;,
+    ...
 }
-
-const connectOptions = {
-    eventHandlerOptions: {
-        strategy: createTransactionEventhandler
-    }
- }
-
-const gateway = new Gateway();
-await gateway.connect(connectionProfile, connectOptions);</code></pre><p>The <em>transaction event handler</em> object returned must implement the following
-lifecycle functions.</p>
-<pre class="prettyprint source lang-javascript"><code>class MyTransactionEventHandler {
-    /**
-     * Called to initiate listening for transaction events.
-     * @async
-     * @throws {Error} if not in a state where the handling strategy can be satified and the transaction should
-     * be aborted. For example, if insufficient event hubs are available.
-     */
-    async startListening() { /* Your implementation here */ }
-
-    /**
-     * Wait until enough events have been received from the event hubs to satisfy the event handling strategy.
-     * @async
-     * @throws {Error} if the transaction commit is not successfully confirmed.
-     */
-    async waitForEvents() { /* Your implementation here */ }
-
-    /**
-     * Cancel listening for events.
-     */
-    cancelListening() { /* Your imeplementation here */ }
-}</code></pre><p>For a complete sample plug-in event handler implementation, see <a href="https://github.com/hyperledger/fabric-sdk-node/blob/master/test/integration/network-e2e/sample-transaction-event-handler.js">sample-transaction-event-handler.js</a>.</p>
+// initialize must be run to use handlers.
+channel.initialize(request);</code></pre><p>A commit handler should extend the <a href="CommitHandler.html">CommitHandler</a>. When the
+channel is initialized, the channel will read the path setting and create an
+instance of the handler for use by the new channel instance.</p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
 </article>
 
 </section>
@@ -226,7 +244,7 @@ lifecycle functions.</p>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-01-29T15:00:43+00:00
+		on 2019-01-29T15:00:42+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

@@ -54,7 +54,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-grpc-settings.html">fabric-client: How to set gRPC settings</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-query-peers.html">fabric-network: How to select peers for evaluating transactions (queries)</a></li><li><a href="tutorial-sign-transaction-offline.html">Working with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be committed to the ledger</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-grpc-settings.html">fabric-client: How to set gRPC settings</a></li><li><a href="tutorial-handlers.html">fabric-client: How to use the endorsement and commit handlers</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-query-peers.html">fabric-network: How to select peers for evaluating transactions (queries)</a></li><li><a href="tutorial-sign-transaction-offline.html">Working with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be committed to the ledger</a></li>
 				</ul>
 			</li>
 			
@@ -3875,6 +3875,10 @@ tampered with.
 This method retrieves the configuration from the orderer if no "config" parameter is passed in.
 Optionally a configuration may be passed in to initialize this channel without making the call
 to the orderer.
+<br><br>
+This method will also automatically load orderers and peers that represent
+the fabric network when using discovery. This application must provide a
+peer running the fabric discovery service.
     </div>
     
 
@@ -6871,7 +6875,7 @@ proposal would be send to peer directly.</td>
 to the orderer for further processing. This is the 2nd phase of the transaction
 lifecycle in the fabric. The orderer will globally order the transactions in the
 context of this channel and deliver the resulting blocks to the committing peers for
-validation against the chaincode's endorsement policy. When the committering peers
+validation against the chaincode's endorsement policy. When the committing peers
 successfully validate the transactions, it will mark the transaction as valid inside
 the block. After all transactions in a block have been validated, and marked either as
 valid or invalid (with a <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/peer/transaction.proto#L125">reason code</a>),
@@ -6880,7 +6884,6 @@ the block will be appended (committed) to the channel's ledger on the peer.
 The caller of this method must use the proposal responses returned from the endorser along
 with the original proposal that was sent to the endorser. Both of these objects are contained
 in the <a href="global.html#ProposalResponseObject">ProposalResponseObject</a> returned by calls to any of the following methods:
-<li><a href="Client.html#installChaincode">installChaincode()</a>
 <li><a href="Channel.html#sendInstantiateProposal">sendInstantiateProposal()</a>
 <li><a href="Channel.html#sendUpgradeProposal">sendUpgradeProposal()</a>
 <li><a href="Channel.html#sendTransactionProposal">sendTransactionProposal()</a>
@@ -7849,7 +7852,7 @@ trusted root certificates for this channel.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-01-25T09:55:02+00:00
+		on 2019-01-29T15:00:41+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

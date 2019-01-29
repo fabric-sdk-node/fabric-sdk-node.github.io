@@ -54,7 +54,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-grpc-settings.html">fabric-client: How to set gRPC settings</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-query-peers.html">fabric-network: How to select peers for evaluating transactions (queries)</a></li><li><a href="tutorial-sign-transaction-offline.html">Working with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be committed to the ledger</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-grpc-settings.html">fabric-client: How to set gRPC settings</a></li><li><a href="tutorial-handlers.html">fabric-client: How to use the endorsement and commit handlers</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-query-peers.html">fabric-network: How to select peers for evaluating transactions (queries)</a></li><li><a href="tutorial-sign-transaction-offline.html">Working with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be committed to the ledger</a></li>
 				</ul>
 			</li>
 			
@@ -124,7 +124,10 @@ To use the service the application will have to connect with just one peer.</p>
 <li><code>channel.initialize()</code> - This method has been enhanced by adding an option to
 query a peer using the new service discovery to initialize the channel object.
 This method may be call at anytime to reinitialize the channel. When using discovery,
-this may be used to assign a new target peer providing the discover service. </li>
+this may be used to assign a new target peer providing the discover service.
+The initialize() method is also required to instantiate the handlers, by default
+the handlers shipped with the fabric-client are designed to use the discovery
+results.</li>
 <li><code>channel.sendTransactionProposal()</code> - This method has been enhanced to use the
 discovered peers to send the endorsement proposal.</li>
 <li><code>channel.sendTransaction()</code> - This method has been enhanced to use the discovered
@@ -162,35 +165,6 @@ a custom handler to be used. This handler is used in the <code>sendTransaction</
 to determine the orderers and how to send the transaction to be committed.
 (default 'fabric-client/lib/impl/BasicCommitHandler.js')</li>
 </ul>
-<h3>new <code>EndorsementHandler</code></h3><p>The sending of a proposal to be endorsed may be done using custom code. The
-fabric-client will use by default the file called <code>DiscoveryEndorsementHandler</code>.
-A different endorsement handler may be used by changing the configuration setting
-&quot;endorsement-handler&quot; with the <code>setConfigSetting()</code> or placing a new line
-in configuration JSON file that application has applied to the fabric-client
-configuration. This will instantiate a handler
-located at the path provide in the attribute for all channels initialized
-after the call.
-The handler may also be changed using the <code>endorsementHandler</code> attribute on the
-<code>channel.initialize()</code> request call parameter. This will instantiate a handler
-located at the path provide in the attribute just for this channel.</p>
-<pre class="prettyprint source"><code>// set value in memory
-Client.setConfigSetting('endorsement-handler', '/path/to/the/handler.js');
---or--
-// the path to an additional config file
-Client.addConfigFile('/path/to/config.json');
-// the json file contains the following line
-// &quot;endorsement-handler&quot;: &quot;/path/to/the/handler.js&quot;
---or--
-const request = {
-    target: peer,
-    discovery: true,
-    endorsementHandler: &quot;/path/to/the/handler.js&quot;,
-    ...
-}
-// request object contains the path to the handler
-channel.initialize(request);</code></pre><p>A endorsement handler must implement the <code>api.EndorsementHandler</code>. When the
-channel is instantiated, the channel will read the path setting and create an
-instance of the handler for use by the new channel instance.</p>
 <h4>How the <code>DiscoveryEndorsementHandler</code> works</h4><p>The <code>sendTransactionProposal</code> will use the peers included in the &quot;targets&quot; to
 endorse the proposal. If there is no &quot;targets&quot; parameter, the endorsement request
 will be handled by the endorsement handler.
@@ -245,21 +219,6 @@ refreshing of the discovery service results, the order of how peers are
 selected will likely change on every request.</p>
 <p>Note: If the above behavior does not meet the needs of your organization a
 custom handler may be used.</p>
-<h3>new <code>CommitHandler</code></h3><p>The sending of the endorsements to be committed may be done using custom code.
-The fabric-client will use by default the file called <code>BasicCommitHandler</code>.
-The commit handler may be changed by changing the configuration setting
-&quot;commit-handler&quot; by doing a <code>setConfigSetting()</code> or placing a new line
-in configuration JSON file that application has applied to the fabric-client
-configuration.</p>
-<pre class="prettyprint source"><code>// set the config value in memory
-Client.setConfigSetting('commit-handler', '/path/to/the/handler.js');
---or--
-// path of an additional config file
-Client.addConfigFile('/path/to/config.json');
-// the json file contains the following line
-// &quot;commit-handler&quot;: &quot;/path/to/the/handler.js&quot;</code></pre><p>A commit handler must implement the <code>api.CommitHandler</code>. When the
-channel is instantiated, the channel will read the path setting and create an
-instance of the handler for use by the new channel instance.</p>
 <h4>How the <code>BasicCommitHandler</code> works</h4><p>The default handler that comes with the fabric-client will send to one orderer at
 a time until it receives a successful submission of the transaction. Sending
 a transaction (a set of endorsements) to an orderer does not mean that the transaction
@@ -268,13 +227,15 @@ sender has the authority to send the request. The response from the orderer
 will indicate that the orderer has accepted the request. The <code>sendTransaction</code>
 has an optional parameter <code>orderer</code> that indicates the orderer to send the
 transaction. The handler will use the orderer as specified with the <code>orderer</code>
-parameter and send to any other orderers. If no orderer is specified the handler
+parameter and not send to any other orderers. If no orderer is specified the handler
 will get the list of orderers assigned to the channel. These orderers may have
 been assigned manually to the channel with a <code>channel.addOrderer()</code> call or
-automatically when using the service discovery.</p>
+assigned automatically when using the service discovery.</p>
 <h3>To Initialize</h3><p>By default the fabric-client will not use the service discovery. To enable the
 use of the service, set the config setting to true or use the discover parameter
 on the <code>initialize()</code> call.</p>
+<p>note: <a href="Channel.html#initialize">Channel#initialize</a> must be run to both enable discovery and to
+startup the handlers.</p>
 <pre class="prettyprint source"><code>Client.setConfigSetting('initialize-with-discovery', true);
 --or--
 Client.addConfigFile('/path/to/config.json');
@@ -606,7 +567,7 @@ If an orderer is specified on the call, only that orderer will be used.</p>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-01-25T09:55:04+00:00
+		on 2019-01-29T15:00:42+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

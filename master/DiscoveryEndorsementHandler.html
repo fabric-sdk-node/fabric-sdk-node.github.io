@@ -54,7 +54,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-grpc-settings.html">fabric-client: How to set gRPC settings</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-query-peers.html">fabric-network: How to select peers for evaluating transactions (queries)</a></li><li><a href="tutorial-sign-transaction-offline.html">Working with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be committed to the ledger</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-grpc-settings.html">fabric-client: How to set gRPC settings</a></li><li><a href="tutorial-handlers.html">fabric-client: How to use the endorsement and commit handlers</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-query-peers.html">fabric-network: How to select peers for evaluating transactions (queries)</a></li><li><a href="tutorial-sign-transaction-offline.html">Working with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be committed to the ledger</a></li>
 				</ul>
 			</li>
 			
@@ -102,7 +102,7 @@
         DiscoveryEndorsementHandler
         </h2>
         
-            <div class="class-description">This is an implementation of the EndorsementHandler API.
+            <div class="class-description">This is an implementation of the <a href="EndorsementHandler.html">EndorsementHandler</a> API.
 It will submit transactions to be endorsed to a target list generated from the
 results of service discovery.</div>
         
@@ -250,7 +250,7 @@ results of service discovery.</div>
 
 
     <ul>
-        <li>module:api.EndorsementHandler</li>
+        <li><a href="EndorsementHandler.html">EndorsementHandler</a></li>
     </ul>
 
 
@@ -422,6 +422,272 @@ results of service discovery.</div>
     
 </dd>
 
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="endorse"><span class="type-signature"></span>endorse(params)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method will process the request object to calculate the target peers.
+Once the targets have been determined, the channel to send the endorsement
+transaction to all targets. The results will be analyzed to see if
+enough completed endorsements have been received.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#EndorsementHandlerParameters">EndorsementHandlerParameters</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A <a href="global.html#EndorsementHandlerParameters">EndorsementHandlerParameters</a>
+       that contains enough information to determine the targets and contains
+       a <a href="global.html#ChaincodeInvokeRequest">ChaincodeInvokeRequest</a> to be sent using the included channel
+       with the <a href="Channel.html">Channel</a> 'sendTransactionProposal' method.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="EndorsementHandler.html#endorse">EndorsementHandler#endorse</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="EndorsementHandler.html#endorse">EndorsementHandler#endorse</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for the <a href="global.html#ProposalResponseObject">ProposalResponseObject</a>, the
+       same results as calling the <a href="Channel.html#sendTransactionProposal">Channel#sendTransactionProposal</a>
+       method directly.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method will be called by the channel when the channel is initialized.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="EndorsementHandler.html#initialize">EndorsementHandler#initialize</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="EndorsementHandler.html#initialize">EndorsementHandler#initialize</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
         </dl>
     
 
@@ -472,7 +738,7 @@ results of service discovery.</div>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-01-25T09:55:03+00:00
+		on 2019-01-29T15:00:42+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
