@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Gateway</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Chaincode</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,24 +93,60 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Gateway</h1>
+	<h1 class="page-title">Class: Chaincode</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-fabric-network.html">fabric-network</a>.</span>
-        
-        Gateway
+        Chaincode
         </h2>
         
-            <div class="class-description">The gateway peer provides the connection point for an application to access the Fabric network.  It is instantiated using
-the default constructor.
-It can then be connected to a fabric network using the connect method by passing either a CCP definition
-or an existing <a href="Client.html">Client</a> object.
-Once connected, it can then access individual Network instances (channels) using the getNetwork method
-which in turn can access the smart contracts installed on a network and
-submit transactions to the ledger.</div>
+            <div class="class-description">The Chaincode class represents an Chaincode definition in the target
+blockchain network.
+<br><br>
+see the tutorial <a href="tutorial-chaincode-lifecycle.html">fabric-client: How to install and start your chaincode</a>
+<br><br>
+This class allows an application to contain all chaincode attributes and
+artifacts in one place during runtime. This will assist the administration
+of the chaincode's lifecycle.
+
+From your <a href="Client.html">Client</a> instance use the <a href="Client.html#newChaincode">Client#newChaincode</a> method.
+This will return a Chaincode object instance that has been associated with
+that client. This will provide access to user credentials used for signing
+requests, access to peer, orderer, and channel information.
+
+
+From the new chaincode object you will be able to use it to help you create
+a chaincode package. This is a local client operation and does not make an
+outbound request. The package may be sent to other organizations to be
+installed on their peers.
+This package may then be installed on your organization's peers.
+The peer will return a hash value representing the package that it
+has installed. This unique value will identify your chaincode across
+the fabric network and must match all other peers that have installed
+the chaincode.
+<br>
+<br>
+Now that we have a hash value we can define a chaincode that our organization
+would like to run. The definition will include the hash, the name, the version,
+an endorsement policy, the channel and your organization.
+The definition must be endorsed by a peer
+in your organization and sent to be orderer to be committed to the ledger.
+You may want to think of this definition as a vote that your organization
+has agreed to run this particular chaincode on this channel.
+Once enough organization have also voted by endorsing a chaincode organization
+definition and committing that transaction the Chaincode channel definition
+may now be processed.
+<br>
+<br>
+When enough organizations have agreed to run this unique chaincode definition,
+it may be defined to run on the channel. This is an endorsement sent by a
+single client to enough organization's peers to satisfy the chaincode life-cycle
+policy.
+Once the client gets enough endorsements it will send the transaction to the
+orderer to be committed to the ledger.
+The chaincode may now be used for endorsements.</div>
         
     
 </header>
@@ -122,99 +158,7 @@ submit transactions to the ledger.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="Gateway"><span class="type-signature"></span>new Gateway()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="connect"><span class="type-signature">&lt;async> </span>connect(config, options)</h4>
+    <h4 class="name" id="Chaincode"><span class="type-signature"></span>new Chaincode(name, version, client)</h4>
     
     
 </dt>
@@ -222,7 +166,7 @@ submit transactions to the ledger.</div>
 
     
     <div class="description">
-        Connect to the Gateway with a connection profile or a prebuilt Client instance.
+        Construct a Chaincode object.
     </div>
     
 
@@ -257,18 +201,60 @@ submit transactions to the ledger.</div>
 
         <tr>
             
-                <td class="name"><code>config</code></td>
+                <td class="name"><code>name</code></td>
             
 
             <td class="type">
             
                 
 <span class="param-type">string</span>
-|
 
-<span class="param-type">object</span>
-|
 
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of this chaincode</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>version</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The version of this chaincode</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>client</code></td>
+            
+
+            <td class="type">
+            
+                
 <span class="param-type"><a href="Client.html">Client</a></span>
 
 
@@ -280,36 +266,7 @@ submit transactions to the ledger.</div>
 
             
 
-            <td class="description last">The configuration for this Gateway which can be:
-<ul>
-  <li>A fully qualified common connection profile file path (String)</li>
-  <li>A common connection profile JSON (Object)</li>
-  <li>A pre-configured client instance</li>
-</ul></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-fabric-network.Gateway.html#~GatewayOptions">module:fabric-network.Gateway~GatewayOptions</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">specific options for creating this Gateway instance</td>
+            <td class="description last">The Client instance.</td>
         </tr>
 
     
@@ -373,81 +330,118 @@ submit transactions to the ledger.</div>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">const gateway = new Gateway();
-const wallet = new FileSystemWallet(&#x27;./WALLETS/wallet&#x27;);
-const ccpFile = fs.readFileSync(&#x27;./network.json&#x27;);
-const ccp = JSON.parse(ccpFile.toString());
-await gateway.connect(ccp, {
-  identity: &#x27;admin&#x27;,
-  wallet: wallet
-});</pre>
+    <pre class="sunlight-highlight-javascript">// create chaincode object
+  const mychaincode = client.newChaincode(&#x27;mychaincode&#x27;, &#x27;version1&#x27;);
+
+// package the source code
+  //          - or -
+  //         use an existing package
+  const packge_request = {
+     chaincodeType: &#x27;golang&#x27;,
+     goPath: &#x27;/gopath&#x27;,
+     chaincodePath: &#x27;/path/to/code&#x27;,
+     metadataPath: &#x27;/path/to/metadat&#x27;
+  }
+  await mychaincode.package(package_request);
+
+  // send the package to the other organizations to install
+  const package = mychaincode.getPackage();
+  ... &lt; code to send &gt;
+  // The other organizations will make the package call, they
+  // will use the setPackage() method to apply an existing chaincode
+  // package to the chaincode instance object.
+  mychaincode.setPackage(package);
+
+// install on my peers
+  //   This step is only required for peers that will execute the
+  //   the chaincode during an endorsement or chaincode query operation.
+  const install_request = {
+     targets: [peer1, peer2],
+     request_timeout: 20000 // give the peers some extra time
+  }
+  // The hash value of the package is returned by the peer
+  // The chaincode instance object will also contain this value.
+  const hash = await mychaincode.install(install_request);
+
+// set the endorsement policy and collection config
+  // The endorsement policy - required.
+  mychaincode.setEndorsementPolicy(policy_def);
+  // The collection configuration - optional.
+  mychaincode.setCollectionConfig(config_def));
+
+// set the sequence of the definition
+  mychaincode.setSequence(1);
+
+// define for my organization
+  //   Each organization will define the chaincode. Think of
+  //   of this step as both defining a chaincode for the organization
+  //   to use and the organization casting a vote for this definition
+  //   the chaincode to be allowed to be executed on the channel.
+  //   Note that an organization that is just voting to allow the chaincode
+  //   on the channel and not planning on actually executing the  chaincode
+  //   will only have to an chaincode instance object with
+  //   the name, the version, the hash value, and the sequence number
+  //   attributes set. The package and installing the package will not be
+  //   required.
+  const tx_id = client.newTransactionID();
+  const request = {
+     target: peer1,
+     chaincode: mychaincode,
+     txId: tx_id
+  }
+  const {proposalResponses, proposal} = await mychannel.defineChaincodeForOrg(request);
+  const orderer_request = {
+     proposalResponses: proposalResponses,
+     proposal, proposal
+  }
+  const results = await mychannel.sendTransaction(orderer_request);
+
+
+// define the chaincode for the channel
+  //  One organization will create a transaction that will define this
+  //  chaincode for the channel. The transaction must be endorsed by enough
+  //  organizations on the channel to satisfy the chaincode lifecycle policy.
+  //  This action will not succeed until enough organizations have voted
+  //  (define for organization) for this chaincode definition to run on this
+  //  channel to satisfy the chaincode lifecycle endorsement policy.
+  const tx_id = client.newTransactionID();
+  const request = {
+     targets: [peer1, peer3],
+     chaincode: mychaincode,
+     txId: tx_id
+  }
+  const {proposalResponses, proposal} = await mychannel.defineChaincode(request);
+  const orderer_request = {
+     proposalResponses: proposalResponses,
+     proposal, proposal
+  }
+  const results = await mychannel.sendTransaction(orderer_request);
+
+// initialize the chaincode
+  // This action will start the chaincode container and run the &#x27;init&#x27; method
+  // of the chaincode with the provided arguments.
+  // This action will only be required when the code package is new or
+  // has changed and a new chaincode container must be initialized.
+  const tx_id = client.newTransactionID();
+  const request = {
+     chaincodeId : chaincodeId,
+     fcn: &#x27;init&#x27;,
+     args: args,
+     txId: tx_id
+  }
+  const init_results = await mychannel.sendTransaction(request);
+  const orderer_request = {
+     proposalResponses: init_results[0],
+     proposal: init_results[1]
+  }
+  const results = await mychannel.sendTransaction(orderer_request);</pre>
 
 
     
 </dd>
 
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="disconnect"><span class="type-signature"></span>disconnect()</h4>
     
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Clean up and disconnect this Gateway connection in preparation for it to be discarded and garbage collected
     </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
 
     
 
@@ -462,13 +456,13 @@ await gateway.connect(ccp, {
     
 
     
-</dd>
+        <h3 class="subsection-title">Methods</h3>
 
-        
+        <dl>
             
 <hr>
 <dt>
-    <h4 class="name" id="getClient"><span class="type-signature"></span>getClient()</h4>
+    <h4 class="name" id="getHash"><span class="type-signature"></span>getHash()</h4>
     
     
 </dt>
@@ -476,109 +470,7 @@ await gateway.connect(ccp, {
 
     
     <div class="description">
-        Get the underlying Client object instance
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The underlying client instance
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Client.html">Client</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getCurrentIdentity"><span class="type-signature"></span>getCurrentIdentity()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the current identity
+        Gets the package hash value
     </div>
     
 
@@ -644,7 +536,8 @@ await gateway.connect(ccp, {
     
             
 <div class="param-desc">
-    The current identity used by this Gateway.
+    The hash value as generated by the peer when the
+ package was installed
 </div>
 
 
@@ -655,7 +548,7 @@ await gateway.connect(ccp, {
     </dt>
     <dd>
         
-<span class="param-type"><a href="User.html">User</a></span>
+<span class="param-type">string</span>
 
 
 
@@ -672,7 +565,7 @@ await gateway.connect(ccp, {
             
 <hr>
 <dt>
-    <h4 class="name" id="getNetwork"><span class="type-signature">&lt;async> </span>getNetwork(networkName)</h4>
+    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
     
     
 </dt>
@@ -680,7 +573,630 @@ await gateway.connect(ccp, {
 
     
     <div class="description">
-        Returns an object representing a network
+        Gets the name of this chaincode.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The name of this chaincode
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getPackage"><span class="type-signature"></span>getPackage()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the source code package
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The package of this chaincode
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getSequence"><span class="type-signature"></span>getSequence()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the modification sequence of the chaincode definition.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The sequence of this chaincode
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getVersion"><span class="type-signature"></span>getVersion()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets the version of this chaincode.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The version of this chaincode
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="hasHash"><span class="type-signature"></span>hasHash()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Method to check if this chaincode package hash has been assigned.
+The hash value is the unique identifer of this chaincode source package
+returned by the peer that installed the chaincode package.
+When this chaincode instance has a hash value assigned it will mean
+this chaincode has been installed. It also could mean that another
+organization did the install and this organization only wants to define
+(allow) this chaincode and will not install the package at this time.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    indicates if this chaincode instance has the hash value
+ and this chaincode instance may be used for the chaincode define actions.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="hasPackage"><span class="type-signature"></span>hasPackage()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Method to check if this chaincode instance has a chaincode package assigned.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    indicates if this chaincode instance has a package
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="install"><span class="type-signature">&lt;async> </span>install(request)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Install the package on the specified peers.
+This method will send the package to the peers provided.
+Each peer will return a hash value of the installed
+package. When this method is called again and within this call, the hash value
+returnd from the peer must be equal to the pervious install.
     </div>
     
 
@@ -715,13 +1231,13 @@ await gateway.connect(ccp, {
 
         <tr>
             
-                <td class="name"><code>networkName</code></td>
+                <td class="name"><code>request</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="global.html#ChaincodeInstallRequest">ChaincodeInstallRequest</a></span>
 
 
 
@@ -732,7 +1248,8 @@ await gateway.connect(ccp, {
 
             
 
-            <td class="description last">The name of the network (channel name)</td>
+            <td class="description last">The request object with the
+       install attributes and settings.</td>
         </tr>
 
     
@@ -795,6 +1312,10 @@ await gateway.connect(ccp, {
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    The hash value as calculated by the target peer(s).
+</div>
+
 
 
 <dl>
@@ -803,7 +1324,7 @@ await gateway.connect(ccp, {
     </dt>
     <dd>
         
-<span class="param-type"><a href="module-fabric-network.Network.html">module:fabric-network.Network</a></span>
+<span class="param-type">string</span>
 
 
 
@@ -820,7 +1341,7 @@ await gateway.connect(ccp, {
             
 <hr>
 <dt>
-    <h4 class="name" id="getOptions"><span class="type-signature"></span>getOptions()</h4>
+    <h4 class="name" id="package"><span class="type-signature">&lt;async> </span>package(request)</h4>
     
     
 </dt>
@@ -828,7 +1349,9 @@ await gateway.connect(ccp, {
 
     
     <div class="description">
-        Returns the set of options associated with the Gateway connection
+        Package the files at the locations provided.
+ This method will both return the package and set the
+ package on this instance.
     </div>
     
 
@@ -838,125 +1361,10 @@ await gateway.connect(ccp, {
 
     
     
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The Gateway connection options
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-fabric-network.Gateway.html#~GatewayOptions">module:fabric-network.Gateway~GatewayOptions</a></span>
-
-
-
-    </dd>
-</dl>
-
-
+        <h5>Parameters:</h5>
         
 
-    
-</dd>
-
-        </dl>
-    
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        <dl>
-                
-<hr>
-<dt class="name" id="~DefaultEventHandlerOptions">
-    <h4 id="~DefaultEventHandlerOptions">DefaultEventHandlerOptions</h4>
-
-    
-</dt>
-<dd>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
+<table class="params table table-striped">
     <thead>
     <tr>
         
@@ -966,11 +1374,7 @@ await gateway.connect(ccp, {
         <th>Type</th>
 
         
-        <th>Argument</th>
-        
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -982,7 +1386,710 @@ await gateway.connect(ccp, {
 
         <tr>
             
-                <td class="name"><code>commitTimeout</code></td>
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ChaincodePackageRequest</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The parameters to build the
+       chaincode package.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setCollectionConfig"><span class="type-signature"></span>setCollectionConfig(config)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Provide the collection configuration for this chaincode. The input is a JSON object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The JSON representation of a fabric collection configuration definition.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+        <p class="code-caption">Collection config</p>
+    
+    <pre class="sunlight-highlight-javascript">[{
+    name: &quot;detailCol&quot;,
+    policy: {
+       identities: [
+          {role: {name: &quot;member&quot;, mspId: &quot;Org1MSP&quot;}},
+          {role: {name: &quot;member&quot;, mspId: &quot;Org2MSP&quot;}}
+        ],
+        policy: {
+           1-of: [
+              {signed-by: 0},
+              {signed-by: 1}
+            ]
+         }
+    },
+    requiredPeerCount: 1,
+    maxPeerCount: 1,
+    blockToLive: 100
+  }]</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setEndorsementPolicy"><span class="type-signature"></span>setEndorsementPolicy(policy)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Provide the endorsement policy for this chaincode. The input is a JSON object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>policy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The JSON representation of an fabric endorsement policy.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Examples</h5>
+        
+        <p class="code-caption">Endorsement policy: "Signed by any member from one of the organizations"</p>
+    
+    <pre class="sunlight-highlight-javascript">{
+  identities: [
+    { role: {name: &quot;member&quot;, mspId: &quot;org1&quot;}},
+    { role: {name: &quot;member&quot;, mspId: &quot;org2&quot;}}
+  ],
+  policy: {
+    &quot;1-of&quot;: [{&quot;signed-by&quot;: 0}, {&quot;signed-by&quot;: 1}]
+  }
+}</pre>
+
+        <p class="code-caption">Endorsement policy: "Signed by admin of the ordererOrg and any member from one of the peer organizations"</p>
+    
+    <pre class="sunlight-highlight-javascript">{
+  identities: [
+    {role: {name: &quot;member&quot;, mspId: &quot;peerOrg1&quot;}},
+    {role: {name: &quot;member&quot;, mspId: &quot;peerOrg2&quot;}},
+    {role: {name: &quot;admin&quot;, mspId: &quot;ordererOrg&quot;}}
+  ],
+  policy: {
+    &quot;2-of&quot;: [
+      {&quot;signed-by&quot;: 2},
+      {&quot;1-of&quot;: [{&quot;signed-by&quot;: 0}, {&quot;signed-by&quot;: 1}]}
+    ]
+  }
+}</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setHash"><span class="type-signature"></span>setHash(hash)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the chaincode package hash
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>hash</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The source package hash value</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setPackage"><span class="type-signature"></span>setPackage(package)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the chaincode package
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>package</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The source package</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setSequence"><span class="type-signature"></span>setSequence(sequence)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the modification sequence of the chaincode definition.
+The sequence value gives a unique number to a set of attributes for the
+the chaincode. When a attribute changes for a chaincode, the sequence
+value must be incremented and all organizations must again run
+the defineChaincodeForOrg() method to agree to the new definition.
+The default is 1, new chaincode.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sequence</code></td>
             
 
             <td class="type">
@@ -996,215 +2103,22 @@ await gateway.connect(ccp, {
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                    300
-                
-                </td>
-            
 
-            <td class="description last">The timeout period in seconds to wait for commit notification to
-complete.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>strategy</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-fabric-network.Gateway.html#~TxEventHandlerFactory">module:fabric-network.Gateway~TxEventHandlerFactory</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                    &lt;nullable><br>
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    MSPID_SCOPE_ALLFORTX
-                
-                </td>
-            
-
-            <td class="description last">Event handling strategy to identify
-successful transaction commits. A null value indicates that no event handling is desired. The default is
-<a href="module-fabric-network.html#.DefaultEventHandlerStrategies">MSPID_SCOPE_ALLFORTX</a>.</td>
+            <td class="description last">sequence of this chaincode</td>
         </tr>
 
     
     </tbody>
 </table>
-</dl>
 
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt class="name" id="~DefaultQueryHandlerOptions">
-    <h4 id="~DefaultQueryHandlerOptions">DefaultQueryHandlerOptions</h4>
-
-    
-</dt>
-<dd>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
     
 
     
 <dl class="details">
     
 
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Argument</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>strategy</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-fabric-network.Gateway.html#~QueryHandlerFactory">module:fabric-network.Gateway~QueryHandlerFactory</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    MSPID_SCOPE_SINGLE
-                
-                </td>
-            
-
-            <td class="description last">Query handling strategy
-used to evaluate queries. The default is <a href="module-fabric-network.html#.DefaultQueryHandlerStrategies">MSPID_SCOPE_SINGLE</a>.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
 	
 
 	
@@ -1240,663 +2154,43 @@ used to evaluate queries. The default is <a href="module-fabric-network.html#.De
 	
 </dl>
 
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
 </dd>
 
-            
-                
-<hr>
-<dt class="name" id="~DiscoveryOptions">
-    <h4 id="~DiscoveryOptions">DiscoveryOptions</h4>
-
-    
-</dt>
-<dd>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
         
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Argument</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
             
-                <td class="name"><code>enabled</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    true
-                
-                </td>
-            
-
-            <td class="description last">True if discovery should be used; otherwise false.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>asLocalhost</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    true
-                
-                </td>
-            
-
-            <td class="description last">Convert discovered host addresses to be 'localhost'. Will be needed when
-running a docker composed fabric network on the local system; otherwise should be disabled.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt class="name" id="~GatewayOptions">
-    <h4 id="~GatewayOptions">GatewayOptions</h4>
-
-    
-</dt>
-<dd>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Argument</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>wallet</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-fabric-network.Wallet.html">module:fabric-network.Wallet</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">The identity wallet implementation for use with this Gateway instance.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>identity</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">The identity in the wallet for all interactions on this Gateway instance.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>clientTlsIdentity</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">The identity in the wallet to use as the client TLS identity.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>eventHandlerOptions</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-fabric-network.Gateway.html#~DefaultEventHandlerOptions">module:fabric-network.Gateway~DefaultEventHandlerOptions</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Options for the inbuilt default
-event handler capability.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>queryHandlerOptions</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-fabric-network.Gateway.html#~DefaultQueryHandlerOptions">module:fabric-network.Gateway~DefaultQueryHandlerOptions</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Options for the inbuilt
-default query handler capability.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>discovery</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-fabric-network.Gateway.html#~DiscoveryOptions">module:fabric-network.Gateway~DiscoveryOptions</a></span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Discovery options.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt class="name" id="~QueryHandler">
-    <h4 id="~QueryHandler">QueryHandler</h4>
-
-    
-</dt>
-<dd>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>evaluate</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Async function that takes a <a href="module-fabric-network.Query.html">Query</a> and resolves
-with the result of the query evaluation.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
 <hr>
 <dt>
-    <h4 class="name" id="~QueryHandlerFactory"><span class="type-signature"></span>QueryHandlerFactory(network)</h4>
+    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
     
     
 </dt>
 <dd>
 
     
-
+    <div class="description">
+        return a printable representation of this object
+    </div>
     
 
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>network</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-fabric-network.Network.html">module:fabric-network.Network</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The network on which queries are being evaluated.</td>
-        </tr>
 
     
-    </tbody>
-</table>
-
     
 
     
@@ -1950,379 +2244,13 @@ with the result of the query evaluation.</td>
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    A query handler.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-fabric-network.Gateway.html#~QueryHandler">module:fabric-network.Gateway~QueryHandler</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
 
-            
-                
-<hr>
-<dt class="name" id="~TxEventHandler">
-    <h4 id="~TxEventHandler">TxEventHandler</h4>
-
-    
-</dt>
-<dd>
+        </dl>
     
 
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>startListening</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Async function that resolves when the handler has started listening for
-transaction commit events. Called after the transaction proposal has been accepted and prior to submission of
-the transaction to the orderer.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>waitForEvents</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Async function that resolves (or rejects) when suitable transaction
-commit events have been received. Called after submission of the transaction to the orderer.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>cancelListening</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Cancel listening. Called if submission of the transaction to the orderer
-fails.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt>
-    <h4 class="name" id="~TxEventHandlerFactory"><span class="type-signature"></span>TxEventHandlerFactory(transactionId, network)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>transactionId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The transaction ID for which the handler should listen.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>network</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-fabric-network.Network.html">module:fabric-network.Network</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The network on which this transaction is being submitted.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    A transaction event handler.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-fabric-network.Gateway.html#~TxEventHandler">module:fabric-network.Gateway~TxEventHandler</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-            </dl>
     
 
     
@@ -2370,7 +2298,7 @@ fails.</td>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-02-07T17:52:28+00:00
+		on 2019-02-07T17:52:27+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
