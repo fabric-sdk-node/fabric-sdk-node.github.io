@@ -459,186 +459,6 @@ proposal would be send to peer directly.</td>
             
 <hr>
 <dt>
-    <h4 class="name" id=".sendSignedTokenCommand"><span class="type-signature">&lt;async, static> </span>sendSignedTokenCommand(request, timeout)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Send signed token command to peer
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>request</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#SignedCommandRequest">SignedCommandRequest</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. Signed token command
-       that will be sent to peer. Must contain a signedCommand object.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>timeout</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. A number indicating milliseconds to wait on the
-       response before rejecting the promise with a timeout error. This
-       overrides the default timeout of the Orderer instance and the global
-       timeout in the config settings.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    A Promise for the CommandResponse
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
     <h4 class="name" id="_discover"><span class="type-signature">&lt;async> </span>_discover(request)</h4>
     
     
@@ -7257,6 +7077,186 @@ proposal would be send to peer directly.</td>
             
 <hr>
 <dt>
+    <h4 class="name" id="sendSignedTokenCommand"><span class="type-signature">&lt;async> </span>sendSignedTokenCommand(request, timeout)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Send signed token command to peer
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#SignedCommandRequest">SignedCommandRequest</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. Signed token command
+       that will be sent to peer. Must contain a signedCommand object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>timeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. A number indicating milliseconds to wait on the
+       response before rejecting the promise with a timeout error. This
+       overrides the default timeout of the Orderer instance and the global
+       timeout in the config settings.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for the CommandResponse
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="sendSignedTokenTransaction"><span class="type-signature">&lt;async> </span>sendSignedTokenTransaction(request, timeout)</h4>
     
     
@@ -8966,7 +8966,7 @@ trusted root certificates for this channel.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-02-21T10:32:12+00:00
+		on 2019-02-21T18:47:34+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
