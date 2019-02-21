@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: InMemoryKVS</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: fabric-network: How to select peers for evaluating transactions (queries)</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -88,191 +88,81 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
-			
-
-	<h1 class="page-title">Class: InMemoryKVS</h1>
-<section>
+			<section class="tutorial-section">
 
 <header>
     
-        <h2>
-        InMemoryKVS
-        </h2>
-        
-    
+
+    <h2>fabric-network: How to select peers for evaluating transactions (queries)</h2>
 </header>
 
-
 <article>
-    <div class="container-overview">
-    
-        
-<hr>
-<dt>
-    <h4 class="name" id="InMemoryKVS"><span class="type-signature"></span>new InMemoryKVS(options)</h4>
-    
-    
-</dt>
-<dd>
+    <p>This tutorial describes how peers are selected to evaluate transactions
+that will not then be written to the ledger, which may also be considered
+as queries.</p>
+<h3>Query handling strategies</h3><p>The SDK provides several selectable strategies for how it should evaluate
+transactions on peers in the network. The available strategies are defined
+in <code>DefaultQueryHandlerStrategies</code>. The desired strategy is (optionally)
+specified as an argument to <code>connect()</code> on the <code>Gateway</code>, and is used for
+all transaction evaluations on Contracts obtained from that Gateway
+instance.</p>
+<p>If no query handling strategy is specified, <code>MSPID_SCOPE_SINGLE</code> is used
+by default. This will evaluate all transactions on the first peer from
+which is can obtain a response, and only switch to another peer if this
+peer fails.</p>
+<pre class="prettyprint source lang-javascript"><code>const { Gateway, DefaultQueryHandlerStrategies } = require('fabric-network');
 
-    
-    <div class="description">
-        constructor
-    </div>
-    
+const connectOptions = {
+    queryHandlerOptions: {
+        strategy: DefaultQueryHandlerStrategies.MSPID_SCOPE_SINGLE
+    }
+}
 
-    
+const gateway = new Gateway();
+await gateway.connect(connectionProfile, connectOptions);</code></pre><h3>Plug-in query handlers</h3><p>If behavior is required that is not provided by the default query handling
+strategies, it is possible to implement your own query handling. This is
+achieved by specifying your own factory function as the query handling
+strategy. The factory function should return a <em>query handler</em>
+object and take one parameter:</p>
+<ol>
+<li>Blockchain network: <code>Network</code></li>
+</ol>
+<p>The Network provides access to peers on which transactions should be
+evaluated.</p>
+<pre class="prettyprint source lang-javascript"><code>function createQueryHandler(network) {
+    /* Your implementation here */
+    return new MyQueryHandler(peers);
+}
 
-    
+const connectOptions = {
+    queryHandlerOptions: {
+        strategy: createQueryHandler
+    }
+ }
 
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">contains a single property <code>path</code> which points to the top-level directory
-for the store</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+const gateway = new Gateway();
+await gateway.connect(connectionProfile, connectOptions);</code></pre><p>The <em>query handler</em> object returned must implement the following functions.</p>
+<pre class="prettyprint source lang-javascript"><code>class MyQueryHandler {
+    /**
+     * Evaluate the supplied query on appropriate peers.
+     * @param {Query} query A query object that provides an evaluate()
+     * function to invoke itself on specified peers.
+     * @returns {Buffer} Query result.
+     */
+    async evaluate(query) { /* Your implementation here */ }
+}</code></pre><p>For a complete sample plug-in query handler implementation, see <a href="https://github.com/hyperledger/fabric-sdk-node/blob/master/test/typescript/integration/network-e2e/sample-query-handler.ts">sample-query-handler.ts</a>.</p>
 </article>
 
 </section>
-
-
-
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>
@@ -301,7 +191,7 @@ for the store</td>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-02-21T10:32:51+00:00
+		on 2019-02-21T10:32:52+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
