@@ -61,7 +61,7 @@
 			<li class="dropdown">
 				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="global.html#CLIENT">CLIENT</a></li><li><a href="global.html#HFAFFILIATIONMGR">HFAFFILIATIONMGR</a></li><li><a href="global.html#HFGENCRL">HFGENCRL</a></li><li><a href="global.html#HFINTERMEDIATECA">HFINTERMEDIATECA</a></li><li><a href="global.html#HFREGISTRARATTRIBUTES">HFREGISTRARATTRIBUTES</a></li><li><a href="global.html#HFREGISTRARDELEGATEROLES">HFREGISTRARDELEGATEROLES</a></li><li><a href="global.html#HFREGISTRARROLES">HFREGISTRARROLES</a></li><li><a href="global.html#HFREVOKER">HFREVOKER</a></li><li><a href="global.html#loadConfigGroup">loadConfigGroup</a></li><li><a href="global.html#loadConfigValue">loadConfigValue</a></li><li><a href="global.html#ORDERER">ORDERER</a></li><li><a href="global.html#package">package</a></li><li><a href="global.html#PEER">PEER</a></li><li><a href="global.html#toEnvelope">toEnvelope</a></li><li><a href="global.html#toSignedCommand">toSignedCommand</a></li><li><a href="global.html#USER">USER</a></li>
+					<li><a href="global.html#CLIENT">CLIENT</a></li><li><a href="global.html#HFAFFILIATIONMGR">HFAFFILIATIONMGR</a></li><li><a href="global.html#HFGENCRL">HFGENCRL</a></li><li><a href="global.html#HFINTERMEDIATECA">HFINTERMEDIATECA</a></li><li><a href="global.html#HFREGISTRARATTRIBUTES">HFREGISTRARATTRIBUTES</a></li><li><a href="global.html#HFREGISTRARDELEGATEROLES">HFREGISTRARDELEGATEROLES</a></li><li><a href="global.html#HFREGISTRARROLES">HFREGISTRARROLES</a></li><li><a href="global.html#HFREVOKER">HFREVOKER</a></li><li><a href="global.html#loadConfigGroup">loadConfigGroup</a></li><li><a href="global.html#loadConfigValue">loadConfigValue</a></li><li><a href="global.html#ORDERER">ORDERER</a></li><li><a href="global.html#package">package</a></li><li><a href="global.html#PEER">PEER</a></li><li><a href="global.html#toEnvelope">toEnvelope</a></li><li><a href="global.html#toHex">toHex</a></li><li><a href="global.html#toSignedCommand">toSignedCommand</a></li><li><a href="global.html#USER">USER</a></li>
 				</ul>
 			</li>
 			
@@ -1632,6 +1632,84 @@ to a registree for its 'hf.Registrar.Roles' attribute
     </tbody>
 </table>
 
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toHex"><span class="type-signature"></span>toHex()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        convert an uint to Hex string
+    </div>
+    
+
+    
+
+    
+
+    
     
 
     
@@ -18128,7 +18206,7 @@ rule
 <dd>
     
     <div class="description">
-        This object contains properties that specify the recipient, type,
+        This object contains properties that specify the owner, type,
          and quantity of a token kind.
     </div>
     
@@ -18176,7 +18254,7 @@ rule
 
         <tr>
             
-                <td class="name"><code>recipient</code></td>
+                <td class="name"><code>owner</code></td>
             
 
             <td class="type">
@@ -18230,7 +18308,7 @@ rule
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">HexString</span>
 
 
 
@@ -18241,7 +18319,8 @@ rule
 
             
 
-            <td class="description last">Required. The quantity of the token.</td>
+            <td class="description last">Required. The quantity of the token in a HexString
+         of the numeric value.</td>
         </tr>
 
     
@@ -18530,6 +18609,154 @@ rule
 <dd>
     
     <div class="description">
+        This object contains properties that will be used build token transaction payload.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>tokentx_bytes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Buffer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The token transaction bytes.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tokenCommand</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Command</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The token command that is used to receive the token transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="TokenTransactionRequest">
+    <h4 id="TokenTransactionRequest">TokenTransactionRequest</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
         This object contains properties that will be used for broadcasting token transaction.
     </div>
     
@@ -18647,154 +18874,6 @@ rule
 
             <td class="description last">Optional. The orderer that will receive this request,
           when not provided, the transaction will be sent to the orderers assigned to this channel instance.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt class="name" id="TokenTransactionRequest">
-    <h4 id="TokenTransactionRequest">TokenTransactionRequest</h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        This object contains properties that will be used build token transaction payload.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>tokentx_bytes</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Buffer</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The token transaction bytes.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tokenCommand</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Command</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The token command that is used to receive the token transaction.</td>
         </tr>
 
     
@@ -19746,7 +19825,7 @@ with a common connection profile.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-03-05T09:53:28+00:00
+		on 2019-03-05T15:57:50+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
