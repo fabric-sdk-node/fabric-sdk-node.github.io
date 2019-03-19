@@ -584,7 +584,7 @@ network.
     
             
 <div class="param-desc">
-    The results from the discovery service
+    The results from the discovery service //TODO missing typeDef DiscoveryResponse
 </div>
 
 
@@ -595,7 +595,7 @@ network.
     </dt>
     <dd>
         
-<span class="param-type">DiscoveryResponse</span>
+<span class="param-type">Promise.&lt;DiscoveryResponse></span>
 
 
 
@@ -768,7 +768,7 @@ orderer backend.
             
 <hr>
 <dt>
-    <h4 class="name" id="addPeer"><span class="type-signature"></span>addPeer(peer, mspid, roles, replace)</h4>
+    <h4 class="name" id="addPeer"><span class="type-signature"></span>addPeer(peer, mspid [, roles], replace)</h4>
     
     
 </dt>
@@ -803,6 +803,8 @@ methods such as <a href="Channel.html#sendInstantiateProposal">sendInstantiatePr
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -829,6 +831,14 @@ methods such as <a href="Channel.html#sendInstantiateProposal">sendInstantiatePr
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -854,6 +864,14 @@ methods such as <a href="Channel.html#sendInstantiateProposal">sendInstantiatePr
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -877,6 +895,16 @@ methods such as <a href="Channel.html#sendInstantiateProposal">sendInstantiatePr
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -902,6 +930,14 @@ methods such as <a href="Channel.html#sendInstantiateProposal">sendInstantiatePr
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -975,7 +1011,7 @@ methods such as <a href="Channel.html#sendInstantiateProposal">sendInstantiatePr
             
 <hr>
 <dt>
-    <h4 class="name" id="allowChaincodeForOrg"><span class="type-signature">&lt;async> </span>allowChaincodeForOrg(request, timeout)</h4>
+    <h4 class="name" id="allowChaincodeForOrg"><span class="type-signature">&lt;async> </span>allowChaincodeForOrg(request [, timeout])</h4>
     
     
 </dt>
@@ -1008,6 +1044,8 @@ see <a href="Chaincode.html">Chaincode</a>
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -1034,6 +1072,14 @@ see <a href="Chaincode.html">Chaincode</a>
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -1057,6 +1103,16 @@ see <a href="Chaincode.html">Chaincode</a>
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -1231,7 +1287,7 @@ see <a href="Chaincode.html">Chaincode</a>
             
 <hr>
 <dt>
-    <h4 class="name" id="CommitChaincode"><span class="type-signature">&lt;async> </span>CommitChaincode(request, timeout)</h4>
+    <h4 class="name" id="CommitChaincode"><span class="type-signature">&lt;async> </span>CommitChaincode(request [, timeout])</h4>
     
     
 </dt>
@@ -1264,6 +1320,8 @@ see <a href="Chaincode.html">Chaincode</a>
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -1290,6 +1348,14 @@ see <a href="Chaincode.html">Chaincode</a>
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -1313,6 +1379,16 @@ see <a href="Chaincode.html">Chaincode</a>
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -1409,7 +1485,7 @@ see <a href="Chaincode.html">Chaincode</a>
             
 <hr>
 <dt>
-    <h4 class="name" id="compareProposalResponseResults"><span class="type-signature"></span>compareProposalResponseResults(The)</h4>
+    <h4 class="name" id="compareProposalResponseResults"><span class="type-signature"></span>compareProposalResponseResults(proposal_responses)</h4>
     
     
 </dt>
@@ -1455,7 +1531,7 @@ of the chaincode execution.
 
         <tr>
             
-                <td class="name"><code>The</code></td>
+                <td class="name"><code>proposal_responses</code></td>
             
 
             <td class="type">
@@ -1472,7 +1548,7 @@ of the chaincode execution.
 
             
 
-            <td class="description last">proposal responses from all endorsing peers</td>
+            <td class="description last">The proposal responses from all endorsing peers</td>
         </tr>
 
     
@@ -1923,7 +1999,7 @@ key would not be required at SDK side.
             
 <hr>
 <dt>
-    <h4 class="name" id="getChannelConfig"><span class="type-signature">&lt;async> </span>getChannelConfig(target, timeout)</h4>
+    <h4 class="name" id="getChannelConfig"><span class="type-signature">&lt;async> </span>getChannelConfig( [target] [, timeout])</h4>
     
     
 </dt>
@@ -1954,6 +2030,8 @@ key would not be required at SDK side.
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -1983,6 +2061,16 @@ key would not be required at SDK side.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -2007,6 +2095,16 @@ key would not be required at SDK side.
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -2369,7 +2467,7 @@ This method will create a new ChannelEventHub if one does not exist.
             
 <hr>
 <dt>
-    <h4 class="name" id="getChannelEventHubsForOrg"><span class="type-signature"></span>getChannelEventHubsForOrg(mspid)</h4>
+    <h4 class="name" id="getChannelEventHubsForOrg"><span class="type-signature"></span>getChannelEventHubsForOrg( [mspid])</h4>
     
     
 </dt>
@@ -2401,6 +2499,8 @@ defined in this channel that are in the organization.
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -2427,10 +2527,20 @@ defined in this channel that are in the organization.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional - The mspid of an organization</td>
+            <td class="description last">Optional. The mspid of an organization</td>
         </tr>
 
     
@@ -3084,7 +3194,7 @@ If the results are too old, they will be refreshed
             
 <hr>
 <dt>
-    <h4 class="name" id="getGenesisBlock"><span class="type-signature"></span>getGenesisBlock(request)</h4>
+    <h4 class="name" id="getGenesisBlock"><span class="type-signature"></span>getGenesisBlock( [request])</h4>
     
     
 </dt>
@@ -3118,6 +3228,8 @@ provided the genesis block. This method must be called before calling
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -3143,6 +3255,16 @@ provided the genesis block. This method must be called before calling
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -4060,7 +4182,7 @@ with how this peer is being used on this channel.
             
 <hr>
 <dt>
-    <h4 class="name" id="getPeersForOrg"><span class="type-signature"></span>getPeersForOrg(mspid)</h4>
+    <h4 class="name" id="getPeersForOrg"><span class="type-signature"></span>getPeersForOrg( [mspid])</h4>
     
     
 </dt>
@@ -4092,6 +4214,8 @@ defined in this channel that are in the named organization.
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -4118,10 +4242,20 @@ defined in this channel that are in the named organization.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Optional - The name of an organization</td>
+            <td class="description last">Optional. The name of an organization</td>
         </tr>
 
     
@@ -4213,7 +4347,7 @@ defined in this channel that are in the named organization.
             
 <hr>
 <dt>
-    <h4 class="name" id="initialize"><span class="type-signature">&lt;async> </span>initialize(request)</h4>
+    <h4 class="name" id="initialize"><span class="type-signature">&lt;async> </span>initialize( [request])</h4>
     
     
 </dt>
@@ -4257,6 +4391,8 @@ peer running the fabric discovery service.
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -4282,6 +4418,16 @@ peer running the fabric discovery service.
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -4559,7 +4705,7 @@ sends a join channel proposal to one or more endorsing peers.
             
 <hr>
 <dt>
-    <h4 class="name" id="newChannelEventHub"><span class="type-signature"></span>newChannelEventHub(peer)</h4>
+    <h4 class="name" id="newChannelEventHub"><span class="type-signature"></span>newChannelEventHub( [peer])</h4>
     
     
 </dt>
@@ -4594,6 +4740,8 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -4622,6 +4770,16 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -4720,7 +4878,7 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             
 <hr>
 <dt>
-    <h4 class="name" id="queryBlock"><span class="type-signature">&lt;async> </span>queryBlock(blockNumber, target, useAdmin, skipDecode)</h4>
+    <h4 class="name" id="queryBlock"><span class="type-signature">&lt;async> </span>queryBlock(blockNumber [, target] [, useAdmin] [, skipDecode])</h4>
     
     
 </dt>
@@ -4751,6 +4909,8 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -4777,6 +4937,14 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -4800,6 +4968,16 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -4826,6 +5004,16 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -4850,6 +5038,16 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -4946,7 +5144,7 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             
 <hr>
 <dt>
-    <h4 class="name" id="queryBlockByHash"><span class="type-signature">&lt;async> </span>queryBlockByHash(blockHash, target, useAdmin, skipDecode)</h4>
+    <h4 class="name" id="queryBlockByHash"><span class="type-signature">&lt;async> </span>queryBlockByHash(blockHash [, target] [, useAdmin] [, skipDecode])</h4>
     
     
 </dt>
@@ -4977,6 +5175,8 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -5003,6 +5203,14 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -5026,6 +5234,16 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -5052,6 +5270,16 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -5076,6 +5304,16 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -5172,7 +5410,7 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             
 <hr>
 <dt>
-    <h4 class="name" id="queryBlockByTxID"><span class="type-signature">&lt;async> </span>queryBlockByTxID(tx_id, target, useAdmin, skipDecode)</h4>
+    <h4 class="name" id="queryBlockByTxID"><span class="type-signature">&lt;async> </span>queryBlockByTxID(tx_id [, target] [, useAdmin] [, skipDecode])</h4>
     
     
 </dt>
@@ -5203,6 +5441,8 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -5229,6 +5469,14 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -5252,6 +5500,16 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -5278,6 +5536,16 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -5302,6 +5570,16 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -5398,7 +5676,7 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             
 <hr>
 <dt>
-    <h4 class="name" id="queryByChaincode"><span class="type-signature">&lt;async> </span>queryByChaincode(request, useAdmin)</h4>
+    <h4 class="name" id="queryByChaincode"><span class="type-signature">&lt;async> </span>queryByChaincode(request [, useAdmin])</h4>
     
     
 </dt>
@@ -5438,6 +5716,8 @@ privileges will apply. In this case the <code>useAdmin</code> parameter to this 
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -5464,6 +5744,14 @@ privileges will apply. In this case the <code>useAdmin</code> parameter to this 
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -5487,6 +5775,16 @@ privileges will apply. In this case the <code>useAdmin</code> parameter to this 
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -5596,7 +5894,7 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             
 <hr>
 <dt>
-    <h4 class="name" id="queryCollectionsConfig"><span class="type-signature">&lt;async> </span>queryCollectionsConfig(options, useAdmin)</h4>
+    <h4 class="name" id="queryCollectionsConfig"><span class="type-signature">&lt;async> </span>queryCollectionsConfig(options [, useAdmin])</h4>
     
     
 </dt>
@@ -5627,6 +5925,8 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -5653,6 +5953,14 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -5676,6 +5984,16 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -5774,7 +6092,7 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             
 <hr>
 <dt>
-    <h4 class="name" id="queryInfo"><span class="type-signature">&lt;async> </span>queryInfo(target, useAdmin)</h4>
+    <h4 class="name" id="queryInfo"><span class="type-signature">&lt;async> </span>queryInfo( [target] [, useAdmin])</h4>
     
     
 </dt>
@@ -5806,6 +6124,8 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -5832,6 +6152,16 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -5856,6 +6186,16 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -5954,7 +6294,7 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             
 <hr>
 <dt>
-    <h4 class="name" id="queryInstantiatedChaincodes"><span class="type-signature">&lt;async> </span>queryInstantiatedChaincodes(target, useAdmin)</h4>
+    <h4 class="name" id="queryInstantiatedChaincodes"><span class="type-signature">&lt;async> </span>queryInstantiatedChaincodes( [target] [, useAdmin])</h4>
     
     
 </dt>
@@ -5985,6 +6325,8 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -6011,6 +6353,16 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -6036,6 +6388,16 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -6135,7 +6497,7 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             
 <hr>
 <dt>
-    <h4 class="name" id="queryTransaction"><span class="type-signature">&lt;async> </span>queryTransaction(tx_id, target, useAdmin, skipDecode)</h4>
+    <h4 class="name" id="queryTransaction"><span class="type-signature">&lt;async> </span>queryTransaction(tx_id [, target] [, useAdmin] [, skipDecode])</h4>
     
     
 </dt>
@@ -6166,6 +6528,8 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -6192,6 +6556,14 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -6215,6 +6587,16 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -6241,6 +6623,16 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -6265,6 +6657,16 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -7077,7 +7479,7 @@ proposal would be send to peer directly.</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="sendSignedTokenCommand"><span class="type-signature">&lt;async> </span>sendSignedTokenCommand(request, timeout)</h4>
+    <h4 class="name" id="sendSignedTokenCommand"><span class="type-signature">&lt;async> </span>sendSignedTokenCommand(request [, timeout])</h4>
     
     
 </dt>
@@ -7108,6 +7510,8 @@ proposal would be send to peer directly.</td>
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -7134,6 +7538,14 @@ proposal would be send to peer directly.</td>
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -7158,6 +7570,16 @@ proposal would be send to peer directly.</td>
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -7593,7 +8015,7 @@ proposal would be send to peer directly.</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="sendTokenCommand"><span class="type-signature">&lt;async> </span>sendTokenCommand(request, timeout)</h4>
+    <h4 class="name" id="sendTokenCommand"><span class="type-signature">&lt;async> </span>sendTokenCommand(request [, timeout])</h4>
     
     
 </dt>
@@ -7629,6 +8051,8 @@ and skip the remaining peers.
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -7655,6 +8079,14 @@ and skip the remaining peers.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -7678,6 +8110,16 @@ and skip the remaining peers.
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -8966,7 +9408,7 @@ trusted root certificates for this channel.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-03-19T15:48:34+00:00
+		on 2019-03-19T15:55:50+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
