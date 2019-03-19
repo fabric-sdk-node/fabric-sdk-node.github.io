@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: IdentityService</title>
+	<title>Hyperledger Fabric SDK for node.js Class: BasicProverHandler</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,17 +93,18 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: IdentityService</h1>
+	<h1 class="page-title">Class: BasicProverHandler</h1>
 <section>
 
 <header>
     
         <h2>
-        IdentityService
+        BasicProverHandler
         </h2>
         
-            <div class="class-description">This is an implementation of the Identity service which communicates with
-the Fabric CA server using the Fabric CA client <a href="FabricCAClient.html">FabricCAClient</a>.</div>
+            <div class="class-description">This is an implementation of the <a href="ProverHandler.html">ProverHandler</a> API.
+It will send a token request to a Prover peer one at a time from a provided
+list or a list currently assigned to the channel.</div>
         
     
 </header>
@@ -115,19 +116,73 @@ the Fabric CA server using the Fabric CA client <a href="FabricCAClient.html">Fa
         
 <hr>
 <dt>
-    <h4 class="name" id="IdentityService"><span class="type-signature"></span>new IdentityService()</h4>
+    <h4 class="name" id="BasicProverHandler"><span class="type-signature"></span>new BasicProverHandler(channel)</h4>
     
     
 </dt>
 <dd>
 
     
-
+    <div class="description">
+        constructor
+    </div>
     
 
     
 
     
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>channel</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Channel.html">Channel</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The channel for this handler.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -187,6 +242,17 @@ the Fabric CA server using the Fabric CA client <a href="FabricCAClient.html">Fa
 
     
     </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="ProverHandler.html">ProverHandler</a></li>
+    </ul>
+
 
     
 
@@ -207,7 +273,7 @@ the Fabric CA server using the Fabric CA client <a href="FabricCAClient.html">Fa
             
 <hr>
 <dt>
-    <h4 class="name" id="create"><span class="type-signature"></span>create(req, registrar)</h4>
+    <h4 class="name" id=".create"><span class="type-signature">&lt;static> </span>create(channel)</h4>
     
     
 </dt>
@@ -215,9 +281,7 @@ the Fabric CA server using the Fabric CA client <a href="FabricCAClient.html">Fa
 
     
     <div class="description">
-        Create a new identity with the Fabric CA server.
-An enrollment secret is returned which can then be used, along with the enrollment ID, to enroll a new identity.
-The caller must have `hf.Registrar` authority.
+        Factory method to create an instance of a Proverter handler.
     </div>
     
 
@@ -252,13 +316,13 @@ The caller must have `hf.Registrar` authority.
 
         <tr>
             
-                <td class="name"><code>req</code></td>
+                <td class="name"><code>channel</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#IdentityRequest">IdentityRequest</a></span>
+<span class="param-type"><a href="Channel.html">Channel</a></span>
 
 
 
@@ -269,31 +333,8 @@ The caller must have `hf.Registrar` authority.
 
             
 
-            <td class="description last">The <a href="global.html#IdentityRequest">IdentityRequest</a></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The identity of the registrar (i.e. who is performing the registration).</td>
+            <td class="description last">the channel instance that this Prover
+       handler will be servicing.</td>
         </tr>
 
     
@@ -357,7 +398,7 @@ The caller must have `hf.Registrar` authority.
     
             
 <div class="param-desc">
-    Return the secret of this new identity
+    The instance of the handler
 </div>
 
 
@@ -368,7 +409,7 @@ The caller must have `hf.Registrar` authority.
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type"><a href="BasicProverHandler.html">BasicProverHandler</a></span>
 
 
 
@@ -385,7 +426,7 @@ The caller must have `hf.Registrar` authority.
             
 <hr>
 <dt>
-    <h4 class="name" id="delete"><span class="type-signature"></span>delete(enrollmentID, registrar, force)</h4>
+    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize()</h4>
     
     
 </dt>
@@ -393,7 +434,7 @@ The caller must have `hf.Registrar` authority.
 
     
     <div class="description">
-        Delete an existing identity. The caller must have `hf.Registrar` authority.
+        This method will be called by the channel when the channel is initialized.
     </div>
     
 
@@ -402,104 +443,6 @@ The caller must have `hf.Registrar` authority.
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>enrollmentID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>force</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. With force, some identity can delete itself</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -511,7 +454,21 @@ The caller must have `hf.Registrar` authority.
 	
 
 	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="ProverHandler.html#initialize">ProverHandler#initialize</a>
+			</li>
+		</ul>
+	</dd>
+	
 
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="ProverHandler.html#initialize">ProverHandler#initialize</a>
+    </li></ul></dd>
     
 
     
@@ -553,30 +510,6 @@ The caller must have `hf.Registrar` authority.
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
@@ -585,7 +518,7 @@ The caller must have `hf.Registrar` authority.
             
 <hr>
 <dt>
-    <h4 class="name" id="getAll"><span class="type-signature"></span>getAll(registrar)</h4>
+    <h4 class="name" id="processCommand"><span class="type-signature"></span>processCommand(params)</h4>
     
     
 </dt>
@@ -593,7 +526,10 @@ The caller must have `hf.Registrar` authority.
 
     
     <div class="description">
-        Get all identities that the registrar is entitled to see.
+        This method will process the request object to calculate the target peers.
+Once the targets have been determined, use the channel to send the token
+transaction to the targets one at a time. After a target peer returns a response,
+this method will skip the rest of targets and return the response to the caller.
     </div>
     
 
@@ -628,13 +564,13 @@ The caller must have `hf.Registrar` authority.
 
         <tr>
             
-                <td class="name"><code>registrar</code></td>
+                <td class="name"><code>params</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="User.html">User</a></span>
+<span class="param-type"><a href="global.html#ProverHandlerParameters">ProverHandlerParameters</a></span>
 
 
 
@@ -645,7 +581,10 @@ The caller must have `hf.Registrar` authority.
 
             
 
-            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
+            <td class="description last">A <a href="global.html#ProverHandlerParameters">ProverHandlerParameters</a>
+       that contains enough information to determine the targets and contains
+       a <a href="global.html#ChaincodeInvokeRequest">ChaincodeInvokeRequest</a> to be sent using the included channel
+       with the <a href="Channel.html">Channel</a> 'sendTransactionProposal' method.</td>
         </tr>
 
     
@@ -663,7 +602,21 @@ The caller must have `hf.Registrar` authority.
 	
 
 	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="ProverHandler.html#processCommand">ProverHandler#processCommand</a>
+			</li>
+		</ul>
+	</dd>
+	
 
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="ProverHandler.html#processCommand">ProverHandler#processCommand</a>
+    </li></ul></dd>
     
 
     
@@ -709,383 +662,9 @@ The caller must have `hf.Registrar` authority.
     
             
 <div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getOne"><span class="type-signature"></span>getOne(enrollmentID, registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get an identity. The caller must have `hf.Registrar` authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>enrollmentID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The enrollment ID which uniquely identifies an identity</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="update"><span class="type-signature"></span>update(enrollmentID, req, registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Update an existing identity. The caller must have `hf.Registrar` authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>enrollmentID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IdentityRequest">IdentityRequest</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
+    A Promise for the <a href="global.html#ProposalResponseObject">ProposalResponseObject</a>, the
+       same results as calling the <a href="Channel.html#sendTransactionProposal">Channel#sendTransactionProposal</a>
+       method directly.
 </div>
 
 
