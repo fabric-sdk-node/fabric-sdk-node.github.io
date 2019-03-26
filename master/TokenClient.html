@@ -54,7 +54,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-chaincode-lifecycle.html">fabric-client: How to install and start your chaincode</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-fabtoken.html">fabtoken</a></li><li><a href="tutorial-grpc-settings.html">fabric-client: How to set gRPC settings</a></li><li><a href="tutorial-handlers.html">fabric-client: How to use the endorsement and commit handlers</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-query-peers.html">fabric-network: How to select peers for evaluating transactions (queries)</a></li><li><a href="tutorial-sign-transaction-offline.html">Working with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be committed to the ledger</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-chaincode-lifecycle.html">fabric-client: How to install and start your chaincode</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-fabtoken.html">fabric-client: How to perform token operations</a></li><li><a href="tutorial-grpc-settings.html">fabric-client: How to set gRPC settings</a></li><li><a href="tutorial-handlers.html">fabric-client: How to use the endorsement and commit handlers</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-query-peers.html">fabric-network: How to select peers for evaluating transactions (queries)</a></li><li><a href="tutorial-sign-transaction-offline.html">Working with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be committed to the ledger</a></li>
 				</ul>
 			</li>
 			
@@ -108,7 +108,7 @@ An application using the SDK may need to interact with multiple channels,
 each through a separate TokenClient instance that is created with
 the corresponding channel object.
 <br><br>
-see the tutorial <a href="tutorial-fabtoken.html">fabtoken</a>
+see the tutorial <a href="tutorial-fabtoken.html">fabric-client: How to perform token operations</a>
 <br><br>
 From your <a href="Client.html">Client</a> instance use the <a href="Client.html#newTokenClient">Client#newTokenClient</a> method.
 This will return a TokenClient object instance that has been associated with
@@ -307,8 +307,8 @@ commit a transaction .
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">// prerequisites - have created the following objects:
-  // client1 (with user1 context), user1Identity
-  // client2 (with user2 context), user2Identity
+  // user1, client1 (associated to user1 context)
+  // user2, client2 (associated to user2 context)
   // mychannel
 
   // create a TokenClient object from client1 (user1)
@@ -317,11 +317,11 @@ commit a transaction .
   // create a TokenClient object from client2 (user2)
   const tokenClient2 = client2.newTokenClient(mychannel);
 
-  // create request to issue tokens
+  // create request to issue tokens to user2
   const txId = tokenClient1.newTransactionID();
-  const owner = {type: fabprotos.token.TokenOwner_MSP_IDENTIFIER, raw: user2Identity.serialize()};
+  const owner = {type: fabprotos.token.TokenOwner_MSP_IDENTIFIER, raw: user2.getIdentity().serialize()};
   const tokenType = &#x27;myTokenType&#x27;;
-  let param = {owner: owner, type: tokenType, quantity: 200};
+  let param = {owner: owner, type: tokenType, quantity: &#x27;200&#x27;};
   let request = {params: [param], txId: txId};
 
   // user1 calls issue method to issue tokens to user2
@@ -337,7 +337,7 @@ commit a transaction .
   });
 
   // user2 calls redeem method, result.status should be SUCCESS
-  param = {quantity: 50};
+  param = {quantity: &#x27;50&#x27;};
   request = {params: [param], txId: txId};
   result = await tokenClient2.redeem(request);
 
@@ -349,8 +349,8 @@ commit a transaction .
   });
 
   // user2 calls transfer method to transfer the token to user1
-  const newOwner = {type: fabprotos.token.TokenOwner_MSP_IDENTIFIER, raw: user1Identity.serialize()};
-  param = {owner: newOwner, quantity: 150};
+  const newOwner = {type: fabprotos.token.TokenOwner_MSP_IDENTIFIER, raw: user1.getIdentity().serialize()};
+  param = {owner: newOwner, quantity: &#x27;150&#x27;};
   request = {params: [param], tokenId: token.id, txId: txId};
   result = await tokenClient1.transfer(request);
 
@@ -2329,7 +2329,7 @@ and broadcast the transaction to orderers.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-03-21T20:41:07+00:00
+		on 2019-03-26T20:53:25+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
