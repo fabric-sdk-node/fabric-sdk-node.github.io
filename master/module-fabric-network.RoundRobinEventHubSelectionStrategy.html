@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Orderer</title>
+	<title>Hyperledger Fabric SDK for node.js Class: RoundRobinEventHubSelectionStrategy</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,22 +93,19 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Orderer</h1>
+	<h1 class="page-title">Class: RoundRobinEventHubSelectionStrategy</h1>
 <section>
 
 <header>
     
         <h2>
-        Orderer
+            <span class="ancestors"><a href="module-fabric-network.html">fabric-network</a>.</span>
+        
+        RoundRobinEventHubSelectionStrategy
         </h2>
         
-            <div class="class-description">The Orderer class encapsulates the client capabilities to interact with
-an Orderer node in the target blockchain network. The orderer node exposes
-two APIs: broadcast() and deliver(). Both are streaming APIs so there's
-a persistent grpc streaming connection between the client and the orderer
-where messages are exchanged in both directions. The broadcast() API is
-for sending transactions to the orderer for processing. The deliver() API
-is for asking the orderer for information such as channel configurations.</div>
+            <div class="class-description">The Round Robin Event Hub Strategy is a basic event hub selection strategy used to
+spread out load onto different event hubs and track event hub availability</div>
         
     
 </header>
@@ -120,7 +117,7 @@ is for asking the orderer for information such as channel configurations.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="Orderer"><span class="type-signature"></span>new Orderer(url, opts)</h4>
+    <h4 class="name" id="RoundRobinEventHubSelectionStrategy"><span class="type-signature"></span>new RoundRobinEventHubSelectionStrategy(peers)</h4>
     
     
 </dt>
@@ -128,11 +125,7 @@ is for asking the orderer for information such as channel configurations.</div>
 
     
     <div class="description">
-        Constructs an Orderer object with the given url and opts. An orderer object
-encapsulates the properties of an orderer node and the interactions with it via
-the grpc stream API. Orderer objects are used by the <a href="Client.html">Client</a> objects to broadcast
-requests for creating and updating channels. They are also used by the <a href="Channel.html">Channel</a>
-objects to broadcast requests for ordering transactions.
+        Constructor.
     </div>
     
 
@@ -167,13 +160,13 @@ objects to broadcast requests for ordering transactions.
 
         <tr>
             
-                <td class="name"><code>url</code></td>
+                <td class="name"><code>peers</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Array.&lt;<a href="Peer.html">Peer</a>></span>
 
 
 
@@ -184,31 +177,7 @@ objects to broadcast requests for ordering transactions.
 
             
 
-            <td class="description last">The URL with format of "grpc(s)://host:port".</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#ConnectionOpts">ConnectionOpts</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The options for the connection to the orderer.</td>
+            <td class="description last">The list of peers that the strategy can chose from</td>
         </tr>
 
     
@@ -231,6 +200,13 @@ objects to broadcast requests for ordering transactions.
 
     
 
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="module-fabric-network.AbstractEventHubSelectionStrategy.html">module:fabric-network.AbstractEventHubSelectionStrategy</a></li>
+        
+    </ul></dd>
     
 
     
@@ -274,17 +250,6 @@ objects to broadcast requests for ordering transactions.
 
     
     </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="Remote.html">Remote</a></li>
-    </ul>
-
 
     
 
@@ -305,7 +270,7 @@ objects to broadcast requests for ordering transactions.
             
 <hr>
 <dt>
-    <h4 class="name" id="close"><span class="type-signature"></span>close()</h4>
+    <h4 class="name" id="getNextPeer"><span class="type-signature"></span>getNextPeer()</h4>
     
     
 </dt>
@@ -313,7 +278,7 @@ objects to broadcast requests for ordering transactions.
 
     
     <div class="description">
-        Close the service connection.
+        Gets the next peer in the list of peers
     </div>
     
 
@@ -339,183 +304,12 @@ objects to broadcast requests for ordering transactions.
     
 
     
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
         
-            
-<hr>
-<dt>
-    <h4 class="name" id="getCharacteristics"><span class="type-signature"></span>getCharacteristics()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get this remote endpoints characteristics
-  It's name, url, and connection options are
-  the items that make this instance unique.
-  These items may be useful when debugging issues
-  or validating responses.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Remote.html#getCharacteristics">Remote#getCharacteristics</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
+            <li><a href="module-fabric-network.AbstractEventHubSelectionStrategy.html#getNextPeer">module:fabric-network.AbstractEventHubSelectionStrategy#getNextPeer</a></li>
         
-            
-<hr>
-<dt>
-    <h4 class="name" id="getClientCertHash"><span class="type-signature"></span>getClientCertHash()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the client certificate hash
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Remote.html#getClientCertHash">Remote#getClientCertHash</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-
-    
-
+    </ul></dd>
     
 
     
@@ -556,10 +350,6 @@ objects to broadcast requests for ordering transactions.
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    The hash of the client certificate
-</div>
-
 
 
 <dl>
@@ -568,7 +358,7 @@ objects to broadcast requests for ordering transactions.
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;byte></span>
+<span class="param-type"><a href="Peer.html">Peer</a></span>
 
 
 
@@ -577,947 +367,6 @@ objects to broadcast requests for ordering transactions.
 
 
         
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the name. This is a client-side only identifier for this
-object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Remote.html#getName">Remote#getName</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The name of the object
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Get the URL of this object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Remote.html#getUrl">Remote#getUrl</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Get the URL associated with the object.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="isTLS"><span class="type-signature"></span>isTLS()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Determine whether or not this remote endpoint uses TLS.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Remote.html#isTLS">Remote#isTLS</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    True if this endpoint uses TLS, false otherwise.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="sendBroadcast"><span class="type-signature"></span>sendBroadcast(envelope, timeout)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Send a Broadcast message to the orderer service.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>envelope</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Byte data to be included in the broadcast.
-       This must be a protobuf encoded byte array of the
-       <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/common/common.proto#L132">common.Envelope</a>
-       that contains either a <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/common/configtx.proto#L70">ConfigUpdateEnvelope</a>
-       or a <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/peer/transaction.proto#L70">Transaction</a>
-       in the <code>payload.data</code> property of the envelope.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>timeout</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A number indicating milliseconds to wait on the
-       response before rejecting the promise with a timeout error. This
-       overrides the default timeout of the Peer instance and the global
-       timeout in the config settings.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Throws:</h5>
-    
-            
-
-    <div class="param-desc">
-    
-        
-<span class="param-type"><a href="global.html#SYSTEM_TIMEOUT">SYSTEM_TIMEOUT</a></span>
-|
-
-<span class="param-type"><a href="global.html#REQUEST_TIMEOUT">REQUEST_TIMEOUT</a></span>
-
-
-
-    
-    </div>
-
-
-        
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    A Promise for a <a href="global.html#BroadcastResponse">BroadcastResponse</a> object
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="sendDeliver"><span class="type-signature"></span>sendDeliver(envelope)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Send a Deliver message to the orderer service.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>envelope</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Byte data to be included in the broadcast. This must
-                           be a protobuf encoded byte array of the
-                           <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/common/common.proto#L132">common.Envelope</a>
-                           that contains a <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/orderer/ab.proto#L54">SeekInfo</a>
-                           in the <code>payload.data</code> property of the envelope.
-                           The <code>header.channelHeader.type</code> must be set to
-                           <a href="https://github.com/hyperledger/fabric/blob/v1.0.0/protos/common/common.proto#L44">common.HeaderType.DELIVER_SEEK_INFO</a></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Throws:</h5>
-    
-            
-
-    <div class="param-desc">
-    
-        
-<span class="param-type"><a href="global.html#SYSTEM_TIMEOUT">SYSTEM_TIMEOUT</a></span>
-|
-
-<span class="param-type"><a href="global.html#REQUEST_TIMEOUT">REQUEST_TIMEOUT</a></span>
-
-
-
-    
-    </div>
-
-
-        
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    A Promise for a protobuf object of type common.Block. Note that this
-                   is <b>NOT</b> the same type of object as the <a href="global.html#Block">Block</a> returned by the
-                   BlockDecoder.decode() method and various
-                   other methods. A <a href="global.html#Block">Block</a> is a pure javascript object, whereas
-                   the object returned by this method is a protobuf object that contains
-                   accessor methods, getters and setters, and toBuffer() for each property
-                   to be used for further manipulating the object and convert to and from
-                   byte arrays.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setName"><span class="type-signature"></span>setName(name)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the name as a client-side only identifier of this object.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Remote.html#setName">Remote#setName</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        return a printable representation of this object
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="Remote.html#toString">Remote#toString</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
 </dd>
