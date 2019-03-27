@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: CryptoSuite_ECDSA_AES</title>
+	<title>Hyperledger Fabric SDK for node.js Class: BaseCheckpointer</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,17 +93,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: CryptoSuite_ECDSA_AES</h1>
+	<h1 class="page-title">Class: BaseCheckpointer</h1>
 <section>
 
 <header>
     
         <h2>
-        CryptoSuite_ECDSA_AES
+        BaseCheckpointer
         </h2>
         
-            <div class="class-description">The <a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a> implementation for ECDSA, and AES algorithms using software key generation.
-This class implements a software-based key generation (as opposed to Hardware Security Module based key management)</div>
+            <div class="class-description">Base checkpointer providing an interface for checkpointers</div>
         
     
 </header>
@@ -115,7 +114,7 @@ This class implements a software-based key generation (as opposed to Hardware Se
         
 <hr>
 <dt>
-    <h4 class="name" id="CryptoSuite_ECDSA_AES"><span class="type-signature"></span>new CryptoSuite_ECDSA_AES(keySize, hash)</h4>
+    <h4 class="name" id="BaseCheckpointer"><span class="type-signature"></span>new BaseCheckpointer(options)</h4>
     
     
 </dt>
@@ -123,7 +122,7 @@ This class implements a software-based key generation (as opposed to Hardware Se
 
     
     <div class="description">
-        constructor
+        The constructor
     </div>
     
 
@@ -158,13 +157,13 @@ This class implements a software-based key generation (as opposed to Hardware Se
 
         <tr>
             
-                <td class="name"><code>keySize</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Object</span>
 
 
 
@@ -175,31 +174,7 @@ This class implements a software-based key generation (as opposed to Hardware Se
 
             
 
-            <td class="description last">Key size for the ECDSA algorithm, can only be 256 or 384</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>hash</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. Hash algorithm, supported values are "SHA2" and "SHA3"</td>
+            <td class="description last">The options to configure the checkpointer</td>
         </tr>
 
     
@@ -265,17 +240,6 @@ This class implements a software-based key generation (as opposed to Hardware Se
 
     
     </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a></li>
-    </ul>
-
 
     
 
@@ -296,7 +260,7 @@ This class implements a software-based key generation (as opposed to Hardware Se
             
 <hr>
 <dt>
-    <h4 class="name" id="decrypt"><span class="type-signature"></span>decrypt()</h4>
+    <h4 class="name" id="load"><span class="type-signature">&lt;async> </span>load()</h4>
     
     
 </dt>
@@ -304,8 +268,7 @@ This class implements a software-based key generation (as opposed to Hardware Se
 
     
     <div class="description">
-        This is an implementation of <a href="module-api.CryptoSuite.html#decrypt">module:api.CryptoSuite#decrypt</a>
-To be implemented.
+        Loads the latest checkpoint
     </div>
     
 
@@ -326,11 +289,6 @@ To be implemented.
 
 	
 
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CryptoSuite.html#decrypt">module:api.CryptoSuite#decrypt</a>
-    </li></ul></dd>
     
 
     
@@ -380,7 +338,7 @@ To be implemented.
             
 <hr>
 <dt>
-    <h4 class="name" id="deriveKey"><span class="type-signature"></span>deriveKey()</h4>
+    <h4 class="name" id="save"><span class="type-signature">&lt;async> </span>save(transactionId, blockNumber)</h4>
     
     
 </dt>
@@ -388,306 +346,7 @@ To be implemented.
 
     
     <div class="description">
-        This is an implementation of <a href="module-api.CryptoSuite.html#deriveKey">module:api.CryptoSuite#deriveKey</a>
-To be implemented
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CryptoSuite.html#deriveKey">module:api.CryptoSuite#deriveKey</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="encrypt"><span class="type-signature"></span>encrypt()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This is an implementation of <a href="module-api.CryptoSuite.html#encrypt">module:api.CryptoSuite#encrypt</a>
-To be implemented.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CryptoSuite.html#encrypt">module:api.CryptoSuite#encrypt</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="generateEphemeralKey"><span class="type-signature"></span>generateEphemeralKey()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Generate an ephemeral key.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.CryptoSuite.html#generateEphemeralKey">module:api.CryptoSuite#generateEphemeralKey</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CryptoSuite.html#generateEphemeralKey">module:api.CryptoSuite#generateEphemeralKey</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Throws:</h5>
-    
-            
-
-    <div class="param-desc">
-    
-        Will throw an error if not implemented
-    
-    </div>
-
-
-        
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    An instance of the Key class
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="generateKey"><span class="type-signature"></span>generateKey(opts)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Generate a key using the options in <code>opts</code>. If the <code>opts.ephemeral</code>
-parameter is false, the method, in addition to returning the imported Key
-instance, also persists the generated key in the key store as PEM files that can be
-retrieved using the <code>getKey()</code> method
+        Updates the storage mechanism
     </div>
     
 
@@ -722,13 +381,13 @@ retrieved using the <code>getKey()</code> method
 
         <tr>
             
-                <td class="name"><code>opts</code></td>
+                <td class="name"><code>transactionId</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">KeyOpts</span>
+<span class="param-type">String</span>
 
 
 
@@ -739,7 +398,31 @@ retrieved using the <code>getKey()</code> method
 
             
 
-            <td class="description last">Optional</td>
+            <td class="description last">the transaction ID</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>blockNumber</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the block number</td>
         </tr>
 
     
@@ -757,21 +440,7 @@ retrieved using the <code>getKey()</code> method
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.CryptoSuite.html#generateKey">module:api.CryptoSuite#generateKey</a>
-			</li>
-		</ul>
-	</dd>
-	
 
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CryptoSuite.html#generateKey">module:api.CryptoSuite#generateKey</a>
-    </li></ul></dd>
     
 
     
@@ -811,44 +480,8 @@ retrieved using the <code>getKey()</code> method
     
 
     
-    <h5>Throws:</h5>
-    
-            
-
-    <div class="param-desc">
-    
-        Will throw an error if not implemented
-    
-    </div>
-
-
-        
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise for an instance of the Key class
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
@@ -857,7 +490,7 @@ retrieved using the <code>getKey()</code> method
             
 <hr>
 <dt>
-    <h4 class="name" id="getKey"><span class="type-signature"></span>getKey(ski)</h4>
+    <h4 class="name" id="setChaincodeId"><span class="type-signature">&lt;async> </span>setChaincodeId(chaincodeId)</h4>
     
     
 </dt>
@@ -865,7 +498,7 @@ retrieved using the <code>getKey()</code> method
 
     
     <div class="description">
-        Returns the Key this implementation associates to the Subject Key Identifier ski.
+        Sets the chaincode ID to group together listeners
     </div>
     
 
@@ -900,13 +533,13 @@ retrieved using the <code>getKey()</code> method
 
         <tr>
             
-                <td class="name"><code>ski</code></td>
+                <td class="name"><code>chaincodeId</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">String</span>
 
 
 
@@ -917,345 +550,7 @@ retrieved using the <code>getKey()</code> method
 
             
 
-            <td class="description last">Subject Key Identifier specific to a Crypto Suite implementation, as the
-   unique index to represent the key</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.CryptoSuite.html#getKey">module:api.CryptoSuite#getKey</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CryptoSuite.html#getKey">module:api.CryptoSuite#getKey</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Promise of an instance of the Key class corresponding to the ski
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="hash"><span class="type-signature"></span>hash()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This is an implementation of <a href="module-api.CryptoSuite.html#hash">module:api.CryptoSuite#hash</a>
-The opts argument is not supported.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CryptoSuite.html#hash">module:api.CryptoSuite#hash</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="importKey"><span class="type-signature"></span>importKey()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This is an implementation of <a href="module-api.CryptoSuite.html#importKey">module:api.CryptoSuite#importKey</a>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CryptoSuite.html#importKey">module:api.CryptoSuite#importKey</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setCryptoKeyStore"><span class="type-signature"></span>setCryptoKeyStore(cryptoKeyStore)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Set the cryptoKeyStore.
-
-When the application needs to use a key store other than the default,
-it should use the <a href="Client.html">Client</a> newCryptoKeyStore to create an instance and
-use this function to set the instance on the CryptoSuite.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>cryptoKeyStore</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="CryptoKeyStore.html">CryptoKeyStore</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The cryptoKeyStore.</td>
+            <td class="description last">the chaincodeId</td>
         </tr>
 
     
@@ -1275,11 +570,6 @@ use this function to set the instance on the CryptoSuite.
 	
 
     
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CryptoSuite.html#setCryptoKeyStore">module:api.CryptoSuite#setCryptoKeyStore</a>
-    </li></ul></dd>
-    
 
     
 
@@ -1320,304 +610,6 @@ use this function to set the instance on the CryptoSuite.
     
 
     
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="sign"><span class="type-signature"></span>sign()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This is an implementation of <a href="module-api.CryptoSuite.html#sign">module:api.CryptoSuite#sign</a>
-Signs digest using key k.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CryptoSuite.html#sign">module:api.CryptoSuite#sign</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="verify"><span class="type-signature"></span>verify(key, signature, digest)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Verifies signature against key and digest
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-api.Key.html">module:api.Key</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Signing verification key (public key)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>signature</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The signature to verify</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>digest</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;byte></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The digest that the signature was created for</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.CryptoSuite.html#verify">module:api.CryptoSuite#verify</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CryptoSuite.html#verify">module:api.CryptoSuite#verify</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    true if the signature verifies successfully
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
@@ -1672,7 +664,7 @@ Signs digest using key k.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-03-27T18:37:22+00:00
+		on 2019-03-27T18:37:21+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

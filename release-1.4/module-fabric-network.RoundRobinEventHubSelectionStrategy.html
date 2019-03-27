@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: AffiliationService</title>
+	<title>Hyperledger Fabric SDK for node.js Class: RoundRobinEventHubSelectionStrategy</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,17 +93,19 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: AffiliationService</h1>
+	<h1 class="page-title">Class: RoundRobinEventHubSelectionStrategy</h1>
 <section>
 
 <header>
     
         <h2>
-        AffiliationService
+            <span class="ancestors"><a href="module-fabric-network.html">fabric-network</a>.</span>
+        
+        RoundRobinEventHubSelectionStrategy
         </h2>
         
-            <div class="class-description">This is an implementation of the Affiliation service which communicates with
-the Fabric CA server using the Fabric CA client <a href="FabricCAClient.html">FabricCAClient</a>.</div>
+            <div class="class-description">The Round Robin Event Hub Strategy is a basic event hub selection strategy used to
+spread out load onto different event hubs and track event hub availability</div>
         
     
 </header>
@@ -115,19 +117,73 @@ the Fabric CA server using the Fabric CA client <a href="FabricCAClient.html">Fa
         
 <hr>
 <dt>
-    <h4 class="name" id="AffiliationService"><span class="type-signature"></span>new AffiliationService()</h4>
+    <h4 class="name" id="RoundRobinEventHubSelectionStrategy"><span class="type-signature"></span>new RoundRobinEventHubSelectionStrategy(peers)</h4>
     
     
 </dt>
 <dd>
 
     
-
+    <div class="description">
+        Constructor.
+    </div>
     
 
     
 
     
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>peers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="Peer.html">Peer</a>></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The list of peers that the strategy can chose from</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -144,6 +200,13 @@ the Fabric CA server using the Fabric CA client <a href="FabricCAClient.html">Fa
 
     
 
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="module-fabric-network.AbstractEventHubSelectionStrategy.html">module:fabric-network.AbstractEventHubSelectionStrategy</a></li>
+        
+    </ul></dd>
     
 
     
@@ -207,7 +270,7 @@ the Fabric CA server using the Fabric CA client <a href="FabricCAClient.html">Fa
             
 <hr>
 <dt>
-    <h4 class="name" id="create"><span class="type-signature"></span>create(req, registrar)</h4>
+    <h4 class="name" id="getNextPeer"><span class="type-signature"></span>getNextPeer()</h4>
     
     
 </dt>
@@ -215,8 +278,7 @@ the Fabric CA server using the Fabric CA client <a href="FabricCAClient.html">Fa
 
     
     <div class="description">
-        Create a new affiliation.
-The caller must have hf.AffiliationMgr authority.
+        Gets the next peer in the list of peers
     </div>
     
 
@@ -225,80 +287,6 @@ The caller must have hf.AffiliationMgr authority.
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#AffiliationRequest">AffiliationRequest</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The <a href="global.html#AffiliationRequest">AffiliationRequest</a></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -315,6 +303,13 @@ The caller must have hf.AffiliationMgr authority.
 
     
 
+    
+    <dt class="implements">Implements:</dt>
+    <dd class="implements"><ul>
+        
+            <li><a href="module-fabric-network.AbstractEventHubSelectionStrategy.html#getNextPeer">module:fabric-network.AbstractEventHubSelectionStrategy#getNextPeer</a></li>
+        
+    </ul></dd>
     
 
     
@@ -355,10 +350,6 @@ The caller must have hf.AffiliationMgr authority.
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
 
 
 <dl>
@@ -367,715 +358,7 @@ The caller must have hf.AffiliationMgr authority.
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="delete"><span class="type-signature"></span>delete(req, registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Delete an affiliation.
-The caller must have hf.AffiliationMgr authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#AffiliationRequest">AffiliationRequest</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The <a href="global.html#AffiliationRequest">AffiliationRequest</a></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getAll"><span class="type-signature"></span>getAll(registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        List all affiliations equal to and below the caller's affiliation.
-The caller must have hf.AffiliationMgr authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getOne"><span class="type-signature"></span>getOne(affiliation, registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        List a specific affiliation at or below the caller's affinity.
-The caller must have hf.AffiliationMgr authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>affiliation</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The affiliation path to be queried.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The identity of the registrar (i.e. who is performing the registration).</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="update"><span class="type-signature"></span>update(affiliation, req, registrar)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Rename an affiliation.
-The caller must have hf.AffiliationMgr authority.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>affiliation</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The affiliation path to be updated</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#AffiliationRequest">AffiliationRequest</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The <a href="global.html#AffiliationRequest">AffiliationRequest</a></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>registrar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <a href="global.html#ServiceResponse">ServiceResponse</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
+<span class="param-type"><a href="Peer.html">Peer</a></span>
 
 
 
@@ -1138,7 +421,7 @@ The caller must have hf.AffiliationMgr authority.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-03-27T18:37:21+00:00
+		on 2019-03-27T18:37:22+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
