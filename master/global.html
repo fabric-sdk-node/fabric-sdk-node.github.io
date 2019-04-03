@@ -18717,6 +18717,154 @@ rule
             
                 
 <hr>
+<dt class="name" id="TokenOwner">
+    <h4 id="TokenOwner">TokenOwner</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        This object contains the bytes and type for the owner.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>raw</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The serialized bytes for the owner.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. Default is 0 (i.e., TokenOwner_MSP_IDENTIFIER type).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
 <dt class="name" id="TokenParam">
     <h4 id="TokenParam">TokenParam</h4>
 
@@ -18779,7 +18927,7 @@ rule
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;byte></span>
+<span class="param-type"><a href="global.html#TokenOwner">TokenOwner</a></span>
 
 
 
@@ -18790,7 +18938,7 @@ rule
 
             
 
-            <td class="description last">Required for issue and transfer. The owner of the token.</td>
+            <td class="description last">Required for issue and transfer. The recipient of the token.</td>
         </tr>
 
     
@@ -18827,7 +18975,7 @@ rule
             <td class="type">
             
                 
-<span class="param-type">HexString</span>
+<span class="param-type">string</span>
 
 
 
@@ -18838,8 +18986,8 @@ rule
 
             
 
-            <td class="description last">Required. The quantity of the token in a HexString
-         of the numeric value.</td>
+            <td class="description last">Required. The quantity of the token in decimal string format.
+          For example, use '200' for 200.</td>
         </tr>
 
     
@@ -19128,6 +19276,154 @@ rule
 <dd>
     
     <div class="description">
+        This object contains properties that will be used build token transaction payload.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>tokentx_bytes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Buffer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The token transaction bytes.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tokenCommand</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Command</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required. The token command that is used to receive the token transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="TokenTransactionRequest">
+    <h4 id="TokenTransactionRequest">TokenTransactionRequest</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
         This object contains properties that will be used for broadcasting token transaction.
     </div>
     
@@ -19267,154 +19563,6 @@ rule
 
             <td class="description last">Optional. The orderer that will receive this request,
           when not provided, the transaction will be sent to the orderers assigned to this channel instance.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt class="name" id="TokenTransactionRequest">
-    <h4 id="TokenTransactionRequest">TokenTransactionRequest</h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        This object contains properties that will be used build token transaction payload.
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>tokentx_bytes</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Buffer</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The token transaction bytes.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tokenCommand</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Command</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The token command that is used to receive the token transaction.</td>
         </tr>
 
     
@@ -20396,7 +20544,7 @@ with a common connection profile.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-04-02T13:08:45+00:00
+		on 2019-04-03T09:27:11+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
