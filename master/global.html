@@ -1413,7 +1413,7 @@ to a registree for its 'hf.Registrar.Roles' attribute
             
 <hr>
 <dt>
-    <h4 class="name" id="toEnvelope"><span class="type-signature"></span>toEnvelope(signature, payload_bytes)</h4>
+    <h4 class="name" id="toEnvelope"><span class="type-signature"></span>toEnvelope(signature, proposal_bytes)</h4>
     
     
 </dt>
@@ -1421,7 +1421,7 @@ to a registree for its 'hf.Registrar.Roles' attribute
 
     
     <div class="description">
-        convert to protos.common.Envelope
+        convert proposal.proto:SignedProposal to be common.proto:Envelope
     </div>
     
 
@@ -1474,7 +1474,7 @@ to a registree for its 'hf.Registrar.Roles' attribute
 
         <tr>
             
-                <td class="name"><code>payload_bytes</code></td>
+                <td class="name"><code>proposal_bytes</code></td>
             
 
             <td class="type">
@@ -1553,7 +1553,7 @@ to a registree for its 'hf.Registrar.Roles' attribute
             
 <hr>
 <dt>
-    <h4 class="name" id="toEnvelope"><span class="type-signature"></span>toEnvelope(signature, proposal_bytes)</h4>
+    <h4 class="name" id="toEnvelope"><span class="type-signature"></span>toEnvelope(signature, payload_bytes)</h4>
     
     
 </dt>
@@ -1561,7 +1561,7 @@ to a registree for its 'hf.Registrar.Roles' attribute
 
     
     <div class="description">
-        convert proposal.proto:SignedProposal to be common.proto:Envelope
+        convert to protos.common.Envelope
     </div>
     
 
@@ -1614,7 +1614,7 @@ to a registree for its 'hf.Registrar.Roles' attribute
 
         <tr>
             
-                <td class="name"><code>proposal_bytes</code></td>
+                <td class="name"><code>payload_bytes</code></td>
             
 
             <td class="type">
@@ -3334,13 +3334,13 @@ metadata
 
         <tr>
             
-                <td class="name"><code>chaincodeType</code></td>
+                <td class="name"><code>target</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Buffer</span>
 
 
 
@@ -3351,21 +3351,20 @@ metadata
 
             
 
-            <td class="description last">Required. Type of chaincode. One of
-       'golang', 'car', 'node' or 'java'.</td>
+            <td class="description last">Required. The peer to use for this request</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>chaincodePath</code></td>
+                <td class="name"><code>request_timeout</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
 
@@ -3376,60 +3375,9 @@ metadata
 
             
 
-            <td class="description last">Required. The path to the location of
-       the source code of the chaincode. If the chaincode type is golang,
-       then this path is the fully qualified package name, such as
-       'mycompany.com/myproject/mypackage/mychaincode'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>metadataPath</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. The path to the top-level
-       directory containing metadata descriptors.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>goPath</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. The path to be used with the golang
-       chaincode.</td>
+            <td class="description last">Optional. The amount of time for the
+       to respond. The default will be the system configuration
+       value of 'request-timeout'.</td>
         </tr>
 
     
@@ -3532,13 +3480,13 @@ metadata
 
         <tr>
             
-                <td class="name"><code>target</code></td>
+                <td class="name"><code>chaincodeType</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Buffer</span>
+<span class="param-type">string</span>
 
 
 
@@ -3549,20 +3497,21 @@ metadata
 
             
 
-            <td class="description last">Required. The peer to use for this request</td>
+            <td class="description last">Required. Type of chaincode. One of
+       'golang', 'car', 'node' or 'java'.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>request_timeout</code></td>
+                <td class="name"><code>chaincodePath</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
 
@@ -3573,9 +3522,60 @@ metadata
 
             
 
-            <td class="description last">Optional. The amount of time for the
-       to respond. The default will be the system configuration
-       value of 'request-timeout'.</td>
+            <td class="description last">Required. The path to the location of
+       the source code of the chaincode. If the chaincode type is golang,
+       then this path is the fully qualified package name, such as
+       'mycompany.com/myproject/mypackage/mychaincode'</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metadataPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. The path to the top-level
+       directory containing metadata descriptors.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>goPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. The path to be used with the golang
+       chaincode.</td>
         </tr>
 
     
@@ -20544,7 +20544,7 @@ with a common connection profile.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-04-03T09:29:43+00:00
+		on 2019-04-04T16:42:34+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
