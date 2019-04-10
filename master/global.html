@@ -61,7 +61,7 @@
 			<li class="dropdown">
 				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="global.html#CLIENT">CLIENT</a></li><li><a href="global.html#HFAFFILIATIONMGR">HFAFFILIATIONMGR</a></li><li><a href="global.html#HFGENCRL">HFGENCRL</a></li><li><a href="global.html#HFINTERMEDIATECA">HFINTERMEDIATECA</a></li><li><a href="global.html#HFREGISTRARATTRIBUTES">HFREGISTRARATTRIBUTES</a></li><li><a href="global.html#HFREGISTRARDELEGATEROLES">HFREGISTRARDELEGATEROLES</a></li><li><a href="global.html#HFREGISTRARROLES">HFREGISTRARROLES</a></li><li><a href="global.html#HFREVOKER">HFREVOKER</a></li><li><a href="global.html#loadConfigGroup">loadConfigGroup</a></li><li><a href="global.html#loadConfigValue">loadConfigValue</a></li><li><a href="global.html#ORDERER">ORDERER</a></li><li><a href="global.html#package">package</a></li><li><a href="global.html#PEER">PEER</a></li><li><a href="global.html#toEnvelope">toEnvelope</a></li><li><a href="global.html#toHex">toHex</a></li><li><a href="global.html#toSignedCommand">toSignedCommand</a></li><li><a href="global.html#USER">USER</a></li>
+					<li><a href="global.html#CLIENT">CLIENT</a></li><li><a href="global.html#finalPackage">finalPackage</a></li><li><a href="global.html#HFAFFILIATIONMGR">HFAFFILIATIONMGR</a></li><li><a href="global.html#HFGENCRL">HFGENCRL</a></li><li><a href="global.html#HFINTERMEDIATECA">HFINTERMEDIATECA</a></li><li><a href="global.html#HFREGISTRARATTRIBUTES">HFREGISTRARATTRIBUTES</a></li><li><a href="global.html#HFREGISTRARDELEGATEROLES">HFREGISTRARDELEGATEROLES</a></li><li><a href="global.html#HFREGISTRARROLES">HFREGISTRARROLES</a></li><li><a href="global.html#HFREVOKER">HFREVOKER</a></li><li><a href="global.html#loadConfigGroup">loadConfigGroup</a></li><li><a href="global.html#loadConfigValue">loadConfigValue</a></li><li><a href="global.html#ORDERER">ORDERER</a></li><li><a href="global.html#package">package</a></li><li><a href="global.html#PEER">PEER</a></li><li><a href="global.html#toEnvelope">toEnvelope</a></li><li><a href="global.html#toHex">toHex</a></li><li><a href="global.html#toSignedCommand">toSignedCommand</a></li><li><a href="global.html#USER">USER</a></li>
 				</ul>
 			</li>
 			
@@ -840,6 +840,234 @@ to a registree for its 'hf.Registrar.Roles' attribute
             
 <hr>
 <dt>
+    <h4 class="name" id="finalPackage"><span class="type-signature"></span>finalPackage(label, chaincodeType, packageBytes, chaincodePath)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Utility function to do the final packaging of chaincode. This will create the tar ball
+needed by the Chaincode Lifecycle system chaincode. The content produced will be used
+as the InstallChaincodeArgs Chaincode Install Package bytes.
+
+The contents will be returned as a byte array.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The label of the chaincode package</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodeType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The chaincode type</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>packageBytes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The chaincode package</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodePath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional unless chaincodeType is "golang".</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A promise for the data as a byte array
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Array.&lt;byte>></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="loadConfigGroup"><span class="type-signature"></span>loadConfigGroup(config_items, versions, group, name, org, top)</h4>
     
     
@@ -1332,6 +1560,70 @@ to a registree for its 'hf.Registrar.Roles' attribute
 
     
 <dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>goPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. The path to be used with the golang
+       chaincode. Will default to the environment "GOPATH" value.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
     
 
 	
@@ -2099,6 +2391,234 @@ to a registree for its 'hf.Registrar.Roles' attribute
             
                 
 <hr>
+<dt class="name" id="ApprovalStatusRequest">
+    <h4 id="ApprovalStatusRequest">ApprovalStatusRequest</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+|
+
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Required. The peer that will receive
+ this request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Required. The chaincode object containing
+ all the chaincode information required by the approve chaincode fabric
+ network action. see <a href="Chaincode.html">Chaincode</a></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>txId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Required. The transaction object that has the
+ ID and nonce to use for this request.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>request_timeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. The timeout value to use for this
+ request</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
 <dt class="name" id="AttributeRequest">
     <h4 id="AttributeRequest">AttributeRequest</h4>
 
@@ -2671,17 +3191,12 @@ metadata
             
                 
 <hr>
-<dt class="name" id="ChaincodeDefineRequest">
-    <h4 id="ChaincodeDefineRequest">ChaincodeDefineRequest</h4>
+<dt class="name" id="ChaincodeDefinitionQueryRequest">
+    <h4 id="ChaincodeDefinitionQueryRequest">ChaincodeDefinitionQueryRequest</h4>
 
     
 </dt>
 <dd>
-    
-    <div class="description">
-        This object contains many properties that will be when defining
- a chaincode on the channel for an organization or channel wide
-    </div>
     
 
     
@@ -2729,16 +3244,77 @@ metadata
 
         <tr>
             
-                <td class="name"><code>targets</code></td>
+                <td class="name"><code>target</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;<a href="Peer.html">Peer</a>></span>
+<span class="param-type"><a href="Peer.html">Peer</a></span>
 |
 
-<span class="param-type">Array.&lt;string></span>
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Required. The peer that will receive
+ this request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodeId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Required. Name of the chaincode</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>request_timeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
 
 
 
@@ -2757,22 +3333,20 @@ metadata
 
             
 
-            <td class="description last">Optional. The peers that will
- receive the define request. When not provided, peers that have been
- added to the channel with the 'endorser' role.</td>
+            <td class="description last">Optional. The timeout value to use for this request</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>chaincode</code></td>
+                <td class="name"><code>txId</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type"><a href="TransactionID.html">TransactionID</a></span>
 
 
 
@@ -2782,6 +3356,8 @@ metadata
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
                 </td>
@@ -2789,9 +3365,8 @@ metadata
 
             
 
-            <td class="description last">Required. The chaincode object containing
- all the chaincode information required by the define chaincode fabric
- network action. see <a href="Chaincode.html">Chaincode</a></td>
+            <td class="description last">Optional. Transaction ID to use for the
+ query. Required when using the admin idendity.</td>
         </tr>
 
     
@@ -3334,211 +3909,13 @@ metadata
 
         <tr>
             
-                <td class="name"><code>chaincodeType</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. Type of chaincode. One of
-       'golang', 'car', 'node' or 'java'.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>chaincodePath</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Required. The path to the location of
-       the source code of the chaincode. If the chaincode type is golang,
-       then this path is the fully qualified package name, such as
-       'mycompany.com/myproject/mypackage/mychaincode'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>metadataPath</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. The path to the top-level
-       directory containing metadata descriptors.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>goPath</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Optional. The path to be used with the golang
-       chaincode.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-            
-                
-<hr>
-<dt class="name" id="ChaincodeInstallRequest">
-    <h4 id="ChaincodeInstallRequest">ChaincodeInstallRequest</h4>
-
-    
-</dt>
-<dd>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Object</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
                 <td class="name"><code>target</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Buffer</span>
+<span class="param-type"><a href="Peer.html">Peer</a></span>
 
 
 
@@ -3576,6 +3953,31 @@ metadata
             <td class="description last">Optional. The amount of time for the
        to respond. The default will be the system configuration
        value of 'request-timeout'.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>txId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="TransactionID.html">TransactionID</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional. The transaction ID object to
+       use with the install request. If not included it will be generated.</td>
         </tr>
 
     
@@ -4486,6 +4888,40 @@ chaincode_spec
 
         <tr>
             
+                <td class="name"><code>is_init</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. Boolean to indicate that this invoke
+          is to call the 'Init' function on the chaincode rather than the
+          'Invoke'. TODO more text here</td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>required</code></td>
             
 
@@ -4830,6 +5266,274 @@ chaincode_spec
             
                 
 <hr>
+<dt class="name" id="ChaincodePackageRequest">
+    <h4 id="ChaincodePackageRequest">ChaincodePackageRequest</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. This string will identify this
+       package. This will be used to associate the package_id returned
+       by the Peer when this package is installed. The package_id will
+       uniquely identity the package on the Peer, however it may be
+       difficult to associate with this package. Since the label is
+       supplied by the user, the label will be easier to
+       association with the chaincode package. The name and version will
+       be combined with a colon (name:version) to be the label if not
+       supplied.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodeType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Required. Type of chaincode. One of
+       'golang', 'car', 'node' or 'java'.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodePath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Required. The path to the location of
+       the source code of the chaincode. If the chaincode type is golang,
+       then this path is the fully qualified package name, such as
+       'mycompany.com/myproject/mypackage/mychaincode'</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metadataPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. The path to the top-level
+       directory containing metadata descriptors.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>goPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. The path to be used with the golang
+       chaincode. Will default to the environment "GOPATH" value. Will be
+       used to locate the actual Chaincode 'goLang' files by building a
+       fully qualified path = < goPath > / 'src' / < chaincodePath ></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
 <dt class="name" id="ChaincodeQueryRequest">
     <h4 id="ChaincodeQueryRequest">ChaincodeQueryRequest</h4>
 
@@ -5066,6 +5770,8 @@ chaincode_spec
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
                 </td>
@@ -5073,7 +5779,7 @@ chaincode_spec
 
             
 
-            <td class="description last">The timeout value to use for this request</td>
+            <td class="description last">Optional. The timeout value to use for this request</td>
         </tr>
 
     
@@ -5226,6 +5932,241 @@ chaincode_spec
             
 
             <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="ChaincodeRequest">
+    <h4 id="ChaincodeRequest">ChaincodeRequest</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        This object contains the  properties needed when approving
+ a chaincode on the channel for an organization
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>targets</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="Peer.html">Peer</a>></span>
+|
+
+<span class="param-type">Array.&lt;string></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. The peers that will
+ receive the define request. When not provided, peers that have been
+ added to the channel with the 'endorser' role.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Required. The chaincode object containing
+ all the chaincode information required by the approve chaincode fabric
+ network action. see <a href="Chaincode.html">Chaincode</a></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>txId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Required. The transaction object that has the
+ ID and nonce to use for this request.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>request_timeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. The timeout value to use for this request</td>
         </tr>
 
     
@@ -13103,6 +14044,430 @@ policy
             
                 
 <hr>
+<dt class="name" id="InstalledChaincodeRequest">
+    <h4 id="InstalledChaincodeRequest">InstalledChaincodeRequest</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+|
+
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Required. The peer that will receive
+ this request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>package_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Required. Package Id of the chaincode</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>request_timeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. The timeout value to use for this request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>txId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="TransactionID.html">TransactionID</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. Transaction ID to use for the
+ query. Required when using the admin idendity.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="InstalledChaincodesRequest">
+    <h4 id="InstalledChaincodesRequest">InstalledChaincodesRequest</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+|
+
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Required. The peer that will receive
+ this request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>request_timeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. The timeout value to use for this request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>txId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="TransactionID.html">TransactionID</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. Transaction ID to use for the
+ query. Required when using the admin idendity.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
 <dt class="name" id="JoinChannelRequest">
     <h4 id="JoinChannelRequest">JoinChannelRequest</h4>
 
@@ -13502,6 +14867,204 @@ signature -- {byte[]}
 
     
 <dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            
+                
+<hr>
+<dt class="name" id="NamespaceDefinitionsRequest">
+    <h4 id="NamespaceDefinitionsRequest">NamespaceDefinitionsRequest</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+|
+
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Required. The peer that will receive
+ this request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>request_timeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. The timeout value to use for this
+ request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>txId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="TransactionID.html">TransactionID</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Optional. Transaction ID to use for the
+ query. Required when using the admin idendity.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
     
 
 	
@@ -20058,7 +21621,7 @@ with a common connection profile.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-04-10T05:20:27+00:00
+		on 2019-04-10T07:18:22+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

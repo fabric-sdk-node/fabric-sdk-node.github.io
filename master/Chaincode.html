@@ -61,7 +61,7 @@
 			<li class="dropdown">
 				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="global.html#CLIENT">CLIENT</a></li><li><a href="global.html#HFAFFILIATIONMGR">HFAFFILIATIONMGR</a></li><li><a href="global.html#HFGENCRL">HFGENCRL</a></li><li><a href="global.html#HFINTERMEDIATECA">HFINTERMEDIATECA</a></li><li><a href="global.html#HFREGISTRARATTRIBUTES">HFREGISTRARATTRIBUTES</a></li><li><a href="global.html#HFREGISTRARDELEGATEROLES">HFREGISTRARDELEGATEROLES</a></li><li><a href="global.html#HFREGISTRARROLES">HFREGISTRARROLES</a></li><li><a href="global.html#HFREVOKER">HFREVOKER</a></li><li><a href="global.html#loadConfigGroup">loadConfigGroup</a></li><li><a href="global.html#loadConfigValue">loadConfigValue</a></li><li><a href="global.html#ORDERER">ORDERER</a></li><li><a href="global.html#package">package</a></li><li><a href="global.html#PEER">PEER</a></li><li><a href="global.html#toEnvelope">toEnvelope</a></li><li><a href="global.html#toHex">toHex</a></li><li><a href="global.html#toSignedCommand">toSignedCommand</a></li><li><a href="global.html#USER">USER</a></li>
+					<li><a href="global.html#CLIENT">CLIENT</a></li><li><a href="global.html#finalPackage">finalPackage</a></li><li><a href="global.html#HFAFFILIATIONMGR">HFAFFILIATIONMGR</a></li><li><a href="global.html#HFGENCRL">HFGENCRL</a></li><li><a href="global.html#HFINTERMEDIATECA">HFINTERMEDIATECA</a></li><li><a href="global.html#HFREGISTRARATTRIBUTES">HFREGISTRARATTRIBUTES</a></li><li><a href="global.html#HFREGISTRARDELEGATEROLES">HFREGISTRARDELEGATEROLES</a></li><li><a href="global.html#HFREGISTRARROLES">HFREGISTRARROLES</a></li><li><a href="global.html#HFREVOKER">HFREVOKER</a></li><li><a href="global.html#loadConfigGroup">loadConfigGroup</a></li><li><a href="global.html#loadConfigValue">loadConfigValue</a></li><li><a href="global.html#ORDERER">ORDERER</a></li><li><a href="global.html#package">package</a></li><li><a href="global.html#PEER">PEER</a></li><li><a href="global.html#toEnvelope">toEnvelope</a></li><li><a href="global.html#toHex">toHex</a></li><li><a href="global.html#toSignedCommand">toSignedCommand</a></li><li><a href="global.html#USER">USER</a></li>
 				</ul>
 			</li>
 			
@@ -102,8 +102,7 @@
         Chaincode
         </h2>
         
-            <div class="class-description">The Chaincode class represents an Chaincode definition in the target
-blockchain network.
+            <div class="class-description">The Chaincode class represents an Chaincode definition.
 <br><br>
 see the tutorial <a href="tutorial-chaincode-lifecycle.html">fabric-client: How to install and start your chaincode</a>
 <br><br>
@@ -114,39 +113,7 @@ of the chaincode's lifecycle.
 From your <a href="Client.html">Client</a> instance use the <a href="Client.html#newChaincode">Client#newChaincode</a> method.
 This will return a Chaincode object instance that has been associated with
 that client. This will provide access to user credentials used for signing
-requests, access to peer, orderer, and channel information.
-
-
-From the new chaincode object you will be able to use it to help you create
-a chaincode package. This is a local client operation and does not make an
-outbound request. The package may be sent to other organizations to be
-installed on their peers.
-This package may then be installed on your organization's peers.
-The peer will return a hash value representing the package that it
-has installed. This unique value will identify your chaincode across
-the fabric network and must match all other peers that have installed
-the chaincode.
-<br>
-<br>
-Now that we have a hash value we can define a chaincode that our organization
-would like to run. The definition will include the hash, the name, the version,
-an endorsement policy, the channel and your organization.
-The definition must be endorsed by a peer
-in your organization and sent to be orderer to be committed to the ledger.
-You may want to think of this definition as a vote that your organization
-has agreed to run this particular chaincode on this channel.
-Once enough organization have also voted by endorsing a chaincode organization
-definition and committing that transaction the Chaincode channel definition
-may now be processed.
-<br>
-<br>
-When enough organizations have agreed to run this unique chaincode definition,
-it may be defined to run on the channel. This is an endorsement sent by a
-single client to enough organization's peers to satisfy the chaincode life-cycle
-policy.
-Once the client gets enough endorsements it will send the transaction to the
-orderer to be committed to the ledger.
-The chaincode may now be used for endorsements.</div>
+requests, access to peer, orderer, and channel information.</div>
         
     
 </header>
@@ -328,116 +295,6 @@ The chaincode may now be used for endorsements.</div>
     
 
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">// create chaincode object
-  const mychaincode = client.newChaincode(&#x27;mychaincode&#x27;, &#x27;version1&#x27;);
-
-// package the source code
-  //          - or -
-  //         use an existing package
-  const packge_request = {
-     chaincodeType: &#x27;golang&#x27;,
-     goPath: &#x27;/gopath&#x27;,
-     chaincodePath: &#x27;/path/to/code&#x27;,
-     metadataPath: &#x27;/path/to/metadat&#x27;
-  }
-  await mychaincode.package(package_request);
-
-  // send the package to the other organizations to install
-  const package = mychaincode.getPackage();
-  ... &lt; code to send &gt;
-  // The other organizations will make the package call, they
-  // will use the setPackage() method to apply an existing chaincode
-  // package to the chaincode instance object.
-  mychaincode.setPackage(package);
-
-// install on my peers
-  //   This step is only required for peers that will execute the
-  //   the chaincode during an endorsement or chaincode query operation.
-  const install_request = {
-     targets: [peer1, peer2],
-     request_timeout: 20000 // give the peers some extra time
-  }
-  // The hash value of the package is returned by the peer
-  // The chaincode instance object will also contain this value.
-  const hash = await mychaincode.install(install_request);
-
-// set the endorsement policy and collection config
-  // The endorsement policy - required.
-  mychaincode.setEndorsementPolicy(policy_def);
-  // The collection configuration - optional.
-  mychaincode.setCollectionConfig(config_def));
-
-// set the sequence of the definition
-  mychaincode.setSequence(1);
-
-// define for my organization
-  //   Each organization will define the chaincode. Think of
-  //   of this step as both defining a chaincode for the organization
-  //   to use and the organization casting a vote for this definition
-  //   the chaincode to be allowed to be executed on the channel.
-  //   Note that an organization that is just voting to allow the chaincode
-  //   on the channel and not planning on actually executing the  chaincode
-  //   will only have to an chaincode instance object with
-  //   the name, the version, the hash value, and the sequence number
-  //   attributes set. The package and installing the package will not be
-  //   required.
-  const tx_id = client.newTransactionID();
-  const request = {
-     target: peer1,
-     chaincode: mychaincode,
-     txId: tx_id
-  }
-  const {proposalResponses, proposal} = await mychannel.defineChaincodeForOrg(request);
-  const orderer_request = {
-     proposalResponses: proposalResponses,
-     proposal, proposal
-  }
-  const results = await mychannel.sendTransaction(orderer_request);
-
-
-// define the chaincode for the channel
-  //  One organization will create a transaction that will define this
-  //  chaincode for the channel. The transaction must be endorsed by enough
-  //  organizations on the channel to satisfy the chaincode lifecycle policy.
-  //  This action will not succeed until enough organizations have voted
-  //  (define for organization) for this chaincode definition to run on this
-  //  channel to satisfy the chaincode lifecycle endorsement policy.
-  const tx_id = client.newTransactionID();
-  const request = {
-     targets: [peer1, peer3],
-     chaincode: mychaincode,
-     txId: tx_id
-  }
-  const {proposalResponses, proposal} = await mychannel.defineChaincode(request);
-  const orderer_request = {
-     proposalResponses: proposalResponses,
-     proposal, proposal
-  }
-  const results = await mychannel.sendTransaction(orderer_request);
-
-// initialize the chaincode
-  // This action will start the chaincode container and run the &#x27;init&#x27; method
-  // of the chaincode with the provided arguments.
-  // This action will only be required when the code package is new or
-  // has changed and a new chaincode container must be initialized.
-  const tx_id = client.newTransactionID();
-  const request = {
-     chaincodeId : chaincodeId,
-     fcn: &#x27;init&#x27;,
-     args: args,
-     txId: tx_id
-  }
-  const init_results = await mychannel.sendTransaction(request);
-  const orderer_request = {
-     proposalResponses: init_results[0],
-     proposal: init_results[1]
-  }
-  const results = await mychannel.sendTransaction(orderer_request);</pre>
-
-
-    
 </dd>
 
     
@@ -462,7 +319,7 @@ The chaincode may now be used for endorsements.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="getHash"><span class="type-signature"></span>getHash()</h4>
+    <h4 class="name" id=".fromQueryResult"><span class="type-signature">&lt;static> </span>fromQueryResult(name, payload, client)</h4>
     
     
 </dt>
@@ -470,7 +327,722 @@ The chaincode may now be used for endorsements.</div>
 
     
     <div class="description">
-        Gets the package hash value
+        Build a <a href="Chaincode.html">Chaincode</a> instance from the QueryChaincodeDefinitionResult protobuf object
+that is the result of the "QueryChaincodeDefinition" request to the Chaincode Lifecycle.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>payload</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>client</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Chaincode.html">Chaincode</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getApproveChaincodeDefinitionForMyOrgArgs"><span class="type-signature"></span>getApproveChaincodeDefinitionForMyOrgArgs()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Build a ApproveChaincodeDefinitionForMyOrgArgs protobuf object
+based on this Chaincode definition
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getChaincodePath"><span class="type-signature"></span>getChaincodePath()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the chaincode path
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getCollectionConfigPackage"><span class="type-signature"></span>getCollectionConfigPackage()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the collection config package. This is the
+protobuf object built by the CollectionConfig class using
+the collection package JSON input.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">CollectionConfigPackage</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getCollectionConfigPackageDefinition"><span class="type-signature"></span>getCollectionConfigPackageDefinition()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the collection config package JSON. This is the
+input to the CollectionConfig class to build the protobuf
+object needed by the Approve Chaincode Fabric request
+see <a href="Channel.html#approveChaincodeForOrg">Channel#approveChaincodeForOrg</a>.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getCommitChaincodeDefinitionArgs"><span class="type-signature"></span>getCommitChaincodeDefinitionArgs()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Build a CommitChaincodeDefinitionArgs protobuf object
+based on this Chaincode definition
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getEndorsementPolicy"><span class="type-signature"></span>getEndorsementPolicy()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the serialized endorsement policy generated by the endorsement
+policy definition or directly assigned to this chaincode instance.
+The serialized bytes will be generated when the endorsement policy
+definition is assigned with <a href="Chaincode.html#setEndorsementPolicyDefinition">setEndorsementPolicyDefinition()</a>.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getEndorsementPolicyDefinition"><span class="type-signature"></span>getEndorsementPolicyDefinition()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the endorsement policy JSON definition.
     </div>
     
 
@@ -536,8 +1108,265 @@ The chaincode may now be used for endorsements.</div>
     
             
 <div class="param-desc">
-    The hash value as generated by the peer when the
- package was installed
+    The JSON endorsement policy
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getGoLangPath"><span class="type-signature"></span>getGoLangPath()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the goLang path
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getInitRequired"><span class="type-signature"></span>getInitRequired()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the initialize required setting
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getLabel"><span class="type-signature"></span>getLabel()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the chaincode package label
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The label value
 </div>
 
 
@@ -565,6 +1394,84 @@ The chaincode may now be used for endorsements.</div>
             
 <hr>
 <dt>
+    <h4 class="name" id="getMetadataPath"><span class="type-signature"></span>getMetadataPath()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the chaincode path
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="getName"><span class="type-signature"></span>getName()</h4>
     
     
@@ -573,7 +1480,7 @@ The chaincode may now be used for endorsements.</div>
 
     
     <div class="description">
-        Gets the name of this chaincode.
+        Get the name of this chaincode.
     </div>
     
 
@@ -675,7 +1582,7 @@ The chaincode may now be used for endorsements.</div>
 
     
     <div class="description">
-        Gets the source code package
+        Get the source code package
     </div>
     
 
@@ -769,6 +1676,188 @@ The chaincode may now be used for endorsements.</div>
             
 <hr>
 <dt>
+    <h4 class="name" id="getPackageId"><span class="type-signature"></span>getPackageId()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the package id value
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The package id value is generated by the peer when the
+ package is installed
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getQueryApprovalStatusArgs"><span class="type-signature"></span>getQueryApprovalStatusArgs()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Build a QueryApprovalStatusArgs protobuf object
+based on this Chaincode definition
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="getSequence"><span class="type-signature"></span>getSequence()</h4>
     
     
@@ -777,7 +1866,7 @@ The chaincode may now be used for endorsements.</div>
 
     
     <div class="description">
-        Gets the modification sequence of the chaincode definition.
+        Get the modification sequence of the chaincode definition.
     </div>
     
 
@@ -854,7 +1943,7 @@ The chaincode may now be used for endorsements.</div>
     </dt>
     <dd>
         
-<span class="param-type">number</span>
+<span class="param-type">Long</span>
 
 
 
@@ -871,6 +1960,84 @@ The chaincode may now be used for endorsements.</div>
             
 <hr>
 <dt>
+    <h4 class="name" id="getType"><span class="type-signature"></span>getType()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get the chaincode type
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="getVersion"><span class="type-signature"></span>getVersion()</h4>
     
     
@@ -879,7 +2046,7 @@ The chaincode may now be used for endorsements.</div>
 
     
     <div class="description">
-        Gets the version of this chaincode.
+        Get the version of this chaincode.
     </div>
     
 
@@ -973,217 +2140,6 @@ The chaincode may now be used for endorsements.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="hasHash"><span class="type-signature"></span>hasHash()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Method to check if this chaincode package hash has been assigned.
-The hash value is the unique identifer of this chaincode source package
-returned by the peer that installed the chaincode package.
-When this chaincode instance has a hash value assigned it will mean
-this chaincode has been installed. It also could mean that another
-organization did the install and this organization only wants to define
-(allow) this chaincode and will not install the package at this time.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    indicates if this chaincode instance has the hash value
- and this chaincode instance may be used for the chaincode define actions.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="hasPackage"><span class="type-signature"></span>hasPackage()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Method to check if this chaincode instance has a chaincode package assigned.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    indicates if this chaincode instance has a package
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
     <h4 class="name" id="install"><span class="type-signature">&lt;async> </span>install(request)</h4>
     
     
@@ -1195,8 +2151,7 @@ organization did the install and this organization only wants to define
         Install the package on the specified peers.
 This method will send the package to the peers provided.
 Each peer will return a hash value of the installed
-package. When this method is called again and within this call, the hash value
-returnd from the peer must be equal to the pervious install.
+package.
     </div>
     
 
@@ -1350,8 +2305,10 @@ returnd from the peer must be equal to the pervious install.
     
     <div class="description">
         Package the files at the locations provided.
- This method will both return the package and set the
- package on this instance.
+This method will both return the package and set the package on this instance.
+This method will set the label, type, and paths (if provided in the request).
+The package_id will be set by the install method or manually by the application.
+The package_id must be set before using this object on the <a href="Channel.html#approveChaincodeForOrg">Channel#approveChaincodeForOrg</a>.
     </div>
     
 
@@ -1392,7 +2349,7 @@ returnd from the peer must be equal to the pervious install.
             <td class="type">
             
                 
-<span class="param-type">ChaincodePackageRequest</span>
+<span class="param-type"><a href="global.html#ChaincodePackageRequest">ChaincodePackageRequest</a></span>
 
 
 
@@ -1403,8 +2360,9 @@ returnd from the peer must be equal to the pervious install.
 
             
 
-            <td class="description last">Required. The parameters to build the
-       chaincode package.</td>
+            <td class="description last">Optional. The parameters to build the
+       chaincode package. Parameters will be required when the parameter has not
+       been set on this instance.</td>
         </tr>
 
     
@@ -1472,7 +2430,7 @@ returnd from the peer must be equal to the pervious install.
             
 <hr>
 <dt>
-    <h4 class="name" id="setCollectionConfig"><span class="type-signature"></span>setCollectionConfig(config)</h4>
+    <h4 class="name" id="setChaincodePath"><span class="type-signature"></span>setChaincodePath(path)</h4>
     
     
 </dt>
@@ -1480,7 +2438,7 @@ returnd from the peer must be equal to the pervious install.
 
     
     <div class="description">
-        Provide the collection configuration for this chaincode. The input is a JSON object.
+        Set the chaincode path
     </div>
     
 
@@ -1515,7 +2473,7 @@ returnd from the peer must be equal to the pervious install.
 
         <tr>
             
-                <td class="name"><code>config</code></td>
+                <td class="name"><code>path</code></td>
             
 
             <td class="type">
@@ -1532,7 +2490,135 @@ returnd from the peer must be equal to the pervious install.
 
             
 
-            <td class="description last">The JSON representation of a fabric collection configuration definition.</td>
+            <td class="description last">The path of this chaincode.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setCollectionConfigPackageDefinition"><span class="type-signature"></span>setCollectionConfigPackageDefinition(configPackage)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Set a collection package for this chaincode. The input is a JSON object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>configPackage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The JSON representation of a fabric collection package definition.</td>
         </tr>
 
     
@@ -1596,9 +2682,11 @@ returnd from the peer must be equal to the pervious install.
     
         <h5>Example</h5>
         
-        <p class="code-caption">Collection config</p>
+        <p class="code-caption">Collection package</p>
     
-    <pre class="sunlight-highlight-javascript">[{
+    <pre class="sunlight-highlight-javascript">An array of collection
+configurations.
+[{
     name: &quot;detailCol&quot;,
     policy: {
        identities: [
@@ -1633,7 +2721,137 @@ returnd from the peer must be equal to the pervious install.
 
     
     <div class="description">
-        Provide the endorsement policy for this chaincode. The input is a JSON object.
+        Set the serialized endorsement policy required for the chaincode approval.
+The serialized bytes may have been generated when the endorsement policy
+JSON definition was assigned to a <a href="Chaincode.html">Chaincode</a>. see <a href="Chaincode.html#setEndorsementPolicyDefinition">setEndorsementPolicyDefinition()</a>.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>policy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the serialized endorsement policy</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setEndorsementPolicyDefinition"><span class="type-signature"></span>setEndorsementPolicyDefinition(policy)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Provide the endorsement policy definition for this chaincode. The input is a JSON object.
     </div>
     
 
@@ -1785,7 +3003,7 @@ returnd from the peer must be equal to the pervious install.
             
 <hr>
 <dt>
-    <h4 class="name" id="setHash"><span class="type-signature"></span>setHash(hash)</h4>
+    <h4 class="name" id="setGoLangPath"><span class="type-signature"></span>setGoLangPath(path)</h4>
     
     
 </dt>
@@ -1793,7 +3011,7 @@ returnd from the peer must be equal to the pervious install.
 
     
     <div class="description">
-        Sets the chaincode package hash
+        Set the goLang path
     </div>
     
 
@@ -1828,7 +3046,7 @@ returnd from the peer must be equal to the pervious install.
 
         <tr>
             
-                <td class="name"><code>hash</code></td>
+                <td class="name"><code>path</code></td>
             
 
             <td class="type">
@@ -1845,7 +3063,393 @@ returnd from the peer must be equal to the pervious install.
 
             
 
-            <td class="description last">The source package hash value</td>
+            <td class="description last">The golang path.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setInitRequired"><span class="type-signature"></span>setInitRequired(required)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Set if the chaincode initialize is required
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>required</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Indicates if this chaincode must be initialized</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setLabel"><span class="type-signature"></span>setLabel(The)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Set the label to be used for this packaged chaincode
+The default of name:version will be used if not set when
+the package() method is called.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">label value</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setMetadataPath"><span class="type-signature"></span>setMetadataPath(path)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Set the metadata path
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The path of this metadata.</td>
         </tr>
 
     
@@ -1921,7 +3525,8 @@ returnd from the peer must be equal to the pervious install.
 
     
     <div class="description">
-        Sets the chaincode package
+        Set the chaincode package
+It is recommended to set the package label associated with this package.
     </div>
     
 
@@ -2041,6 +3646,134 @@ returnd from the peer must be equal to the pervious install.
             
 <hr>
 <dt>
+    <h4 class="name" id="setPackageId"><span class="type-signature"></span>setPackageId(package_id)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the chaincode package id
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>package_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The source package id value</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="setSequence"><span class="type-signature"></span>setSequence(sequence)</h4>
     
     
@@ -2049,7 +3782,7 @@ returnd from the peer must be equal to the pervious install.
 
     
     <div class="description">
-        Sets the modification sequence of the chaincode definition.
+        Set the modification sequence of the chaincode definition.
 The sequence value gives a unique number to a set of attributes for the
 the chaincode. When a attribute changes for a chaincode, the sequence
 value must be incremented and all organizations must again run
@@ -2095,7 +3828,7 @@ The default is 1, new chaincode.
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Long</span>
 
 
 
@@ -2113,6 +3846,213 @@ The default is 1, new chaincode.
     </tbody>
 </table>
 
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setType"><span class="type-signature"></span>setType(type)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Set the chaincode type
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The type of this chaincode. Must be "golang",
+       "node", "java" or "car".</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setVersion"><span class="type-signature"></span>setVersion()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Set the version of this chaincode.
+    </div>
+    
+
+    
+
+    
+
+    
     
 
     
@@ -2248,6 +4188,85 @@ The default is 1, new chaincode.
     
 </dd>
 
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="validate"><span class="type-signature"></span>validate()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Verify that this Chaincode instance has all the required attributes required for an
+approval or commit request.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
         </dl>
     
 
@@ -2298,7 +4317,7 @@ The default is 1, new chaincode.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-04-10T05:20:27+00:00
+		on 2019-04-10T07:18:22+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

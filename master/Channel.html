@@ -61,7 +61,7 @@
 			<li class="dropdown">
 				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="global.html#CLIENT">CLIENT</a></li><li><a href="global.html#HFAFFILIATIONMGR">HFAFFILIATIONMGR</a></li><li><a href="global.html#HFGENCRL">HFGENCRL</a></li><li><a href="global.html#HFINTERMEDIATECA">HFINTERMEDIATECA</a></li><li><a href="global.html#HFREGISTRARATTRIBUTES">HFREGISTRARATTRIBUTES</a></li><li><a href="global.html#HFREGISTRARDELEGATEROLES">HFREGISTRARDELEGATEROLES</a></li><li><a href="global.html#HFREGISTRARROLES">HFREGISTRARROLES</a></li><li><a href="global.html#HFREVOKER">HFREVOKER</a></li><li><a href="global.html#loadConfigGroup">loadConfigGroup</a></li><li><a href="global.html#loadConfigValue">loadConfigValue</a></li><li><a href="global.html#ORDERER">ORDERER</a></li><li><a href="global.html#package">package</a></li><li><a href="global.html#PEER">PEER</a></li><li><a href="global.html#toEnvelope">toEnvelope</a></li><li><a href="global.html#toHex">toHex</a></li><li><a href="global.html#toSignedCommand">toSignedCommand</a></li><li><a href="global.html#USER">USER</a></li>
+					<li><a href="global.html#CLIENT">CLIENT</a></li><li><a href="global.html#finalPackage">finalPackage</a></li><li><a href="global.html#HFAFFILIATIONMGR">HFAFFILIATIONMGR</a></li><li><a href="global.html#HFGENCRL">HFGENCRL</a></li><li><a href="global.html#HFINTERMEDIATECA">HFINTERMEDIATECA</a></li><li><a href="global.html#HFREGISTRARATTRIBUTES">HFREGISTRARATTRIBUTES</a></li><li><a href="global.html#HFREGISTRARDELEGATEROLES">HFREGISTRARDELEGATEROLES</a></li><li><a href="global.html#HFREGISTRARROLES">HFREGISTRARROLES</a></li><li><a href="global.html#HFREVOKER">HFREVOKER</a></li><li><a href="global.html#loadConfigGroup">loadConfigGroup</a></li><li><a href="global.html#loadConfigValue">loadConfigValue</a></li><li><a href="global.html#ORDERER">ORDERER</a></li><li><a href="global.html#package">package</a></li><li><a href="global.html#PEER">PEER</a></li><li><a href="global.html#toEnvelope">toEnvelope</a></li><li><a href="global.html#toHex">toHex</a></li><li><a href="global.html#toSignedCommand">toSignedCommand</a></li><li><a href="global.html#USER">USER</a></li>
 				</ul>
 			</li>
 			
@@ -1011,7 +1011,7 @@ methods such as <a href="Channel.html#sendInstantiateProposal">sendInstantiatePr
             
 <hr>
 <dt>
-    <h4 class="name" id="allowChaincodeForOrg"><span class="type-signature">&lt;async> </span>allowChaincodeForOrg(request [, timeout])</h4>
+    <h4 class="name" id="approveChaincodeForOrg"><span class="type-signature">&lt;async> </span>approveChaincodeForOrg(request)</h4>
     
     
 </dt>
@@ -1019,7 +1019,8 @@ methods such as <a href="Channel.html#sendInstantiateProposal">sendInstantiatePr
 
     
     <div class="description">
-        This method will build and send an "allow chaincode for organization for channel"
+        This method will build and send an
+"approve chaincode definition for organization for channel"
 transaction to the fabric lifecycle system chaincode.
 see <a href="Chaincode.html">Chaincode</a>
     </div>
@@ -1044,8 +1045,6 @@ see <a href="Chaincode.html">Chaincode</a>
         <th>Type</th>
 
         
-        <th>Argument</th>
-        
 
         
 
@@ -1064,60 +1063,18 @@ see <a href="Chaincode.html">Chaincode</a>
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#ChaincodeDefineRequest">ChaincodeDefineRequest</a></span>
+<span class="param-type"><a href="global.html#ChaincodeRequest">ChaincodeRequest</a></span>
 
 
 
             
             </td>
 
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
             
 
             
 
             <td class="description last">Required.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>timeout</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Optional. Timeout specific for this request.</td>
         </tr>
 
     
@@ -1287,7 +1244,7 @@ see <a href="Chaincode.html">Chaincode</a>
             
 <hr>
 <dt>
-    <h4 class="name" id="CommitChaincode"><span class="type-signature">&lt;async> </span>CommitChaincode(request [, timeout])</h4>
+    <h4 class="name" id="commitChaincode"><span class="type-signature">&lt;async> </span>commitChaincode(request)</h4>
     
     
 </dt>
@@ -1295,7 +1252,8 @@ see <a href="Chaincode.html">Chaincode</a>
 
     
     <div class="description">
-        This method will build and send a "commit chaincode for channel"
+        This method will build and send a
+"commit chaincode definition for channel"
 transaction to the fabric lifecycle system chaincode.
 see <a href="Chaincode.html">Chaincode</a>
     </div>
@@ -1320,8 +1278,6 @@ see <a href="Chaincode.html">Chaincode</a>
         <th>Type</th>
 
         
-        <th>Argument</th>
-        
 
         
 
@@ -1340,60 +1296,18 @@ see <a href="Chaincode.html">Chaincode</a>
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#ChaincodeDefineRequest">ChaincodeDefineRequest</a></span>
+<span class="param-type"><a href="global.html#ChaincodeRequest">ChaincodeRequest</a></span>
 
 
 
             
             </td>
 
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
             
 
             
 
             <td class="description last">Required.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>timeout</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Optional. Timeout specific for this request.</td>
         </tr>
 
     
@@ -4878,6 +4792,158 @@ Use the {getChannelEventHub} to reuse a ChannelEventHub.
             
 <hr>
 <dt>
+    <h4 class="name" id="queryApprovalStatus"><span class="type-signature">&lt;async> </span>queryApprovalStatus(request)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sends a QueryApprovalStatus request to one peer.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ApprovalStatusRequest">ApprovalStatusRequest</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for a <a href="Chaincode.html">Chaincode</a> instance
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="queryBlock"><span class="type-signature">&lt;async> </span>queryBlock(blockNumber [, target] [, useAdmin] [, skipDecode])</h4>
     
     
@@ -5894,6 +5960,158 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             
 <hr>
 <dt>
+    <h4 class="name" id="queryChaincodeDefinition"><span class="type-signature">&lt;async> </span>queryChaincodeDefinition(request)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sends a QueryChaincodeDefintion request to one peer.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ChaincodeDefinitionQueryRequest">ChaincodeDefinitionQueryRequest</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for a <a href="Chaincode.html">Chaincode</a> instance
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="queryCollectionsConfig"><span class="type-signature">&lt;async> </span>queryCollectionsConfig(options [, useAdmin])</h4>
     
     
@@ -6294,6 +6512,310 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             
 <hr>
 <dt>
+    <h4 class="name" id="queryInstalledChaincode"><span class="type-signature">&lt;async> </span>queryInstalledChaincode(request)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sends a QueryInstalledChaincode request to one peer.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#InstalledChaincodeRequest">InstalledChaincodeRequest</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for a <a href="Chaincode.html">Chaincode</a> instance
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="queryInstalledChaincodes"><span class="type-signature">&lt;async> </span>queryInstalledChaincodes(request)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sends a QueryInstalledChaincodes request to one peer.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#InstalledChaincodesRequest">InstalledChaincodesRequest</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for a <a href="Chaincode.html">Chaincode</a> instance
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="queryInstantiatedChaincodes"><span class="type-signature">&lt;async> </span>queryInstantiatedChaincodes( [target] [, useAdmin])</h4>
     
     
@@ -6470,6 +6992,158 @@ for (let i = 0; i &lt; responsePayloads.length; i++) {
             
 <div class="param-desc">
     A Promise for a fully decoded <a href="global.html#ChaincodeQueryResponse">ChaincodeQueryResponse</a> object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="queryNamespaceDefinitions"><span class="type-signature">&lt;async> </span>queryNamespaceDefinitions(request)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sends a QueryNamespaceDefinitions request to one peer.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#NamespaceDefinitionsRequest">NamespaceDefinitionsRequest</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for an {Object} with a "namespaces" map
 </div>
 
 
@@ -9408,7 +10082,7 @@ trusted root certificates for this channel.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-04-10T05:20:27+00:00
+		on 2019-04-10T07:18:22+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
