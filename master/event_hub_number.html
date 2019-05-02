@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: RoundRobinEventHubSelectionStrategy</title>
+	<title>Hyperledger Fabric SDK for node.js Class: event_hub_number</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,19 +93,14 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: RoundRobinEventHubSelectionStrategy</h1>
+	<h1 class="page-title">Class: event_hub_number</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-fabric-network.html">fabric-network</a>.</span>
-        
-        RoundRobinEventHubSelectionStrategy
+        event_hub_number
         </h2>
-        
-            <div class="class-description">The Round Robin Event Hub Strategy is a basic event hub selection strategy used to
-spread out load onto different event hubs and track event hub availability</div>
         
     
 </header>
@@ -117,7 +112,7 @@ spread out load onto different event hubs and track event hub availability</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="RoundRobinEventHubSelectionStrategy"><span class="type-signature"></span>new RoundRobinEventHubSelectionStrategy(peers)</h4>
+    <h4 class="name" id="event_hub_number"><span class="type-signature"></span>new event_hub_number()</h4>
     
     
 </dt>
@@ -125,160 +120,53 @@ spread out load onto different event hubs and track event hub availability</div>
 
     
     <div class="description">
-        Constructor.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>peers</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;<a href="Peer.html">Peer</a>></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The list of peers that the strategy can chose from</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-    <dt class="implements">Implements:</dt>
-    <dd class="implements"><ul>
-        
-            <li><a href="module-fabric-network.AbstractEventHubSelectionStrategy.html">module:fabric-network.AbstractEventHubSelectionStrategy</a></li>
-        
-    </ul></dd>
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="getNextPeer"><span class="type-signature"></span>getNextPeer()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Gets the next peer in the list of peers
+        Transaction processing in fabric v1.1 is a long operation spanning multiple
+components (application, endorsing peer, orderer, committing peer) and takes
+a relatively lengthy period of time (think seconds instead of milliseconds)
+to complete. As a result the applications must design their handling of the
+transaction lifecycle in an asynchronous fashion. After the transaction proposal
+has been successfully <a href="Channel.html#sendTransactionProposal">endorsed</a>, and before
+the transaction message has been successfully <a href="Channel.html#sendTransaction">sent</a>
+to the orderer, the application should register a listener to be notified
+when the transaction achieves finality, which is when the block
+containing the transaction gets added to the peer's ledger/blockchain.
+<br><br>
+Fabric committing peers provide a block delivery service to publish blocks or
+filtered blocks to connected fabric-clients. See <a href="ChannelEventHub.html#connect">connect</a>
+on connection options and how this ChannelEventHub may connect to the fabric
+service. For more information on the service see <a href="https://hyperledger-fabric.readthedocs.io/en/release-1.2/peer_event_services.html">deliver</a>.
+A block gets published whenever the committing peer adds a validated block
+to the ledger.
+When a fabric-client receives a block it will investigate the block and notify
+interested listeners with the related contents of the block (e.g. transactionId, status).
+There are three types of listeners that will get notified by
+the fabric-client after it receives a published block from the fabric deliver service.
+<li> A "block listener" gets called for every block received. The listener
+    will be passed a fully decoded <a href="global.html#Block">Block</a> object unless the connection
+    to the fabric service is using filtered blocks.
+    See <a href="ChannelEventHub.html#registerBlockEvent">registerBlockEvent</a>
+<li>A "transaction listener" gets called when the specific transaction
+    is committed (discovered inside a published block). The listener
+    may also be registered to listen to "all" transactions.
+    The listener will be passed the transaction id, transaction status and block number.
+    See <a href="ChannelEventHub.html#registerTxEvent">registerTxEvent</a>
+<li>A "chaincode event listener" gets called when a specific
+    chaincode event is discovered within a block.
+    The listener will be passed the block number, transaction id, and
+    transaction status. The <a href="global.html#ChaincodeEvent">ChaincodeEvent</a> will be also be passed,
+    however the payload of the event will not be passed if
+    the connection to the fabric service is publishing filtered blocks.
+    See <a href="ChannelEventHub.html#registerChaincodeEvent">registerChaincodeEvent</a>
+<br><br><br>
+When the fabric-client connects to the peer, it tells the peer which block
+to begin delivering from. If no start block is provided, then the client will
+only receive events for the most recently committed block onwards.
+To avoid missing events in blocks that are published while the client is
+crashed/offline, the client should record the most recently processed block,
+and resume event delivery from this block number on startup. In this way,
+there is no custom recovery path for missed events, and the normal processing
+code may execute instead. You may also include an endBlock number if you
+wish to stop listening after receiving a range of events.
     </div>
     
 
@@ -304,13 +192,6 @@ spread out load onto different event hubs and track event hub availability</div>
     
 
     
-    <dt class="implements">Implements:</dt>
-    <dd class="implements"><ul>
-        
-            <li><a href="module-fabric-network.AbstractEventHubSelectionStrategy.html#getNextPeer">module:fabric-network.AbstractEventHubSelectionStrategy#getNextPeer</a></li>
-        
-    </ul></dd>
-    
 
     
 
@@ -347,31 +228,50 @@ spread out load onto different event hubs and track event hub availability</div>
     
 
     
-    <h5>Returns:</h5>
+
     
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
+        <h5>Example</h5>
         
-<span class="param-type"><a href="Peer.html">Peer</a></span>
+    <pre class="sunlight-highlight-javascript">const eh = channel.newChannelEventHub(peer);
 
+// register the listener before calling &quot;connect()&quot; so there
+// is an error callback ready to process an error in case the
+// connect() call fails
+eh.registerTxEvent(
+  &#x27;all&#x27;, // this listener will be notified of all transactions
+    (tx, status, block_num) =&gt; {
+       record(tx, status, block_num);
+       console.log(util.format(&#x27;Transaction %s has completed&#x27;, tx));
+    },
+    (err) =&gt; {
+       eh.unregisterTxEvent(&#x27;all&#x27;);
+       reportError(err);
+       console.log(util.format(&#x27;Error %s! Transaction listener has been &#x27; +
+                &#x27;deregistered for %s&#x27;, err, eh.getPeerAddr()));
+    }
+);
 
+eh.connect();</pre>
 
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
 
-        </dl>
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -421,7 +321,7 @@ spread out load onto different event hubs and track event hub availability</div>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on 2019-05-02T09:17:00+00:00
+		on 2019-05-02T09:16:59+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
