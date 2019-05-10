@@ -300,17 +300,143 @@ channel-based event service once the event has been seen. The default is false.
 When not set and the endBlock has been set the ChannelEventHub instance
 will automatically disconnect itself.</p>
 </li>
+<li>
+<p>{boolean} <code>as_array</code> -- (Optional) This setting indicates to the
+<code>ChannelEventHub</code> instance to send all chaincode events to the
+callback as array rather than one at a time. This setting is only
+available for chaincode events.</p>
+</li>
 </ul>
-<h3>Get a Channel-based Event Hub</h3>
-<p>New methods have been added to the Fabric Node.js client <code>Channel</code> object to
-simplify setting up of <code>ChannelEventHub</code> objects. Use the following to get a
-<code>ChannelEventHub</code> instances that will be setup to work with the peer's
-channel-based event service. A <code>ChannelEventHub</code> instance will use all the same
+<h3>How to use a Channel Event Hub</h3>
+<p>The ChannelEventHub class is very flexible. It allows for many usage models.</p>
+<ul>
+<li>waiting for my transaction to complete</li>
+<li>looking at chaincode events</li>
+<li>auditing a channel for all new blocks</li>
+<li>replay events</li>
+</ul>
+<h4>Transaction events</h4>
+<p>A majority of users will need to know when a transaction is committed to the
+ledger.
+All transactions have an unique identifier that may be monitored. Users may
+register an event listener to indicate that a specific transaction has
+been written to the ledger. This will be known as a transaction event.</p>
+<p>Steps to be notified for a transaction event:</p>
+<ul>
+<li>Get a channel event hub instance, this may be done for every transaction
+or may be done once and reused.</li>
+<li>Connect the channel event hub instance with the peer's event service. You
+may wish to connect before registering when reusing the ChannelEventHub
+instance for many transactions.</li>
+<li>Create transaction and have it endorsed.</li>
+<li>Register your callback using the transaction ID string of the transaction
+with the channel event hub instance.</li>
+<li>Connect the channel event hub if not already connected.</li>
+<li>Submit the endorsed transaction to be ordered.</li>
+<li>Wait to be notified of the transaction being committed to the ledger
+or timeout if there is an issue.</li>
+<li>Unregister the event listener when transaction is seen, which will be done
+automatically by default.</li>
+<li>Disconnect the channel event hub when finished listening,
+which could be done automatically if configured.</li>
+</ul>
+<h4>Chaincode events</h4>
+<p>Chaincode programs running on the fabric network are able to add into a
+transaction a name and a value, this is known as a chaincode event.
+The &quot;name&quot; will most likely not be unique and more than one transaction
+may contain the chaincode event name,
+therefore the listener callback may be called many times. The listener may be
+setup to use a regular expression when looking for a name match such that a
+single listener may be notified with many different names.</p>
+<p>NOTE: Chaincode events must be committed and written to the ledger before
+a listener will be notified. The ChannelEventHub instance will not see
+chaincode events in transactions until the transactions commits and is
+written to the peer's ledger on the peer that ChannelEventHub has connected
+to the event service.</p>
+<p>Steps to be notified when a chaincode event occurs:</p>
+<ul>
+<li>Get a channel event hub instance, this should be done once and reused.</li>
+<li>Connect the channel event hub instance with the peer's event service. You
+may wish to connect before registering when reusing the ChannelEventHub
+instance for many transactions.</li>
+<li>Register your callback with the name of the chaincode event, you may use
+a regular expression to match on more than one name.</li>
+<li>Connect the channel event hub if not already connected.</li>
+<li>Somewhere on the network a transaction is endorsed and committed containing
+a chaincode event.</li>
+<li>Process the chaincode events as they come in.</li>
+<li>Unregister the event listener when finished.</li>
+<li>Disconnect the channel event hub when finished listening.</li>
+</ul>
+<h4>Block events</h4>
+<p>Once a ChannelEventHub connects to the Peer's event service it will
+start receiving blocks as they are added to the ledger, unless a
+&quot;startBlock&quot; is specified, then it will start receiving blocks from
+the block specified. When a block is received by the ChannelEventHub
+instance from the Peer's event service, this is known as a block
+event,</p>
+<p>Steps to be notified when a block event occurs:</p>
+<ul>
+<li>Get a channel event hub instance.</li>
+<li>Register to receive blocks.</li>
+<li>Connect the channel event hub instance with the peer's event service.</li>
+<li>Somewhere on the network a transaction is endorsed and committed.</li>
+<li>Process the blocks as they come in.</li>
+<li>Disconnect the channel event hub when finished listening.</li>
+</ul>
+<p>Steps to be notified when a block event occurs:</p>
+<ul>
+<li>Get a channel event hub instance.</li>
+<li>Register to receive blocks.</li>
+<li>Connect the channel event hub instance with the peer's event service.</li>
+<li>Somewhere on the network a transaction is endorsed and committed.</li>
+<li>Process the blocks as they come in.</li>
+<li>Disconnect the channel event hub when finished listening.</li>
+</ul>
+<h4>Replay events</h4>
+<p>If you wish to look at events that already happened, use the &quot;startBlock&quot;
+option to replay the events. Using the start block will connect to the
+Peer's event service and have it start sending existing blocks starting
+with the block number specified rather than the latest block. Blocks will
+be continued to be sent until the &quot;endBlock&quot; is seen. If no end block
+is specified, then blocks will continue to be sent as they are added
+to the ledger. Replay may be used to look again for your transaction
+or chaincode events when your application was off-line. When not specifying
+an end block the channel event hub may continued to be used to monitor for
+new events as they happen on the channel after catching up on existing events.</p>
+<p>Steps to be notified when a replay event occurs:</p>
+<ul>
+<li>Get a channel event hub instance.</li>
+<li>Register to receive your events.</li>
+<li>Connect the channel event hub instance with the peer's event service using
+a &quot;startBlock&quot;</li>
+<li>Process the events as they come in.</li>
+<li>Disconnect the channel event hub when finished listening.</li>
+</ul>
+<h3>Get a Channel Event Hub</h3>
+<p>Use the fabric-client <a href="Channel.html">Channel</a>
+<a href="Channel.html#newChannelEventHub">newChannelEventHub</a> object to
+create new instances of <a href="ChannelEventHub.html">ChannelEventHub</a> objects.
+Use the following to get a
+<code>ChannelEventHub</code> instances that will be setup to work with the
+Peer's channel-based event service.
+A <code>ChannelEventHub</code> instance will use all the same
 endpoint configuration settings that the peer instance is using, like the tls
 certs and the host and port address.</p>
 <p>When using a connection profile (<a href="tutorial-network-config.html">see</a>) then
 the peer's name may be used to get a new channel event hub.</p>
-<pre class="prettyprint source"><code>const channel_event_hub = channel.newChannelEventHub('peer0.org1.example.com');
+<pre class="prettyprint source"><code>// peer is a instance
+const channel_event_hub = channel.newChannelEventHub(peer);
+
+// using the peer name
+const channel_event_hub = channel.newChannelEventHub('peer0.org1.example.com');
+</code></pre>
+<p>When using a connection profile
+(see <a href="tutorial-network-config.html">How to use a common common connection profile file</a>)
+then the peer's name may be used to get a channel event hub. This will return
+the same ChannelEventHub instance each time the &quot;getChannelEventHub&quot; is called.</p>
+<pre class="prettyprint source"><code>// must use peer name
+const channel_event_hub = channel.getChannelEventHub('peer0.org1.example.com');
 </code></pre>
 <p>Here is an example of how to get a list of channel event hubs when using a
 connection profile. The following will get a list based on the current
@@ -330,6 +456,71 @@ const peer = client.newPeer(
 	}
 );
 const channel_event_hub = channel.newChannelEventHub(peer);
+</code></pre>
+<h3>Connect a Channel Event Hub</h3>
+<p>Once you have a ChannelEventHub instance you will need to connect to the peer's
+event service. The &quot;connect&quot; call setups up a connection to the peer's event
+service. The connection with the peer's event service must
+indicate which blocks to receive. By default the ChannelEventHub will
+specify the latest block as the starting point. This is usually the point
+on the ledger where monitoring is required. Users may specify both a starting
+point and an ending point. Specifying a &quot;startBlock&quot; is useful when the
+application needs to look at existing transactions, chaincode events, or
+blocks. The connect call may be made before or after registration, however
+start blocks and end blocks may not be changed after the connect call is
+made. The connection with the peer's event service must also indicate
+full blocks or filtered blocks. By default the connection will be setup
+to receive filtered blocks as this contains transaction status and does
+not contain sensitive data.</p>
+<p>The best practice is to connect before registering for transaction events
+and provide a callback.</p>
+<pre class="prettyprint source"><code>const channel_event_hub = ...
+
+channel_event_hub.connect({full_block: false}, (err, status) => {
+	if (err) {
+		// process the error
+	} else {
+		// connect was good
+	}
+});
+
+channel_event_hub.register...
+
+</code></pre>
+<p>The best practice is connect after registering for chaincode events or
+block events. connecting after allows the connect to easily be modified
+to include the &quot;startBlock&quot; (for replay) and not change the flow.
+Since filtered blocks contain very little information, chaincode events
+and block events may not be useful unless full blocks are received. The
+user performing the connect must have the access authority to see full
+blocks.</p>
+<pre class="prettyprint source"><code>const channel_event_hub = ...
+
+channel_event_hub.register...
+
+channel_event_hub.connect({full_block: true}, (err, status) => {
+	if (err) {
+		// process the error
+	} else {
+		// connect was good
+	}
+});
+</code></pre>
+<p>With replay, notice that the user gets the start block from a previous
+ChannelEventHub.</p>
+<pre class="prettyprint source"><code>const channel_event_hub = ...
+
+const my_start = old_channel_event_hub.lastBlockNumber();
+
+channel_event_hub.register...
+
+channel_event_hub.connect({full_block: true, startBlock: my_start}, (err, status) => {
+	if (err) {
+		// process the error
+	} else {
+		// connect was good
+	}
+});
 </code></pre>
 <h3>Block Listener</h3>
 <p>When there is a need to monitor for new blocks being added to the ledger,
@@ -593,6 +784,41 @@ const peer = client.newPeer('grpcs://localhost:7051', {
 channel.addPeer(peer);
 const channelEventHub = channel.newChannelEventHub(peer);
 </code></pre>
+<h3>When connecting to replay</h3>
+<p>Your application may be recording the block numbers as they come in or
+it may use the last block of another channel event hub.
+Your application has been off line and now wishes to catch
+up on the missed blocks and then continue to process new blocks.
+The following will connect a channel event hub to the
+Peer's channel-based event service
+at the point of your choice and since there is no endBlock specified, it will
+continue to receive the blocks as they are added to the ledger.</p>
+<p>Note: Use the ChannelEventHubs.lastBlockNumber()
+to get the number of the last block received from a previously running
+ChannelEventHub instance.</p>
+<pre class="prettyprint source"><code>const channel_event_hub = channel.newChannelEventHub(mypeer);
+
+// be sure to register your listeners before calling `connect` or you may
+// miss an event
+channel_event_hub.registerBlockEvent(eventCallBack, errorCallBack, options)
+
+const my_starting_point =  this._calculate_starting_point(old_event_hub);
+
+channel_event_hub.connect({startBlock: my_starting_point}, my_connect_call_back);
+
+</code></pre>
+<h3>When reconnecting</h3>
+<p>Your application has a long running block listener or chaincode event listener
+and you wish to restart the event listening.  The following will reconnect the
+channel event hub to the
+Peer's channel-based event service and not disturb the existing
+event listeners. The connection will be setup to start sending blocks from the
+last block the channel event hub had seen. The listeners may be notified
+by a block or event that has already been seen and this may be used to verify
+that notifications are again running.</p>
+<pre class="prettyprint source"><code>channel_event_hub.reconnect({startBlock: 'last_seen'}, my_connect_call_back);
+
+</code></pre>
 <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
 </article>
 
@@ -631,7 +857,7 @@ const channelEventHub = channel.newChannelEventHub(peer);
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.1</a>
 	
-		on 2019-05-10T13:48:24+00:00
+		on 2019-05-10T14:47:55+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
