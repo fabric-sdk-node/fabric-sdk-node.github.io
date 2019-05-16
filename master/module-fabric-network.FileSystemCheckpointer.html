@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: event_hub_number</title>
+	<title>Hyperledger Fabric SDK for node.js Class: FileSystemCheckpointer</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,14 +93,18 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: event_hub_number</h1>
+	<h1 class="page-title">Class: FileSystemCheckpointer</h1>
 <section>
 
 <header>
     
         <h2>
-        event_hub_number
+            <span class="ancestors"><a href="module-fabric-network.html">fabric-network</a>~</span>
+        
+        FileSystemCheckpointer
         </h2>
+        
+            <div class="class-description">Created a checkpointer in a file per event listener</div>
         
     
 </header>
@@ -112,69 +116,117 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="event_hub_number"><span class="type-signature"></span>new event_hub_number()</h4>
+    <h4 class="name" id="FileSystemCheckpointer"><span class="type-signature"></span>new FileSystemCheckpointer(channelName, listenerName, options)</h4>
     
     
 </dt>
 <dd>
 
     
-    <div class="description">
-        Transaction processing in fabric v1.1 is a long operation spanning multiple
-components (application, endorsing peer, orderer, committing peer) and takes
-a relatively lengthy period of time (think seconds instead of milliseconds)
-to complete. As a result the applications must design their handling of the
-transaction lifecycle in an asynchronous fashion. After the transaction proposal
-has been successfully <a href="Channel.html#sendTransactionProposal">endorsed</a>, and before
-the transaction message has been successfully <a href="Channel.html#sendTransaction">sent</a>
-to the orderer, the application should register a listener to be notified
-when the transaction achieves finality, which is when the block
-containing the transaction gets added to the peer's ledger/blockchain.
-<br><br>
-Fabric committing peers provide a block delivery service to publish blocks or
-filtered blocks to connected fabric-clients. See <a href="ChannelEventHub.html#connect">connect</a>
-on connection options and how this ChannelEventHub may connect to the fabric
-service. For more information on the service see <a href="https://hyperledger-fabric.readthedocs.io/en/release-1.2/peer_event_services.html">deliver</a>.
-A block gets published whenever the committing peer adds a validated block
-to the ledger.
-When a fabric-client receives a block it will investigate the block and notify
-interested listeners with the related contents of the block (e.g. transactionId, status).
-There are three types of listeners that will get notified by
-the fabric-client after it receives a published block from the fabric deliver service.
-<li> A "block listener" gets called for every block received. The listener
-    will be passed a fully decoded <a href="global.html#Block">Block</a> object unless the connection
-    to the fabric service is using filtered blocks.
-    See <a href="ChannelEventHub.html#registerBlockEvent">registerBlockEvent</a>
-<li>A "transaction listener" gets called when the specific transaction
-    is committed (discovered inside a published block). The listener
-    may also be registered to listen to "all" transactions.
-    The listener will be passed the transaction id, transaction status and block number.
-    See <a href="ChannelEventHub.html#registerTxEvent">registerTxEvent</a>
-<li>A "chaincode event listener" gets called when a specific
-    chaincode event is discovered within a block.
-    The listener will be passed the block number, transaction id, and
-    transaction status. The <a href="global.html#ChaincodeEvent">ChaincodeEvent</a> will be also be passed,
-    however the payload of the event will not be passed if
-    the connection to the fabric service is publishing filtered blocks.
-    See <a href="ChannelEventHub.html#registerChaincodeEvent">registerChaincodeEvent</a>
-<br><br><br>
-When the fabric-client connects to the peer, it tells the peer which block
-to begin delivering from. If no start block is provided, then the client will
-only receive events for the most recently committed block onwards.
-To avoid missing events in blocks that are published while the client is
-crashed/offline, the client should record the most recently processed block,
-and resume event delivery from this block number on startup. In this way,
-there is no custom recovery path for missed events, and the normal processing
-code may execute instead. You may also include an endBlock number if you
-wish to stop listening after receiving a range of events.
-    </div>
-    
 
     
 
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>channelName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>listenerName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A listener name unique to the network instance</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-fabric-network.FileSystemCheckpointer.html#~FileSystemCheckpointerOptions">module:fabric-network.FileSystemCheckpointer~FileSystemCheckpointerOptions</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -230,37 +282,21 @@ wish to stop listening after receiving a range of events.
     
 
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">const eh = channel.newChannelEventHub(peer);
-
-// register the listener before calling &quot;connect()&quot; so there
-// is an error callback ready to process an error in case the
-// connect() call fails
-eh.registerTxEvent(
-  &#x27;all&#x27;, // this listener will be notified of all transactions
-    (tx, status, block_num) =&gt; {
-       record(tx, status, block_num);
-       console.log(util.format(&#x27;Transaction %s has completed&#x27;, tx));
-    },
-    (err) =&gt; {
-       eh.unregisterTxEvent(&#x27;all&#x27;);
-       reportError(err);
-       console.log(util.format(&#x27;Error %s! Transaction listener has been &#x27; +
-                &#x27;deregistered for %s&#x27;, err, eh.getPeerAddr()));
-    }
-);
-
-eh.connect();</pre>
-
-
-    
 </dd>
 
     
     </div>
 
     
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="module-fabric-network.BaseCheckpointer.html">module:fabric-network.BaseCheckpointer</a></li>
+    </ul>
+
 
     
 
@@ -274,6 +310,690 @@ eh.connect();</pre>
 
     
 
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id="load"><span class="type-signature">&lt;async> </span>load()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Loads the latest checkpoint
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="module-fabric-network.BaseCheckpointer.html#load">module:fabric-network.BaseCheckpointer#load</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="module-fabric-network.BaseCheckpointer.html#load">module:fabric-network.BaseCheckpointer#load</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Object parameter has key
+blockNumber: string and value <a href="module-fabric-network.BaseCheckpointer.html#~Checkpoint">module:fabric-network.BaseCheckpointer~Checkpoint</a>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-fabric-network.BaseCheckpointer.html#~Checkpoint">module:fabric-network.BaseCheckpointer~Checkpoint</a></span>
+|
+
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="loadStartingCheckpoint"><span class="type-signature">&lt;async> </span>loadStartingCheckpoint()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Loads the earliest incomplete checkpoint to decide which
+block to replay from
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="module-fabric-network.BaseCheckpointer.html#loadStartingCheckpoint">module:fabric-network.BaseCheckpointer#loadStartingCheckpoint</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="module-fabric-network.BaseCheckpointer.html#loadStartingCheckpoint">module:fabric-network.BaseCheckpointer#loadStartingCheckpoint</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-fabric-network.BaseCheckpointer.html#~Checkpoint">module:fabric-network.BaseCheckpointer~Checkpoint</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="save"><span class="type-signature">&lt;async> </span>save(transactionId, blockNumber, expectedTotal)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Updates the storage mechanism
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>transactionId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the transaction ID</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>blockNumber</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the block number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>expectedTotal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the number of events expected in this block</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="module-fabric-network.BaseCheckpointer.html#save">module:fabric-network.BaseCheckpointer#save</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="module-fabric-network.BaseCheckpointer.html#save">module:fabric-network.BaseCheckpointer#save</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setChaincodeId"><span class="type-signature"></span>setChaincodeId(chaincodeId)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Sets the chaincode ID to group together listeners
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chaincodeId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the chaincodeId</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="module-fabric-network.BaseCheckpointer.html#setChaincodeId">module:fabric-network.BaseCheckpointer#setChaincodeId</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="module-fabric-network.BaseCheckpointer.html#setChaincodeId">module:fabric-network.BaseCheckpointer#setChaincodeId</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        <dl>
+                
+<hr>
+<dt class="name" id="~FileSystemCheckpointerOptions">
+    <h4 id="~FileSystemCheckpointerOptions">FileSystemCheckpointerOptions</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>basePath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The directory that will store the checkpoint</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            </dl>
     
 
     

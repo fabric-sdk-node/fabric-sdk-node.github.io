@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: event_hub_number</title>
+	<title>Hyperledger Fabric SDK for node.js Class: AbstractEventListener</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,14 +93,21 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: event_hub_number</h1>
+	<h1 class="page-title">Class: AbstractEventListener</h1>
 <section>
 
 <header>
     
         <h2>
-        event_hub_number
+            <span class="ancestors"><a href="module-fabric-network.html">fabric-network</a>~</span>
+        
+        AbstractEventListener
         </h2>
+        
+            <div class="class-description">Event listener base class handles initializing common properties across contract, transaction
+and block event listeners.
+
+Instances of the event listeners are stateful and must only be used for one listener</div>
         
     
 </header>
@@ -112,7 +119,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="event_hub_number"><span class="type-signature"></span>new event_hub_number()</h4>
+    <h4 class="name" id="AbstractEventListener"><span class="type-signature"></span>new AbstractEventListener(network, listenerName, eventCallback, options)</h4>
     
     
 </dt>
@@ -120,53 +127,529 @@
 
     
     <div class="description">
-        Transaction processing in fabric v1.1 is a long operation spanning multiple
-components (application, endorsing peer, orderer, committing peer) and takes
-a relatively lengthy period of time (think seconds instead of milliseconds)
-to complete. As a result the applications must design their handling of the
-transaction lifecycle in an asynchronous fashion. After the transaction proposal
-has been successfully <a href="Channel.html#sendTransactionProposal">endorsed</a>, and before
-the transaction message has been successfully <a href="Channel.html#sendTransaction">sent</a>
-to the orderer, the application should register a listener to be notified
-when the transaction achieves finality, which is when the block
-containing the transaction gets added to the peer's ledger/blockchain.
-<br><br>
-Fabric committing peers provide a block delivery service to publish blocks or
-filtered blocks to connected fabric-clients. See <a href="ChannelEventHub.html#connect">connect</a>
-on connection options and how this ChannelEventHub may connect to the fabric
-service. For more information on the service see <a href="https://hyperledger-fabric.readthedocs.io/en/release-1.2/peer_event_services.html">deliver</a>.
-A block gets published whenever the committing peer adds a validated block
-to the ledger.
-When a fabric-client receives a block it will investigate the block and notify
-interested listeners with the related contents of the block (e.g. transactionId, status).
-There are three types of listeners that will get notified by
-the fabric-client after it receives a published block from the fabric deliver service.
-<li> A "block listener" gets called for every block received. The listener
-    will be passed a fully decoded <a href="global.html#Block">Block</a> object unless the connection
-    to the fabric service is using filtered blocks.
-    See <a href="ChannelEventHub.html#registerBlockEvent">registerBlockEvent</a>
-<li>A "transaction listener" gets called when the specific transaction
-    is committed (discovered inside a published block). The listener
-    may also be registered to listen to "all" transactions.
-    The listener will be passed the transaction id, transaction status and block number.
-    See <a href="ChannelEventHub.html#registerTxEvent">registerTxEvent</a>
-<li>A "chaincode event listener" gets called when a specific
-    chaincode event is discovered within a block.
-    The listener will be passed the block number, transaction id, and
-    transaction status. The <a href="global.html#ChaincodeEvent">ChaincodeEvent</a> will be also be passed,
-    however the payload of the event will not be passed if
-    the connection to the fabric service is publishing filtered blocks.
-    See <a href="ChannelEventHub.html#registerChaincodeEvent">registerChaincodeEvent</a>
-<br><br><br>
-When the fabric-client connects to the peer, it tells the peer which block
-to begin delivering from. If no start block is provided, then the client will
-only receive events for the most recently committed block onwards.
-To avoid missing events in blocks that are published while the client is
-crashed/offline, the client should record the most recently processed block,
-and resume event delivery from this block number on startup. In this way,
-there is no custom recovery path for missed events, and the normal processing
-code may execute instead. You may also include an endBlock number if you
-wish to stop listening after receiving a range of events.
+        Constructor
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>network</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-fabric-network.Network.html">module:fabric-network.Network</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The network</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>listenerName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the listener being created</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>eventCallback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The function called when the event is triggered.
+It has signature (err, ...args) where args changes depending on the event type</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">module:fabric-network.Network~ListenerOptions</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Event handler options</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id="getCheckpointer"><span class="type-signature"></span>getCheckpointer()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the checkpoint instance created by the checkpoint factory
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Checkpointer instance specific to this listener
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">BaseCheckpointer</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getEventHubManager"><span class="type-signature"></span>getEventHubManager()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the event hub manager from the network
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Event hub manager
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="EventHubManager.html">EventHubManager</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="isregistered"><span class="type-signature"></span>isregistered()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Listeners registration status
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="register"><span class="type-signature">&lt;async> </span>register()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Called by the super classes register function. Saves information needed to start
+listening, and disconnects an event hub if it is the incorrect type
     </div>
     
 
@@ -230,35 +713,219 @@ wish to stop listening after receiving a range of events.
     
 
     
-        <h5>Example</h5>
+</dd>
+
         
-    <pre class="sunlight-highlight-javascript">const eh = channel.newChannelEventHub(peer);
+            
+<hr>
+<dt>
+    <h4 class="name" id="setEventHub"><span class="type-signature"></span>setEventHub(eventhub, isFixed)</h4>
+    
+    
+</dt>
+<dd>
 
-// register the listener before calling &quot;connect()&quot; so there
-// is an error callback ready to process an error in case the
-// connect() call fails
-eh.registerTxEvent(
-  &#x27;all&#x27;, // this listener will be notified of all transactions
-    (tx, status, block_num) =&gt; {
-       record(tx, status, block_num);
-       console.log(util.format(&#x27;Transaction %s has completed&#x27;, tx));
-    },
-    (err) =&gt; {
-       eh.unregisterTxEvent(&#x27;all&#x27;);
-       reportError(err);
-       console.log(util.format(&#x27;Error %s! Transaction listener has been &#x27; +
-                &#x27;deregistered for %s&#x27;, err, eh.getPeerAddr()));
-    }
-);
+    
 
-eh.connect();</pre>
+    
 
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>eventhub</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">module:fabric-client.ChannelEventHub</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Event hub.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isFixed</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If true only this peers event hub will be used</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
 </dd>
 
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="unregister"><span class="type-signature"></span>unregister()</h4>
     
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Called by the super classes unregister function. Removes state from the listener so it
+can be reregistered at a later time
     </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
 
     
 
@@ -272,6 +939,10 @@ eh.connect();</pre>
 
     
 
+    
+</dd>
+
+        </dl>
     
 
     

@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: event_hub_number</title>
+	<title>Hyperledger Fabric SDK for node.js Class: ContractEventListener</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,14 +93,18 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: event_hub_number</h1>
+	<h1 class="page-title">Class: ContractEventListener</h1>
 <section>
 
 <header>
     
         <h2>
-        event_hub_number
+            <span class="ancestors"><a href="module-fabric-network.html">fabric-network</a>~</span>
+        
+        ContractEventListener
         </h2>
+        
+            <div class="class-description">The Contract Event Listener handles contract events from the chaincode.</div>
         
     
 </header>
@@ -112,7 +116,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="event_hub_number"><span class="type-signature"></span>new event_hub_number()</h4>
+    <h4 class="name" id="ContractEventListener"><span class="type-signature"></span>new ContractEventListener(contract, listenerName, eventName, eventCallback, options)</h4>
     
     
 </dt>
@@ -120,53 +124,651 @@
 
     
     <div class="description">
-        Transaction processing in fabric v1.1 is a long operation spanning multiple
-components (application, endorsing peer, orderer, committing peer) and takes
-a relatively lengthy period of time (think seconds instead of milliseconds)
-to complete. As a result the applications must design their handling of the
-transaction lifecycle in an asynchronous fashion. After the transaction proposal
-has been successfully <a href="Channel.html#sendTransactionProposal">endorsed</a>, and before
-the transaction message has been successfully <a href="Channel.html#sendTransaction">sent</a>
-to the orderer, the application should register a listener to be notified
-when the transaction achieves finality, which is when the block
-containing the transaction gets added to the peer's ledger/blockchain.
-<br><br>
-Fabric committing peers provide a block delivery service to publish blocks or
-filtered blocks to connected fabric-clients. See <a href="ChannelEventHub.html#connect">connect</a>
-on connection options and how this ChannelEventHub may connect to the fabric
-service. For more information on the service see <a href="https://hyperledger-fabric.readthedocs.io/en/release-1.2/peer_event_services.html">deliver</a>.
-A block gets published whenever the committing peer adds a validated block
-to the ledger.
-When a fabric-client receives a block it will investigate the block and notify
-interested listeners with the related contents of the block (e.g. transactionId, status).
-There are three types of listeners that will get notified by
-the fabric-client after it receives a published block from the fabric deliver service.
-<li> A "block listener" gets called for every block received. The listener
-    will be passed a fully decoded <a href="global.html#Block">Block</a> object unless the connection
-    to the fabric service is using filtered blocks.
-    See <a href="ChannelEventHub.html#registerBlockEvent">registerBlockEvent</a>
-<li>A "transaction listener" gets called when the specific transaction
-    is committed (discovered inside a published block). The listener
-    may also be registered to listen to "all" transactions.
-    The listener will be passed the transaction id, transaction status and block number.
-    See <a href="ChannelEventHub.html#registerTxEvent">registerTxEvent</a>
-<li>A "chaincode event listener" gets called when a specific
-    chaincode event is discovered within a block.
-    The listener will be passed the block number, transaction id, and
-    transaction status. The <a href="global.html#ChaincodeEvent">ChaincodeEvent</a> will be also be passed,
-    however the payload of the event will not be passed if
-    the connection to the fabric service is publishing filtered blocks.
-    See <a href="ChannelEventHub.html#registerChaincodeEvent">registerChaincodeEvent</a>
-<br><br><br>
-When the fabric-client connects to the peer, it tells the peer which block
-to begin delivering from. If no start block is provided, then the client will
-only receive events for the most recently committed block onwards.
-To avoid missing events in blocks that are published while the client is
-crashed/offline, the client should record the most recently processed block,
-and resume event delivery from this block number on startup. In this way,
-there is no custom recovery path for missed events, and the normal processing
-code may execute instead. You may also include an endBlock number if you
-wish to stop listening after receiving a range of events.
+        Constructor.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>contract</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Contract</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The contract instance</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>listenerName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the listener</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>eventName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the contract event being listened for</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>eventCallback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The event callback called when an event is received.
+It has signature (err, BlockEvent, blockNumber, transactionId)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">module:fabric-network.Network~ListenerOptions</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id="_onError"><span class="type-signature">&lt;async> </span>_onError(error)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This callback is triggered when the event was unsuccessful. If the error indicates
+that the event hub shutdown and the listener is still registered, it updates the
+EventHubSelectionStrategy status of event hubs (if implemented) and finds a
+new event hub to connect to
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Error</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The error emitted</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="_onEvent"><span class="type-signature">&lt;async> </span>_onEvent(event, blockNumber, transactionId, status [, expectedNumber])</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        The callback triggered when the event was successful. Checkpoints the last
+block and transaction seen once the callback has run and unregisters the
+listener if the unregister flag was provided
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ChaincodeEvent">ChaincodeEvent</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">the event emitted</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>blockNumber</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">the block number this transaction was committed inside</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>transactionId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">the transaction ID of the transaction this event was emitted by</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>status</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">the status of the the transaction</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>expectedNumber</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">the expected number of events from the block</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="register"><span class="type-signature">&lt;async> </span>register()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Finds and connects to an event hub then creates the listener registration
     </div>
     
 
@@ -230,48 +832,87 @@ wish to stop listening after receiving a range of events.
     
 
     
-        <h5>Example</h5>
+</dd>
+
         
-    <pre class="sunlight-highlight-javascript">const eh = channel.newChannelEventHub(peer);
+            
+<hr>
+<dt>
+    <h4 class="name" id="unregister"><span class="type-signature"></span>unregister()</h4>
+    
+    
+</dt>
+<dd>
 
-// register the listener before calling &quot;connect()&quot; so there
-// is an error callback ready to process an error in case the
-// connect() call fails
-eh.registerTxEvent(
-  &#x27;all&#x27;, // this listener will be notified of all transactions
-    (tx, status, block_num) =&gt; {
-       record(tx, status, block_num);
-       console.log(util.format(&#x27;Transaction %s has completed&#x27;, tx));
-    },
-    (err) =&gt; {
-       eh.unregisterTxEvent(&#x27;all&#x27;);
-       reportError(err);
-       console.log(util.format(&#x27;Error %s! Transaction listener has been &#x27; +
-                &#x27;deregistered for %s&#x27;, err, eh.getPeerAddr()));
-    }
-);
+    
+    <div class="description">
+        Unregisters the registration from the event hub
+    </div>
+    
 
-eh.connect();</pre>
+    
 
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
 </dd>
 
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
+        </dl>
     
 
     
