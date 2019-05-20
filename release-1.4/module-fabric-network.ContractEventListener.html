@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: BasicCommitHandler</title>
+	<title>Hyperledger Fabric SDK for node.js Class: ContractEventListener</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,18 +93,18 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: BasicCommitHandler</h1>
+	<h1 class="page-title">Class: ContractEventListener</h1>
 <section>
 
 <header>
     
         <h2>
-        BasicCommitHandler
+            <span class="ancestors"><a href="module-fabric-network.html">fabric-network</a>~</span>
+        
+        ContractEventListener
         </h2>
         
-            <div class="class-description">This is an implementation of the <a href="module-api.CommitHandler.html">CommitHandler</a> API.
-It will submit transactions to be committed to one orderer at time from a provided
-list or a list currently assigned to the channel.</div>
+            <div class="class-description">The Contract Event Listener handles contract events from the chaincode.</div>
         
     
 </header>
@@ -116,7 +116,7 @@ list or a list currently assigned to the channel.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="BasicCommitHandler"><span class="type-signature"></span>new BasicCommitHandler(channel)</h4>
+    <h4 class="name" id="ContractEventListener"><span class="type-signature"></span>new ContractEventListener(contract, listenerName, eventName, eventCallback, options)</h4>
     
     
 </dt>
@@ -124,7 +124,7 @@ list or a list currently assigned to the channel.</div>
 
     
     <div class="description">
-        constructor
+        Constructor.
     </div>
     
 
@@ -159,13 +159,13 @@ list or a list currently assigned to the channel.</div>
 
         <tr>
             
-                <td class="name"><code>channel</code></td>
+                <td class="name"><code>contract</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Channel.html">Channel</a></span>
+<span class="param-type">Contract</span>
 
 
 
@@ -176,7 +176,104 @@ list or a list currently assigned to the channel.</div>
 
             
 
-            <td class="description last">The channel for this handler.</td>
+            <td class="description last">The contract instance</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>listenerName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the listener</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>eventName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the contract event being listened for</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>eventCallback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The event callback called when an event is recieved.
+It has signature (err, BlockEvent, blockNumber, transactionId)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">module:fabric-network.Network~ListenerOptions</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -242,17 +339,6 @@ list or a list currently assigned to the channel.</div>
 
     
     </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="module-api.CommitHandler.html">module:api.CommitHandler</a></li>
-    </ul>
-
 
     
 
@@ -273,7 +359,7 @@ list or a list currently assigned to the channel.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id=".create"><span class="type-signature">&lt;static> </span>create(channel)</h4>
+    <h4 class="name" id="_onError"><span class="type-signature">&lt;async> </span>_onError(error)</h4>
     
     
 </dt>
@@ -281,7 +367,10 @@ list or a list currently assigned to the channel.</div>
 
     
     <div class="description">
-        Factory method to create an instance of a committer handler.
+        This callback is triggered when the event was unsuccessful. If the error indicates
+that the event hub shutdown and the listener is still registered, it updates the
+EventHubSelectionStrategy status of event hubs (if implemented) and finds a
+new event hub to connect to
     </div>
     
 
@@ -316,13 +405,13 @@ list or a list currently assigned to the channel.</div>
 
         <tr>
             
-                <td class="name"><code>channel</code></td>
+                <td class="name"><code>error</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Channel.html">Channel</a></span>
+<span class="param-type">Error</span>
 
 
 
@@ -333,8 +422,7 @@ list or a list currently assigned to the channel.</div>
 
             
 
-            <td class="description last">the channel instance that this commit
-       handler will be servicing.</td>
+            <td class="description last">The error emitted</td>
         </tr>
 
     
@@ -394,30 +482,6 @@ list or a list currently assigned to the channel.</div>
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The instance of the handler
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="BasicCommitHandler.html">BasicCommitHandler</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
@@ -426,7 +490,7 @@ list or a list currently assigned to the channel.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="commit"><span class="type-signature"></span>commit(params)</h4>
+    <h4 class="name" id="_onEvent"><span class="type-signature">&lt;async> </span>_onEvent(event, blockNumber, transactionId, status [, expectedNumber])</h4>
     
     
 </dt>
@@ -434,10 +498,9 @@ list or a list currently assigned to the channel.</div>
 
     
     <div class="description">
-        This method will process the parameters to determine the orderers.
-The handler will use the provided orderers or use the orderers assigned to
-the channel. The handler is expected to preform failover and use all available
-orderers to send the endorsed transaction.
+        The callback triggered when the event was successful. Checkpoints the last
+block and transaction seen once the callback has run and unregisters the
+listener if the unregister flag was provided
     </div>
     
 
@@ -460,6 +523,8 @@ orderers to send the endorsed transaction.
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -472,13 +537,13 @@ orderers to send the endorsed transaction.
 
         <tr>
             
-                <td class="name"><code>params</code></td>
+                <td class="name"><code>event</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">CommitHandlerParameters</span>
+<span class="param-type"><a href="global.html#ChaincodeEvent">ChaincodeEvent</a></span>
 
 
 
@@ -486,10 +551,148 @@ orderers to send the endorsed transaction.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">A EndorsementHandlerParameters</td>
+            <td class="description last">the event emitted</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>blockNumber</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">the block number this transaction was commited inside</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>transactionId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">the transaction ID of the transaction this event was emitted by</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>status</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">the status of the the transaction</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>expectedNumber</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">the expected number of events from the block</td>
         </tr>
 
     
@@ -507,21 +710,7 @@ orderers to send the endorsed transaction.
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.CommitHandler.html#commit">module:api.CommitHandler#commit</a>
-			</li>
-		</ul>
-	</dd>
-	
 
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CommitHandler.html#commit">module:api.CommitHandler#commit</a>
-    </li></ul></dd>
     
 
     
@@ -563,32 +752,6 @@ orderers to send the endorsed transaction.
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    A Promise for the <a href="global.html#ProposalResponseObject">ProposalResponseObject</a>, the
-       same results as calling the <a href="Channel.html">Channel</a> 'sendTransactionProposal'
-       method directly.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
 
     
 </dd>
@@ -597,7 +760,7 @@ orderers to send the endorsed transaction.
             
 <hr>
 <dt>
-    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize()</h4>
+    <h4 class="name" id="register"><span class="type-signature">&lt;async> </span>register()</h4>
     
     
 </dt>
@@ -605,7 +768,7 @@ orderers to send the endorsed transaction.
 
     
     <div class="description">
-        This method will be called by the channel when the channel is initialzied.
+        Finds and connects to an event hub then creates the listener registration
     </div>
     
 
@@ -625,21 +788,85 @@ orderers to send the endorsed transaction.
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.CommitHandler.html#initialize">module:api.CommitHandler#initialize</a>
-			</li>
-		</ul>
-	</dd>
-	
 
     
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CommitHandler.html#initialize">module:api.CommitHandler#initialize</a>
-    </li></ul></dd>
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="unregister"><span class="type-signature"></span>unregister()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Unregisters the registration from the event hub
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
     
 
     
@@ -735,7 +962,7 @@ orderers to send the endorsed transaction.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a>
 	
-		on 2019-05-20T09:01:07+00:00
+		on 2019-05-20T09:01:08+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
