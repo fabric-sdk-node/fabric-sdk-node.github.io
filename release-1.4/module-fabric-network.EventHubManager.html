@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: BasicCommitHandler</title>
+	<title>Hyperledger Fabric SDK for node.js Class: EventHubManager</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -93,18 +93,20 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: BasicCommitHandler</h1>
+	<h1 class="page-title">Class: EventHubManager</h1>
 <section>
 
 <header>
     
         <h2>
-        BasicCommitHandler
+            <span class="ancestors"><a href="module-fabric-network.html">fabric-network</a>~</span>
+        
+        EventHubManager
         </h2>
         
-            <div class="class-description">This is an implementation of the <a href="module-api.CommitHandler.html">CommitHandler</a> API.
-It will submit transactions to be committed to one orderer at time from a provided
-list or a list currently assigned to the channel.</div>
+            <div class="class-description">The Event Hub Manager is responsible for creating and distributing event hubs.
+It uses the event hub factory to reuse event hubs that exists, and maintains
+its own list of new event hubs that are used for event replay</div>
         
     
 </header>
@@ -116,7 +118,7 @@ list or a list currently assigned to the channel.</div>
         
 <hr>
 <dt>
-    <h4 class="name" id="BasicCommitHandler"><span class="type-signature"></span>new BasicCommitHandler(channel)</h4>
+    <h4 class="name" id="EventHubManager"><span class="type-signature"></span>new EventHubManager(network)</h4>
     
     
 </dt>
@@ -124,7 +126,7 @@ list or a list currently assigned to the channel.</div>
 
     
     <div class="description">
-        constructor
+        Constructor
     </div>
     
 
@@ -159,13 +161,13 @@ list or a list currently assigned to the channel.</div>
 
         <tr>
             
-                <td class="name"><code>channel</code></td>
+                <td class="name"><code>network</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Channel.html">Channel</a></span>
+<span class="param-type"><a href="module-fabric-network.Network.html">module:fabric-network.Network</a></span>
 
 
 
@@ -176,7 +178,7 @@ list or a list currently assigned to the channel.</div>
 
             
 
-            <td class="description last">The channel for this handler.</td>
+            <td class="description last">The network</td>
         </tr>
 
     
@@ -242,17 +244,6 @@ list or a list currently assigned to the channel.</div>
 
     
     </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="module-api.CommitHandler.html">module:api.CommitHandler</a></li>
-    </ul>
-
 
     
 
@@ -273,7 +264,7 @@ list or a list currently assigned to the channel.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id=".create"><span class="type-signature">&lt;static> </span>create(channel)</h4>
+    <h4 class="name" id="dispose"><span class="type-signature"></span>dispose()</h4>
     
     
 </dt>
@@ -281,7 +272,86 @@ list or a list currently assigned to the channel.</div>
 
     
     <div class="description">
-        Factory method to create an instance of a committer handler.
+        Disconnect from and delete all event hubs
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getEventHub"><span class="type-signature"></span>getEventHub(peer, filtered)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Gets an event hub. If given a peer, it will get that peers event hub, otherwise
+it will get the next peer defined by the EventHubSelectionStrategy
     </div>
     
 
@@ -316,13 +386,13 @@ list or a list currently assigned to the channel.</div>
 
         <tr>
             
-                <td class="name"><code>channel</code></td>
+                <td class="name"><code>peer</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Channel.html">Channel</a></span>
+<span class="param-type"><a href="Peer.html">Peer</a></span>
 
 
 
@@ -333,8 +403,31 @@ list or a list currently assigned to the channel.</div>
 
             
 
-            <td class="description last">the channel instance that this commit
-       handler will be servicing.</td>
+            <td class="description last">A peer instance</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filtered</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Flag to decide between filtered and unfiltered events</td>
         </tr>
 
     
@@ -398,7 +491,7 @@ list or a list currently assigned to the channel.</div>
     
             
 <div class="param-desc">
-    The instance of the handler
+    The event hub
 </div>
 
 
@@ -409,7 +502,7 @@ list or a list currently assigned to the channel.</div>
     </dt>
     <dd>
         
-<span class="param-type"><a href="BasicCommitHandler.html">BasicCommitHandler</a></span>
+<span class="param-type"><a href="ChannelEventHub.html">ChannelEventHub</a></span>
 
 
 
@@ -426,7 +519,7 @@ list or a list currently assigned to the channel.</div>
             
 <hr>
 <dt>
-    <h4 class="name" id="commit"><span class="type-signature"></span>commit(params)</h4>
+    <h4 class="name" id="getEventHubs"><span class="type-signature"></span>getEventHubs(peers)</h4>
     
     
 </dt>
@@ -434,10 +527,7 @@ list or a list currently assigned to the channel.</div>
 
     
     <div class="description">
-        This method will process the parameters to determine the orderers.
-The handler will use the provided orderers or use the orderers assigned to
-the channel. The handler is expected to preform failover and use all available
-orderers to send the endorsed transaction.
+        Gets a list of event hubs from the <a href="EventHubFactory.html">EventHubFactory</a> for a list of peers
     </div>
     
 
@@ -472,13 +562,13 @@ orderers to send the endorsed transaction.
 
         <tr>
             
-                <td class="name"><code>params</code></td>
+                <td class="name"><code>peers</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">CommitHandlerParameters</span>
+<span class="param-type">Array.&lt;<a href="Peer.html">Peer</a>></span>
 
 
 
@@ -489,7 +579,7 @@ orderers to send the endorsed transaction.
 
             
 
-            <td class="description last">A EndorsementHandlerParameters</td>
+            <td class="description last">A list of peer instances</td>
         </tr>
 
     
@@ -507,21 +597,135 @@ orderers to send the endorsed transaction.
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.CommitHandler.html#commit">module:api.CommitHandler#commit</a>
-			</li>
-		</ul>
-	</dd>
-	
 
     
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CommitHandler.html#commit">module:api.CommitHandler#commit</a>
-    </li></ul></dd>
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getFixedEventHub"><span class="type-signature"></span>getFixedEventHub(peer)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Will get a new event hub instance without the possibility of selecting a new peer
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>peer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A peer instance</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
     
 
     
@@ -567,9 +771,7 @@ orderers to send the endorsed transaction.
     
             
 <div class="param-desc">
-    A Promise for the <a href="global.html#ProposalResponseObject">ProposalResponseObject</a>, the
-       same results as calling the <a href="Channel.html">Channel</a> 'sendTransactionProposal'
-       method directly.
+    The event hub
 </div>
 
 
@@ -580,7 +782,7 @@ orderers to send the endorsed transaction.
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type"><a href="ChannelEventHub.html">ChannelEventHub</a></span>
 
 
 
@@ -597,7 +799,7 @@ orderers to send the endorsed transaction.
             
 <hr>
 <dt>
-    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize()</h4>
+    <h4 class="name" id="getReplayEventHub"><span class="type-signature"></span>getReplayEventHub(peer)</h4>
     
     
 </dt>
@@ -605,7 +807,8 @@ orderers to send the endorsed transaction.
 
     
     <div class="description">
-        This method will be called by the channel when the channel is initialzied.
+        Gets a new event hub instance for a give peer and updates the list of new event
+hubs that have been created
     </div>
     
 
@@ -614,6 +817,56 @@ orderers to send the endorsed transaction.
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>peer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A peer instance</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -625,21 +878,160 @@ orderers to send the endorsed transaction.
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-api.CommitHandler.html#initialize">module:api.CommitHandler#initialize</a>
-			</li>
-		</ul>
-	</dd>
-	
 
     
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-api.CommitHandler.html#initialize">module:api.CommitHandler#initialize</a>
-    </li></ul></dd>
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The event hub
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ChannelEventHub.html">ChannelEventHub</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="updateEventHubAvailability"><span class="type-signature"></span>updateEventHubAvailability(deadPeer)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        When called with a peer, it updates the EventHubSelectionStategy with the
+new status of a peer to allow for intelligent strategies
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>deadPeer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Peer.html">Peer</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A peer instance</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
     
 
     
@@ -735,7 +1127,7 @@ orderers to send the endorsed transaction.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a>
 	
-		on 2019-06-05T12:48:31+00:00
+		on 2019-06-05T12:48:32+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
