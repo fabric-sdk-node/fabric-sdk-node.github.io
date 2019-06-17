@@ -100,8 +100,9 @@
 </header>
 
 <article>
-    <p>This tutorial describes the different ways to listen to events emitted by a network using the fabric-network module.</p>
-<h3>Overview</h3>
+    <h1>Listening to events with Fabric Network</h1>
+<p>This tutorial describes the different ways to listen to events emitted by a network using the fabric-network module.</p>
+<h2>Overview</h2>
 <p>There are three event types that can be subscribed to:</p>
 <ol>
 <li>Contract events - Those emitted explicitly by the chaincode developer within a transaction</li>
@@ -109,15 +110,15 @@
 <li>Block events - Those emitted automatically when a block is committed</li>
 </ol>
 <p>Listening for these events allows the application to react without directly calling a transaction. This is ideal in use cases such as monitoring network analytics.</p>
-<h3>Usage</h3>
+<h2>Usage</h2>
 <p>Each listener type takes at least one parameter, the event callback. This is the function that is called when an event is received.</p>
 <p>The callback function given is expected to be a promise, meaning that the callback can perform asynchronous tasks without risking missing events.</p>
-<h3>Options</h3>
+<h2>Options</h2>
 <p><a href="module-fabric-network.Network.html#~EventListenerOptions">module:fabric-network.Network~EventListenerOptions</a>.</p>
 <p><em>Note</em>: Listeners will connect to event hubs and ask to receive <em>unfiltered</em> events by default. To receive <em>filtered</em> events, set <code>EventListenerOptions.filtered: true</code>.</p>
-<h3>Naming</h3>
+<h2>Naming</h2>
 <p>All event listeners (including CommitEventListeners, which use the transaction ID) must have a unique name at the <code>Network</code> level</p>
-<h4>Contract events</h4>
+<h2>Contract events</h2>
 <pre class="prettyprint source lang-javascript"><code>const gateway = new Gateway();
 await gateway.connect(connectionProfile, gatewayOptions);
 const network = await gateway.getNetwork('mychannel');
@@ -130,15 +131,15 @@ const contract = network.getContract('my-contract');
  * @param {module:fabric-network.Network~EventListenerOptions} options
 **/
 const listener = await contract.addContractListener('my-contract-listener', 'sale', (err, event, blockNumber, transactionId, status) => {
-	if (err) {
-		console.error(err);
-		return;
-	}
-	console.log(`Block Number: ${blockNumber} Transaction ID: ${transactionId} Status: ${status}`);
+    if (err) {
+        console.error(err);
+        return;
+    }
+    console.log(`Block Number: ${blockNumber} Transaction ID: ${transactionId} Status: ${status}`);
 })
 </code></pre>
 <p>Notice that there is no need to specify an event hub, as the <code>EventHubSelectionStrategy</code> will select it automatically.</p>
-<h4>Block events</h4>
+<h3>Block events</h3>
 <pre class="prettyprint source lang-javascript"><code>const gateway = new Gateway();
 await gateway.connect(connectionProfile, gatewayOptions);
 const network = await gateway.getNetwork('mychannel');
@@ -149,17 +150,18 @@ const network = await gateway.getNetwork('mychannel');
  * @param {module:fabric-network.Network~EventListenerOptions} options
 **/
 const listener = await network.addBlockListener('my-block-listener', (error, block) => {
-	if (err) {
-		console.error(err);
-		return;
-	}
-	console.log(`Block: ${block}`);
-})
+    if (err) {
+        console.error(err);
+        return;
+    }
+    console.log(`Block: ${block}`);
+});
 </code></pre>
 <p>When listening for block events, it is important to specify if you want a filtered or none filtered event, as this determines which event hub is compatible with the request.</p>
-<h4>Commit events</h4>
+<h2>Commit events</h2>
 <p><em>Note</em>: The listener listener name is <em>transactionId</em>.<em>&lt;some random string&gt;</em></p>
-<h4>Option 1:</h4>
+<p>There are two methods for subscribing to a transaction commit event. Using <a href="module-fabric-network.Network.html">module:fabric-network.Network</a> and directly, using <a href="module-fabric-network.Transaction.html">module:fabric-network.Transaction</a>. Using <a href="module-fabric-network.Transaction.html">module:fabric-network.Transaction</a> directly, abstracts away the need to specify which transaction ID you wish to listen for.</p>
+<h3>Option 1</h3>
 <pre class="prettyprint source lang-javascript"><code>const gateway = new Gateway();
 await gateway.connect(connectionProfile, gatewayOptions);
 const network = await gateway.getNetwork('mychannel');
@@ -167,19 +169,19 @@ const contract = network.getContract('my-contract');
 
 const transaction = contract.newTransaction('sell');
 /**
- * @param {String} transactionId the name of the event listener
+ * @param {String} transactionId the transaction ID
  * @param {Function} callback the callback function with signature (error, transactionId, status, blockNumber)
  * @param {Object} options
 **/
 const listener = await network.addCommitListener(transaction.getTransactionID().getTransactionID(), (err, transactionId, status, blockNumber) => {
-	if (err) {
-		console.error(err);
-		return;
-	}
-	console.log(`Transaction ID: ${transactionId} Status: ${status} Block number: ${blockNumber}`);
-}); 
+    if (err) {
+        console.error(err);
+        return;
+    }
+    console.log(`Transaction ID: ${transactionId} Status: ${status} Block number: ${blockNumber}`);
+});
 </code></pre>
-<h4>Option 2:</h4>
+<h3>Option 2</h3>
 <pre class="prettyprint source lang-javascript"><code>const gateway = new Gateway();
 await gateway.connect(connectionProfile, gatewayOptions);
 const network = await gateway.getNetwork('mychannel');
@@ -187,23 +189,25 @@ const contract = network.getContract('my-contract');
 
 const transaction = contract.newTransaction('sell');
 /**
- * @param {String} transactionId the name of the event listener
+ * @param {String} transactionId the transaction ID
  * @param {Function} callback the callback function with signature (error, transactionId, status, blockNumber)
  * @param {Object} options
 **/
 const listener = await transaction.addCommitListener((err, transactionId, status, blockNumber) => {
-	if (err) {
-		console.error(err);
-		return;
-	}
-	console.log(`Transaction ID: ${transactionId} Status: ${status} Block number: ${blockNumber}`);
-}); 
+    if (err) {
+        console.error(err);
+        return;
+    }
+    console.log(`Transaction ID: ${transactionId} Status: ${status} Block number: ${blockNumber}`);
+});
 </code></pre>
 <p>Both <code>Network.addCommitListener</code> and <code>Contract.addCommitListener</code> have an optional <code>eventHub</code> parameter. When set, the listener will only listen to that event hub, and in the event of an unforeseen disconnect, it will try and to reconnect without using the <code>EventHubSelectionStrategy</code>.</p>
-<h3>Checkpointing</h3>
+<h2>Checkpointing</h2>
 <p><a href="tutorial-event-checkpointer.html">fabric-network: How to replay missed events</a></p>
-<h3>Unregistering listeners</h3>
-<p><code>addContractListener</code>, <code>addBlockListener</code> and <code>addCommitListener</code> return a <code>ContractEventListener</code>, <code>BlockEventListener</code> and <code>CommitEventListener</code> respectively. Each has an <code>unregister()</code> function that removes the listener from the event hub, meaning no further events will be received from that listener until <code>register()</code> is called again</p>
+<h2>Start Block and End Block</h2>
+<p>In the module:fabric-network~EventListenerOptions it is possible to specify a <code>startBlock</code> and an <code>endBlock</code>. This behaves in the same way as the same options on <a href="ChannelEventHub.html">ChannelEventHub</a> shown in the tutorial here <a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a>. Using <code>startBlock</code> and <code>endBlock</code> disables event replay using a checkpointer for the events received by that listener.</p>
+<h2>Unregistering listeners</h2>
+<p><code>addContractListener</code>, <code>addBlockListener</code> and <code>addCommitListener</code> return a <code>ContractEventListener</code>, <code>BlockEventListener</code> and <code>CommitEventListener</code> respectively. Each has an <code>unregister()</code> function that removes the listener from the event hub, meaning no further events will be received from that listener until <code>register()</code> is called again.</p>
 </article>
 
 </section>
@@ -241,7 +245,7 @@ const listener = await transaction.addCommitListener((err, transactionId, status
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a>
 	
-		on 2019-06-13T13:24:06+00:00
+		on 2019-06-17T16:22:04+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
