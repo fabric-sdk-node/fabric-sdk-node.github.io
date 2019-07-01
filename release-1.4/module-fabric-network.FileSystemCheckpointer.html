@@ -116,7 +116,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="FileSystemCheckpointer"><span class="type-signature"></span>new FileSystemCheckpointer(channelName, listenerName, options)</h4>
+    <h4 class="name" id="FileSystemCheckpointer"><span class="type-signature"></span>new FileSystemCheckpointer(channelName, listenerName [, options])</h4>
     
     
 </dt>
@@ -142,6 +142,8 @@
 
         <th>Type</th>
 
+        
+        <th>Argument</th>
         
 
         
@@ -169,6 +171,14 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -193,10 +203,18 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">The name of the listener being checkpointed</td>
+            <td class="description last">The name of the listener being checkpointer</td>
         </tr>
 
     
@@ -216,6 +234,16 @@
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -294,7 +322,7 @@
 
 
     <ul>
-        <li><a href="module-fabric-network.BaseCheckpointer.html">module:fabric-network.BaseCheckpointer</a></li>
+        <li>module:fabric-network~BaseCheckpointer</li>
     </ul>
 
 
@@ -324,10 +352,6 @@
 <dd>
 
     
-    <div class="description">
-        Loads the latest checkpoint
-    </div>
-    
 
     
 
@@ -345,352 +369,7 @@
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-fabric-network.BaseCheckpointer.html#load">module:fabric-network.BaseCheckpointer#load</a>
-			</li>
-		</ul>
-	</dd>
-	
 
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-fabric-network.BaseCheckpointer.html#load">module:fabric-network.BaseCheckpointer#load</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Object parameter has key
-blockNumber: string and value <a href="module-fabric-network.BaseCheckpointer.html#~Checkpoint">module:fabric-network.BaseCheckpointer~Checkpoint</a>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-fabric-network.BaseCheckpointer.html#~Checkpoint">module:fabric-network.BaseCheckpointer~Checkpoint</a></span>
-|
-
-<span class="param-type">Object</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="loadStartingCheckpoint"><span class="type-signature">&lt;async> </span>loadStartingCheckpoint()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Loads the earliest incomplete checkpoint to decide which
-block to replay from
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-fabric-network.BaseCheckpointer.html#loadStartingCheckpoint">module:fabric-network.BaseCheckpointer#loadStartingCheckpoint</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-fabric-network.BaseCheckpointer.html#loadStartingCheckpoint">module:fabric-network.BaseCheckpointer#loadStartingCheckpoint</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="module-fabric-network.BaseCheckpointer.html#~Checkpoint">module:fabric-network.BaseCheckpointer~Checkpoint</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="save"><span class="type-signature">&lt;async> </span>save(transactionId, blockNumber, expectedTotal)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Updates the storage mechanism
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>transactionId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the transaction ID</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>blockNumber</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the block number</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>expectedTotal</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the number of events expected in this block</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-fabric-network.BaseCheckpointer.html#save">module:fabric-network.BaseCheckpointer#save</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-fabric-network.BaseCheckpointer.html#save">module:fabric-network.BaseCheckpointer#save</a>
-    </li></ul></dd>
     
 
     
@@ -740,73 +419,19 @@ block to replay from
             
 <hr>
 <dt>
-    <h4 class="name" id="setChaincodeId"><span class="type-signature"></span>setChaincodeId(chaincodeId)</h4>
+    <h4 class="name" id="loadLatestCheckpoint"><span class="type-signature">&lt;async> </span>loadLatestCheckpoint()</h4>
     
     
 </dt>
 <dd>
 
     
-    <div class="description">
-        Sets the chaincode ID to group together listeners
-    </div>
-    
 
     
 
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>chaincodeId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the chaincodeId</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -818,21 +443,81 @@ block to replay from
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="module-fabric-network.BaseCheckpointer.html#setChaincodeId">module:fabric-network.BaseCheckpointer#setChaincodeId</a>
-			</li>
-		</ul>
-	</dd>
-	
 
     
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="module-fabric-network.BaseCheckpointer.html#setChaincodeId">module:fabric-network.BaseCheckpointer#setChaincodeId</a>
-    </li></ul></dd>
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="save"><span class="type-signature">&lt;async> </span>save()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
     
 
     
@@ -915,6 +600,8 @@ block to replay from
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -941,10 +628,50 @@ block to replay from
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
 
             
 
             <td class="description last">The directory that will store the checkpoint</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxLength</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The maximum number of blocks that can be in the checkpointer</td>
         </tr>
 
     
@@ -1041,7 +768,7 @@ block to replay from
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a>
 	
-		on 2019-06-20T20:27:13+00:00
+		on 2019-07-01T10:50:52+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
