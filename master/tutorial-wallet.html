@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Tutorial: fabric-network: How to wait for transactions to be committed to the ledger</title>
+	<title>Hyperledger Fabric SDK for node.js Tutorial: fabric-network: Using wallets to manage identities</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -96,108 +96,87 @@
 <header>
     
 
-    <h2>fabric-network: How to wait for transactions to be committed to the ledger</h2>
+    <h2>fabric-network: Using wallets to manage identities</h2>
 </header>
 
 <article>
-    <p>This tutorial describes the approaches that can be selected by users of the
-fabric-network module for ensuring that submitted transactions are committed
-on peers.</p>
-<h3>Overview</h3>
-<p>The submit of a transaction involves several steps:</p>
-<ol>
-<li>Send proposals to endorsing peers.</li>
-<li>Send the endorsed transaction to the orderer.</li>
-<li>The transaction is <em>eventually</em> committed on all peers in the network.</li>
-</ol>
-<p>In some cases a client application might be happy to proceed immediately after
-the transaction is successfully sent to the orderer. In other cases a client
-application might need to ensure that the transaction has been committed on
-certain peers with which it wants to interact before proceeding.</p>
-<p>It is important to note that the blockchain state visible from a specific peer
-will remain unchanged until a transaction is committed on that peer. If a
-client application queries a peer for state after an endorsed transaction has
-been successfully sent to the orderer but before the transaction has been
-committed on that peer, the state returned will still be that prior to the
-transaction. For example, a query of a bank balance after a transaction to
-deduct funds from that bank account is submitted to the orderer will return
-the old balance until the transaction is eventually committed on the peer
-being queried.</p>
-<h3>Event handling strategies</h3>
-<p>The SDK provides several selectable strategies for how it should wait for
-commit events following a transaction invocation. The available strategies
-are defined in <code>DefaultEventHandlerStrategies</code>. The desired strategy is
-(optionally) specified as an argument to <code>connect()</code> on the <code>Gateway</code>, and
-is used for all transaction invocations on Contracts obtained from that
-Gateway instance.</p>
-<p>If no event handling strategy is specified, <code>MSPID_SCOPE_ALLFORTX</code> is used
-by default.</p>
-<pre class="prettyprint source lang-javascript"><code>const { Gateway, DefaultEventHandlerStrategies } = require('fabric-network');
-
-const connectOptions = {
-    eventHandlerOptions: {
-        strategy: DefaultEventHandlerStrategies.MSPID_SCOPE_ALLFORTX
-    }
-}
-
-const gateway = new Gateway();
-await gateway.connect(connectionProfile, connectOptions);
+    <p>This tutorial describes how to use wallets to manage identities used to connect to a Hyperledger Fabric
+network.</p>
+<h2>Overview</h2>
+<p>A wallet provides an interface for storing and accessing identity information, backed by a persistent (or
+non-persistent) store of your choice. Identity information stored in a wallet can be used to connect to a Hyperledger
+Fabric network.</p>
+<h2>Creating a wallet</h2>
+<p>A wallet is backed by a wallet store, which is responsible only for storing and retrieving data. Several different
+store implementations are provided for convenience:</p>
+<ul>
+<li><strong>In-memory</strong>: Non-persistent store. Useful for testing.</li>
+<li><strong>File system</strong>: Stores identity information in a directory on the local file system.</li>
+<li><strong>CouchDB</strong>: Stores identity information in a CouchDB database.</li>
+</ul>
+<p>Wallets using default store implementations are created using static factory functions on the <code>Wallets</code> class, for
+example:</p>
+<pre class="prettyprint source lang-typescript"><code>const wallet = await Wallets.newFileSystemWallet('/path/to/wallet/directory');
 </code></pre>
-<p>Specifying <code>null</code> as the event handling strategy will cause transaction
-invocations to return immediately after successfully sending the endorsed
-transaction to the orderer. It will not wait for any commit events to be
-received from peers.</p>
-<h3>Plug-in event handlers</h3>
-<p>If behavior is required that is not provided by the default event handling
-strategies, it is possible to implement your own event handling. This is
-achieved by specifying your own factory function as the event handling
-strategy. The factory function should return a <em>transaction event handler</em>
-object and take two parameters:</p>
-<ol>
-<li>Transaction:  <code>Transaction</code></li>
-<li>Blockchain network: <code>Network</code></li>
-</ol>
-<p>The Network provides access to peers and event hubs from which events should
-be recieved.</p>
-<pre class="prettyprint source lang-javascript"><code>function createTransactionEventHandler(transaction, network) {
-    /* Your implementation here */
-    return new MyTransactionEventHandler(transaction, eventHubs);
-}
-
-const connectOptions = {
-    eventHandlerOptions: {
-        strategy: createTransactionEventhandler
-    }
- }
-
-const gateway = new Gateway();
-await gateway.connect(connectionProfile, connectOptions);
+<p>You can write your own custom wallet store to suit your deployment environment by implementing the <code>WalletStore</code>
+interface. A wallet backed by a custom wallet store implementation is created as follows:</p>
+<pre class="prettyprint source lang-typescript"><code>const walletStore = new MyCustomWalletStore();
+const wallet = new Wallet(walletStore);
 </code></pre>
-<p>The <em>transaction event handler</em> object returned must implement the following
-lifecycle functions.</p>
-<pre class="prettyprint source lang-javascript"><code>class MyTransactionEventHandler {
-    /**
-     * Called to initiate listening for transaction events.
-     * @async
-     * @throws {Error} if not in a state where the handling strategy can be satified and the transaction should
-     * be aborted. For example, if insufficient event hubs are available.
-     */
-    async startListening() { /* Your implementation here */ }
-
-    /**
-     * Wait until enough events have been received from the event hubs to satisfy the event handling strategy.
-     * @async
-     * @throws {Error} if the transaction commit is not successfully confirmed.
-     */
-    async waitForEvents() { /* Your implementation here */ }
-
-    /**
-     * Cancel listening for events.
-     */
-    cancelListening() { /* Your imeplementation here */ }
+<h2>Storing identity information in a wallet</h2>
+<p>An identity is a set of information and credentials required to connect to a Hyperledger Fabric network. This
+information is described as a simple JavaScript object using a well-defined format, including the Member Services
+Provider associated with the user and a type identifier that indicates the type of credentials contained in the
+identity. Two identity types are supported by default:</p>
+<ul>
+<li><strong>X.509</strong>: X.509 certificate and private key in PEM format.</li>
+<li><strong>HSM-X.509</strong>: X.509 certificate in PEM format, with the private key stored in a Hardware Security Module.</li>
+</ul>
+<p>Once an identity object has been created from credentials supplied to you by your administrator or certificate
+authority, it can be stored and retreived from a wallet using an arbitrary label to locate the identity within the
+wallet, for example:</p>
+<pre class="prettyprint source lang-typescript"><code>const identity: X509Identity = {
+    credentials: {
+        certificate: 'PEM format certificate string',
+        privateKey: 'PEM format private key string',
+    },
+    mspId: 'wonderland',
+    type: 'X.509',
+};
+await wallet.put('alice', identity);
+</code></pre>
+<p>Note that a wallet may contain identities of varying types so, in TypeScript, indentity information retrieved from the
+wallet is typed as <code>Identity</code> (or <code>undefined</code> if the identity does not exist in the wallet) and will need to be cast to
+its specific subtype to access type-specific information, for example:</p>
+<pre class="prettyprint source lang-typescript"><code>const identity = await wallet.get('alice');
+if (identity && identity.type === 'X.509') {
+	const privateKey = (identity as X509Identity).credentials.privateKey;
 }
 </code></pre>
-<p>For a complete sample plug-in event handler implementation, see <a href="https://github.com/hyperledger/fabric-sdk-node/blob/master/test/integration/network-e2e/sample-transaction-event-handler.js">sample-transaction-event-handler.js</a>.</p>
+<h2>Using a Hardware Security Module</h2>
+<p>The SDK uses the <a href="https://en.wikipedia.org/wiki/PKCS_11">PKCS #11</a> interface to make use of Hardware Security Module
+(HSM) devices for key management. Identities using an HSM-managed private key are similar to an X.509 identity but
+with the private key omitted. However, in order to use HSM-managed identities the containing wallet must be configured
+with details of the HSM that holds the private key. This is achieved by registering an <code>IdentityProvider</code> with the
+wallet, for example:</p>
+<pre class="prettyprint source lang-typescript"><code>const hsmProvider = new HsmX509Provider({
+    lib: '/path/to/hsm-specific/pkcs11/library',
+    pin: '1234567890',
+    slot: 0,
+});
+wallet.getProviderRegistry().addProvider(hsmProvider);
+</code></pre>
+<p>Once the wallet has been configured with details of the HSM, HSM-managed identities can be stored and retreived from
+the wallet as normal, for example:</p>
+<pre class="prettyprint source lang-typescript"><code>const identity: HsmX509Identity = {
+    credentials: {
+        certificate: 'PEM format certificate string',
+    },
+    mspId: 'org1',
+    type: 'HSM-X.509',
+};
+await wallet.put('bob', identity);
+</code></pre>
 </article>
 
 </section>

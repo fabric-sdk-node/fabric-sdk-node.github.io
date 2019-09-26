@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Tutorial: fabric-network: How to wait for transactions to be committed to the ledger</title>
+	<title>Hyperledger Fabric SDK for node.js Class: Wallets</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -88,125 +88,610 @@
 <div class="row">
 
 	
-	<div class="col-md-12">
+	<div class="col-md-8">
 	
 		<div id="main">
-			<section class="tutorial-section">
+			
+
+	<h1 class="page-title">Class: Wallets</h1>
+<section>
 
 <header>
     
-
-    <h2>fabric-network: How to wait for transactions to be committed to the ledger</h2>
+        <h2>
+            <span class="ancestors"><a href="module-fabric-network.html">fabric-network</a>.</span>
+        
+        Wallets
+        </h2>
+        
+            <div class="class-description">Factory for creating wallets backed by default store implementations.</div>
+        
+    
 </header>
 
+
 <article>
-    <p>This tutorial describes the approaches that can be selected by users of the
-fabric-network module for ensuring that submitted transactions are committed
-on peers.</p>
-<h3>Overview</h3>
-<p>The submit of a transaction involves several steps:</p>
-<ol>
-<li>Send proposals to endorsing peers.</li>
-<li>Send the endorsed transaction to the orderer.</li>
-<li>The transaction is <em>eventually</em> committed on all peers in the network.</li>
-</ol>
-<p>In some cases a client application might be happy to proceed immediately after
-the transaction is successfully sent to the orderer. In other cases a client
-application might need to ensure that the transaction has been committed on
-certain peers with which it wants to interact before proceeding.</p>
-<p>It is important to note that the blockchain state visible from a specific peer
-will remain unchanged until a transaction is committed on that peer. If a
-client application queries a peer for state after an endorsed transaction has
-been successfully sent to the orderer but before the transaction has been
-committed on that peer, the state returned will still be that prior to the
-transaction. For example, a query of a bank balance after a transaction to
-deduct funds from that bank account is submitted to the orderer will return
-the old balance until the transaction is eventually committed on the peer
-being queried.</p>
-<h3>Event handling strategies</h3>
-<p>The SDK provides several selectable strategies for how it should wait for
-commit events following a transaction invocation. The available strategies
-are defined in <code>DefaultEventHandlerStrategies</code>. The desired strategy is
-(optionally) specified as an argument to <code>connect()</code> on the <code>Gateway</code>, and
-is used for all transaction invocations on Contracts obtained from that
-Gateway instance.</p>
-<p>If no event handling strategy is specified, <code>MSPID_SCOPE_ALLFORTX</code> is used
-by default.</p>
-<pre class="prettyprint source lang-javascript"><code>const { Gateway, DefaultEventHandlerStrategies } = require('fabric-network');
+    <div class="container-overview">
+    
+        
+<hr>
+<dt>
+    <h4 class="name" id="Wallets"><span class="type-signature"></span>new Wallets()</h4>
+    
+    
+</dt>
+<dd>
 
-const connectOptions = {
-    eventHandlerOptions: {
-        strategy: DefaultEventHandlerStrategies.MSPID_SCOPE_ALLFORTX
-    }
-}
+    
 
-const gateway = new Gateway();
-await gateway.connect(connectionProfile, connectOptions);
-</code></pre>
-<p>Specifying <code>null</code> as the event handling strategy will cause transaction
-invocations to return immediately after successfully sending the endorsed
-transaction to the orderer. It will not wait for any commit events to be
-received from peers.</p>
-<h3>Plug-in event handlers</h3>
-<p>If behavior is required that is not provided by the default event handling
-strategies, it is possible to implement your own event handling. This is
-achieved by specifying your own factory function as the event handling
-strategy. The factory function should return a <em>transaction event handler</em>
-object and take two parameters:</p>
-<ol>
-<li>Transaction:  <code>Transaction</code></li>
-<li>Blockchain network: <code>Network</code></li>
-</ol>
-<p>The Network provides access to peers and event hubs from which events should
-be recieved.</p>
-<pre class="prettyprint source lang-javascript"><code>function createTransactionEventHandler(transaction, network) {
-    /* Your implementation here */
-    return new MyTransactionEventHandler(transaction, eventHubs);
-}
+    
 
-const connectOptions = {
-    eventHandlerOptions: {
-        strategy: createTransactionEventhandler
-    }
- }
+    
 
-const gateway = new Gateway();
-await gateway.connect(connectionProfile, connectOptions);
-</code></pre>
-<p>The <em>transaction event handler</em> object returned must implement the following
-lifecycle functions.</p>
-<pre class="prettyprint source lang-javascript"><code>class MyTransactionEventHandler {
-    /**
-     * Called to initiate listening for transaction events.
-     * @async
-     * @throws {Error} if not in a state where the handling strategy can be satified and the transaction should
-     * be aborted. For example, if insufficient event hubs are available.
-     */
-    async startListening() { /* Your implementation here */ }
+    
+    
 
-    /**
-     * Wait until enough events have been received from the event hubs to satisfy the event handling strategy.
-     * @async
-     * @throws {Error} if the transaction commit is not successfully confirmed.
-     */
-    async waitForEvents() { /* Your implementation here */ }
+    
+<dl class="details">
+    
 
-    /**
-     * Cancel listening for events.
-     */
-    cancelListening() { /* Your imeplementation here */ }
-}
-</code></pre>
-<p>For a complete sample plug-in event handler implementation, see <a href="https://github.com/hyperledger/fabric-sdk-node/blob/master/test/integration/network-e2e/sample-transaction-event-handler.js">sample-transaction-event-handler.js</a>.</p>
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id=".newCouchDBWallet"><span class="type-signature">&lt;async, static> </span>newCouchDBWallet(config [, dbName])</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Create a wallet backed by a CouchDB database.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">nano.Configuration</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">URL string or configuration for a CouchDB server.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dbName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    wallet
+                
+                </td>
+            
+
+            <td class="description last">Name of a database hosted on the CouchDB server.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A wallet.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;<a href="module-fabric-network.Wallet.html">module:fabric-network.Wallet</a>></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".newFileSystemWallet"><span class="type-signature">&lt;async, static> </span>newFileSystemWallet(directory)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Create a wallet backed by the provided file system directory.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>directory</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A directory path.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A wallet.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;<a href="module-fabric-network.Wallet.html">module:fabric-network.Wallet</a>></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".newInMemoryWallet"><span class="type-signature">&lt;async, static> </span>newInMemoryWallet()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Create a wallet backed by an in-memory (non-persistent) store. Each wallet instance created will have its own
+private in-memory store.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A wallet.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;<a href="module-fabric-network.Wallet.html">module:fabric-network.Wallet</a>></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
 </article>
 
 </section>
+
+
+
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
 	
 
 </div>
