@@ -54,7 +54,7 @@
 			<li class="dropdown">
 				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-chaincode-lifecycle.html">fabric-client: How to install and start your chaincode</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-event-checkpointer.html">fabric-network: How to replay missed events</a></li><li><a href="tutorial-event-hub-management.html">fabric-network: How to automatically select and reconnect to event hubs</a></li><li><a href="tutorial-fabtoken.html">fabric-client: How to perform token operations</a></li><li><a href="tutorial-grpc-settings.html">fabric-client: How to set gRPC settings</a></li><li><a href="tutorial-handlers.html">fabric-client: How to use the endorsement and commit handlers</a></li><li><a href="tutorial-hsm-pkcs11.html">Testing for Hardware Security Module via PKCS#11 interface</a></li><li><a href="tutorial-listening-to-events.html">fabric-network: How to listen to events</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-query-peers.html">fabric-network: How to select peers for evaluating transactions (queries)</a></li><li><a href="tutorial-sign-transaction-offline.html">Working with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be committed to the ledger</a></li>
+					<li><a href="tutorial-app-dev-env-setup.html">Setting up the Application Developer's Environment</a></li><li><a href="tutorial-chaincode-lifecycle.html">fabric-client: How to install and start your chaincode</a></li><li><a href="tutorial-channel-create.html">fabric-client: How to create a Hyperledger Fabric channel</a></li><li><a href="tutorial-channel-events.html">fabric-client: How to use the channel-based event service</a></li><li><a href="tutorial-discovery.html">fabric-client: How to use the discovery service</a></li><li><a href="tutorial-event-checkpointer.html">fabric-network: How to replay missed events</a></li><li><a href="tutorial-event-hub-management.html">fabric-network: How to automatically select and reconnect to event hubs</a></li><li><a href="tutorial-grpc-settings.html">fabric-client: How to set gRPC settings</a></li><li><a href="tutorial-handlers.html">fabric-client: How to use the endorsement and commit handlers</a></li><li><a href="tutorial-hsm-pkcs11.html">Testing for Hardware Security Module via PKCS#11 interface</a></li><li><a href="tutorial-listening-to-events.html">fabric-network: How to listen to events</a></li><li><a href="tutorial-logging.html">fabric-client: How to use logging</a></li><li><a href="tutorial-metadata-chaincode.html">fabric-client: How to add CouchDB indexes during chaincode installation</a></li><li><a href="tutorial-mutual-tls.html">fabric-client: How to configure mutual TLS</a></li><li><a href="tutorial-network-config.html">fabric-client: How to use a common connection profile</a></li><li><a href="tutorial-private-data.html">How to use private data</a></li><li><a href="tutorial-query-peers.html">fabric-network: How to select peers for evaluating transactions (queries)</a></li><li><a href="tutorial-sign-transaction-offline.html">Working with an offline private key</a></li><li><a href="tutorial-transaction-commit-events.html">fabric-network: How to wait for transactions to be committed to the ledger</a></li>
 				</ul>
 			</li>
 			
@@ -146,11 +146,6 @@ a custom handler to be used. This handler is used in the
 <a href="Channel.html#sendTransaction"><code>sendTransaction()</code></a> method
 to determine the orderers and how to send the transaction to be committed.
 (default 'fabric-client/lib/impl/BasicCommitHandler.js')</li>
-<li><code>prover-handler</code> - string - The path to the prover handler. Allows for a
-custom handler to be used. This handler is used in the
-<code>sendTokenCommand()</code>
-method to determine the target peers and how to send the token command.
-(default 'fabric-client/lib/impl/BasicProverHandler.js')</li>
 </ul>
 <h3>new Endorsement Handler</h3>
 <p>The sending of a proposal to be endorsed may be done using custom code. The
@@ -221,39 +216,6 @@ channel.initialize(request);
 channel is initialized, the channel will read the path setting and create an
 instance of the handler for use by the new channel instance.</p>
 <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
-<h3>new Prover Handler</h3>
-<p>The sending of a token command to a prover peer may be done using custom code. The
-fabric-client will use by default the file called <code>BasicProverHandler</code>.
-The default handler was designed to be used without discovery.
-The default handler will only send to the peers as defined in the targets parameter
-or the peers with the 'proverPeer' role assigned to the channel instance.
-A different prover handler may be used by changing the configuration setting
-&quot;prover-handler&quot; with the <code>setConfigSetting()</code> or placing a new line
-in configuration JSON file that the application has applied to the fabric-client
-configuration. This will instantiate a handler located at the path provided
-in the <code>prover-handler</code> attribute for all channels initialized after the call.
-The handler may also be changed using the <code>proverHandler</code> attribute on the
-<code>channel.initialize()</code> request call parameter. This will instantiate a handler
-located at the path provide in the attribute just for this channel instance.</p>
-<pre class="prettyprint source"><code>// set value in memory
-Client.setConfigSetting('prover-handler', '/path/to/the/handler.js');
---or--
-// the path to an additional config file
-Client.addConfigFile('/path/to/config.json');
-// the json file contains the following line
-// &quot;prover-handler&quot;: &quot;/path/to/the/handler.js&quot;
---or--
-const request = {
-	...
-	proverHandler: &quot;/path/to/the/handler.js&quot;,
-	...
-}
-// initialize must be run to use handlers.
-channel.initialize(request);
-</code></pre>
-<p>A prover handler should extend the ProverHandler. When the
-channel is initialized, the channel will read the path setting and create an
-instance of the handler for use by the new channel instance.</p>
 </article>
 
 </section>
@@ -291,7 +253,7 @@ instance of the handler for use by the new channel instance.</p>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
 	
-		on 2019-09-06T15:23:43+00:00
+		on 2019-09-26T10:55:54+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
